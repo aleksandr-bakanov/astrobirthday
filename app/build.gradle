@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "bav.astrobirthday"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'moshi.pro', 'moshi-kotlin.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+
+        coreLibraryDesugaringEnabled true
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
+    // Koin for Kotlin
+    implementation 'org.koin:koin-core:2.1.6'
+    implementation 'org.koin:koin-core-ext:2.1.6'
+    implementation 'org.koin:koin-android:2.1.6'
+    implementation 'org.koin:koin-android-viewmodel:2.1.6'
+
+    // CalendarView
+    implementation 'com.github.kizitonwose:CalendarView:0.4.0'
+
+    // Krate
+    implementation 'hu.autsoft:krate:0.4.0'
+    implementation 'hu.autsoft:krate-moshi-codegen:0.4.0'
+
+    // Moshi
+    implementation 'com.squareup.moshi:moshi:1.9.3'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.3'
+
+    testImplementation 'junit:junit:4.12'
+    // Koin for Unit tests
+    testImplementation 'org.koin:koin-test:2.1.6'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
+}
