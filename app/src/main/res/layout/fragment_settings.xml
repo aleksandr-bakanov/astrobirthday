@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Set your birthday"
+        android:text="@string/set_your_birthday"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="24sp"
@@ -23,7 +23,6 @@
         android:id="@+id/birthday_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="01.01.1900"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="36sp"
@@ -31,7 +30,8 @@
         app:layout_constraintBottom_toTopOf="@+id/date_picker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthday_title" />
+        app:layout_constraintTop_toBottomOf="@+id/birthday_title"
+        tools:text="01.01.1900" />
 
     <DatePicker
         android:id="@+id/date_picker"

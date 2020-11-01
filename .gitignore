@@ -12,3 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+
+images
+planet_dbs
+app/schemas

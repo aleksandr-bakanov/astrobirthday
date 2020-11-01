@@ -4,25 +4,70 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
+import bav.astrobirthday.common.PlanetDescription
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
+    private val adapter = SolarPlanetsAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         homeViewModel.birthdayDate.observe(viewLifecycleOwner, Observer {
-            text_home.text = it?.toString() ?: "null"
+            recycler_view.isVisible = it != null
+            open_settings_button.isVisible = it == null
         })
-        return root
+        open_settings_button.setOnClickListener {
+            findNavController().navigate(R.id.nav_settings)
+        }
+
+        recycler_view.layoutManager =
+            GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+        recycler_view.adapter = adapter
     }
+
+    inner class SolarPlanetsAdapter : RecyclerView.Adapter<SolarPlanetsAdapter.SolarPlanetsVH>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolarPlanetsVH {
+            return SolarPlanetsVH(
+                LayoutInflater.from(context).inflate(R.layout.view_grid_planet, parent, false)
+            )
+        }
+
+        override fun getItemCount(): Int {
+            return homeViewModel.solarPlanets.value?.size ?: 0
+        }
+
+        override fun onBindViewHolder(holder: SolarPlanetsVH, position: Int) {
+            homeViewModel.solarPlanets.value?.let {
+                holder.setData(it[position])
+            }
+        }
+
+        inner class SolarPlanetsVH(view: View) : RecyclerView.ViewHolder(view) {
+            private val name: TextView = view.findViewById(R.id.name)
+            private val age: TextView = view.findViewById(R.id.age)
+            private val nearestBirthday: TextView = view.findViewById(R.id.nearestBirthday)
+            private val image: AppCompatImageView = view.findViewById(R.id.image)
+
+            fun setData(planet: PlanetDescription) {
+                name.text = planet.name
+                age.text = planet.ageOnPlanet.toString()
+                nearestBirthday.text = planet.nearestBirthday.toString()
+                image.setImageResource(planet.planetType.imageResId)
+            }
+        }
+    }
+
 }
