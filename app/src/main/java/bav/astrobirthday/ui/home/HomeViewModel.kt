@@ -6,12 +6,18 @@ import androidx.lifecycle.ViewModel
 import bav.astrobirthday.common.PlanetDescription
 import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.common.Preferences
+import bav.astrobirthday.db.Planet
 import bav.astrobirthday.db.PlanetDao
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import java.time.LocalDate
 
 class HomeViewModel(
     private val preferences: Preferences,
-    private val planetDao: PlanetDao
+    private val planetDao: PlanetDao,
+    private val moshi: Moshi
 ) : ViewModel() {
 
     private val _birthdayDate = MutableLiveData<LocalDate?>().apply {
@@ -35,4 +41,9 @@ class HomeViewModel(
         } ?: emptyList()
     }
     val solarPlanets: LiveData<List<PlanetDescription>> = _solarPlanets
+
+    fun generateDb() {
+        //val adapter: JsonAdapter<Planet> = moshi.adapter(Planet::class.java)
+
+    }
 }

@@ -9,18 +9,28 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
 import bav.astrobirthday.common.PlanetDescription
+import bav.astrobirthday.db.*
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
     private val adapter = SolarPlanetsAdapter()
+
+    val moshi: Moshi by inject()
+    val dao: PlanetDao by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +45,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recycler_view.layoutManager =
             GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
         recycler_view.adapter = adapter
+
+        val adapter: JsonAdapter<PlanetJson> = PlanetJsonJsonAdapter(moshi)
+        val db: Array<String> = resources.getStringArray(R.array.planets_array)
+
+        lifecycleScope.launch {
+            for (p in db) {
+                val planet = adapter.fromJson(p)!!
+                val dbp = Planet(pl_name = planet.pl_name, hostname = planet.hostname, pl_orbper = planet.pl_orbper, uid = 0)
+                dao.insert(dbp)
+            }
+        }
+
+        var i = 1
     }
 
     inner class SolarPlanetsAdapter : RecyclerView.Adapter<SolarPlanetsAdapter.SolarPlanetsVH>() {
