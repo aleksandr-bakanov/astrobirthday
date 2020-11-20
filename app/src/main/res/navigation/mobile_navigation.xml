@@ -23,6 +23,10 @@
         android:id="@+id/planetFragment"
         android:name="bav.astrobirthday.ui.planet.PlanetFragment"
         android:label="PlanetFragment"
-        tools:layout="@layout/fragment_planet"/>
+        tools:layout="@layout/fragment_planet">
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

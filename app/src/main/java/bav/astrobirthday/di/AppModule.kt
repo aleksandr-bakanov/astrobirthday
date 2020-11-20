@@ -6,6 +6,7 @@ import bav.astrobirthday.common.PreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
 import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.home.HomeViewModel
+import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
 import com.squareup.moshi.Moshi
 import org.koin.android.ext.koin.androidContext
@@ -35,5 +36,6 @@ val appModule = module {
     }
 
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { PlanetViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }

@@ -9,4 +9,8 @@ class PlanetRepository(
     fun getPlanets(names: List<String>) = performGetOperation(
         databaseQuery = { localDataSource.getByNames(names) }
     )
+
+    fun getPlanet(name: String) = performGetOperation(
+        databaseQuery = { localDataSource.getByName(name) }
+    )
 }

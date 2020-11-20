@@ -6,6 +6,9 @@ import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.common.Preferences
 import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.utils.Resource
+import bav.astrobirthday.utils.getAgeOnPlanet
+import bav.astrobirthday.utils.getNearestBirthday
+import bav.astrobirthday.utils.getPlanetType
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
@@ -27,46 +30,18 @@ class HomeViewModel(
         listOf("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto")
     ).map { resource ->
         when (resource.status) {
-            Resource.Status.SUCCESS ->
+            Resource.Status.SUCCESS -> {
+                val userBirthday = preferences.userBirthday ?: LocalDate.now()
                 resource.data!!.map {
                     PlanetDescription(
                         name = it.pl_name,
-                        ageOnPlanet = getAgeOnPlanet(it.pl_orbper),
-                        nearestBirthday = getNearestBirthday(it.pl_orbper),
+                        ageOnPlanet = getAgeOnPlanet(userBirthday, it.pl_orbper),
+                        nearestBirthday = getNearestBirthday(userBirthday, it.pl_orbper),
                         planetType = getPlanetType(it.pl_name)
                     )
                 }
+            }
             else -> emptyList()
-        }
-    }
-
-    private fun getAgeOnPlanet(period: Double): Double {
-        val now = LocalDate.now()
-        val userBirthday = preferences.userBirthday ?: now
-        val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
-        return userAgeInEarthDays / period
-    }
-
-    private fun getNearestBirthday(period: Double): LocalDate {
-        val now = LocalDate.now()
-        val userBirthday = preferences.userBirthday ?: now
-        val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
-        val daysInNextBirthday = ceil((period * ceil(userAgeInEarthDays / period))).toLong()
-        return userBirthday.plusDays(daysInNextBirthday)
-    }
-
-    private fun getPlanetType(planetName: String): PlanetType {
-        return when (planetName) {
-            "Mercury" -> PlanetType.MERCURY
-            "Venus" -> PlanetType.VENUS
-            "Earth" -> PlanetType.EARTH
-            "Mars" -> PlanetType.MARS
-            "Jupiter" -> PlanetType.JUPITER
-            "Saturn" -> PlanetType.SATURN
-            "Uranus" -> PlanetType.URANUS
-            "Neptune" -> PlanetType.NEPTUNE
-            "Pluto" -> PlanetType.PLUTO
-            else -> PlanetType.values()[Random.nextInt(0, PlanetType.values().size)]
         }
     }
 }

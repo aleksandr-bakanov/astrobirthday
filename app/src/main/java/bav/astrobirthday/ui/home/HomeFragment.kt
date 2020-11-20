@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.PlanetDescription
-import bav.astrobirthday.utils.Resource
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -69,6 +68,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             private val age: TextView = view.findViewById(R.id.age)
             private val nearestBirthday: TextView = view.findViewById(R.id.nearestBirthday)
             private val image: AppCompatImageView = view.findViewById(R.id.image)
+
+            init {
+                view.findViewById<ViewGroup>(R.id.container).setOnClickListener {
+                    val action =
+                        HomeFragmentDirections.actionNavHomeToPlanetFragment(name.text.toString())
+                    findNavController().navigate(action)
+                }
+            }
 
             fun setData(planet: PlanetDescription) {
                 name.text = planet.name
