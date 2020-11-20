@@ -70,6 +70,10 @@ dependencies {
 
     // Moshi
     implementation 'com.squareup.moshi:moshi:1.9.3'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.3'
 
     // Room

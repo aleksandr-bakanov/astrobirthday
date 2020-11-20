@@ -12,8 +12,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/planet_icon_margin"
             app:layout_constraintBottom_toTopOf="@id/name"

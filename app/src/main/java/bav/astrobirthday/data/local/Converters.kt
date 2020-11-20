@@ -1,4 +1,4 @@
-package bav.astrobirthday.db
+package bav.astrobirthday.data.local
 
 import androidx.room.TypeConverter
 import bav.astrobirthday.common.DiscoveryMethod

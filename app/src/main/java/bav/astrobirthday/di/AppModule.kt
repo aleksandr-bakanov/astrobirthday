@@ -3,7 +3,8 @@ package bav.astrobirthday.di
 import androidx.room.Room
 import bav.astrobirthday.common.Preferences
 import bav.astrobirthday.common.PreferencesImpl
-import bav.astrobirthday.db.PlanetDb
+import bav.astrobirthday.data.local.PlanetDb
+import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
 import com.squareup.moshi.Moshi
@@ -29,6 +30,10 @@ val appModule = module {
         Moshi.Builder().build()
     }
 
-    viewModel { HomeViewModel(get(), get(), get()) }
+    single {
+        PlanetRepository(get())
+    }
+
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }

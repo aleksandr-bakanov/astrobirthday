@@ -1,4 +1,4 @@
-package bav.astrobirthday.db
+package bav.astrobirthday.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

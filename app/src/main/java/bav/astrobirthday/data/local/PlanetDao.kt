@@ -1,0 +1,26 @@
+package bav.astrobirthday.data.local
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import bav.astrobirthday.data.entities.Planet
+
+@Dao
+interface PlanetDao {
+    @Query("SELECT * FROM planets")
+    fun getAll(): LiveData<List<Planet>>
+
+    @Query("SELECT * FROM planets WHERE uid = :id")
+    fun getById(id: Int): LiveData<Planet>
+
+    @Query("SELECT * FROM planets WHERE pl_name = :name")
+    fun getByName(name: String): LiveData<Planet>
+
+    @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY uid ASC")
+    fun getByNames(names: List<String>): LiveData<List<Planet>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(planet: Planet)
+}
