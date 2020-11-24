@@ -1,6 +1,7 @@
 package bav.astrobirthday.data.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -20,6 +21,11 @@ interface PlanetDao {
 
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY uid ASC")
     fun getByNames(names: List<String>): LiveData<List<Planet>>
+
+    // The Int type parameter tells Room to use a PositionalDataSource
+    // object, with position-based loading under the hood.
+    @Query("SELECT * FROM planets WHERE uid > 9 ORDER BY uid ASC")
+    fun planetsByUidOrder(): DataSource.Factory<Int, Planet>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(planet: Planet)

@@ -20,6 +20,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/view_grid_planet"
+        tools:spanCount="3"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:itemCount="9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

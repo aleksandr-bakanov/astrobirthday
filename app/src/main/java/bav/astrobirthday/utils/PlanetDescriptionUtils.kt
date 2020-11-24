@@ -1,6 +1,8 @@
 package bav.astrobirthday.utils
 
 import bav.astrobirthday.common.PlanetType
+import bav.astrobirthday.data.entities.Planet
+import bav.astrobirthday.data.entities.PlanetDescription
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
@@ -32,4 +34,13 @@ fun getPlanetType(planetName: String): PlanetType {
         "Pluto" -> PlanetType.PLUTO
         else -> PlanetType.values()[Random.nextInt(0, PlanetType.values().size)]
     }
+}
+
+fun planetToPlanetDescription(planet: Planet?, userBirthday: LocalDate): PlanetDescription {
+    return PlanetDescription(
+        name = planet?.pl_name.orEmpty(),
+        ageOnPlanet = getAgeOnPlanet(userBirthday, planet?.pl_orbper ?: 1.0),
+        nearestBirthday = getNearestBirthday(userBirthday, planet?.pl_orbper ?: 1.0),
+        planetType = getPlanetType(planet?.pl_name.orEmpty())
+    )
 }

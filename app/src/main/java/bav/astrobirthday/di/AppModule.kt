@@ -5,6 +5,7 @@ import bav.astrobirthday.common.Preferences
 import bav.astrobirthday.common.PreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
 import bav.astrobirthday.data.repository.PlanetRepository
+import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
@@ -37,5 +38,6 @@ val appModule = module {
 
     viewModel { HomeViewModel(get(), get()) }
     viewModel { PlanetViewModel(get(), get()) }
+    viewModel { ExoplanetsViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
 }

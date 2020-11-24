@@ -1,5 +1,7 @@
 package bav.astrobirthday.data.repository
 
+import androidx.lifecycle.map
+import androidx.paging.toLiveData
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.performGetOperation
 
@@ -12,5 +14,9 @@ class PlanetRepository(
 
     fun getPlanet(name: String) = performGetOperation(
         databaseQuery = { localDataSource.getByName(name) }
+    )
+
+    fun getPlanets() = localDataSource.planetsByUidOrder().toLiveData(
+        pageSize = 50, initialLoadKey = 9,
     )
 }
