@@ -6,22 +6,25 @@ import bav.astrobirthday.data.entities.PlanetDescription
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
+import kotlin.math.round
 import kotlin.random.Random
 
-fun getAgeOnPlanet(userBirthday: LocalDate, period: Double): Double {
+fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
+    if (period == null) return 0.0
     val now = LocalDate.now()
     val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
     return userAgeInEarthDays / period
 }
 
-fun getNearestBirthday(userBirthday: LocalDate, period: Double): LocalDate {
+fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
+    if (period == null) return LocalDate.MIN
     val now = LocalDate.now()
     val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
     val daysInNextBirthday = ceil((period * ceil(userAgeInEarthDays / period))).toLong()
     return userBirthday.plusDays(daysInNextBirthday)
 }
 
-fun getPlanetType(planetName: String): PlanetType {
+fun getPlanetType(planetName: String?): PlanetType {
     return when (planetName) {
         "Mercury" -> PlanetType.MERCURY
         "Venus" -> PlanetType.VENUS

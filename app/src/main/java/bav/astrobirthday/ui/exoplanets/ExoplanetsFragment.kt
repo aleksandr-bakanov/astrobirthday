@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
-import androidx.paging.PagedList
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +32,6 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
             adapter.submitList(it)
         })
 
-
-
         recyclerView.adapter = adapter
     }
 
@@ -52,14 +49,15 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
             holder.bindTo(planet)
         }
 
-        inner class ExoplanetViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        inner class ExoplanetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val name: TextView = itemView.findViewById(R.id.name)
             private val age: TextView = itemView.findViewById(R.id.age)
             private val nearestBirthday: TextView = itemView.findViewById(R.id.nearestBirthday)
             private val image: AppCompatImageView = itemView.findViewById(R.id.image)
 
             fun bindTo(planet: Planet?) {
-                val desc = planetToPlanetDescription(planet, preferences.userBirthday ?: LocalDate.now())
+                val desc =
+                    planetToPlanetDescription(planet, preferences.userBirthday ?: LocalDate.now())
                 name.text = desc.name
                 age.text = desc.ageOnPlanet.toString()
                 nearestBirthday.text = desc.nearestBirthday.toString()
@@ -71,11 +69,15 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
     companion object {
         private val DIFF_CALLBACK = object :
             DiffUtil.ItemCallback<Planet>() {
-            override fun areItemsTheSame(oldPlanet: Planet,
-                                         newPlanet: Planet) = oldPlanet.uid == newPlanet.uid
+            override fun areItemsTheSame(
+                oldPlanet: Planet,
+                newPlanet: Planet
+            ) = oldPlanet.id == newPlanet.id
 
-            override fun areContentsTheSame(oldPlanet: Planet,
-                                            newPlanet: Planet) = oldPlanet == newPlanet
+            override fun areContentsTheSame(
+                oldPlanet: Planet,
+                newPlanet: Planet
+            ) = oldPlanet == newPlanet
         }
     }
 

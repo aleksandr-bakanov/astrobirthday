@@ -1,11 +1,17 @@
 package bav.astrobirthday.common
 
 enum class DiscoveryMethod {
-    RADIAL_VELOCITY,
+    ASTROMETRY,
+    DISK_KINEMATICS,
+    ECLIPSE_TIMING_VARIATIONS,
     IMAGING,
-    ECLIPSE_TIMING_VARIATION,
+    MICROLENSING,
+    ORBITAL_BRIGHTNESS_MODULATION,
+    PULSAR_TIMING,
+    PULSATION_TIMING_VARIATIONS,
+    RADIAL_VELOCITY,
     TRANSIT,
-    ASTROMETRY;
+    TRANSIT_TIMING_VARIATIONS;
 
     companion object {
         val values = values()

@@ -8,23 +8,27 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
+import bav.astrobirthday.common.Preferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
+// TODO: возможность лайкать планеты
+// TODO: В списке экзопланет справа сделать прокрутку как в контактах
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
+    private val preferences: Preferences by inject()
     private val adapter = SolarPlanetsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel.birthdayDate.observe(viewLifecycleOwner, Observer {
+        preferences.birthdayDate.observe(viewLifecycleOwner, {
             recycler_view.isVisible = it != null
             open_settings_button.isVisible = it == null
         })
@@ -36,11 +40,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
         recycler_view.adapter = adapter
 
-        homeViewModel.solarPlanets.observe(viewLifecycleOwner, Observer {
+        homeViewModel.solarPlanets.observe(viewLifecycleOwner, {
             adapter.setItems(ArrayList(it))
         })
     }
 
+    // TODO: inherit from ListAdapter
     inner class SolarPlanetsAdapter : RecyclerView.Adapter<SolarPlanetsAdapter.SolarPlanetsVH>() {
 
         private val items = ArrayList<PlanetDescription>()

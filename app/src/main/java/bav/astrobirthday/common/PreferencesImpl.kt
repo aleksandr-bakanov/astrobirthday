@@ -1,6 +1,8 @@
 package bav.astrobirthday.common
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
@@ -19,6 +21,16 @@ class PreferencesImpl(context: Context) : Preferences, SimpleKrate(context) {
     }
 
     override var userBirthday: LocalDate? by moshiPref(BIRTHDAY_KEY)
+
+    override fun setBirthday(value: LocalDate?) {
+        userBirthday = value
+        _birthdayDate.postValue(value)
+    }
+
+    private val _birthdayDate = MutableLiveData<LocalDate?>().apply {
+        value = userBirthday
+    }
+    override val birthdayDate: LiveData<LocalDate?> = _birthdayDate
 
     inner class LocalDateAdapter {
         @FromJson

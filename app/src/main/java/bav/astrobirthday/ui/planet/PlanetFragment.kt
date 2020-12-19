@@ -9,6 +9,7 @@ import bav.astrobirthday.R
 import kotlinx.android.synthetic.main.fragment_planet.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+// TODO: Сделать заебатый coordinator layout
 class PlanetFragment : Fragment(R.layout.fragment_planet) {
 
     private val viewModel: PlanetViewModel by viewModel()

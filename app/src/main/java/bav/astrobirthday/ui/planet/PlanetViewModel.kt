@@ -26,7 +26,7 @@ class PlanetViewModel(
                 val userBirthday = preferences.userBirthday ?: LocalDate.now()
                 val planet = resource.data as Planet
                 PlanetDescription(
-                    name = planet.pl_name,
+                    name = planet.pl_name.orEmpty(),
                     ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
                     nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
                     planetType = getPlanetType(planet.pl_name)

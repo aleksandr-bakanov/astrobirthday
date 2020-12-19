@@ -5,12 +5,11 @@ import bav.astrobirthday.common.DiscoveryMethod
 
 class Converters {
     @TypeConverter
-    fun discoveryMethodFromInt(value: Int): DiscoveryMethod {
-        return DiscoveryMethod.values[value]
+    fun discoveryMethodFromInt(value: Int?): DiscoveryMethod? {
+        return value?.let { DiscoveryMethod.values[it] }
     }
-
     @TypeConverter
-    fun discoveryMethodToInt(method: DiscoveryMethod): Int {
-        return method.ordinal
+    fun discoveryMethodToInt(method: DiscoveryMethod?): Int? {
+        return method?.let { it.ordinal }
     }
 }

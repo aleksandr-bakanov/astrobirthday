@@ -8,7 +8,6 @@ import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
-import bav.astrobirthday.ui.settings.SettingsViewModel
 import com.squareup.moshi.Moshi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -21,9 +20,9 @@ val appModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
-            PlanetDb::class.java, "planet-db"
+            PlanetDb::class.java, "planets.db"
         )
-            .createFromAsset("database/planet-db")
+            .createFromAsset("database/planets.db")
             .build()
             .planetDao()
     }
@@ -39,5 +38,4 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { PlanetViewModel(get(), get()) }
     viewModel { ExoplanetsViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get()) }
 }
