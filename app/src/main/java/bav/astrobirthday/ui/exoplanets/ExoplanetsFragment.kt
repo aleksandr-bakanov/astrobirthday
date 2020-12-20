@@ -26,6 +26,7 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferences.setAppBarTitle(getString(R.string.title_exoplanets))
 
         val adapter = ExoplanetsAdapter()
         viewModel.planetsList.observe(viewLifecycleOwner, {

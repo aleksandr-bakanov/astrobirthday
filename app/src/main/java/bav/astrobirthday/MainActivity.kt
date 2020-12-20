@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.animation.BounceInterpolator
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(if (preferences.userBirthday != null) R.layout.activity_main else R.layout.activity_main_fold)
+
+        preferences.setAppBarTitle(getString(R.string.app_name))
         setupNavigation()
 
         preferences.birthdayDate.observe(this, {
@@ -58,12 +61,16 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation() {
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
         val topAppBar: MaterialToolbar = findViewById(R.id.top_app_bar)
+        val appBarTitle: TextView = findViewById(R.id.app_bar_title)
         val appBarConfiguration =
             AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_exoplanets, R.id.nav_settings))
 
         val navController = findNavController(R.id.nav_host_fragment)
         bottomNavView.setupWithNavController(navController)
         topAppBar.setupWithNavController(navController, appBarConfiguration)
+
+        /*setSupportActionBar(topAppBar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)*/
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -74,5 +81,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        preferences.appBarTitleResId.observe(this, {
+            appBarTitle.text = it
+        })
     }
 }

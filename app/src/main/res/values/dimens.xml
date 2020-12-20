@@ -8,4 +8,5 @@
     <dimen name="navigation_bar_height">56dp</dimen>
 
     <dimen name="planet_icon_margin">8dp</dimen>
+    <dimen name="app_bar_title_text_size">20sp</dimen>
 </resources>

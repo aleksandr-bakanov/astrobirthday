@@ -28,6 +28,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        preferences.setAppBarTitle(getString(R.string.app_name))
         preferences.birthdayDate.observe(viewLifecycleOwner, {
             recycler_view.isVisible = it != null
             open_settings_button.isVisible = it == null
