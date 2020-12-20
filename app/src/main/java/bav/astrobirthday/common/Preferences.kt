@@ -1,8 +1,6 @@
 package bav.astrobirthday.common
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 interface Preferences {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
 import bav.astrobirthday.common.Preferences
 import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.ui.settings.DatePickerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -34,7 +35,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             open_settings_button.isVisible = it == null
         })
         open_settings_button.setOnClickListener {
-            findNavController().navigate(R.id.nav_settings)
+            val datePickerFragment = DatePickerFragment()
+            datePickerFragment.show(parentFragmentManager, "datePicker")
         }
 
         recycler_view.layoutManager =

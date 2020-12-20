@@ -15,4 +15,7 @@
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
 
+    <!-- Settings -->
+    <string name="your_birthday">Your birthday</string>
+
 </resources>
