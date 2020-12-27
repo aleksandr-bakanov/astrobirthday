@@ -1,9 +1,12 @@
 package bav.astrobirthday.ui.home
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
@@ -27,12 +30,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val preferences: Preferences by inject()
     private val adapter = SolarPlanetsAdapter()
 
+    private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences.birthdayDate.observe(viewLifecycleOwner, {
+        preferences.birthdayDate.observe(viewLifecycleOwner) {
             recycler_view.isVisible = it != null
             open_settings_button.isVisible = it == null
-        })
+
+            if (it != null && !isBirthdayAlreadySetup) {
+                animateBarsAppearance()
+                isBirthdayAlreadySetup = true
+            }
+        }
+
         open_settings_button.setOnClickListener {
             val datePickerFragment = DatePickerFragment()
             datePickerFragment.show(parentFragmentManager, "datePicker")
@@ -42,9 +53,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
         recycler_view.adapter = adapter
 
-        homeViewModel.solarPlanets.observe(viewLifecycleOwner, {
+        homeViewModel.solarPlanets.observe(viewLifecycleOwner) {
             adapter.setItems(ArrayList(it))
-        })
+        }
+
+        top_app_bar.isVisible = preferences.userBirthday != null
 
         top_app_bar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -54,6 +67,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun animateBarsAppearance() {
+        top_app_bar.isVisible = true
+        val bottomNavViewAnim = ObjectAnimator.ofFloat(
+            top_app_bar,
+            "translationY",
+            -resources.getDimension(R.dimen.navigation_bar_height),
+            0f
+        )
+        AnimatorSet().apply {
+            playTogether(bottomNavViewAnim)
+            duration = 1000L
+            interpolator = BounceInterpolator()
+            start()
         }
     }
 

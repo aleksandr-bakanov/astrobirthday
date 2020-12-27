@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="Stellar" />
 
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="Age: 15 years" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 tools:text="Birthday: 24-03-2021" />
 
@@ -52,23 +52,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                android:tint="@android:color/white" />
+                android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <ImageButton
                 android:id="@+id/favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:src="@drawable/ic_baseline_favorite_border_24"
-                android:tint="@android:color/white" />
+                android:src="@drawable/ic_baseline_favorite_border_24" />
 
             <TextView
                 android:id="@+id/planet_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="?attr/colorOnPrimary"
                 android:textSize="20sp"
                 tools:text="Planet name" />
         </bav.astrobirthday.ui.common.CollapsibleToolbar>
@@ -95,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Planet"
-                android:textSize="24sp" />
+                style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +125,7 @@
                     android:layout_marginStart="@dimen/planet_description_margin"
                     android:background="@null"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="@color/primaryColor" />
+                    android:tint="?attr/colorSecondary" />
             </LinearLayout>
 
             <LinearLayout
@@ -325,7 +323,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Stellar"
-                android:textSize="24sp" />
+                style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -357,7 +355,7 @@
                     android:layout_marginStart="@dimen/planet_description_margin"
                     android:background="@null"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="@color/primaryColor" />
+                    android:tint="?attr/colorSecondary" />
             </LinearLayout>
 
             <LinearLayout
@@ -450,7 +448,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="System"
-                android:textSize="24sp" />
+                style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -482,7 +480,7 @@
                     android:layout_marginStart="@dimen/planet_description_margin"
                     android:background="@null"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="@color/primaryColor" />
+                    android:tint="?attr/colorSecondary" />
             </LinearLayout>
 
             <LinearLayout
@@ -554,7 +552,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Dates"
-                android:textSize="24sp" />
+                style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
