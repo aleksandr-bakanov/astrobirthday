@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">Astro Birthday</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <string name="set_your_birthday">Set your birthday</string>
     <string name="title_activity_main">MainActivity</string>
@@ -17,5 +12,15 @@
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
+
+    <!-- Planet -->
+    <string name="age_string_pattern_years">Age: %d year(s)</string>
+    <string name="age_string_pattern_months">Age: %d month(s)</string>
+    <string name="age_string_pattern_days">Age: %d day(s)</string>
+    <string name="age_string_pattern_hours">Age: %d hour(s)</string>
+    <string name="age_string_pattern_minutes">Age: %d minute(s)</string>
+    <string name="age_string_pattern_seconds">Age: %d second(s)</string>
+    <string name="nearest_birthday">Near birthday: %s</string>
+
 
 </resources>

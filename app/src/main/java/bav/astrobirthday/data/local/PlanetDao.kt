@@ -27,6 +27,6 @@ interface PlanetDao {
     @Query("SELECT * FROM planets WHERE id > 9 ORDER BY id ASC")
     fun planetsByUidOrder(): DataSource.Factory<Int, Planet>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(planet: Planet)
+    @Query("SELECT * FROM planets WHERE pl_name = :name")
+    suspend fun sGetByName(name: String): Planet
 }

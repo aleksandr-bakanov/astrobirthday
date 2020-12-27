@@ -28,6 +28,10 @@
     <fragment
         android:id="@+id/nav_exoplanets"
         android:name="bav.astrobirthday.ui.exoplanets.ExoplanetsFragment"
-        tools:layout="@layout/fragment_exoplanets" />
+        tools:layout="@layout/fragment_exoplanets" >
+        <action
+            android:id="@+id/action_nav_exoplanets_to_planetFragment"
+            app:destination="@id/planetFragment" />
+    </fragment>
 
 </navigation>

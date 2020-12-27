@@ -1,12 +1,15 @@
 package bav.astrobirthday.utils
 
+import android.content.Context
+import bav.astrobirthday.R
+import bav.astrobirthday.common.DiscoveryMethod
 import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.data.entities.PlanetDescription
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
-import kotlin.math.round
+import kotlin.math.floor
 import kotlin.random.Random
 
 fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
@@ -14,6 +17,34 @@ fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
     val now = LocalDate.now()
     val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
     return userAgeInEarthDays / period
+}
+
+fun getAgeString(age: Double, context: Context): String {
+    val years = floor(age)
+    val days = floor(360.0 * (age - years))
+    val months = floor(days / 30.0)
+    return when {
+        years >= 1.0 -> {
+            context.getString(R.string.age_string_pattern_years, years.toInt())
+        }
+        months >= 1.0 -> {
+            context.getString(R.string.age_string_pattern_months, months.toInt())
+        }
+        else -> {
+            context.getString(R.string.age_string_pattern_days, days.toInt())
+        }
+    }
+}
+
+val refTextRegex = Regex("<a.+?>(.+?)<")
+val refLinkRegex = Regex("href=(.+?) ")
+
+fun getReferenceText(reference: String?): String {
+    return refTextRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
+}
+
+fun getReferenceLink(reference: String?): String {
+    return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
 }
 
 fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
@@ -41,7 +72,7 @@ fun getPlanetType(planetName: String?): PlanetType {
 
 fun planetToPlanetDescription(planet: Planet?, userBirthday: LocalDate): PlanetDescription {
     return PlanetDescription(
-        name = planet?.pl_name.orEmpty(),
+        planet = planet!!,
         ageOnPlanet = getAgeOnPlanet(userBirthday, planet?.pl_orbper ?: 1.0),
         nearestBirthday = getNearestBirthday(userBirthday, planet?.pl_orbper ?: 1.0),
         planetType = getPlanetType(planet?.pl_name.orEmpty())

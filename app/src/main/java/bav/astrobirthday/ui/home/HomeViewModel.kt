@@ -34,7 +34,7 @@ class HomeViewModel(
                 val userBirthday = preferences.userBirthday ?: LocalDate.now()
                 resource.data!!.map {
                     PlanetDescription(
-                        name = it.pl_name.orEmpty(),
+                        planet = it,
                         ageOnPlanet = getAgeOnPlanet(userBirthday, it.pl_orbper),
                         nearestBirthday = getNearestBirthday(userBirthday, it.pl_orbper),
                         planetType = getPlanetType(it.pl_name)

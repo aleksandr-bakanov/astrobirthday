@@ -32,12 +32,6 @@ class PreferencesImpl(context: Context) : Preferences, SimpleKrate(context) {
     }
     override val birthdayDate: LiveData<LocalDate?> = _birthdayDate
 
-    private val _appBarTitleResId = MutableLiveData<String>()
-    override val appBarTitleResId: LiveData<String> = _appBarTitleResId
-    override fun setAppBarTitle(title: String) {
-        _appBarTitleResId.postValue(title)
-    }
-
     inner class LocalDateAdapter {
         @FromJson
         fun fromJson(value: String?) =

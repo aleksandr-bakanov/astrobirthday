@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,6 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences.setAppBarTitle(getString(R.string.title_exoplanets))
 
         val adapter = ExoplanetsAdapter()
         viewModel.planetsList.observe(viewLifecycleOwner, {
@@ -59,10 +59,14 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
             fun bindTo(planet: Planet?) {
                 val desc =
                     planetToPlanetDescription(planet, preferences.userBirthday ?: LocalDate.now())
-                name.text = desc.name
+                name.text = desc.planet.pl_name
                 age.text = desc.ageOnPlanet.toString()
                 nearestBirthday.text = desc.nearestBirthday.toString()
                 image.setImageResource(desc.planetType.imageResId)
+                itemView.setOnClickListener {
+                    val action = ExoplanetsFragmentDirections.actionNavExoplanetsToPlanetFragment(name.text.toString())
+                    findNavController().navigate(action)
+                }
             }
         }
     }

@@ -29,7 +29,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences.setAppBarTitle(getString(R.string.app_name))
         preferences.birthdayDate.observe(viewLifecycleOwner, {
             recycler_view.isVisible = it != null
             open_settings_button.isVisible = it == null
@@ -46,6 +45,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.solarPlanets.observe(viewLifecycleOwner, {
             adapter.setItems(ArrayList(it))
         })
+
+        top_app_bar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_settings -> {
+                    findNavController().navigate(R.id.nav_settings)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     // TODO: inherit from ListAdapter
@@ -86,7 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             fun setData(planet: PlanetDescription) {
-                name.text = planet.name
+                name.text = planet.planet.pl_name
                 age.text = planet.ageOnPlanet.toString()
                 nearestBirthday.text = planet.nearestBirthday.toString()
                 image.setImageResource(planet.planetType.imageResId)

@@ -7,7 +7,4 @@ interface Preferences {
     var userBirthday: LocalDate?
     fun setBirthday(value: LocalDate?)
     val birthdayDate: LiveData<LocalDate?>
-
-    val appBarTitleResId: LiveData<String>
-    fun setAppBarTitle(title: String)
 }

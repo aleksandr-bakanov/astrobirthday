@@ -17,7 +17,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences.setAppBarTitle(getString(R.string.title_settings))
         preferences.birthdayDate.observe(viewLifecycleOwner, {
             it?.let { date ->
                 birthday_date.text = date.toString()
