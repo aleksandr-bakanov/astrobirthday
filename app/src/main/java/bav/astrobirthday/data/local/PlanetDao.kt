@@ -27,6 +27,9 @@ interface PlanetDao {
     @Query("SELECT * FROM planets WHERE id > 9 ORDER BY id ASC")
     fun planetsByUidOrder(): DataSource.Factory<Int, Planet>
 
-    @Query("SELECT * FROM planets WHERE pl_name = :name")
-    suspend fun sGetByName(name: String): Planet
+    @Query("SELECT * FROM planets WHERE is_favorite = 1")
+    fun getFavoritePlanets(): DataSource.Factory<Int, Planet>
+
+    @Query("UPDATE planets SET is_favorite = :isFavorite WHERE pl_name = :name")
+    suspend fun setFavorite(name: String, isFavorite: Boolean)
 }

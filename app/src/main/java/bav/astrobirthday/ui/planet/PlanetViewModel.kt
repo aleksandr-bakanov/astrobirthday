@@ -7,7 +7,7 @@ import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import bav.astrobirthday.utils.getPlanetType
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PlanetViewModel(
@@ -18,9 +18,7 @@ class PlanetViewModel(
     private val _planetName = MutableLiveData<String>()
 
     private val _planet = _planetName.switchMap { name ->
-        liveData(Dispatchers.IO) {
-            emit(database.sGetByName(name))
-        }
+        database.getByName(name)
     }.map { planet ->
         val userBirthday = preferences.userBirthday ?: LocalDate.now()
         PlanetDescription(
@@ -35,5 +33,10 @@ class PlanetViewModel(
 
     fun start(name: String) {
         _planetName.value = name
+    }
+
+    fun toggleFavorite() = viewModelScope.launch {
+        val p = planet.value?.planet ?: return@launch
+        database.setFavorite(p.pl_name!!, !p.is_favorite)
     }
 }

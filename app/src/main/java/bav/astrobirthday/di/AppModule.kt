@@ -6,6 +6,7 @@ import bav.astrobirthday.common.PreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
 import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
+import bav.astrobirthday.ui.favorites.FavoritesViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import com.squareup.moshi.Moshi
@@ -38,4 +39,5 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { PlanetViewModel(get(), get()) }
     viewModel { ExoplanetsViewModel(get(), get()) }
+    viewModel { FavoritesViewModel(get()) }
 }

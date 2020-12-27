@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.utils.getAgeString
 import bav.astrobirthday.utils.getReferenceText
@@ -72,11 +73,19 @@ class PlanetFragment : Fragment() {
                 systemDistance.text = it.planet.sy_dist.toString()
 
                 datePlanetReference.text = it.planet.pl_pubdate
+
+                favoriteButton.setImageResource(
+                    if (it.planet.is_favorite) R.drawable.ic_baseline_favorite_24
+                    else R.drawable.ic_baseline_favorite_border_24
+                )
             }
         })
     }
 
     private fun setupClickListeners() {
         binding.backButton.setOnClickListener { findNavController().popBackStack() }
+        binding.favoriteButton.setOnClickListener {
+            viewModel.toggleFavorite()
+        }
     }
 }

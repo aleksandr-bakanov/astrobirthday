@@ -5,10 +5,11 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
-    <string name="title_exoplanets">Exoplanets</string>
+
 
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
+    <string name="title_exoplanets">Exoplanets</string>
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
@@ -21,6 +22,9 @@
     <string name="age_string_pattern_minutes">Age: %d minute(s)</string>
     <string name="age_string_pattern_seconds">Age: %d second(s)</string>
     <string name="nearest_birthday">Near birthday: %s</string>
+
+    <!-- Favorites -->
+    <string name="title_favorites">Favorites</string>
 
 
 </resources>
