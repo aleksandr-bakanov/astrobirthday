@@ -1,7 +1,7 @@
 package bav.astrobirthday.ui.planet
 
 import androidx.lifecycle.*
-import bav.astrobirthday.common.Preferences
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PlanetViewModel(
-    private val preferences: Preferences,
+    private val preferences: UserPreferences,
     private val database: PlanetDao,
 ) : ViewModel() {
 

@@ -1,47 +1,59 @@
 package bav.astrobirthday.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import bav.astrobirthday.common.Preferences
+import androidx.lifecycle.viewModelScope
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
-import bav.astrobirthday.data.repository.PlanetRepository
-import bav.astrobirthday.utils.Resource
+import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import bav.astrobirthday.utils.getPlanetType
-import java.time.LocalDate
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val preferences: Preferences,
-    private val planetRepository: PlanetRepository
+    private val preferences: UserPreferences,
+    private val database: PlanetDao
 ) : ViewModel() {
 
-    val solarPlanets = planetRepository.getPlanets(
-        listOf(
-            "Mercury",
-            "Venus",
-            "Earth",
-            "Mars",
-            "Jupiter",
-            "Saturn",
-            "Uranus",
-            "Neptune",
-            "Pluto"
-        )
-    ).map { resource ->
-        when (resource.status) {
-            Resource.Status.SUCCESS -> {
-                val userBirthday = preferences.userBirthday ?: LocalDate.now()
-                resource.data!!.map {
+    private val solarPlanetsFlow: Flow<List<PlanetDescription>> =
+        preferences.birthdayFlow.filterNotNull()
+            .combine(
+                database.fGetByNames(
+                    listOf(
+                        "Mercury",
+                        "Venus",
+                        "Earth",
+                        "Mars",
+                        "Jupiter",
+                        "Saturn",
+                        "Uranus",
+                        "Neptune",
+                        "Pluto"
+                    )
+                )
+            ) { birthday, planets ->
+                planets.map {
                     PlanetDescription(
                         planet = it,
-                        ageOnPlanet = getAgeOnPlanet(userBirthday, it.pl_orbper),
-                        nearestBirthday = getNearestBirthday(userBirthday, it.pl_orbper),
+                        ageOnPlanet = getAgeOnPlanet(birthday, it.pl_orbper),
+                        nearestBirthday = getNearestBirthday(birthday, it.pl_orbper),
                         planetType = getPlanetType(it.pl_name)
                     )
                 }
             }
-            else -> emptyList()
+
+    init {
+        viewModelScope.launch {
+            solarPlanetsFlow.collect { _solarPlanets.value = it }
         }
     }
+
+    private val _solarPlanets: MutableLiveData<List<PlanetDescription>> = MutableLiveData()
+    val solarPlanets: LiveData<List<PlanetDescription>> = _solarPlanets
 }

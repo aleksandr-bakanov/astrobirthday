@@ -6,17 +6,19 @@ import android.os.Bundle
 import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import bav.astrobirthday.common.Preferences
-import bav.astrobirthday.utils.toDp
+import bav.astrobirthday.common.UserPreferences
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    private val preferences: Preferences by inject()
+    private val preferences: UserPreferences by inject()
     private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +29,14 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
 
-        preferences.birthdayDate.observe(this, {
-            if (it != null && !isBirthdayAlreadySetup) {
-                animateBarsAppearance()
-                isBirthdayAlreadySetup = true
+        lifecycleScope.launch {
+            preferences.birthdayFlow.collect {
+                if (it != null && !isBirthdayAlreadySetup) {
+                    animateBarsAppearance()
+                    isBirthdayAlreadySetup = true
+                }
             }
-        })
+        }
     }
 
     private fun animateBarsAppearance() {

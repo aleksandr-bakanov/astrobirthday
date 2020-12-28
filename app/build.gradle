@@ -98,6 +98,10 @@ dependencies {
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
 
-    // Paging 3
+    // Paging 2
     implementation "androidx.paging:paging-runtime-ktx:2.1.2"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha05"
+
 }

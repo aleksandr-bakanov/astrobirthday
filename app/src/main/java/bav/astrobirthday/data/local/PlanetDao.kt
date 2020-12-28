@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import bav.astrobirthday.data.entities.Planet
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlanetDao {
@@ -21,6 +22,9 @@ interface PlanetDao {
 
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
     fun getByNames(names: List<String>): LiveData<List<Planet>>
+
+    @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
+    fun fGetByNames(names: List<String>): Flow<List<Planet>>
 
     // The Int type parameter tells Room to use a PositionalDataSource
     // object, with position-based loading under the hood.

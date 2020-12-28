@@ -12,7 +12,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
-import bav.astrobirthday.common.Preferences
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.utils.planetToPlanetDescription
 import kotlinx.android.synthetic.main.fragment_exoplanets.*
@@ -23,7 +23,7 @@ import java.time.LocalDate
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private val viewModel: FavoritesViewModel by viewModel()
-    private val preferences: Preferences by inject()
+    private val preferences: UserPreferences by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

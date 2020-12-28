@@ -12,7 +12,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
-import bav.astrobirthday.common.Preferences
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.utils.planetToPlanetDescription
 import kotlinx.android.synthetic.main.fragment_exoplanets.*
@@ -23,7 +23,7 @@ import java.time.LocalDate
 class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
 
     private val viewModel: ExoplanetsViewModel by viewModel()
-    private val preferences: Preferences by inject()
+    private val preferences: UserPreferences by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +64,8 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
                 nearestBirthday.text = desc.nearestBirthday.toString()
                 image.setImageResource(desc.planetType.imageResId)
                 itemView.setOnClickListener {
-                    val action = ExoplanetsFragmentDirections.actionNavExoplanetsToPlanetFragment(name.text.toString())
+                    val action =
+                        ExoplanetsFragmentDirections.actionNavExoplanetsToPlanetFragment(name.text.toString())
                     findNavController().navigate(action)
                 }
             }

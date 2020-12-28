@@ -11,36 +11,42 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
-import bav.astrobirthday.common.Preferences
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.ui.settings.DatePickerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
-// TODO: возможность лайкать планеты
 // TODO: В списке экзопланет справа сделать прокрутку как в контактах
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
-    private val preferences: Preferences by inject()
+    private val preferences: UserPreferences by inject()
     private val adapter = SolarPlanetsAdapter()
 
     private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preferences.birthdayDate.observe(viewLifecycleOwner) {
-            recycler_view.isVisible = it != null
-            open_settings_button.isVisible = it == null
 
-            if (it != null && !isBirthdayAlreadySetup) {
-                animateBarsAppearance()
-                isBirthdayAlreadySetup = true
+        viewLifecycleOwner.lifecycleScope.launch {
+            preferences.birthdayFlow.collect {
+                recycler_view.isVisible = it != null
+                top_app_bar.isVisible = it != null
+                open_settings_button.isVisible = it == null
+
+                if (it != null && !isBirthdayAlreadySetup) {
+                    animateBarsAppearance()
+                    isBirthdayAlreadySetup = true
+                }
             }
         }
 
@@ -56,8 +62,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.solarPlanets.observe(viewLifecycleOwner) {
             adapter.setItems(ArrayList(it))
         }
-
-        top_app_bar.isVisible = preferences.userBirthday != null
 
         top_app_bar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

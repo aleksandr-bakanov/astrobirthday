@@ -1,8 +1,9 @@
 package bav.astrobirthday.di
 
+import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
-import bav.astrobirthday.common.Preferences
-import bav.astrobirthday.common.PreferencesImpl
+import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.common.UserPreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
 import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
@@ -16,7 +17,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<Preferences> { PreferencesImpl(androidContext()) }
+    single<UserPreferences> { UserPreferencesImpl(get()) }
 
     single {
         Room.databaseBuilder(
@@ -34,6 +35,10 @@ val appModule = module {
 
     single {
         PlanetRepository(get())
+    }
+
+    single {
+        androidContext().createDataStore(name = "settings")
     }
 
     viewModel { HomeViewModel(get(), get()) }
