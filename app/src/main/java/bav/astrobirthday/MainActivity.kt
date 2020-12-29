@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
 
-        viewModel.viewState.observe(this) { state ->
+        viewModel.state.observe(this) { state ->
             bottom_nav_view.isVisible = state.barsVisible
         }
 

@@ -17,26 +17,26 @@ class MainActivityViewModel(
     preferences: UserPreferences,
 ) : ViewModel() {
 
-    val viewState: LiveData<MainViewState>
-        get() = _viewState
-    private val _viewState = MutableLiveData<MainViewState>()
+    val state: LiveData<MainViewState>
+        get() = _state
+    private val _state = MutableLiveData<MainViewState>()
 
     val events: LiveData<MainViewEvent>
         get() = _events
     private val _events = MutableLiveData<MainViewEvent>()
 
     init {
-        _viewState.value = MainViewState()
+        _state.value = MainViewState()
         viewModelScope.launch {
             val isBirthdayAlreadySetup = preferences.birthdayFlow.firstOrNull() != null
             if (isBirthdayAlreadySetup) {
-                _viewState.value = MainViewState(barsVisible = true)
+                _state.value = MainViewState(barsVisible = true)
             } else {
                 preferences.birthdayFlow
                     .filterNotNull()
                     .take(1)
                     .collect {
-                        _viewState.value = MainViewState(barsVisible = true)
+                        _state.value = MainViewState(barsVisible = true)
                         _events.value = AnimateBars()
                     }
             }

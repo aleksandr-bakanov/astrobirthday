@@ -38,7 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainActivityViewModel.viewState.observe(viewLifecycleOwner) { state ->
+        mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
             recycler_view.isVisible = state.barsVisible
             top_app_bar.isVisible = state.barsVisible
             open_settings_button.isVisible = !state.barsVisible
