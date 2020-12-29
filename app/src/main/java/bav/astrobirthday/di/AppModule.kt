@@ -2,6 +2,7 @@ package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
+import bav.astrobirthday.MainActivityViewModel
 import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
@@ -44,6 +45,7 @@ val appModule = module {
         androidContext().createDataStore(name = "settings")
     }
 
+    viewModel { MainActivityViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { PlanetViewModel(get(), get()) }
     viewModel { ExoplanetsViewModel(get(), get()) }

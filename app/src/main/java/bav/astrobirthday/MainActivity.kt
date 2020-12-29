@@ -6,34 +6,35 @@ import android.os.Bundle
 import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
+import bav.astrobirthday.ui.common.peek
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val preferences: UserPreferences by inject()
-    private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
+    private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bottom_nav_view.isVisible = preferences.userBirthday != null
-
         setupNavigation()
 
-        lifecycleScope.launch {
-            preferences.birthdayFlow.collect {
-                if (it != null && !isBirthdayAlreadySetup) {
-                    animateBarsAppearance()
-                    isBirthdayAlreadySetup = true
+        viewModel.viewState.observe(this) { state ->
+            bottom_nav_view.isVisible = state.barsVisible
+        }
+
+        viewModel.events.observe(this) { events ->
+            events.peek { event ->
+                when (event) {
+                    is AnimateBars -> {
+                        animateBarsAppearance()
+                        false
+                    }
                 }
             }
         }
