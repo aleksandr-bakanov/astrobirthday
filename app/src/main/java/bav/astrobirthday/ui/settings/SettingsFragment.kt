@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import bav.astrobirthday.R
+import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.common.UserPreferences
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.flow.collect
@@ -15,6 +16,7 @@ import org.koin.android.ext.android.inject
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private val preferences: UserPreferences by inject()
+    private val commonUtils: CommonUtils by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,7 +24,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         lifecycleScope.launch {
             preferences.birthdayFlow.collect {
                 it?.let { date ->
-                    birthday_date.text = date.toString()
+                    birthday_date.text = commonUtils.localDateToString(date)
                 }
             }
         }

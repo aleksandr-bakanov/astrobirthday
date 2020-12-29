@@ -8,15 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import bav.astrobirthday.R
+import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.utils.getAgeString
 import bav.astrobirthday.utils.getReferenceText
+import bav.astrobirthday.utils.orNa
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlanetFragment : Fragment() {
 
     private val viewModel: PlanetViewModel by viewModel()
     private val args: PlanetFragmentArgs by navArgs()
+    private val commonUtils: CommonUtils by inject()
 
     private var _binding: FragmentPlanetBinding? = null
     private val binding get() = _binding!!
@@ -45,34 +49,34 @@ class PlanetFragment : Fragment() {
     private fun setupObservers() {
         viewModel.planet.observe(viewLifecycleOwner, {
             with(binding) {
-                planetName.text = it.planet.pl_name
-                stellarName.text = it.planet.hostname
-                age.text = getAgeString(it.ageOnPlanet, requireContext())
-                nearestBirthday.text = it.nearestBirthday.toString()
+                planetName.text = it.planet.pl_name.orNa()
+                stellarName.text = it.planet.hostname.orNa()
+                age.text = getAgeString(it.ageOnPlanet, requireContext()).orNa()
+                nearestBirthday.text = getString(R.string.next_birthday, commonUtils.localDateToString(it.nearestBirthday).orNa())
 
-                planetReferenceText.text = getReferenceText(it.planet.pl_refname)
-                planetDiscoveryMethod.text = it.planet.discoverymethod?.name.orEmpty()
-                planetDiscoveryYear.text = it.planet.disc_year.toString()
-                planetDiscoveryFacility.text = it.planet.disc_facility
-                planetOrbitalPeriod.text = it.planet.pl_orbper.toString()
-                planetOrbitalSemiMajorAxis.text = it.planet.pl_orbsmax.toString()
-                planetRadius.text = it.planet.pl_rade.toString()
-                planetMass.text = it.planet.pl_bmasse.toString()
-                planetEccentricity.text = it.planet.pl_orbeccen.toString()
-                planetEquilibriumTemperature.text = it.planet.pl_eqt.toString()
+                planetReferenceText.text = getReferenceText(it.planet.pl_refname).orNa()
+                planetDiscoveryMethod.text = it.planet.discoverymethod?.name.orNa()
+                planetDiscoveryYear.text = it.planet.disc_year.orNa()
+                planetDiscoveryFacility.text = it.planet.disc_facility.orNa()
+                planetOrbitalPeriod.text = it.planet.pl_orbper.orNa()
+                planetOrbitalSemiMajorAxis.text = it.planet.pl_orbsmax.orNa()
+                planetRadius.text = it.planet.pl_rade.orNa()
+                planetMass.text = it.planet.pl_bmasse.orNa()
+                planetEccentricity.text = it.planet.pl_orbeccen.orNa()
+                planetEquilibriumTemperature.text = it.planet.pl_eqt.orNa()
 
-                stellarReferenceText.text = getReferenceText(it.planet.st_refname)
-                stellarSpectralType.text = it.planet.st_spectype
-                stellarEffectiveTemperature.text = it.planet.st_teff.toString()
-                stellarRaduis.text = it.planet.st_rad.toString()
-                stellarMass.text = it.planet.st_mass.toString()
+                stellarReferenceText.text = getReferenceText(it.planet.st_refname).orNa()
+                stellarSpectralType.text = it.planet.st_spectype.orNa()
+                stellarEffectiveTemperature.text = it.planet.st_teff.orNa()
+                stellarRaduis.text = it.planet.st_rad.orNa()
+                stellarMass.text = it.planet.st_mass.orNa()
 
-                systemReferenceText.text = getReferenceText(it.planet.sy_refname)
-                systemNumberOfStars.text = it.planet.sy_snum.toString()
-                systemNumberOfPlanets.text = it.planet.sy_pnum.toString()
-                systemDistance.text = it.planet.sy_dist.toString()
+                systemReferenceText.text = getReferenceText(it.planet.sy_refname).orNa()
+                systemNumberOfStars.text = it.planet.sy_snum.orNa()
+                systemNumberOfPlanets.text = it.planet.sy_pnum.orNa()
+                systemDistance.text = it.planet.sy_dist.orNa()
 
-                datePlanetReference.text = it.planet.pl_pubdate
+                datePlanetReference.text = it.planet.pl_pubdate.orNa()
 
                 favoriteButton.setImageResource(
                     if (it.planet.is_favorite) R.drawable.ic_baseline_favorite_24

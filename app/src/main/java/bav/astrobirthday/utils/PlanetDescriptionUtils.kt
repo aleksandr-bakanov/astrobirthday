@@ -2,7 +2,6 @@ package bav.astrobirthday.utils
 
 import android.content.Context
 import bav.astrobirthday.R
-import bav.astrobirthday.common.DiscoveryMethod
 import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.data.entities.PlanetDescription
@@ -21,17 +20,64 @@ fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
 
 fun getAgeString(age: Double, context: Context): String {
     val years = floor(age)
+    var days = floor(360.0 * (age - years)).toInt()
+    val months = floor(days / 30.0).toInt()
+    days -= months * 30
+
+    val iYears = years.toInt()
+    return when {
+        years >= 1.0 -> {
+            when {
+                months >= 1 && days >= 1 -> context.getString(
+                    R.string.age_string_pattern_three,
+                    context.resources.getQuantityString(R.plurals.years_amount, iYears, iYears),
+                    context.resources.getQuantityString(R.plurals.months_amount, months, months),
+                    context.resources.getQuantityString(R.plurals.days_amount, days, days)
+                )
+                months >= 1 -> context.getString(
+                    R.string.age_string_pattern_two,
+                    context.resources.getQuantityString(R.plurals.years_amount, iYears, iYears),
+                    context.resources.getQuantityString(R.plurals.months_amount, months, months)
+                )
+                else -> context.getString(
+                    R.string.age_string_pattern_one,
+                    context.resources.getQuantityString(R.plurals.years_amount, iYears, iYears)
+                )
+            }
+        }
+        months >= 1 -> {
+            when {
+                days >= 1 -> context.getString(
+                    R.string.age_string_pattern_two,
+                    context.resources.getQuantityString(R.plurals.months_amount, months, months),
+                    context.resources.getQuantityString(R.plurals.days_amount, days, days)
+                )
+                else -> context.getString(
+                    R.string.age_string_pattern_one,
+                    context.resources.getQuantityString(R.plurals.months_amount, months, months)
+                )
+            }
+        }
+        else -> context.getString(
+            R.string.age_string_pattern_one,
+            context.resources.getQuantityString(R.plurals.days_amount, days, days)
+        )
+    }
+}
+
+fun getAgeStringShort(age: Double, context: Context): String {
+    val years = floor(age)
     val days = floor(360.0 * (age - years))
     val months = floor(days / 30.0)
     return when {
         years >= 1.0 -> {
-            context.getString(R.string.age_string_pattern_years, years.toInt())
+            context.getString(R.string.age_string_pattern_years_short, years.toInt())
         }
         months >= 1.0 -> {
-            context.getString(R.string.age_string_pattern_months, months.toInt())
+            context.getString(R.string.age_string_pattern_months_short, months.toInt())
         }
         else -> {
-            context.getString(R.string.age_string_pattern_days, days.toInt())
+            context.getString(R.string.age_string_pattern_days_short, days.toInt())
         }
     }
 }

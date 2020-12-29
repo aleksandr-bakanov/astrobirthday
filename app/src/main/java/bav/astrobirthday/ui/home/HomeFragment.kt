@@ -16,9 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.R
+import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.ui.settings.DatePickerFragment
+import bav.astrobirthday.utils.getAgeStringShort
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,6 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
     private val preferences: UserPreferences by inject()
+    private val commonUtils: CommonUtils by inject()
     private val adapter = SolarPlanetsAdapter()
 
     private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
@@ -114,7 +117,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         inner class SolarPlanetsVH(view: View) : RecyclerView.ViewHolder(view) {
-            private val name: TextView = view.findViewById(R.id.name)
             private val age: TextView = view.findViewById(R.id.age)
             private val nearestBirthday: TextView = view.findViewById(R.id.nearestBirthday)
             private val image: AppCompatImageView = view.findViewById(R.id.image)
@@ -122,15 +124,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             init {
                 view.findViewById<ViewGroup>(R.id.container).setOnClickListener {
                     val action =
-                        HomeFragmentDirections.actionNavHomeToPlanetFragment(name.text.toString())
+                        HomeFragmentDirections.actionNavHomeToPlanetFragment(planetName)
                     findNavController().navigate(action)
                 }
             }
 
+            private var planetName: String = ""
+
             fun setData(planet: PlanetDescription) {
-                name.text = planet.planet.pl_name
-                age.text = planet.ageOnPlanet.toString()
-                nearestBirthday.text = planet.nearestBirthday.toString()
+                planetName = planet.planet.pl_name.orEmpty()
+                age.text = getAgeStringShort(planet.ageOnPlanet, requireContext())
+                nearestBirthday.text = commonUtils.localDateToString(planet.nearestBirthday)
                 image.setImageResource(planet.planetType.imageResId)
             }
         }

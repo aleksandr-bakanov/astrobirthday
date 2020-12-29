@@ -15,13 +15,29 @@
     <string name="your_birthday">Your birthday</string>
 
     <!-- Planet -->
-    <string name="age_string_pattern_years">Age: %d year(s)</string>
-    <string name="age_string_pattern_months">Age: %d month(s)</string>
-    <string name="age_string_pattern_days">Age: %d day(s)</string>
+    <string name="age_string_pattern_one">Age: %s</string>
+    <string name="age_string_pattern_two">Age: %s %s</string>
+    <string name="age_string_pattern_three">Age: %s %s %s</string>
+    <string name="age_string_pattern_years_short">%dy</string>
+    <string name="age_string_pattern_months_short">%dm</string>
+    <string name="age_string_pattern_days_short">%dd</string>
     <string name="age_string_pattern_hours">Age: %d hour(s)</string>
     <string name="age_string_pattern_minutes">Age: %d minute(s)</string>
     <string name="age_string_pattern_seconds">Age: %d second(s)</string>
-    <string name="nearest_birthday">Near birthday: %s</string>
+    <string name="next_birthday">Next birthday: %s</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d year</item>
+        <item quantity="other">%d years</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d month</item>
+        <item quantity="other">%d months</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
 
     <!-- Favorites -->
     <string name="title_favorites">Favorites</string>

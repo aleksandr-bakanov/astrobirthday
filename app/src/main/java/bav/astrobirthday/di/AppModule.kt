@@ -2,6 +2,7 @@ package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
+import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
@@ -18,6 +19,8 @@ import org.koin.dsl.module
 val appModule = module {
 
     single<UserPreferences> { UserPreferencesImpl(get()) }
+
+    single { CommonUtils(androidContext()) }
 
     single {
         Room.databaseBuilder(
