@@ -11,45 +11,47 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import bav.astrobirthday.MainActivityViewModel
+import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
 import bav.astrobirthday.R
 import bav.astrobirthday.common.CommonUtils
-import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.ui.common.peek
 import bav.astrobirthday.ui.settings.DatePickerFragment
 import bav.astrobirthday.utils.getAgeStringShort
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 // TODO: В списке экзопланет справа сделать прокрутку как в контактах
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModel()
-    private val preferences: UserPreferences by inject()
+    private val mainActivityViewModel: MainActivityViewModel by sharedViewModel()
     private val commonUtils: CommonUtils by inject()
     private val adapter = SolarPlanetsAdapter()
-
-    private var isBirthdayAlreadySetup: Boolean = preferences.userBirthday != null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            preferences.birthdayFlow.collect {
-                recycler_view.isVisible = it != null
-                top_app_bar.isVisible = it != null
-                open_settings_button.isVisible = it == null
+        mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
+            recycler_view.isVisible = state.barsVisible
+            top_app_bar.isVisible = state.barsVisible
+            open_settings_button.isVisible = !state.barsVisible
+        }
 
-                if (it != null && !isBirthdayAlreadySetup) {
-                    animateBarsAppearance()
-                    isBirthdayAlreadySetup = true
+        mainActivityViewModel.events.observe(viewLifecycleOwner) { events ->
+            events.peek { event ->
+                when (event) {
+                    is AnimateBars -> {
+                        animateBarsAppearance()
+                    }
                 }
+                true
             }
         }
 
