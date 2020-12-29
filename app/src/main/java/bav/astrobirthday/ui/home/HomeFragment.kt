@@ -122,7 +122,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             private val image: AppCompatImageView = view.findViewById(R.id.image)
 
             init {
-                view.findViewById<ViewGroup>(R.id.container).setOnClickListener {
+                view.setOnClickListener {
                     val action =
                         HomeFragmentDirections.actionNavHomeToPlanetFragment(planetName)
                     findNavController().navigate(action)
