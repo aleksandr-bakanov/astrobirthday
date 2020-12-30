@@ -49,5 +49,5 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { PlanetViewModel(get(), get()) }
     viewModel { ExoplanetsViewModel(get(), get()) }
-    viewModel { FavoritesViewModel(get()) }
+    viewModel { FavoritesViewModel(get(), get()) }
 }

@@ -30,11 +30,16 @@ class HomeViewModel(
                         "Venus",
                         "Earth",
                         "Mars",
+                        "Ceres",
                         "Jupiter",
                         "Saturn",
                         "Uranus",
                         "Neptune",
-                        "Pluto"
+                        "Pluto",
+                        "Haumea",
+                        "Makemake",
+                        "Eris",
+                        "Sedna"
                     )
                 )
             ) { birthday, planets ->

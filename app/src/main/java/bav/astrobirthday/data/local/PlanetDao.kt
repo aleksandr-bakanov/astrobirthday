@@ -3,8 +3,6 @@ package bav.astrobirthday.data.local
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import bav.astrobirthday.data.entities.Planet
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +26,7 @@ interface PlanetDao {
 
     // The Int type parameter tells Room to use a PositionalDataSource
     // object, with position-based loading under the hood.
-    @Query("SELECT * FROM planets WHERE id > 9 ORDER BY id ASC")
+    @Query("SELECT * FROM planets WHERE id > 14 ORDER BY id ASC")
     fun planetsByUidOrder(): DataSource.Factory<Int, Planet>
 
     @Query("SELECT * FROM planets WHERE is_favorite = 1")

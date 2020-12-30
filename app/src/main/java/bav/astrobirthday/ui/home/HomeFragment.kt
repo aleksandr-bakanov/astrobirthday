@@ -21,7 +21,7 @@ import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.ui.common.peek
 import bav.astrobirthday.ui.settings.DatePickerFragment
-import bav.astrobirthday.utils.getAgeStringShort
+import bav.astrobirthday.utils.getAgeStringForMainScreen
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -135,7 +135,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             fun setData(planet: PlanetDescription) {
                 planetName = planet.planet.pl_name.orEmpty()
-                age.text = getAgeStringShort(planet.ageOnPlanet, requireContext())
+                age.text = getAgeStringForMainScreen(planet.ageOnPlanet, requireContext())
                 nearestBirthday.text = commonUtils.localDateToString(planet.nearestBirthday)
                 image.setImageResource(planet.planetType.imageResId)
             }

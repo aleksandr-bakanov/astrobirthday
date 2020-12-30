@@ -42,14 +42,14 @@
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <ImageButton
                 android:id="@+id/favorite_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_baseline_favorite_border_24" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Planet"
+                android:text="@string/planet_title"
                 style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Reference" />
+                    android:text="@string/reference" />
 
                 <TextView
                     android:id="@+id/planet_reference_text"
@@ -114,9 +114,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/planet_description_margin"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="?attr/colorSecondary" />
+                    android:tint="?attr/colorSecondary"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -129,7 +130,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Discovery method" />
+                    android:text="@string/discovery_method" />
 
                 <TextView
                     android:id="@+id/planet_discovery_method"
@@ -150,7 +151,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Year" />
+                    android:text="@string/year" />
 
                 <TextView
                     android:id="@+id/planet_discovery_year"
@@ -171,7 +172,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Facility" />
+                    android:text="@string/facility" />
 
                 <TextView
                     android:id="@+id/planet_discovery_facility"
@@ -192,7 +193,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Orbital period [days]" />
+                    android:text="@string/orbital_period_days" />
 
                 <TextView
                     android:id="@+id/planet_orbital_period"
@@ -213,7 +214,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Orbital semi-major axis [au]" />
+                    android:text="@string/orbital_semi_major_axis_au" />
 
                 <TextView
                     android:id="@+id/planet_orbital_semi_major_axis"
@@ -234,7 +235,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Radius [Earth radius]" />
+                    android:text="@string/radius_earth_radius" />
 
                 <TextView
                     android:id="@+id/planet_radius"
@@ -255,7 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Mass [Earth mass]" />
+                    android:text="@string/mass_earth_mass" />
 
                 <TextView
                     android:id="@+id/planet_mass"
@@ -276,7 +277,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Orbit eccentricity" />
+                    android:text="@string/orbit_eccentricity" />
 
                 <TextView
                     android:id="@+id/planet_eccentricity"
@@ -297,7 +298,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Equilibrium temperature" />
+                    android:text="@string/equilibrium_temperature" />
 
                 <TextView
                     android:id="@+id/planet_equilibrium_temperature"
@@ -313,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Stellar"
+                android:text="@string/stellar"
                 style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
@@ -327,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Reference" />
+                    android:text="@string/reference" />
 
                 <TextView
                     android:id="@+id/stellar_reference_text"
@@ -344,9 +345,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/planet_description_margin"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="?attr/colorSecondary" />
+                    android:tint="?attr/colorSecondary"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -359,7 +361,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Name" />
+                    android:text="@string/name" />
 
                 <TextView
                     android:id="@+id/stellar_name"
@@ -380,7 +382,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Spectral type" />
+                    android:text="@string/spectral_type" />
 
                 <TextView
                     android:id="@+id/stellar_spectral_type"
@@ -401,7 +403,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Effective temperature" />
+                    android:text="@string/effective_temperature" />
 
                 <TextView
                     android:id="@+id/stellar_effective_temperature"
@@ -422,7 +424,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Radius [Solar radius]" />
+                    android:text="@string/radius_solar_radius" />
 
                 <TextView
                     android:id="@+id/stellar_raduis"
@@ -443,7 +445,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Mass [Solar mass]" />
+                    android:text="@string/mass_solar_mass" />
 
                 <TextView
                     android:id="@+id/stellar_mass"
@@ -459,7 +461,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="System"
+                android:text="@string/system"
                 style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
@@ -473,7 +475,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Reference" />
+                    android:text="@string/reference" />
 
                 <TextView
                     android:id="@+id/system_reference_text"
@@ -490,9 +492,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/planet_description_margin"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_baseline_link_24"
-                    android:tint="?attr/colorSecondary" />
+                    android:tint="?attr/colorSecondary"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -505,7 +508,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Number of stars" />
+                    android:text="@string/number_of_stars" />
 
                 <TextView
                     android:id="@+id/system_number_of_stars"
@@ -526,7 +529,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Number of planets" />
+                    android:text="@string/number_of_planets" />
 
                 <TextView
                     android:id="@+id/system_number_of_planets"
@@ -547,7 +550,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Distance [pc]" />
+                    android:text="@string/distance_pc" />
 
                 <TextView
                     android:id="@+id/system_distance"
@@ -563,7 +566,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Dates"
+                android:text="@string/dates"
                 style="?attr/textAppearanceHeadline5"/>
 
             <LinearLayout
@@ -576,7 +579,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Planetary reference publication date" />
+                    android:text="@string/planetary_reference_publication_date" />
 
                 <TextView
                     android:id="@+id/date_planet_reference"

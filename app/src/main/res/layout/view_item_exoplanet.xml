@@ -13,22 +13,27 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="@dimen/planet_icon_size"
+            android:layout_height="@dimen/planet_icon_size"
             android:layout_margin="@dimen/planet_icon_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_earth" />
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            style="?attr/textAppearanceHeadline5"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/planet_icon_margin"
-            android:gravity="start"
-            app:layout_constraintBottom_toTopOf="@id/age"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            android:layout_marginEnd="@dimen/planet_icon_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginTop="@dimen/planet_icon_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
         <TextView
@@ -36,19 +41,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/planet_icon_margin"
-            android:gravity="start"
-            app:layout_constraintBottom_toTopOf="@id/nearestBirthday"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            android:layout_marginBottom="@dimen/planet_icon_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image"
             tools:text="Age" />
 
         <TextView
             android:id="@+id/nearestBirthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/planet_icon_margin"
-            android:gravity="start"
+            android:layout_marginEnd="@dimen/planet_icon_margin"
+            android:layout_marginBottom="@dimen/planet_icon_margin"
+            android:gravity="end"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Nearest birthday" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

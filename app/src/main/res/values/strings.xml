@@ -3,9 +3,8 @@
 
     <string name="set_your_birthday">Set your birthday</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Solar</string>
     <string name="title_settings">Settings</string>
-
 
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
@@ -25,6 +24,29 @@
     <string name="age_string_pattern_minutes">Age: %d minute(s)</string>
     <string name="age_string_pattern_seconds">Age: %d second(s)</string>
     <string name="next_birthday">Next birthday: %s</string>
+    <string name="planet_title">Planet</string>
+    <string name="reference">Reference</string>
+    <string name="discovery_method">Discovery method</string>
+    <string name="year">Year</string>
+    <string name="facility">Facility</string>
+    <string name="orbital_period_days">Orbital period [days]</string>
+    <string name="orbital_semi_major_axis_au">Orbital semi-major axis [au]</string>
+    <string name="radius_earth_radius">Radius [Earth radius]</string>
+    <string name="mass_earth_mass">Mass [Earth mass]</string>
+    <string name="orbit_eccentricity">Orbit eccentricity</string>
+    <string name="equilibrium_temperature">Equilibrium temperature</string>
+    <string name="stellar">Stellar</string>
+    <string name="name">Name</string>
+    <string name="spectral_type">Spectral type</string>
+    <string name="effective_temperature">Effective temperature</string>
+    <string name="radius_solar_radius">Radius [Solar radius]</string>
+    <string name="mass_solar_mass">Mass [Solar mass]</string>
+    <string name="system">System</string>
+    <string name="number_of_stars">Number of stars</string>
+    <string name="number_of_planets">Number of planets</string>
+    <string name="distance_pc">Distance [pc]</string>
+    <string name="dates">Dates</string>
+    <string name="planetary_reference_publication_date">Planetary reference publication date</string>
 
     <plurals name="years_amount">
         <item quantity="one">%d year</item>
@@ -42,5 +64,17 @@
     <!-- Favorites -->
     <string name="title_favorites">Favorites</string>
 
+    <!-- Common -->
+    <string name="disc_method_astrometry">Astrometry</string>
+    <string name="disc_method_disk_kinematics">Disk kinematics</string>
+    <string name="disc_method_eclipse_timing_variations">Eclipse timing variations</string>
+    <string name="disc_method_imaging">Imaging</string>
+    <string name="disc_method_microlensing">Microlensing</string>
+    <string name="disc_method_orbital_brightness_modulation">Orbital brightness modulation</string>
+    <string name="disc_method_pulsar_timing">Pulsar timing</string>
+    <string name="disc_method_pulsation_timing_variations">Pulsation timing variations</string>
+    <string name="disc_method_radial_velocity">Radial velocity</string>
+    <string name="disc_method_transit">Transit</string>
+    <string name="disc_method_transit_timing_variations">Transit timing variations</string>
 
 </resources>

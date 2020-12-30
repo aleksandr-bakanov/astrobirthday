@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_baseline_adjust_24"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/nav_exoplanets"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_baseline_scatter_plot_24"
         android:title="@string/title_exoplanets" />
 
     <item

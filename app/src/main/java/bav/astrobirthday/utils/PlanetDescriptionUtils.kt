@@ -67,6 +67,20 @@ fun getAgeString(age: Double, context: Context): String {
 
 fun getAgeStringShort(age: Double, context: Context): String {
     val years = floor(age)
+    var days = floor(360.0 * (age - years)).toInt()
+    val months = floor(days / 30.0).toInt()
+    days -= months * 30
+    val iYears = years.toInt()
+
+    return when {
+        years >= 1.0 -> context.resources.getQuantityString(R.plurals.years_amount, iYears, iYears)
+        months >= 1 -> context.resources.getQuantityString(R.plurals.months_amount, months, months)
+        else -> context.resources.getQuantityString(R.plurals.days_amount, days, days)
+    }
+}
+
+fun getAgeStringForMainScreen(age: Double, context: Context): String {
+    val years = floor(age)
     val days = floor(360.0 * (age - years))
     val months = floor(days / 30.0)
     return when {
@@ -89,8 +103,8 @@ fun getReferenceText(reference: String?): String {
     return refTextRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
 }
 
-fun getReferenceLink(reference: String?): String {
-    return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
+fun getReferenceLink(reference: String?): String? {
+    return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1)
 }
 
 fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
