@@ -1,34 +1,22 @@
-package bav.astrobirthday.ui.common
+package bav.astrobirthday.ui.common.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import bav.astrobirthday.R
-import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.databinding.ViewItemExoplanetBinding
 import bav.astrobirthday.utils.getAgeStringShort
+import bav.astrobirthday.utils.localDateToString
 import bav.astrobirthday.utils.orNa
-import org.koin.core.component.KoinApiExtension
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
-@KoinApiExtension
-class ExoplanetsAdapter(private val itemClickListener: (PlanetDescription) -> Unit) :
-    KoinComponent, PagedListAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(
-    DIFF_CALLBACK
-) {
-
-    private val commonUtils: CommonUtils by inject()
+class ExoplanetsAdapter(
+    private val itemClickListener: (PlanetDescription) -> Unit
+) : PagedListAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoplanetViewHolder {
         return ExoplanetViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_item_exoplanet, parent, false),
+            ViewItemExoplanetBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             itemClickListener
         )
     }
@@ -38,18 +26,15 @@ class ExoplanetsAdapter(private val itemClickListener: (PlanetDescription) -> Un
     }
 
     inner class ExoplanetViewHolder(
-        itemView: View,
+        binding: ViewItemExoplanetBinding,
         private val clickListener: (PlanetDescription) -> Unit
-    ) : RecyclerView.ViewHolder(itemView) {
-        private val name: TextView = itemView.findViewById(R.id.name)
-        private val age: TextView = itemView.findViewById(R.id.age)
-        private val nearestBirthday: TextView = itemView.findViewById(R.id.nearestBirthday)
-        private val image: AppCompatImageView = itemView.findViewById(R.id.image)
+    ) : BindingViewHolder<ViewItemExoplanetBinding>(binding) {
 
-        fun bindTo(desc: PlanetDescription) {
+        fun bindTo(desc: PlanetDescription) = with(binding) {
+            val context = itemView.context
             name.text = desc.planet.pl_name
-            age.text = getAgeStringShort(desc.ageOnPlanet, itemView.context).orNa()
-            nearestBirthday.text = commonUtils.localDateToString(desc.nearestBirthday).orNa()
+            age.text = context.getAgeStringShort(desc.ageOnPlanet).orNa()
+            nearestBirthday.text = context.localDateToString(desc.nearestBirthday).orNa()
             image.setImageResource(desc.planetType.imageResId)
             itemView.setOnClickListener { clickListener(desc) }
         }
