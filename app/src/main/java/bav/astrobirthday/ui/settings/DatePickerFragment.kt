@@ -19,13 +19,15 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val date = runBlocking { preferences.birthdayFlow.firstOrNull() ?: LocalDate.now() }
-        return DatePickerDialog(
+        val dialog = DatePickerDialog(
             requireContext(),
             this,
             date.year,
             date.month.ordinal,
             date.dayOfMonth
         )
+        dialog.datePicker.maxDate = System.currentTimeMillis()
+        return dialog
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
