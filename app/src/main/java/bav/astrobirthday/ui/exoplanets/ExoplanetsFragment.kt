@@ -18,9 +18,9 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ExoplanetsAdapter { planetDescription ->
-            findNavController().navigate(
-                actionNavExoplanetsToPlanetFragment(planetDescription.planet.pl_name.orEmpty())
-            )
+            planetDescription.planet.pl_name?.let {
+                findNavController().navigate(actionNavExoplanetsToPlanetFragment(it))
+            }
         }
         viewModel.planetsList.observe(viewLifecycleOwner) {
             adapter.submitList(it)

@@ -43,11 +43,11 @@ class PlanetFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.planet.observe(viewLifecycleOwner, { p ->
+        viewModel.planet.observe(viewLifecycleOwner) { p ->
+            val context = requireContext()
             with(binding) {
                 planetName.text = p.planet.pl_name.orNa()
                 stellarName.text = p.planet.hostname.orNa()
-                val context = requireContext()
                 age.text = context.getAgeString(p.ageOnPlanet).orNa()
                 nearestBirthday.text = getString(
                     R.string.next_birthday,
@@ -98,13 +98,11 @@ class PlanetFragment : Fragment() {
                 }
 
             }
-        })
+        }
     }
 
-    private fun setupClickListeners() {
-        binding.backButton.setOnClickListener { findNavController().popBackStack() }
-        binding.favoriteButton.setOnClickListener {
-            viewModel.toggleFavorite()
-        }
+    private fun setupClickListeners() = with(binding) {
+        backButton.setOnClickListener { findNavController().popBackStack() }
+        favoriteButton.setOnClickListener { viewModel.toggleFavorite() }
     }
 }

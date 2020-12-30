@@ -18,9 +18,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ExoplanetsAdapter { planetDescription ->
-            findNavController().navigate(
-                actionNavFavoritesToPlanetFragment(planetDescription.planet.pl_name.orEmpty())
-            )
+            planetDescription.planet.pl_name?.let {
+                findNavController().navigate(actionNavFavoritesToPlanetFragment(it))
+            }
         }
         viewModel.planetsList.observe(viewLifecycleOwner) {
             adapter.submitList(it)

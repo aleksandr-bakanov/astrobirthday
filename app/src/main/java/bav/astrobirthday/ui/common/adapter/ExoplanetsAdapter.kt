@@ -12,15 +12,11 @@ import bav.astrobirthday.utils.orNa
 
 class ExoplanetsAdapter(
     private val itemClickListener: (PlanetDescription) -> Unit
-) : PagedListAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(
-    DIFF_CALLBACK
-) {
+) : PagedListAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoplanetViewHolder {
         return ExoplanetViewHolder(
-            ViewItemExoplanetBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            ),
+            ViewItemExoplanetBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             itemClickListener
         )
     }

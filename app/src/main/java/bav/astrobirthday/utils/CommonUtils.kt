@@ -46,12 +46,12 @@ fun Context.discoveryMethodToStr(method: DiscoveryMethod?): String {
 }
 
 fun Context.openUrl(url: String) {
-    val builder = CustomTabsIntent.Builder()
-    builder.setDefaultColorSchemeParams(
-        CustomTabColorSchemeParams.Builder()
-            .setToolbarColor(ContextCompat.getColor(this, R.color.primaryColor))
-            .build()
-    )
-    val intent = builder.build()
-    intent.launchUrl(this, Uri.parse(url))
+    CustomTabsIntent.Builder()
+        .setDefaultColorSchemeParams(
+            CustomTabColorSchemeParams.Builder()
+                .setToolbarColor(ContextCompat.getColor(this, R.color.primaryColor))
+                .build()
+        )
+        .build()
+        .launchUrl(this, Uri.parse(url))
 }

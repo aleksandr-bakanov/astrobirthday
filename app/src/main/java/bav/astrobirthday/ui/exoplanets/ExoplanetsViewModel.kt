@@ -8,7 +8,6 @@ import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.toPlanetDescription
-import java.time.LocalDate
 
 class ExoplanetsViewModel(
     private val preferences: UserPreferences,
@@ -16,7 +15,7 @@ class ExoplanetsViewModel(
 ) : ViewModel() {
 
     val planetsList: LiveData<PagedList<PlanetDescription>> = database.planetsByUidOrder().map {
-        it.toPlanetDescription(preferences.userBirthday ?: LocalDate.now())
+        it.toPlanetDescription(preferences.userBirthday!!)
     }.toLiveData(
         pageSize = 50, initialLoadKey = 14,
     )
