@@ -9,20 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import bav.astrobirthday.R
-import bav.astrobirthday.common.CommonUtils
 import bav.astrobirthday.databinding.FragmentPlanetBinding
-import bav.astrobirthday.utils.getAgeString
-import bav.astrobirthday.utils.getReferenceLink
-import bav.astrobirthday.utils.getReferenceText
-import bav.astrobirthday.utils.orNa
-import org.koin.android.ext.android.inject
+import bav.astrobirthday.utils.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlanetFragment : Fragment() {
 
     private val viewModel: PlanetViewModel by viewModel()
     private val args: PlanetFragmentArgs by navArgs()
-    private val commonUtils: CommonUtils by inject()
 
     private var _binding: FragmentPlanetBinding? = null
     private val binding get() = _binding!!
@@ -53,15 +47,16 @@ class PlanetFragment : Fragment() {
             with(binding) {
                 planetName.text = p.planet.pl_name.orNa()
                 stellarName.text = p.planet.hostname.orNa()
-                age.text = getAgeString(p.ageOnPlanet, requireContext()).orNa()
+                val context = requireContext()
+                age.text = context.getAgeString(p.ageOnPlanet).orNa()
                 nearestBirthday.text = getString(
                     R.string.next_birthday,
-                    commonUtils.localDateToString(p.nearestBirthday).orNa()
+                    context.localDateToString(p.nearestBirthday).orNa()
                 )
 
                 planetReferenceText.text = getReferenceText(p.planet.pl_refname).orNa()
                 planetDiscoveryMethod.text =
-                    commonUtils.discoveryMethodToStr(p.planet.discoverymethod)
+                    context.discoveryMethodToStr(p.planet.discoverymethod)
                 planetDiscoveryYear.text = p.planet.disc_year.orNa()
                 planetDiscoveryFacility.text = p.planet.disc_facility.orNa()
                 planetOrbitalPeriod.text = p.planet.pl_orbper.orNa()
@@ -91,15 +86,15 @@ class PlanetFragment : Fragment() {
 
                 getReferenceLink(p.planet.pl_refname)?.let { url ->
                     planetReferenceButton.isVisible = true
-                    planetReferenceButton.setOnClickListener { commonUtils.openUrl(url, requireContext()) }
+                    planetReferenceButton.setOnClickListener { context.openUrl(url) }
                 }
                 getReferenceLink(p.planet.st_refname)?.let { url ->
                     stellarReferenceButton.isVisible = true
-                    stellarReferenceButton.setOnClickListener { commonUtils.openUrl(url, requireContext()) }
+                    stellarReferenceButton.setOnClickListener { context.openUrl(url) }
                 }
                 getReferenceLink(p.planet.sy_refname)?.let { url ->
                     systemReferenceButton.isVisible = true
-                    systemReferenceButton.setOnClickListener { commonUtils.openUrl(url, requireContext()) }
+                    systemReferenceButton.setOnClickListener { context.openUrl(url) }
                 }
 
             }

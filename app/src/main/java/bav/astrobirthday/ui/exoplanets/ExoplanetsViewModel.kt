@@ -7,7 +7,7 @@ import androidx.paging.toLiveData
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
-import bav.astrobirthday.utils.planetToPlanetDescription
+import bav.astrobirthday.utils.toPlanetDescription
 import java.time.LocalDate
 
 class ExoplanetsViewModel(
@@ -16,7 +16,7 @@ class ExoplanetsViewModel(
 ) : ViewModel() {
 
     val planetsList: LiveData<PagedList<PlanetDescription>> = database.planetsByUidOrder().map {
-        planetToPlanetDescription(it, preferences.userBirthday ?: LocalDate.now())
+        it.toPlanetDescription(preferences.userBirthday ?: LocalDate.now())
     }.toLiveData(
         pageSize = 50, initialLoadKey = 14,
     )

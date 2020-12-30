@@ -31,23 +31,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/set_your_birthday"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_app_bar"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/top_app_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_app_bar"
-        tools:listitem="@layout/view_grid_planet"
-        tools:spanCount="3"
-        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:itemCount="9" />
+        app:spanCount="3"
+        tools:itemCount="9"
+        tools:listitem="@layout/view_grid_planet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
