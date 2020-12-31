@@ -3,11 +3,13 @@ package bav.astrobirthday.ui.exoplanets
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
 import kotlinx.android.synthetic.main.fragment_exoplanets.*
+import kotlinx.coroutines.flow.collect
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
@@ -22,8 +24,8 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
                 findNavController().navigate(actionNavExoplanetsToPlanetFragment(it))
             }
         }
-        viewModel.planetsList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.planetsList.collect(adapter::submitData)
         }
 
         recyclerView.adapter = adapter

@@ -6,7 +6,6 @@ import bav.astrobirthday.MainActivityViewModel
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
-import bav.astrobirthday.data.repository.PlanetRepository
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.favorites.FavoritesViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
@@ -32,10 +31,6 @@ val appModule = module {
 
     single {
         Moshi.Builder().build()
-    }
-
-    single {
-        PlanetRepository(get())
     }
 
     single {

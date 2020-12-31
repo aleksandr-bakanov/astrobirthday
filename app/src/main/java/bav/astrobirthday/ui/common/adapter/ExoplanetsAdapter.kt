@@ -2,7 +2,7 @@ package bav.astrobirthday.ui.common.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.databinding.ViewItemExoplanetBinding
@@ -12,7 +12,7 @@ import bav.astrobirthday.utils.orNa
 
 class ExoplanetsAdapter(
     private val itemClickListener: (PlanetDescription) -> Unit
-) : PagedListAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<PlanetDescription, ExoplanetsAdapter.ExoplanetViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExoplanetViewHolder {
         return ExoplanetViewHolder(
