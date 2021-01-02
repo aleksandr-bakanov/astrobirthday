@@ -9,7 +9,6 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.random.Random
 
 fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
     if (period == null) return 0.0
@@ -115,7 +114,7 @@ fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
     return userBirthday.plusDays(daysInNextBirthday)
 }
 
-fun getPlanetType(planetName: String?): PlanetType {
+fun getPlanetType(planetName: String?): PlanetType? {
     return when (planetName) {
         "Mercury" -> PlanetType.MERCURY
         "Venus" -> PlanetType.VENUS
@@ -126,7 +125,7 @@ fun getPlanetType(planetName: String?): PlanetType {
         "Uranus" -> PlanetType.URANUS
         "Neptune" -> PlanetType.NEPTUNE
         "Pluto" -> PlanetType.PLUTO
-        else -> PlanetType.values()[Random.nextInt(0, PlanetType.values().size)]
+        else -> null
     }
 }
 

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.SimpleItemAnimator
 import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
@@ -29,5 +30,6 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
         }
 
         recyclerView.adapter = adapter
+        (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 }

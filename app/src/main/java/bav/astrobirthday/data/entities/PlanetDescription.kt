@@ -7,8 +7,5 @@ data class PlanetDescription(
     val planet: Planet,
     val ageOnPlanet: Double = 0.0, // Age in Earth days
     val nearestBirthday: LocalDate = LocalDate.now(),
-    val planetType: PlanetType = PlanetType.EARTH
+    val planetType: PlanetType? = null
 )
-
-val PlanetDescription.isSolar: Boolean
-    get() = planet.pl_name in Config.solarPlanets

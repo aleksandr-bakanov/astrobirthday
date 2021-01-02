@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.entities.PlanetDescription
@@ -30,7 +31,7 @@ class HomeViewModel(
                         planet = it,
                         ageOnPlanet = getAgeOnPlanet(birthday, it.pl_orbper),
                         nearestBirthday = getNearestBirthday(birthday, it.pl_orbper),
-                        planetType = getPlanetType(it.pl_name)
+                        planetType = getPlanetType(it.pl_name) ?: PlanetType.values().random()
                     )
                 }
             }
