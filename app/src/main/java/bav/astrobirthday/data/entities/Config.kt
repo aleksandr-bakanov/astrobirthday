@@ -2,7 +2,7 @@ package bav.astrobirthday.data.entities
 
 object Config {
 
-    val solarPlanetList = listOf(
+    val solarPlanets = setOf(
         "Mercury",
         "Venus",
         "Earth",

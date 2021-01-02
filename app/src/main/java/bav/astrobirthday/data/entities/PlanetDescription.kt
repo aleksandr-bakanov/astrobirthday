@@ -9,3 +9,6 @@ data class PlanetDescription(
     val nearestBirthday: LocalDate = LocalDate.now(),
     val planetType: PlanetType = PlanetType.EARTH
 )
+
+val PlanetDescription.isSolar: Boolean
+    get() = planet.pl_name in Config.solarPlanets

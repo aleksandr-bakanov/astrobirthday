@@ -12,7 +12,7 @@ import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.utils.setColorFilter
 import bav.astrobirthday.utils.sha1
 
-class PlanetDrawable(val context: Context) : Drawable() {
+class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
 
     private val bg =
         ContextCompat.getDrawable(context, R.drawable.ic_features_background)!!.mutate()
@@ -21,8 +21,9 @@ class PlanetDrawable(val context: Context) : Drawable() {
     private val shadow =
         ContextCompat.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
 
-    fun setPlanet(planet: Planet) {
-        val hash = planet.sha1().contentHashCode()
+    private val hash = planet.sha1().contentHashCode()
+
+    init {
         bg.setColorFilter(hash.backRColor, hash.backGColor, hash.backBColor)
         shadow.alpha = hash.shadowAlpha
         points.setColorFilter(hash.pointsR, hash.pointsG, hash.pointsB, hash.pointsA)

@@ -24,7 +24,7 @@ class HomeViewModel(
 
     private val solarPlanetsFlow: Flow<List<PlanetDescription>> =
         preferences.birthdayFlow.filterNotNull()
-            .combine(database.fGetByNames(Config.solarPlanetList)) { birthday, planets ->
+            .combine(database.getByNames(Config.solarPlanets)) { birthday, planets ->
                 planets.map {
                     PlanetDescription(
                         planet = it,
