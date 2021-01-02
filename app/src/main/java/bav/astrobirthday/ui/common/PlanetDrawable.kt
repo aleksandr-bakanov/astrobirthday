@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.utils.setColorFilter
+import bav.astrobirthday.utils.sha1
 
 class PlanetDrawable(val context: Context) : Drawable() {
 
@@ -21,7 +22,7 @@ class PlanetDrawable(val context: Context) : Drawable() {
         ContextCompat.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
 
     fun setPlanet(planet: Planet) {
-        val hash = planet.hashCode()
+        val hash = planet.sha1().contentHashCode()
         bg.setColorFilter(hash.backRColor, hash.backGColor, hash.backBColor)
         shadow.alpha = hash.shadowAlpha
         points.setColorFilter(hash.pointsR, hash.pointsG, hash.pointsB, hash.pointsA)
