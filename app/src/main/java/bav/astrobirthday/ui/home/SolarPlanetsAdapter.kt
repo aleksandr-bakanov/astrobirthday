@@ -34,7 +34,6 @@ class SolarPlanetsAdapter(
             val context = itemView.context
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
             nearestBirthday.text = context.localDateToString(planet.nearestBirthday)
-            //image.setImageResource(planet.planetType.imageResId)
             image.setPlanet(planet)
             itemView.setOnClickListener { clickListener(planet) }
         }

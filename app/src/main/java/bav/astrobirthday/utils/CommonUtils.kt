@@ -1,10 +1,14 @@
 package bav.astrobirthday.utils
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
 import androidx.core.os.ConfigurationCompat
 import bav.astrobirthday.R
 import bav.astrobirthday.common.DiscoveryMethod
@@ -54,4 +58,16 @@ fun Context.openUrl(url: String) {
         )
         .build()
         .launchUrl(this, Uri.parse(url))
+}
+
+fun Drawable.setColorFilter(
+    rColor: Int,
+    gColor: Int,
+    bColor: Int,
+    alpha: Int = 255,
+    mode: BlendModeCompat = BlendModeCompat.SRC_IN
+) {
+    colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+        Color.argb(alpha, rColor, bColor, gColor), mode
+    )
 }

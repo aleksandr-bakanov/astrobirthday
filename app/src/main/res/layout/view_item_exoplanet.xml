@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <bav.astrobirthday.ui.common.PlanetView
             android:id="@+id/image"
             android:layout_width="@dimen/planet_icon_size"
             android:layout_height="@dimen/planet_icon_size"
@@ -19,7 +19,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_earth" />
+            tools:srcCompat="@drawable/ic_earth" />
 
         <TextView
             android:id="@+id/name"
