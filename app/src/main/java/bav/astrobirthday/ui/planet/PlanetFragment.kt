@@ -79,10 +79,7 @@ class PlanetFragment : Fragment() {
 
                 datePlanetReference.text = p.planet.pl_pubdate.orNa()
 
-                favoriteButton.setImageResource(
-                    if (p.planet.is_favorite) R.drawable.ic_baseline_favorite_24
-                    else R.drawable.ic_baseline_favorite_border_24
-                )
+                favoriteButton.setFavorite(p.planet.is_favorite)
 
                 getReferenceLink(p.planet.pl_refname)?.let { url ->
                     planetReferenceButton.isVisible = true
