@@ -20,6 +20,8 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         ContextCompat.getDrawable(context, R.drawable.ic_features_points)!!.mutate()
     private val shadow =
         ContextCompat.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
+    private val ring =
+        ContextCompat.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
 
     private val hash = planet.copy(is_favorite = false).sha1().contentHashCode()
 
@@ -27,13 +29,14 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         bg.setColorFilter(hash.backRColor, hash.backGColor, hash.backBColor)
         shadow.alpha = hash.shadowAlpha
         points.setColorFilter(hash.pointsR, hash.pointsG, hash.pointsB, hash.pointsA)
-        points.setVisible(hash.pointsV, false)
+        ring.setColorFilter(hash.ringR, hash.ringG, hash.ringB, hash.ringA)
     }
 
     override fun draw(canvas: Canvas) {
         bg.draw(canvas)
-        points.draw(canvas)
+        if (hash.pointsV) points.draw(canvas)
         shadow.draw(canvas)
+        if (hash.ringV) ring.draw(canvas)
     }
 
     override fun setAlpha(alpha: Int) {
@@ -49,11 +52,13 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
 
     override fun setBounds(left: Int, top: Int, right: Int, bottom: Int) {
         super.setBounds(left, top, right, bottom)
-        val padding = 0
+        val padding = if (hash.ringV) 30 else 0
         val bgBounds = Rect(left + padding, top + padding, right - padding, bottom - padding)
+        val ringBounds = Rect(left, top, right, bottom)
         bg.bounds = bgBounds
         points.bounds = bgBounds
         shadow.bounds = bgBounds
+        ring.bounds = ringBounds
     }
 
     private companion object {
@@ -70,5 +75,11 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         val Int.pointsR: Int get() = this.mask(shift = 15)
         val Int.pointsG: Int get() = this.mask(shift = 10)
         val Int.pointsB: Int get() = this.mask(shift = 5)
+
+        val Int.ringV: Boolean get() = this.mask(0b1, shift = 29) == 1
+        val Int.ringA: Int get() = this.mask(shift = 7).coerceIn(75, 180)
+        val Int.ringR: Int get() = this.mask(shift = 17)
+        val Int.ringG: Int get() = this.mask(shift = 12)
+        val Int.ringB: Int get() = this.mask(shift = 7)
     }
 }
