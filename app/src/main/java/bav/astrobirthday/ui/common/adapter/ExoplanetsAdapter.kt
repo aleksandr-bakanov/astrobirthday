@@ -35,7 +35,7 @@ class ExoplanetsAdapter(
             name.text = desc.planet.pl_name
             age.text = context.getAgeStringShort(desc.ageOnPlanet).orNa()
             nearestBirthday.text = context.localDateToString(desc.nearestBirthday).orNa()
-            image.setImageResource(desc.planetType.imageResId)
+            image.setPlanet(desc)
             itemView.setOnClickListener { clickListener(desc) }
         }
     }

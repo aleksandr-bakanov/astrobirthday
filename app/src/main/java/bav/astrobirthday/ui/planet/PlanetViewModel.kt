@@ -1,38 +1,42 @@
 package bav.astrobirthday.ui.planet
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import bav.astrobirthday.utils.getPlanetType
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 class PlanetViewModel(
     private val preferences: UserPreferences,
     private val database: PlanetDao,
+    private val planetName: String
 ) : ViewModel() {
 
-    private val _planetName = MutableLiveData<String>()
-
-    private val _planet = _planetName.switchMap { name ->
-        database.getByName(name)
-    }.map { planet ->
-        val userBirthday = preferences.userBirthday ?: LocalDate.now()
-        PlanetDescription(
-            planet = planet,
-            ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
-            nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
-            planetType = getPlanetType(planet.pl_name)
-        )
-    }
-
+    private val _planet = MutableLiveData<PlanetDescription>()
     val planet: LiveData<PlanetDescription> = _planet
 
-    fun start(name: String) {
-        _planetName.value = name
+    init {
+        database.getByName(planetName)
+            .map { planet ->
+                val userBirthday = preferences.userBirthday!!
+                PlanetDescription(
+                    planet = planet,
+                    ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
+                    nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
+                    planetType = getPlanetType(planet.pl_name)
+                )
+            }
+            .onEach(_planet::setValue)
+            .launchIn(viewModelScope)
     }
 
     fun toggleFavorite() = viewModelScope.launch {

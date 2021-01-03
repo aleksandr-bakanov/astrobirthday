@@ -1,6 +1,5 @@
 package bav.astrobirthday.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
@@ -10,19 +9,16 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PlanetDao {
     @Query("SELECT * FROM planets")
-    fun getAll(): LiveData<List<Planet>>
+    fun getAll(): Flow<List<Planet>>
 
     @Query("SELECT * FROM planets WHERE id = :id")
-    fun getById(id: Int): LiveData<Planet>
+    fun getById(id: Int): Flow<Planet>
 
     @Query("SELECT * FROM planets WHERE pl_name = :name")
-    fun getByName(name: String): LiveData<Planet>
+    fun getByName(name: String): Flow<Planet>
 
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
-    fun getByNames(names: List<String>): LiveData<List<Planet>>
-
-    @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
-    fun fGetByNames(names: List<String>): Flow<List<Planet>>
+    fun getByNames(names: Collection<String>): Flow<List<Planet>>
 
     // The Int type parameter tells Room to use a PositionalDataSource
     // object, with position-based loading under the hood.

@@ -12,10 +12,11 @@ import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.utils.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PlanetFragment : Fragment() {
 
-    private val viewModel: PlanetViewModel by viewModel()
+    private val viewModel: PlanetViewModel by viewModel { parametersOf(args.name) }
     private val args: PlanetFragmentArgs by navArgs()
 
     private var _binding: FragmentPlanetBinding? = null
@@ -32,7 +33,6 @@ class PlanetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.start(args.name)
         setupObservers()
         setupClickListeners()
     }
