@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.favorites.FavoritesFragmentDirections.Companion.actionNavFavoritesToPlanetFragment
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.android.synthetic.main.fragment_exoplanets.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar(top_app_bar)
 
         val adapter = ExoplanetsAdapter { planetDescription ->
             planetDescription.planet.pl_name?.let {

@@ -5,16 +5,20 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
+import bav.astrobirthday.ui.common.NavigationController
 import bav.astrobirthday.ui.common.peek
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationController {
 
     private val viewModel: MainActivityViewModel by viewModel()
 
@@ -40,6 +44,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun setupToolbar(toolbar: Toolbar) {
+        val navController = findNavController()
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_exoplanets, R.id.nav_favorites))
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
     private fun animateBarsAppearance() {
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
         bottomNavView.isVisible = true
@@ -57,9 +68,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun findNavController(): NavController {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        return navHostFragment.navController
+    }
+
     private fun setupNavigation() {
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController()
         bottomNavView.setupWithNavController(navController)
     }
 }

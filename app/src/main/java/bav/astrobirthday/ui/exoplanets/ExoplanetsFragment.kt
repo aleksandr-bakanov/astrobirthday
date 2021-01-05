@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.android.synthetic.main.fragment_exoplanets.*
 import kotlinx.coroutines.flow.collect
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,6 +20,7 @@ class ExoplanetsFragment : Fragment(R.layout.fragment_exoplanets) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar(top_app_bar)
 
         val adapter = ExoplanetsAdapter { planetDescription ->
             planetDescription.planet.pl_name?.let {

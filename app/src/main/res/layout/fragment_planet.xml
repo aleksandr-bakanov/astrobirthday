@@ -1,72 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    app:layoutDescription="@xml/planet_toolbar_motion_description">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height">
+    <View
+        android:id="@+id/backdrop"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp" />
 
-        <bav.astrobirthday.ui.common.CollapsibleToolbar
-            android:id="@+id/planet_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:minHeight="56dp"
-            app:layoutDescription="@xml/planet_toolbar_motion_description"
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+    <TextView
+        android:id="@+id/age"
+        style="?attr/textAppearanceSubtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:textColor="?attr/colorOnPrimary"
+        tools:text="Age: 15 years" />
 
-            <TextView
-                android:id="@+id/age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="Age: 15 years" />
+    <TextView
+        android:id="@+id/nearest_birthday"
+        style="?attr/textAppearanceSubtitle1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:textColor="?attr/colorOnPrimary"
+        tools:text="Next birthday: 24-03-2021" />
 
-            <TextView
-                android:id="@+id/nearest_birthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                tools:text="Next birthday: 24-03-2021" />
+    <TextView
+        style="?attr/textAppearanceHeadline6"
+        android:id="@+id/planet_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:elevation="4dp"
+        android:textColor="?attr/colorOnPrimary"
+        tools:text="Planet name" />
 
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_baseline_arrow_back_24" />
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:elevation="4dp"
+        android:src="@drawable/ic_baseline_arrow_back_24" />
 
-            <bav.astrobirthday.ui.common.FavoriteButton
-                android:id="@+id/favorite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/planet_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="20sp"
-                tools:text="Planet name" />
-        </bav.astrobirthday.ui.common.CollapsibleToolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <bav.astrobirthday.ui.common.FavoriteButton
+        android:id="@+id/favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/fragment_planet">
 
         <LinearLayout
@@ -590,4 +582,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

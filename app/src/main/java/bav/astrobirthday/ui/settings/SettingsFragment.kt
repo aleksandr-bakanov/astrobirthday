@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import bav.astrobirthday.R
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar(top_app_bar)
 
         lifecycleScope.launch {
             preferences.birthdayFlow.collect {

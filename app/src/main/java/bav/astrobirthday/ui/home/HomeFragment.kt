@@ -14,6 +14,7 @@ import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.peek
 import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToPlanetFragment
 import bav.astrobirthday.ui.settings.DatePickerFragment
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,6 +27,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar(top_app_bar)
 
         mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
             recycler_view.isVisible = state.barsVisible
