@@ -2,7 +2,7 @@ package bav.astrobirthday.ui.common
 
 import androidx.appcompat.widget.Toolbar
 
-interface NavigationController {
+interface NavUiConfigurator {
 
     fun setupToolbar(toolbar: Toolbar)
 }

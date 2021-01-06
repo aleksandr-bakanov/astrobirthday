@@ -12,13 +12,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
-import bav.astrobirthday.ui.common.NavigationController
+import bav.astrobirthday.ui.common.NavUiConfigurator
 import bav.astrobirthday.ui.common.peek
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), NavigationController {
+class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private val viewModel: MainActivityViewModel by viewModel()
 
