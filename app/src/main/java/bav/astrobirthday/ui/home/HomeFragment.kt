@@ -15,6 +15,7 @@ import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.peek
 import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToPlanetFragment
 import bav.astrobirthday.ui.settings.DatePickerFragment
+import bav.astrobirthday.utils.setupToolbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,6 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
+            setupToolbar(topAppBar)
             mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
                 recyclerView.isVisible = state.barsVisible
                 topAppBar.isVisible = state.barsVisible

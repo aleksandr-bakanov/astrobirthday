@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="bav.astrobirthday.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_planetFragment"
             app:destination="@id/planetFragment" />
@@ -16,6 +17,7 @@
     <fragment
         android:id="@+id/nav_settings"
         android:name="bav.astrobirthday.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/planetFragment"
@@ -28,7 +30,8 @@
     <fragment
         android:id="@+id/nav_exoplanets"
         android:name="bav.astrobirthday.ui.exoplanets.ExoplanetsFragment"
-        tools:layout="@layout/fragment_exoplanets" >
+        android:label="@string/title_exoplanets"
+        tools:layout="@layout/fragment_exoplanets">
         <action
             android:id="@+id/action_nav_exoplanets_to_planetFragment"
             app:destination="@id/planetFragment" />
@@ -36,7 +39,7 @@
     <fragment
         android:id="@+id/nav_favorites"
         android:name="bav.astrobirthday.ui.favorites.FavoritesFragment"
-        android:label="FavoritesFragment"
+        android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_nav_favorites_to_planetFragment"

@@ -4,106 +4,111 @@
 
     <Transition
         motion:constraintSetEnd="@+id/end"
-        motion:constraintSetStart="@+id/start" />
+        motion:constraintSetStart="@+id/start">
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:maxAcceleration="40"
+            motion:maxVelocity="20"
+            motion:touchAnchorId="@+id/scrollable"
+            motion:touchAnchorSide="top" />
+    </Transition>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@id/nearest_birthday"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
             android:alpha="1.0"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/age" />
 
         <Constraint
             android:id="@id/age"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:alpha="1.0"
-            motion:layout_constraintBottom_toTopOf="@id/nearest_birthday"
-            motion:layout_constraintStart_toStartOf="parent" />
-
-        <Constraint
-            android:id="@id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
-
-        <Constraint
-            android:id="@id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintTop_toBottomOf="@+id/planet_name" />
 
         <Constraint
             android:id="@id/planet_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            motion:layout_constraintBottom_toTopOf="@id/age"
-            motion:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginStart="20dp"
+            android:scaleX="1.0"
+            android:scaleY="1.0"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/back_button" />
+
+        <Constraint
+            android:id="@id/scrollable"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/nearest_birthday" />
+
+        <Constraint
+            android:id="@id/backdrop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toTopOf="@id/scrollable"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@id/nearest_birthday"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
             android:alpha="0.0"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/age" />
 
         <Constraint
             android:id="@id/age"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
             android:alpha="0.0"
-            motion:layout_constraintBottom_toTopOf="@id/nearest_birthday"
-            motion:layout_constraintStart_toStartOf="parent" />
-
-        <Constraint
-            android:id="@id/back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
-
-        <Constraint
-            android:id="@id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@id/planet_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintStart_toEndOf="@id/back_button" />
+            android:layout_marginTop="0dp"
+            android:scaleX="0.615"
+            android:scaleY="0.615"
+            motion:layout_constraintBottom_toBottomOf="@id/back_button"
+            motion:layout_constraintStart_toEndOf="@id/back_button"
+            motion:layout_constraintTop_toTopOf="@id/back_button" />
 
+        <Constraint
+            android:id="@id/scrollable"
+            android:layout_marginTop="6dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/planet_name" />
+
+        <Constraint
+            android:id="@id/backdrop"
+            motion:layout_constraintBottom_toTopOf="@id/scrollable"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 </MotionScene>

@@ -14,4 +14,9 @@
         <item name="android:shadowDy">8</item>
         <item name="android:shadowRadius">8</item>
     </style>
+
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary
+        </item>
+    </style>
 </resources>

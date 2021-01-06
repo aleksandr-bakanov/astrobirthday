@@ -5,15 +5,19 @@ import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
 import bav.astrobirthday.databinding.ActivityMainBinding
+import bav.astrobirthday.ui.common.NavUiConfigurator
 import bav.astrobirthday.ui.common.peek
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -42,6 +46,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun setupToolbar(toolbar: Toolbar) {
+        val navController = findNavController()
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_exoplanets, R.id.nav_favorites))
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
     private fun animateBarsAppearance() = with(binding) {
         bottomNavView.isVisible = true
         val bottomNavViewAnim = ObjectAnimator.ofFloat(
@@ -58,8 +69,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun findNavController(): NavController {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        return navHostFragment.navController
+    }
+
     private fun setupNavigation() {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController()
         binding.bottomNavView.setupWithNavController(navController)
     }
 }

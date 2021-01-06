@@ -9,6 +9,7 @@ import bav.astrobirthday.databinding.FragmentExoplanetsBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +22,7 @@ class ExoplanetsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
+            setupToolbar(topAppBar)
             val adapter = ExoplanetsAdapter { planetDescription ->
                 planetDescription.planet.pl_name?.let {
                     findNavController().navigate(actionNavExoplanetsToPlanetFragment(it))

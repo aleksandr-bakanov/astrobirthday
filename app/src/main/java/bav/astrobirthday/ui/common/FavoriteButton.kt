@@ -3,10 +3,8 @@ package bav.astrobirthday.ui.common
 import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.util.AttributeSet
-import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatImageButton
 import bav.astrobirthday.R
-
 
 class FavoriteButton @JvmOverloads constructor(
     context: Context,
@@ -17,13 +15,7 @@ class FavoriteButton @JvmOverloads constructor(
     private var initialSetup = true
 
     init {
-        val bgValue = TypedValue()
-        context.theme.resolveAttribute(
-            android.R.attr.selectableItemBackgroundBorderless,
-            bgValue,
-            true
-        )
-        setBackgroundResource(bgValue.resourceId)
+        scaleType = ScaleType.CENTER_INSIDE
     }
 
     fun setFavorite(isChecked: Boolean) {

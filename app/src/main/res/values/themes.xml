@@ -2,6 +2,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -10,6 +11,7 @@
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <item name="android:statusBarColor">@color/primaryDarkColor</item>
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>
 
     <style name="BottomNavigationTheme" parent="AppTheme"></style>

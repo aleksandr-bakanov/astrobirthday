@@ -8,6 +8,7 @@ import bav.astrobirthday.databinding.FragmentFavoritesBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.favorites.FavoritesFragmentDirections.Companion.actionNavFavoritesToPlanetFragment
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +22,7 @@ class FavoritesFragment :
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
+            setupToolbar(topAppBar)
             val adapter = ExoplanetsAdapter { planetDescription ->
                 planetDescription.planet.pl_name?.let {
                     findNavController().navigate(actionNavFavoritesToPlanetFragment(it))

@@ -7,6 +7,7 @@ import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.databinding.FragmentSettingsBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.utils.setupToolbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -20,6 +21,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
+            setupToolbar(topAppBar)
             lifecycleScope.launch {
                 preferences.birthdayFlow.collect {
                     it?.let { date ->
