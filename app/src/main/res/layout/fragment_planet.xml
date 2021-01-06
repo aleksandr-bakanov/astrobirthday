@@ -32,39 +32,44 @@
         tools:text="Next birthday: 24-03-2021" />
 
     <TextView
-        style="?attr/textAppearanceHeadline6"
         android:id="@+id/planet_name"
+        style="?attr/textAppearanceHeadline6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
         android:elevation="4dp"
         android:textColor="?attr/colorOnPrimary"
+        android:textSize="32sp"
         tools:text="Planet name" />
 
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_icon_button"
+        android:contentDescription="@string/nav_app_bar_navigate_up_description"
         android:elevation="4dp"
-        android:src="@drawable/ic_baseline_arrow_back_24" />
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <bav.astrobirthday.ui.common.FavoriteButton
         android:id="@+id/favorite_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="4dp" />
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollable"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         tools:showIn="@layout/fragment_planet">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -106,7 +111,8 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_baseline_link_24"
                     android:tint="?attr/colorSecondary"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
             </LinearLayout>
 
             <LinearLayout

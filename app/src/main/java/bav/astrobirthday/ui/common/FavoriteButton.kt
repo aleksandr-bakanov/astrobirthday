@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.common
 
+import android.animation.AnimatorInflater
 import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.util.AttributeSet
@@ -17,13 +18,8 @@ class FavoriteButton @JvmOverloads constructor(
     private var initialSetup = true
 
     init {
-        val bgValue = TypedValue()
-        context.theme.resolveAttribute(
-            android.R.attr.selectableItemBackgroundBorderless,
-            bgValue,
-            true
-        )
-        setBackgroundResource(bgValue.resourceId)
+        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.animator.anim_zoom_out)
+        scaleType = ScaleType.CENTER_INSIDE
     }
 
     fun setFavorite(isChecked: Boolean) {
