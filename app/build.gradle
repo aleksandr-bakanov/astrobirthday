@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'koin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -60,10 +60,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // Koin for Kotlin
-    implementation "org.koin:koin-core:2.2.0-rc-4"
-    implementation "org.koin:koin-core-ext:2.2.0-rc-4"
-    implementation "org.koin:koin-android:2.2.0-rc-4"
-    implementation "org.koin:koin-android-viewmodel:2.2.0-rc-4"
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-core-ext:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
     // CalendarView
     implementation 'com.github.kizitonwose:CalendarView:0.4.0'
