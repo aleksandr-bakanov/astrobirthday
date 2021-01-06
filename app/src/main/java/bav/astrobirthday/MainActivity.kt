@@ -9,23 +9,25 @@ import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
+import bav.astrobirthday.databinding.ActivityMainBinding
 import bav.astrobirthday.ui.common.peek
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupNavigation()
 
         viewModel.state.observe(this) { state ->
-            bottom_nav_view.isVisible = state.barsVisible
+            binding.bottomNavView.isVisible = state.barsVisible
         }
 
         viewModel.events.observe(this) { events ->
@@ -40,8 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun animateBarsAppearance() {
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
+    private fun animateBarsAppearance() = with(binding) {
         bottomNavView.isVisible = true
         val bottomNavViewAnim = ObjectAnimator.ofFloat(
             bottomNavView,
@@ -58,8 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        bottomNavView.setupWithNavController(navController)
+        binding.bottomNavView.setupWithNavController(navController)
     }
 }
