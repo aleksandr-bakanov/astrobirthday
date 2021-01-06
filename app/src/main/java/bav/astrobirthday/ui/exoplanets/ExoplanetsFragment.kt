@@ -12,9 +12,8 @@ import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.ac
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ExoplanetsFragment : BaseFragment<FragmentExoplanetsBinding>(
-    FragmentExoplanetsBinding::inflate
-) {
+class ExoplanetsFragment :
+    BaseFragment<FragmentExoplanetsBinding>(FragmentExoplanetsBinding::inflate) {
 
     private val viewModel: ExoplanetsViewModel by viewModel()
 

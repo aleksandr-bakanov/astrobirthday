@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
                 recyclerView.isVisible = state.barsVisible
                 topAppBar.isVisible = state.barsVisible
-                openSettingsButton.isVisible = !state.barsVisible
+                settingsButton.isVisible = !state.barsVisible
             }
 
             mainActivityViewModel.events.observe(viewLifecycleOwner) { events ->
@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
 
-            openSettingsButton.setOnClickListener {
+            settingsButton.setOnClickListener {
                 val datePickerFragment = DatePickerFragment()
                 datePickerFragment.show(parentFragmentManager, "datePicker")
             }
