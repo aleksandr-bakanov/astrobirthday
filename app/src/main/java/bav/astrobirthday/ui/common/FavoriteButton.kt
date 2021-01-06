@@ -1,13 +1,10 @@
 package bav.astrobirthday.ui.common
 
-import android.animation.AnimatorInflater
 import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.util.AttributeSet
-import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatImageButton
 import bav.astrobirthday.R
-
 
 class FavoriteButton @JvmOverloads constructor(
     context: Context,
@@ -18,7 +15,6 @@ class FavoriteButton @JvmOverloads constructor(
     private var initialSetup = true
 
     init {
-        stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.animator.anim_zoom_out)
         scaleType = ScaleType.CENTER_INSIDE
     }
 

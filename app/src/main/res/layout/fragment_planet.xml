@@ -112,7 +112,7 @@
                     android:src="@drawable/ic_baseline_link_24"
                     android:tint="?attr/colorSecondary"
                     android:visibility="gone"
-                    tools:visibility="visible"/>
+                    tools:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
