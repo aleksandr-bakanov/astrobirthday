@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.TypedValue
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -13,11 +14,12 @@ import androidx.core.os.ConfigurationCompat
 import bav.astrobirthday.R
 import bav.astrobirthday.common.DiscoveryMethod
 import bav.astrobirthday.common.DiscoveryMethod.*
+import bav.astrobirthday.data.entities.Config
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 fun Int.toDp(context: Context): Float {
-    return (this / context.resources.displayMetrics.density)
+    return (this * context.resources.displayMetrics.density)
 }
 
 fun String?.orNa(): String = if (this.isNullOrBlank()) "n/a" else this
@@ -30,6 +32,13 @@ fun Context.localDateToString(date: LocalDate): String {
         ConfigurationCompat.getLocales(resources.configuration).get(0)
     )
     return dateFormat.format(date)
+}
+
+fun String.toPlanetIndex(): Int {
+    return if (Config.solarPlanets.contains(this))
+        Config.solarPlanets.indexOf(this) + 1
+    else
+        this.substringAfterLast(" ")[0] - "a"[0]
 }
 
 fun Context.discoveryMethodToStr(method: DiscoveryMethod?): String {
@@ -58,6 +67,12 @@ fun Context.openUrl(url: String) {
         )
         .build()
         .launchUrl(this, Uri.parse(url))
+}
+
+fun Context.getIntAttribute(id: Int): Int {
+    val value = TypedValue()
+    this.theme.resolveAttribute(id, value, true)
+    return value.data
 }
 
 fun Drawable.setColorFilter(
