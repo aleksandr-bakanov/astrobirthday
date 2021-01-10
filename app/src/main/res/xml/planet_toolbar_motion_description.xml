@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
             android:alpha="1.0"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/age" />
+            motion:layout_constraintBottom_toBottomOf="@+id/backdrop" />
 
         <Constraint
             android:id="@id/age"
@@ -33,7 +34,7 @@
             android:layout_marginTop="8dp"
             android:alpha="1.0"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/planet_name" />
+            motion:layout_constraintBottom_toTopOf="@+id/nearest_birthday" />
 
         <Constraint
             android:id="@id/planet_name"
@@ -43,7 +44,7 @@
             android:scaleX="1.0"
             android:scaleY="1.0"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/back_button" />
+            motion:layout_constraintBottom_toTopOf="@+id/age" />
 
         <Constraint
             android:id="@id/scrollable"
@@ -53,12 +54,12 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/nearest_birthday" />
+            motion:layout_constraintTop_toBottomOf="@+id/backdrop" />
 
         <Constraint
             android:id="@id/backdrop"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/planet_animation_height"
             motion:layout_constraintBottom_toTopOf="@id/scrollable"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -72,9 +73,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
             android:alpha="0.0"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="@+id/age" />
+            motion:layout_constraintBottom_toBottomOf="@+id/backdrop" />
 
         <Constraint
             android:id="@id/age"
@@ -83,7 +85,7 @@
             android:layout_marginStart="20dp"
             android:alpha="0.0"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintBottom_toTopOf="@id/nearest_birthday" />
 
         <Constraint
             android:id="@id/planet_name"
@@ -102,10 +104,11 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintTop_toBottomOf="@+id/planet_name" />
+            motion:layout_constraintTop_toBottomOf="@+id/backdrop" />
 
         <Constraint
             android:id="@id/backdrop"
+            android:layout_height="?attr/actionBarSize"
             motion:layout_constraintBottom_toTopOf="@id/scrollable"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"

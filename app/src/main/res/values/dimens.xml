@@ -9,8 +9,8 @@
 
     <dimen name="planet_icon_margin">8dp</dimen>
     <dimen name="planet_icon_size">56dp</dimen>
-    <dimen name="app_bar_title_text_size">20sp</dimen>
-    <dimen name="app_bar_height">150sp</dimen>
+
+    <dimen name="planet_animation_height">300dp</dimen>
 
     <dimen name="planet_description_margin">4dp</dimen>
 </resources>

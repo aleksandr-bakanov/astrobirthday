@@ -73,6 +73,8 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                 systemReferenceButton.isVisible = true
                 systemReferenceButton.setOnClickListener { context.openUrl(url) }
             }
+
+            planetAnimation.setData(p.planet.pl_orbeccen?.toFloat() ?: 0f)
         }
     }
 
