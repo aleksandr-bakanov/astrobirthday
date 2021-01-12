@@ -14,46 +14,43 @@
 
     <TextView
         android:id="@+id/birthday_title"
+        style="?attr/textAppearanceBody2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
         android:text="@string/your_birthday"
-        android:textAlignment="center"
-        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/set_birthday"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_app_bar" />
+        app:layout_constraintTop_toTopOf="@+id/set_birthday" />
 
     <TextView
         android:id="@+id/birthday_date"
+        style="?attr/textAppearanceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
         android:textAlignment="center"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/set_birthday"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_app_bar"
+        app:layout_constraintTop_toTopOf="@+id/set_birthday"
         tools:text="01 Jan 1900" />
 
     <View
         android:id="@+id/set_birthday"
         android:layout_width="0dp"
-        android:layout_height="46dp"
+        android:layout_height="56dp"
         android:background="?attr/selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/birthday_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/birthday_date" />
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
 
     <TextView
+        style="?attr/textAppearanceCaption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:text="@string/credits"
         android:textAlignment="center"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
