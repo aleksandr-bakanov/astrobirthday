@@ -24,7 +24,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                 birthdayDate.text = requireContext().localDateToString(it)
             }
             setBirthday.setOnClickListener {
-                viewModel.pick()
+                viewModel.pickBirthday()
             }
             viewModel.events.observe(viewLifecycleOwner) { events ->
                 events.peek { event ->

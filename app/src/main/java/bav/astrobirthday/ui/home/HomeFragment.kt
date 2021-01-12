@@ -63,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
 
             setBirthday.setOnClickListener {
-                settingsViewModel.pick()
+                settingsViewModel.pickBirthday()
             }
 
             val adapter = SolarPlanetsAdapter { item ->

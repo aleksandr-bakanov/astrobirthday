@@ -32,7 +32,7 @@ class SettingsViewModel(private val preferences: UserPreferences) : ViewModel() 
             .launchIn(viewModelScope)
     }
 
-    fun pick() = viewModelScope.launch {
+    fun pickBirthday() = viewModelScope.launch {
         val date = preferences.birthdayFlow.firstOrNull() ?: LocalDate.now()
         val millis = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
         _events.value = PickerEvent.OpenPicker(millis)
