@@ -3,9 +3,10 @@ package bav.astrobirthday.ui.common
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.graphics.RectF
+import android.os.Bundle
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -62,7 +63,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private var angle = 0f
 
-    private var animator = ValueAnimator.ofFloat(0f, 2 * PI.toFloat()).apply {
+    private var animator = ValueAnimator.ofFloat(0f, MAX_ANGLE).apply {
         addUpdateListener {
             angle = it.animatedValue as Float
             invalidate()
@@ -131,6 +132,22 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         }
     }
 
+    override fun onSaveInstanceState(): Parcelable {
+        return Bundle().apply {
+            putParcelable("superState", super.onSaveInstanceState())
+            putFloat("angle", angle)
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is Bundle) {
+            animator.setCurrentFraction(state.getFloat("angle") / MAX_ANGLE)
+            super.onRestoreInstanceState(state.getParcelable("superState"))
+        } else {
+            super.onRestoreInstanceState(state)
+        }
+    }
+
     private fun prepareParams() {
         a = (initialW / 2) - margin
         c = a * ecc
@@ -161,5 +178,9 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
         systemRadius = starX - upperOrbitRect.left
 
+    }
+
+    private companion object {
+        const val MAX_ANGLE = 2 * PI.toFloat()
     }
 }
