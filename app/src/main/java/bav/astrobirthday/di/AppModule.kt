@@ -10,6 +10,7 @@ import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.favorites.FavoritesViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
+import bav.astrobirthday.ui.settings.SettingsViewModel
 import com.squareup.moshi.Moshi
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -42,4 +43,5 @@ val appModule = module {
     viewModel { (planetName: String) -> PlanetViewModel(get(), get(), planetName) }
     viewModel { ExoplanetsViewModel(get(), get()) }
     viewModel { FavoritesViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
 }

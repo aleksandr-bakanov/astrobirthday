@@ -14,7 +14,7 @@
         app:menu="@menu/top_app_bar_menu" />
 
     <Button
-        android:id="@+id/settings_button"
+        android:id="@+id/set_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/set_your_birthday"

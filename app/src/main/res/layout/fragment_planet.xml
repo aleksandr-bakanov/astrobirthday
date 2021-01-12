@@ -10,7 +10,7 @@
         android:id="@+id/backdrop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorPrimarySurface"
         android:elevation="4dp" />
 
     <bav.astrobirthday.ui.common.PlanetAnimation

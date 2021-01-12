@@ -13,8 +13,10 @@ import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentHomeBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.peek
+import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToNavSettings
 import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToPlanetFragment
-import bav.astrobirthday.ui.settings.DatePickerFragment
+import bav.astrobirthday.ui.settings.SettingsViewModel
+import bav.astrobirthday.utils.openDatePicker
 import bav.astrobirthday.utils.setupToolbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val homeViewModel: HomeViewModel by viewModel()
+    private val settingsViewModel: SettingsViewModel by viewModel()
     private val mainActivityViewModel: MainActivityViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             mainActivityViewModel.state.observe(viewLifecycleOwner) { state ->
                 recyclerView.isVisible = state.barsVisible
                 topAppBar.isVisible = state.barsVisible
-                settingsButton.isVisible = !state.barsVisible
+                setBirthday.isVisible = !state.barsVisible
             }
 
             mainActivityViewModel.events.observe(viewLifecycleOwner) { events ->
@@ -47,9 +50,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
 
-            settingsButton.setOnClickListener {
-                val datePickerFragment = DatePickerFragment()
-                datePickerFragment.show(parentFragmentManager, "datePicker")
+            settingsViewModel.events.observe(viewLifecycleOwner) { events ->
+                events.peek { event ->
+                    when (event) {
+                        is SettingsViewModel.PickerEvent.OpenPicker -> openDatePicker(
+                            millis = event.millis,
+                            onDateSelected = settingsViewModel::onDateSelected
+                        )
+                    }
+                    true
+                }
+            }
+
+            setBirthday.setOnClickListener {
+                settingsViewModel.pick()
             }
 
             val adapter = SolarPlanetsAdapter { item ->
@@ -66,7 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.nav_settings -> {
-                        findNavController().navigate(R.id.nav_settings)
+                        findNavController().navigate(actionNavHomeToNavSettings())
                         true
                     }
                     else -> false

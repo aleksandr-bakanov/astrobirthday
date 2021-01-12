@@ -2,37 +2,40 @@ package bav.astrobirthday.ui.settings
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.lifecycleScope
-import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.databinding.FragmentSettingsBinding
 import bav.astrobirthday.ui.common.BaseFragment
+import bav.astrobirthday.ui.common.peek
+import bav.astrobirthday.ui.settings.SettingsViewModel.PickerEvent
 import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.utils.openDatePicker
 import bav.astrobirthday.utils.setupToolbar
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Отображать всплывашку над bottom navigation или Toast "Birthday set to: <date>"
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
 
-    private val preferences: UserPreferences by inject()
+    private val viewModel: SettingsViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
             setupToolbar(topAppBar)
-            lifecycleScope.launch {
-                preferences.birthdayFlow.collect {
-                    it?.let { date ->
-                        birthdayDate.text = requireContext().localDateToString(date)
-                    }
-                }
+            viewModel.birthday.observe(viewLifecycleOwner) {
+                birthdayDate.text = requireContext().localDateToString(it)
             }
-
-            birthdayDate.setOnClickListener {
-                val datePickerFragment = DatePickerFragment()
-                datePickerFragment.show(parentFragmentManager, "datePicker")
+            setBirthday.setOnClickListener {
+                viewModel.pick()
+            }
+            viewModel.events.observe(viewLifecycleOwner) { events ->
+                events.peek { event ->
+                    when (event) {
+                        is PickerEvent.OpenPicker -> openDatePicker(
+                            millis = event.millis,
+                            onDateSelected = viewModel::onDateSelected
+                        )
+                    }
+                    true
+                }
             }
         }
     }
