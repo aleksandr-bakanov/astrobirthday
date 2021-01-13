@@ -10,4 +10,6 @@
     <color name="secondaryTextColor">#000000</color>
 
     <color name="favoriteColor">#F30F0F</color>
+
+    <color name="planetShadowColor">#626AFF</color>
 </resources>

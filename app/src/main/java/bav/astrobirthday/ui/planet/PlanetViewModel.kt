@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import bav.astrobirthday.utils.getPlanetType
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -25,16 +27,23 @@ class PlanetViewModel(
     val planet: LiveData<PlanetDescription> = _planet
 
     init {
-        database.getByName(planetName)
-            .map { planet ->
-                val userBirthday = preferences.userBirthday!!
-                PlanetDescription(
-                    planet = planet,
-                    ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
-                    nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
-                    planetType = getPlanetType(planet.pl_name)
-                )
-            }
+        val neighboursFlow = if (planetName in Config.solarPlanets)
+            database.getByNames(Config.solarPlanets)
+        else
+            database.getByNamesLike("${planetName.substringBeforeLast(" ")}%")
+        combine(
+            database.getByName(planetName),
+            neighboursFlow,
+            preferences.birthdayFlow.filterNotNull()
+        ) { planet, neighbours, userBirthday ->
+            PlanetDescription(
+                planet = planet,
+                ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
+                nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
+                planetType = getPlanetType(planet.pl_name),
+                neighbours = neighbours
+            )
+        }
             .onEach(_planet::setValue)
             .launchIn(viewModelScope)
     }

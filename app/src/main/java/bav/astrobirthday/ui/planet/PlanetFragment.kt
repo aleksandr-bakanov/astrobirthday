@@ -74,7 +74,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                 systemReferenceButton.setOnClickListener { context.openUrl(url) }
             }
 
-            planetAnimation.setData(p.planet)
+            planetAnimation.setData(p)
         }
     }
 

@@ -108,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:gravity="end"
                     tools:text="Takarada et al. 2018" />
 
@@ -141,7 +141,7 @@
                     android:id="@+id/planet_discovery_method"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="end"
                     tools:text="Imaging" />
             </LinearLayout>
@@ -340,7 +340,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:gravity="end"
                     tools:text="Takarada et al. 2018" />
 
@@ -487,7 +487,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:gravity="end"
                     tools:text="Takarada et al. 2018" />
 

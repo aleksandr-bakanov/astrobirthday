@@ -10,8 +10,9 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.content.ContextCompat
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.Planet
+import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.utils.getIntAttribute
 import bav.astrobirthday.utils.toDp
 import bav.astrobirthday.utils.toPlanetIndex
@@ -21,19 +22,22 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private val mainOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = context.getIntAttribute(R.attr.colorOnPrimary)
+        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x55000000
         strokeWidth = 2.toDp(context)
     }
 
     private val planetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL_AND_STROKE
+        style = Paint.Style.FILL
         color = context.getIntAttribute(R.attr.colorOnPrimary)
-        strokeWidth = 2.toDp(context)
+    }
+    private val planetShadowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = ContextCompat.getColor(context, R.color.planetShadowColor)
     }
 
     private val secondaryOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = context.getIntAttribute(R.attr.colorOnPrimary)
+        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x28000000
         strokeWidth = 1.toDp(context)
     }
 
@@ -43,20 +47,21 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var initialW: Float = 0f
     private var initialH: Float = 0f
 
-    private var ecc: Float = 0f
-    private val orbitRect: RectF = RectF(0f, 0f, 0f, 0f)
-    private val upperOrbitRect: RectF = RectF(0f, 0f, 0f, 0f)
+    private var mainPlanetEcc: Float = 0f
+    private val planetOrbitRect: RectF = RectF(0f, 0f, 0f, 0f)
+    private var neighboursEccs: List<Float> = emptyList()
+    private var neighboursOrbitRects: List<RectF> = emptyList()
     private var starX: Float = 0f
     private var starY: Float = 0f
-    private val starRadius: Float = 10f
-    private val margin: Int = 8.toDp(context).toInt()
+    private val starRadius: Float = 8.toDp(context)
+    private val margin: Int = 16.toDp(context).toInt()
     private var a: Float = 0f
     private var b: Float = 0f
     private var c: Float = 0f
 
     private var totalPlanets = 1
     private var planetIndex = 1
-    private var systemRadius = 1f
+    private var mainPlanetPerigee = 1f
 
     private var initialized = false
     private var isDataSet = false
@@ -89,43 +94,58 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         super.onDraw(canvas)
         if (isDataSet) {
             canvas?.let {
-                //
+                // Secondary orbits
+                for (so in neighboursOrbitRects) {
+                    it.drawOval(
+                        so.left,
+                        so.top - vOffset,
+                        so.right,
+                        so.bottom - vOffset,
+                        secondaryOrbitPaint
+                    )
+                }
+
+                // Main planet orbit
                 it.drawOval(
-                    orbitRect.left,
-                    orbitRect.top - vOffset,
-                    orbitRect.right,
-                    orbitRect.bottom - vOffset,
+                    planetOrbitRect.left,
+                    planetOrbitRect.top - vOffset,
+                    planetOrbitRect.right,
+                    planetOrbitRect.bottom - vOffset,
                     mainOrbitPaint
                 )
-                it.drawCircle(starX, starY - vOffset, starRadius, planetPaint)
-                it.drawLine(
-                    w / 2 - starRadius,
-                    starY - vOffset,
-                    w / 2 + starRadius,
-                    starY - vOffset,
-                    planetPaint
-                )
-                it.drawLine(
-                    w / 2,
-                    starY - vOffset - starRadius,
-                    w / 2,
-                    starY - vOffset + starRadius,
-                    planetPaint
-                )
 
+                // Star
+                it.drawCircle(starX, starY - vOffset, starRadius, planetPaint)
+
+                // Main planet
                 val px = a * cos(angle) + w / 2
                 val py = b * sin(angle) + (starY - vOffset)
-                it.drawCircle(px, py, starRadius, planetPaint)
+                it.drawCircle(px, py, starRadius, planetShadowPaint)
+
+                val sxInPc = starX - px
+                val syInPc = (starY - vOffset) - py
+                val sAngle = atan2(syInPc, sxInPc)
+                it.drawCircle(
+                    px + (4 * cos(sAngle)),
+                    py + (4 * sin(sAngle)),
+                    starRadius / 1.5f,
+                    planetPaint
+                )
             }
         }
     }
 
-    fun setData(planet: Planet) {
-        this.ecc = planet.pl_orbeccen?.toFloat() ?: 0f
+    fun setData(description: PlanetDescription) {
+        val planet = description.planet
+        this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
         totalPlanets = planet.sy_pnum ?: 1
         planetIndex = planet.pl_name!!.toPlanetIndex().coerceIn(1, totalPlanets)
+
+        neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }
+
         prepareParams()
         isDataSet = true
+
         animator.duration = (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(100, 60000)
         if (!animator.isStarted) {
             animator.start()
@@ -141,7 +161,8 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         if (state is Bundle) {
-            animator.setCurrentFraction(state.getFloat("angle") / MAX_ANGLE)
+            animator.currentPlayTime =
+                ((state.getFloat("angle") / MAX_ANGLE) * animator.duration).toLong()
             super.onRestoreInstanceState(state.getParcelable("superState"))
         } else {
             super.onRestoreInstanceState(state)
@@ -150,7 +171,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private fun prepareParams() {
         a = (initialW / 2) - margin
-        c = a * ecc
+        c = a * mainPlanetEcc
         b = sqrt(a * a - c * c)
 
         if ((b + margin) * 2 > initialH) {
@@ -160,13 +181,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
             c *= coef
         }
 
-        upperOrbitRect.set(
-            (initialW / 2) - a,
-            (initialH / 2) - b,
-            (initialW / 2) + a,
-            (initialH / 2) + b
-        )
-        orbitRect.set(
+        planetOrbitRect.set(
             (initialW / 2) - a,
             (initialH / 2) - b,
             (initialW / 2) + a,
@@ -176,7 +191,17 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         starX = (initialW / 2) - c
         starY = initialH / 2
 
-        systemRadius = starX - upperOrbitRect.left
+        mainPlanetPerigee = starX - planetOrbitRect.left
+
+        val distanceBetweenOrbits = mainPlanetPerigee / planetIndex
+
+        neighboursOrbitRects = neighboursEccs.mapIndexed { index, ecc ->
+            val np = distanceBetweenOrbits * (index + 1)
+            val na = np / (1 - ecc)
+            val nc = na * ecc
+            val nb = sqrt(na * na - nc * nc)
+            RectF(starX - np, starY - nb, starX + nc + na, starY + nb)
+        }
 
     }
 

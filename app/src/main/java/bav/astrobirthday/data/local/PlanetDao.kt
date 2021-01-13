@@ -20,6 +20,9 @@ interface PlanetDao {
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
     fun getByNames(names: Collection<String>): Flow<List<Planet>>
 
+    @Query("SELECT * FROM planets WHERE pl_name LIKE :pattern ORDER BY id ASC")
+    fun getByNamesLike(pattern: String): Flow<List<Planet>>
+
     // The Int type parameter tells Room to use a PositionalDataSource
     // object, with position-based loading under the hood.
     @Query("SELECT * FROM planets WHERE id > 14 ORDER BY id ASC")
