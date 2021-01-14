@@ -18,10 +18,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="@id/backdrop"
-        app:layout_constraintStart_toStartOf="@id/backdrop"
+        app:layout_constraintBottom_toBottomOf="@id/backdrop"
         app:layout_constraintEnd_toEndOf="@id/backdrop"
-        app:layout_constraintBottom_toBottomOf="@id/backdrop" />
+        app:layout_constraintStart_toStartOf="@id/backdrop"
+        app:layout_constraintTop_toTopOf="@id/backdrop" />
 
     <TextView
         android:id="@+id/age"
@@ -42,11 +42,25 @@
         tools:text="Next birthday: 24-03-2021" />
 
     <TextView
+        android:id="@+id/planet_name_collapsed"
+        style="?attr/textAppearanceHeadline6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="20sp"
+        tools:text="Planet name" />
+
+    <bav.astrobirthday.ui.common.ScalableTextView
         android:id="@+id/planet_name"
         style="?attr/textAppearanceHeadline6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="32sp"
         tools:text="Planet name" />
