@@ -118,8 +118,10 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
                 it.drawCircle(starX, starY - vOffset, starRadius, planetPaint)
 
                 // Main planet
-                val px = a * cos(angle) + w / 2
-                val py = b * sin(angle) + (starY - vOffset)
+                val trueAnomaly = getTrueAnomaly(angle, mainPlanetEcc)
+                val px = a * cos(trueAnomaly) + w / 2
+                val py = b * sin(trueAnomaly) + (starY - vOffset)
+
                 it.drawCircle(px, py, starRadius, planetShadowPaint)
 
                 val sxInPc = starX - px
@@ -135,6 +137,20 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         }
     }
 
+    fun getTrueAnomaly(M: Float, e: Float): Float {
+        val E = giveMeJuicyE(M, e)
+        val tgHalfNu = sqrt((1 + e) / (1 - e)) * tan(E / 2)
+        return atan(tgHalfNu) * 2
+    }
+
+    fun giveMeJuicyE(M: Float, e: Float): Float {
+        var E: Float = M
+        for (i in 0..10) {
+            E -= ((E - e * sin(E) - M) / (1 - e * cos(E)))
+        }
+        return E
+    }
+
     fun setData(description: PlanetDescription) {
         val planet = description.planet
         this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
@@ -146,7 +162,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         prepareParams()
         isDataSet = true
 
-        animator.duration = (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(100, 60000)
+        animator.duration = (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(500, 60000)
         if (!animator.isStarted) {
             animator.start()
         }
@@ -188,10 +204,10 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
             (initialH / 2) + b
         )
 
-        starX = (initialW / 2) - c
+        starX = (initialW / 2) + c
         starY = initialH / 2
 
-        mainPlanetPerigee = starX - planetOrbitRect.left
+        mainPlanetPerigee = planetOrbitRect.right - starX
 
         val distanceBetweenOrbits = mainPlanetPerigee / planetIndex
 
@@ -200,7 +216,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
             val na = np / (1 - ecc)
             val nc = na * ecc
             val nb = sqrt(na * na - nc * nc)
-            RectF(starX - np, starY - nb, starX + nc + na, starY + nb)
+            RectF(starX - nc - na, starY - nb, starX + np, starY + nb)
         }
 
     }
