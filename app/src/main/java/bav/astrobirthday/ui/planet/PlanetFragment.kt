@@ -27,6 +27,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         viewModel.planet.observe(viewLifecycleOwner) { p ->
             val context = requireContext()
             planetName.text = p.planet.pl_name.orNa()
+            planetNameCollapsed.text = p.planet.pl_name.orNa()
             stellarName.text = p.planet.hostname.orNa()
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = getString(
