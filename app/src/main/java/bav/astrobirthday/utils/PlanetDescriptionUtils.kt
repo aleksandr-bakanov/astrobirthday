@@ -120,11 +120,16 @@ fun getPlanetType(planetName: String?): PlanetType? {
         "Venus" -> PlanetType.VENUS
         "Earth" -> PlanetType.EARTH
         "Mars" -> PlanetType.MARS
+        "Ceres" -> PlanetType.CERES
         "Jupiter" -> PlanetType.JUPITER
         "Saturn" -> PlanetType.SATURN
         "Uranus" -> PlanetType.URANUS
         "Neptune" -> PlanetType.NEPTUNE
         "Pluto" -> PlanetType.PLUTO
+        "Haumea" -> PlanetType.HAUMEA
+        "Makemake" -> PlanetType.MAKEMAKE
+        "Eris" -> PlanetType.ERIS
+        "Sedna" -> PlanetType.SEDNA
         else -> null
     }
 }
