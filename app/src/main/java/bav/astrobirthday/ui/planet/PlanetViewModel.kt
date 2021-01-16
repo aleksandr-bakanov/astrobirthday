@@ -6,16 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.Config
+import bav.astrobirthday.data.entities.PlanetAndInfo
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
-import bav.astrobirthday.utils.getAgeOnPlanet
-import bav.astrobirthday.utils.getNearestBirthday
 import bav.astrobirthday.utils.getPlanetType
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class PlanetViewModel(
     private val preferences: UserPreferences,
@@ -33,15 +30,16 @@ class PlanetViewModel(
             database.getByNamesLike("${planetName.substringBeforeLast(" ")}%")
         combine(
             database.getByName(planetName),
-            neighboursFlow,
-            preferences.birthdayFlow.filterNotNull()
-        ) { planet, neighbours, userBirthday ->
+            neighboursFlow
+        ) { planetAndInfo, neighbours ->
+            val (planet, info) = planetAndInfo
             PlanetDescription(
                 planet = planet,
-                ageOnPlanet = getAgeOnPlanet(userBirthday, planet.pl_orbper),
-                nearestBirthday = getNearestBirthday(userBirthday, planet.pl_orbper),
-                planetType = getPlanetType(planet.pl_name),
-                neighbours = neighbours
+                isFavorite = info?.is_favorite ?: false,
+                ageOnPlanet = info?.age ?: 0.0,
+                nearestBirthday = info?.birthday ?: LocalDate.MIN,
+                planetType = getPlanetType(planet.pl_name, false),
+                neighbours = neighbours.map(PlanetAndInfo::planet)
             )
         }
             .onEach(_planet::setValue)
@@ -49,7 +47,7 @@ class PlanetViewModel(
     }
 
     fun toggleFavorite() = viewModelScope.launch {
-        val p = planet.value?.planet ?: return@launch
-        database.setFavorite(p.pl_name!!, !p.is_favorite)
+        val desc = planet.value ?: return@launch
+        database.setFavorite(desc.planet.pl_name, !desc.isFavorite)
     }
 }

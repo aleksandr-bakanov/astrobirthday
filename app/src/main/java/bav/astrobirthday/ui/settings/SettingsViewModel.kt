@@ -15,7 +15,10 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
-class SettingsViewModel(private val preferences: UserPreferences) : ViewModel() {
+class SettingsViewModel(
+    private val preferences: UserPreferences,
+    private val syncPlanetsInfo: SyncPlanetsInfo
+) : ViewModel() {
 
     val birthday: LiveData<LocalDate>
         get() = _birthday
@@ -42,6 +45,7 @@ class SettingsViewModel(private val preferences: UserPreferences) : ViewModel() 
         preferences.setBirthday(
             Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
         )
+        syncPlanetsInfo.sync()
     }
 
     sealed class PickerEvent : ViewEvent() {

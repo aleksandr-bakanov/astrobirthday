@@ -23,7 +23,7 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
     private val ring =
         ContextCompat.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
 
-    private val hash = planet.copy(is_favorite = false).sha1().contentHashCode()
+    private val hash = planet.sha1().contentHashCode()
 
     init {
         bg.setColorFilter(hash.backRColor, hash.backGColor, hash.backBColor)
