@@ -28,7 +28,7 @@ abstract class PlanetDb : RoomDatabase() {
                 context,
                 PlanetDb::class.java, DB_NAME
             )
-                .addMigrations(Migrations.MIGRATION_UPDATE_PLANETS)
+                .addMigrations(*Migrations.MIGRATIONS.toTypedArray())
                 .build()
         }
     }

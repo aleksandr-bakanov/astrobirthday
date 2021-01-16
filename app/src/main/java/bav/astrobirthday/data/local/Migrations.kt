@@ -14,33 +14,29 @@ import java.io.File
 
 object Migrations {
 
-    val MIGRATION_UPDATE_PLANETS = object : Migration(1, DB_VERSION) {
+    class EmptyMigration(from: Int, to: Int) : Migration(from, to) {
         override fun migrate(database: SupportSQLiteDatabase) {
             // Assume user data not changed
         }
     }
 
-    private fun databaseExists(context: Context): Boolean {
-        val dbFile = context.getDatabasePath(DB_NAME)
-        if (dbFile.exists()) return true
-        dbFile.parentFile?.mkdirs()
-        return false
-    }
+    val MIGRATIONS = listOf(EmptyMigration(1, 2))
 
     fun copyFromAssets(context: Context, currentVersion: Int, assetPath: String) {
         // https://stackoverflow.com/questions/59634325/createfromasset-migration-but-keep-specific-columns
-        val dbExists = databaseExists(context)
+        val originalDBPath = context.getDatabasePath(DB_NAME)
+        val dbExists = originalDBPath.exists()
         if (!dbExists) {
             // Initial load
+            originalDBPath.parentFile?.mkdirs()
             copyAssetFile(context, assetPath)
             return
         }
-        if (getDBVersion(context, DB_NAME) >= DB_VERSION) {
+        if (getDBVersion(context, DB_NAME) == currentVersion) {
             return
         }
         // Update
         // Open and close the original DB so as to checkpoint the WAL file
-        val originalDBPath = context.getDatabasePath(DB_NAME)
         val originalDB = SQLiteDatabase.openDatabase(
             originalDBPath.path,
             null,
@@ -91,22 +87,23 @@ object Migrations {
         while (csr.moveToNext()) {
             cv.clear()
             for (column in PLANET_USER_INFO_COLUMNS) {
-                when (csr.getType(csr.getColumnIndex(column))) {
+                val columnIndex = csr.getColumnIndex(column)
+                when (csr.getType(columnIndex)) {
                     Cursor.FIELD_TYPE_INTEGER -> cv.put(
                         column,
-                        csr.getLong(csr.getColumnIndex(column))
+                        csr.getLong(columnIndex)
                     )
                     Cursor.FIELD_TYPE_STRING -> cv.put(
                         column,
-                        csr.getString(csr.getColumnIndex(column))
+                        csr.getString(columnIndex)
                     )
                     Cursor.FIELD_TYPE_FLOAT -> cv.put(
                         column,
-                        csr.getDouble(csr.getColumnIndex(column))
+                        csr.getDouble(columnIndex)
                     )
                     Cursor.FIELD_TYPE_BLOB -> cv.put(
                         column,
-                        csr.getBlob(csr.getColumnIndex(column))
+                        csr.getBlob(columnIndex)
                     )
                 }
             }
