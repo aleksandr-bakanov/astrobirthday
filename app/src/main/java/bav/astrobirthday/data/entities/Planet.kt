@@ -4,18 +4,18 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import bav.astrobirthday.common.DiscoveryMethod
-import com.squareup.moshi.JsonClass
 
 /**
  * Data: https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=PS
  * Columns description: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
  */
 // TODO: сделать поля nullable, чтобы можно было их преобразовывать в n/a, если параметр неизвестен
-@Entity(tableName = "planets")
+const val PLANETS_TABLE = "planets"
+
+@Entity(tableName = PLANETS_TABLE)
 data class Planet(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "is_favorite") val is_favorite: Boolean = false,
-    @ColumnInfo(name = "pl_name") val pl_name: String? = null,
+    @PrimaryKey val pl_name: String,
+    @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "hostname") val hostname: String? = null,
     @ColumnInfo(name = "sy_snum") val sy_snum: Int? = null,
     @ColumnInfo(name = "sy_pnum") val sy_pnum: Int? = null,
@@ -38,4 +38,5 @@ data class Planet(
     @ColumnInfo(name = "sy_dist") val sy_dist: Double? = null,
     @ColumnInfo(name = "rowupdate") val rowupdate: String? = null,
     @ColumnInfo(name = "pl_pubdate") val pl_pubdate: String? = null,
-    @ColumnInfo(name = "releasedate") val releasedate: String? = null)
+    @ColumnInfo(name = "releasedate") val releasedate: String? = null
+)

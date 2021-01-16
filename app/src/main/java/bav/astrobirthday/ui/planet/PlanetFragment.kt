@@ -60,7 +60,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
             datePlanetReference.text = p.planet.pl_pubdate.orNa()
 
-            favoriteButton.setFavorite(p.planet.is_favorite)
+            favoriteButton.setFavorite(p.isFavorite)
 
             getReferenceLink(p.planet.pl_refname)?.let { url ->
                 planetReferenceButton.isVisible = true
