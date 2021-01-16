@@ -12,6 +12,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import bav.astrobirthday.R
+import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.utils.getIntAttribute
 import bav.astrobirthday.utils.toDp
@@ -47,9 +48,12 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var initialW: Float = 0f
     private var initialH: Float = 0f
 
+    private var mainPlanet: Planet? = null
     private var mainPlanetEcc: Float = 0f
     private val planetOrbitRect: RectF = RectF(0f, 0f, 0f, 0f)
+    private var neighbours: List<Planet> = emptyList()
     private var neighboursEccs: List<Float> = emptyList()
+    private var neighboursSemiMajorAxes: List<Float> = emptyList()
     private var neighboursOrbitRects: List<RectF> = emptyList()
     private var starX: Float = 0f
     private var starY: Float = 0f
@@ -61,7 +65,6 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private var totalPlanets = 1
     private var planetIndex = 1
-    private var mainPlanetPerigee = 1f
 
     private var initialized = false
     private var isDataSet = false
@@ -152,19 +155,24 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     }
 
     fun setData(description: PlanetDescription) {
-        val planet = description.planet
-        this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
-        totalPlanets = planet.sy_pnum ?: 1
-        planetIndex = planet.pl_name!!.toPlanetIndex().coerceIn(1, totalPlanets)
+        mainPlanet = description.planet
+        mainPlanet?.let { planet ->
+            this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
+            totalPlanets = planet.sy_pnum ?: 1
+            planetIndex = planet.pl_name!!.toPlanetIndex().coerceIn(1, totalPlanets)
 
-        neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }
+            neighbours = description.neighbours
+            neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }
+            neighboursSemiMajorAxes = description.neighbours.map { it.pl_orbsmax?.toFloat() ?: 0f }
 
-        prepareParams()
-        isDataSet = true
+            prepareParams()
+            isDataSet = true
 
-        animator.duration = (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(500, 60000)
-        if (!animator.isStarted) {
-            animator.start()
+            animator.duration =
+                (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(500, 60000)
+            if (!animator.isStarted) {
+                animator.start()
+            }
         }
     }
 
@@ -186,39 +194,41 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     }
 
     private fun prepareParams() {
-        a = (initialW / 2) - margin
-        c = a * mainPlanetEcc
-        b = sqrt(a * a - c * c)
+        mainPlanet?.let { planet ->
+            a = (initialW / 2) - margin
+            c = a * mainPlanetEcc
+            b = sqrt(a * a - c * c)
 
-        if ((b + margin) * 2 > initialH) {
-            val coef = initialH / ((b + margin) * 2)
-            a *= coef
-            b *= coef
-            c *= coef
+            if ((b + margin) * 2 > initialH) {
+                val coef = initialH / ((b + margin) * 2)
+                a *= coef
+                b *= coef
+                c *= coef
+            }
+
+            planetOrbitRect.set(
+                (initialW / 2) - a,
+                (initialH / 2) - b,
+                (initialW / 2) + a,
+                (initialH / 2) + b
+            )
+
+            starX = (initialW / 2) + c
+            starY = initialH / 2
+
+            val auInPx = max(1f, a / (planet.pl_orbsmax?.toFloat() ?: 1f))
+
+            neighboursOrbitRects =
+                neighbours.filter { it.pl_name != mainPlanet?.pl_name }.map { neighbour ->
+                    val ecc = neighbour.pl_orbeccen?.toFloat() ?: 0f
+                    val aInAu = neighbour.pl_orbsmax?.toFloat() ?: 1f
+                    val na = aInAu * auInPx
+                    val nc = na * ecc
+                    val np = na - nc
+                    val nb = sqrt(na * na - nc * nc)
+                    RectF(starX - nc - na, starY - nb, starX + np, starY + nb)
+                }
         }
-
-        planetOrbitRect.set(
-            (initialW / 2) - a,
-            (initialH / 2) - b,
-            (initialW / 2) + a,
-            (initialH / 2) + b
-        )
-
-        starX = (initialW / 2) + c
-        starY = initialH / 2
-
-        mainPlanetPerigee = planetOrbitRect.right - starX
-
-        val distanceBetweenOrbits = mainPlanetPerigee / planetIndex
-
-        neighboursOrbitRects = neighboursEccs.mapIndexed { index, ecc ->
-            val np = distanceBetweenOrbits * (index + 1)
-            val na = np / (1 - ecc)
-            val nc = na * ecc
-            val nb = sqrt(na * na - nc * nc)
-            RectF(starX - nc - na, starY - nb, starX + np, starY + nb)
-        }
-
     }
 
     private companion object {
