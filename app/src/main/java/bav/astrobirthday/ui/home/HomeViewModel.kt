@@ -19,7 +19,7 @@ class HomeViewModel(
 
     private val solarPlanetsFlow: Flow<List<PlanetDescription>> =
         database.getByNames(Config.solarPlanets)
-            .map { planets -> planets.map { it.toPlanetDescription(randomType = true) } }
+            .map { planets -> planets.map { it.toPlanetDescription() } }
 
     init {
         viewModelScope.launch {

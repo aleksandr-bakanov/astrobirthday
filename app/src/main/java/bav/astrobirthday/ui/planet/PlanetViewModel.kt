@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PlanetViewModel(
-    private val preferences: UserPreferences,
     private val database: PlanetDao,
     private val planetName: String
 ) : ViewModel() {
@@ -38,7 +37,7 @@ class PlanetViewModel(
                 isFavorite = info?.is_favorite ?: false,
                 ageOnPlanet = info?.age ?: 0.0,
                 nearestBirthday = info?.birthday ?: LocalDate.MIN,
-                planetType = getPlanetType(planet.pl_name, false),
+                planetType = getPlanetType(planet.pl_name),
                 neighbours = neighbours.map(PlanetAndInfo::planet)
             )
         }

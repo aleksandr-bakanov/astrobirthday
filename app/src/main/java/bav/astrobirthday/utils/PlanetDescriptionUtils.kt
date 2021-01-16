@@ -113,7 +113,7 @@ fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
     return userBirthday.plusDays(daysInNextBirthday)
 }
 
-fun getPlanetType(planetName: String?, randomType: Boolean): PlanetType? {
+fun getPlanetType(planetName: String?): PlanetType? {
     return when (planetName) {
         "Mercury" -> PlanetType.MERCURY
         "Venus" -> PlanetType.VENUS
@@ -133,12 +133,12 @@ fun getPlanetType(planetName: String?, randomType: Boolean): PlanetType? {
     }
 }
 
-fun PlanetAndInfo.toPlanetDescription(randomType: Boolean = false): PlanetDescription {
+fun PlanetAndInfo.toPlanetDescription(): PlanetDescription {
     return PlanetDescription( // TODO check defaults
         planet = planet,
         isFavorite = info?.is_favorite ?: false,
         ageOnPlanet = info?.age ?: 0.0,
         nearestBirthday = info?.birthday ?: LocalDate.MIN,
-        planetType = getPlanetType(planet.pl_name, randomType)
+        planetType = getPlanetType(planet.pl_name)
     )
 }
