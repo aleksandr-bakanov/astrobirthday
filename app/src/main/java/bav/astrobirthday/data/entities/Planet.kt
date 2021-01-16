@@ -10,7 +10,9 @@ import bav.astrobirthday.common.DiscoveryMethod
  * Columns description: https://exoplanetarchive.ipac.caltech.edu/docs/API_PS_columns.html
  */
 // TODO: сделать поля nullable, чтобы можно было их преобразовывать в n/a, если параметр неизвестен
-@Entity(tableName = "planets")
+const val PLANETS_TABLE = "planets"
+
+@Entity(tableName = PLANETS_TABLE)
 data class Planet(
     @PrimaryKey val pl_name: String,
     @ColumnInfo(name = "id") val id: Int,

@@ -3,7 +3,7 @@ package bav.astrobirthday.common
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.preferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +19,7 @@ class UserPreferencesImpl(
 
     private val localDateAdapter = LocalDateAdapter()
 
-    private val BIRTHDAY_KEY = preferencesKey<String>("birthday")
+    private val BIRTHDAY_KEY = stringPreferencesKey("birthday")
     private val birthdayStoreFlow: Flow<String?> = dataStore.data
         .map { preferences ->
             preferences[BIRTHDAY_KEY]
