@@ -9,7 +9,7 @@ import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.favorites.FavoritesFragmentDirections.Companion.actionNavFavoritesToPlanetFragment
 import bav.astrobirthday.utils.setupToolbar
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,7 +29,7 @@ class FavoritesFragment :
                 )
             }
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.planetsList.collect(adapter::submitData)
+                viewModel.planetsList.collectLatest(adapter::submitData)
             }
 
             recyclerView.adapter = adapter
