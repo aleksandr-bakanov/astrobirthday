@@ -5,7 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
-@Entity(tableName = "planets_user_info")
+const val PLANET_USER_INFO_TABLE = "planets_user_info"
+
+val PLANET_USER_INFO_COLUMNS = arrayOf(
+    "name",
+    "is_favorite",
+    "age",
+    "birthday"
+)
+
+@Entity(tableName = PLANET_USER_INFO_TABLE)
 data class PlanetUserInfo(
     @PrimaryKey val name: String,
     @ColumnInfo(name = "is_favorite") val is_favorite: Boolean = false,

@@ -23,12 +23,12 @@ abstract class PlanetDb : RoomDatabase() {
 
     companion object {
         fun create(context: Context): PlanetDb {
+            Migrations.copyFromAssets(context, DB_VERSION, "database/planets.db")
             return Room.databaseBuilder(
                 context,
                 PlanetDb::class.java, DB_NAME
             )
                 .addMigrations(Migrations.MIGRATION_UPDATE_PLANETS)
-                .createFromAsset("database/planets.db")
                 .build()
         }
     }
