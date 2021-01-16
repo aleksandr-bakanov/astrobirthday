@@ -10,7 +10,7 @@ import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
 import bav.astrobirthday.utils.setupToolbar
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ExoplanetsFragment :
@@ -24,12 +24,12 @@ class ExoplanetsFragment :
         with(requireBinding()) {
             setupToolbar(topAppBar)
             val adapter = ExoplanetsAdapter { planetDescription ->
-                planetDescription.planet.pl_name?.let {
-                    findNavController().navigate(actionNavExoplanetsToPlanetFragment(it))
-                }
+                findNavController().navigate(
+                    actionNavExoplanetsToPlanetFragment(planetDescription.planet.pl_name)
+                )
             }
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.planetsList.collect(adapter::submitData)
+                viewModel.planetsList.collectLatest(adapter::submitData)
             }
 
             recyclerView.adapter = adapter

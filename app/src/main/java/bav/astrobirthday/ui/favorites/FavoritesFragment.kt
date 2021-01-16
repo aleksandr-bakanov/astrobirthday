@@ -24,9 +24,9 @@ class FavoritesFragment :
         with(requireBinding()) {
             setupToolbar(topAppBar)
             val adapter = ExoplanetsAdapter { planetDescription ->
-                planetDescription.planet.pl_name?.let {
-                    findNavController().navigate(actionNavFavoritesToPlanetFragment(it))
-                }
+                findNavController().navigate(
+                    actionNavFavoritesToPlanetFragment(planetDescription.planet.pl_name)
+                )
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.planetsList.collect(adapter::submitData)

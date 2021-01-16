@@ -159,7 +159,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         mainPlanet?.let { planet ->
             this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
             totalPlanets = planet.sy_pnum ?: 1
-            planetIndex = planet.pl_name!!.toPlanetIndex().coerceIn(1, totalPlanets)
+            planetIndex = planet.pl_name.toPlanetIndex().coerceIn(1, totalPlanets)
 
             neighbours = description.neighbours
             neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }
