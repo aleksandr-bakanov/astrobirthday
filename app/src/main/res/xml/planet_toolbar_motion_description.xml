@@ -42,7 +42,7 @@
                 motion:keyPositionType="pathRelative"
                 motion:motionTarget="@id/planet_name_collapsed"
                 motion:percentX="0.75"
-                motion:percentY="0.1" />
+                motion:percentY="0.2" />
         </KeyFrameSet>
     </Transition>
 
@@ -86,7 +86,7 @@
             android:id="@id/planet_name_collapsed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="0dp"
             android:alpha="0"
             motion:layout_constraintBottom_toTopOf="@+id/age"
@@ -156,7 +156,7 @@
             android:layout_marginTop="0dp"
             android:alpha="1"
             motion:layout_constraintBottom_toBottomOf="@id/back_button"
-            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintEnd_toStartOf="@id/favorite_button"
             motion:layout_constraintHorizontal_bias="0"
             motion:layout_constraintStart_toEndOf="@id/back_button"
             motion:layout_constraintTop_toTopOf="@id/back_button" />
