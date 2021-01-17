@@ -6,10 +6,10 @@ import kotlinx.coroutines.flow.*
 
 class InitData(private val preferences: UserPreferences, private val planetDao: PlanetDao) {
 
-    suspend fun waitForInit() {
+    suspend fun waitForInit(): Boolean {
         val isBirthdayAlreadySetup = preferences.birthdayFlow.firstOrNull() != null
-        if (isBirthdayAlreadySetup) {
-            return
+        return if (isBirthdayAlreadySetup) {
+            false
         } else {
             combine(
                 preferences.birthdayFlow.filterNotNull(),
@@ -17,6 +17,7 @@ class InitData(private val preferences: UserPreferences, private val planetDao: 
             ) { _, planets -> planets }
                 .filter { planets -> planets.all { it.info != null } }
                 .first()
+            true
         }
     }
 }
