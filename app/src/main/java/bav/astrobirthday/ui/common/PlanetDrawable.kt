@@ -20,6 +20,8 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         ContextCompat.getDrawable(context, R.drawable.ic_features_points)!!.mutate()
     private val shadow =
         ContextCompat.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
+    private val radialShadow =
+        ContextCompat.getDrawable(context, R.drawable.ic_features_radial_shadow)!!.mutate()
     private val ring =
         ContextCompat.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
 
@@ -36,6 +38,7 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         bg.draw(canvas)
         if (hash.pointsV) points.draw(canvas)
         shadow.draw(canvas)
+        radialShadow.draw(canvas)
         if (hash.ringV) ring.draw(canvas)
     }
 
@@ -58,6 +61,7 @@ class PlanetDrawable(context: Context, planet: Planet) : Drawable() {
         bg.bounds = bgBounds
         points.bounds = bgBounds
         shadow.bounds = bgBounds
+        radialShadow.bounds = bgBounds
         ring.bounds = ringBounds
     }
 
