@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
+import java.time.ZoneOffset
 
 class SettingsViewModel(
     private val preferences: UserPreferences,
@@ -37,14 +37,13 @@ class SettingsViewModel(
 
     fun pickBirthday() = viewModelScope.launch {
         val date = preferences.birthdayFlow.firstOrNull() ?: LocalDate.now()
-        val millis = date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val millis = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
         _events.value = PickerEvent.OpenPicker(millis)
     }
 
     fun onDateSelected(millis: Long) = viewModelScope.launch {
-        preferences.setBirthday(
-            Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
-        )
+        val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate()
+        preferences.setBirthday(date)
         syncPlanetsInfo.sync()
     }
 

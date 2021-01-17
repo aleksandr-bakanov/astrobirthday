@@ -105,10 +105,18 @@ fun getReferenceLink(reference: String?): String? {
     return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1)
 }
 
-fun getNearestBirthday(userBirthday: LocalDate, period: Double?): LocalDate {
+fun getNearestBirthday(userBirthday: LocalDate, name: String, period: Double?): LocalDate {
     val now = LocalDate.now()
-    val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
+    if (name == "Earth") {
+        val years = ChronoUnit.YEARS.between(userBirthday, now)
+        return userBirthday.plusYears(years + 1)
+    }
     val p = period ?: 1.0
+    val userAgeInEarthDays = if (userBirthday == now) {
+        p
+    } else {
+        ChronoUnit.DAYS.between(userBirthday, now).toDouble()
+    }
     val daysInNextBirthday = ceil((p * ceil(userAgeInEarthDays / p))).toLong()
     return userBirthday.plusDays(daysInNextBirthday)
 }
