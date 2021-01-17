@@ -30,7 +30,7 @@ class SyncPlanetsInfo(
                     planet.pl_name,
                     planet.is_favorite ?: false,
                     getAgeOnPlanet(birthday, planet.pl_orbper),
-                    getNearestBirthday(birthday, planet.pl_orbper)
+                    getNearestBirthday(birthday, planet.pl_name, planet.pl_orbper)
                 )
             }
         )
