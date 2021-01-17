@@ -2,6 +2,7 @@ package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
 import bav.astrobirthday.MainActivityViewModel
+import bav.astrobirthday.common.InitData
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
 import bav.astrobirthday.data.local.PlanetDb
@@ -41,4 +42,5 @@ val appModule = module {
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
+    factory { InitData(get(), get()) }
 }
