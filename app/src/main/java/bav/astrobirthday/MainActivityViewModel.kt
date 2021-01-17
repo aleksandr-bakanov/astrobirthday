@@ -24,9 +24,10 @@ class MainActivityViewModel(
     init {
         _state.value = MainViewState()
         viewModelScope.launch {
-            initData.waitForInit()
+            if (initData.waitForInit()) {
+                _events.value = AnimateBars()
+            }
             _state.value = MainViewState(barsVisible = true)
-            _events.value = AnimateBars()
         }
     }
 
