@@ -19,4 +19,12 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary
         </item>
     </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="searchIcon">@null</item>
+        <item name="submitBackground">@android:color/transparent</item>
+        <item name="queryBackground">@android:color/transparent</item>
+    </style>
 </resources>

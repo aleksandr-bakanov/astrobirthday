@@ -78,4 +78,5 @@
     <string name="disc_method_transit">Transit</string>
     <string name="disc_method_transit_timing_variations">Transit timing variations</string>
 
+    <string name="search_hint">Search %s</string>
 </resources>

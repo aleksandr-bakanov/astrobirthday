@@ -1,5 +1,7 @@
 package bav.astrobirthday.ui.exoplanets
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -11,12 +13,15 @@ import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.entities.SortOrder
 import bav.astrobirthday.data.entities.SortableColumn
+import bav.astrobirthday.ui.common.ViewEvent
+import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
 import bav.astrobirthday.utils.toPlanetDescription
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onEach
 
 class ExoplanetsViewModel(
     private val getExoplanets: GetExoplanets
@@ -24,6 +29,10 @@ class ExoplanetsViewModel(
 
     private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.ID, SortOrder.ASC))
     private val searchRequest = MutableStateFlow("")
+
+    val events: LiveData<ExoplanetsEvent>
+        get() = _events
+    private val _events = MutableLiveData<ExoplanetsEvent>()
 
     val planetsList: Flow<PagingData<PlanetDescription>> =
         combine(sorting, searchRequest) { sortBy, search ->
@@ -35,6 +44,7 @@ class ExoplanetsViewModel(
             .mapLatest { data ->
                 data.map { it.toPlanetDescription() }
             }
+            .onEach { _events.value = ScrollTo(0) }
             .cachedIn(viewModelScope)
 
     fun changeSorting(sortBy: PlanetSorting) {
@@ -43,5 +53,9 @@ class ExoplanetsViewModel(
 
     fun setSearchRequest(request: String) {
         searchRequest.value = request
+    }
+
+    sealed class ExoplanetsEvent : ViewEvent() {
+        class ScrollTo(val position: Int) : ExoplanetsEvent()
     }
 }
