@@ -15,4 +15,11 @@
     </style>
 
     <style name="BottomNavigationTheme" parent="AppTheme"></style>
+
+    <style name="SearchViewOverlay" parent="AppTheme">
+        <item name="colorControlNormal">?attr/colorOnPrimarySurface</item>
+        <item name="android:editTextColor">?attr/colorOnPrimarySurface</item>
+        <item name="android:textColorHint">?attr/colorOnPrimarySurface</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+    </style>
 </resources>
