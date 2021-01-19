@@ -1,10 +1,14 @@
 package bav.astrobirthday.ui.exoplanets
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
+import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentExoplanetsBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
@@ -34,6 +38,25 @@ class ExoplanetsFragment :
 
             recyclerView.adapter = adapter
             (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+
+            (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView).setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        viewModel.setSearchRequest(query.orEmpty())
+                        return true
+                    }
+
+                    override fun onQueryTextChange(query: String?): Boolean {
+                        viewModel.setSearchRequest(query.orEmpty())
+                        return true
+                    }
+
+                })
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
     }
 }
