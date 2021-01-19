@@ -49,22 +49,25 @@ class ExoplanetsFragment :
             recyclerView.adapter = adapter
             (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
-            (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView).run {
-                val itemsName = topAppBar.title.toString().toLowerCase(Locale.getDefault())
-                queryHint = resources.getString(R.string.search_hint, itemsName)
-                setOnQueryTextListener(
-                    object : SearchView.OnQueryTextListener {
-                        override fun onQueryTextSubmit(query: String?): Boolean {
-                            viewModel.setSearchRequest(query.orEmpty())
-                            return true
-                        }
-
-                        override fun onQueryTextChange(query: String?): Boolean {
-                            viewModel.setSearchRequest(query.orEmpty())
-                            return true
-                        }
-                    })
-            }
+            setupSearchView()
         }
+    }
+
+    private fun FragmentExoplanetsBinding.setupSearchView() {
+        val searchView = (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView)
+        val itemsName = topAppBar.title.toString().toLowerCase(Locale.getDefault())
+        searchView.queryHint = resources.getString(R.string.search_hint, itemsName)
+        searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.setSearchRequest(query.orEmpty())
+                    return true
+                }
+
+                override fun onQueryTextChange(query: String?): Boolean {
+                    viewModel.setSearchRequest(query.orEmpty())
+                    return true
+                }
+            })
     }
 }
