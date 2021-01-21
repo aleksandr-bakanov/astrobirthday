@@ -120,6 +120,12 @@ def main():
     ]
     cursor.executemany("INSERT INTO planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", solar_planets)
 
+    maxDistance = 0.0
+    minDistance = 100000000000000000000000.0
+    
+    maxPeriod = 0.0
+    minPeriod = 100000000000000000000000.0
+
     with open(filepath) as fp:
         cnt = 15
         for line in fp:
@@ -158,8 +164,22 @@ def main():
             cursor.executemany("INSERT INTO planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", row)
             
             cnt += 1
+            
+            if sy_dist is not None:
+                if minDistance > sy_dist:
+                    minDistance = sy_dist
+                if maxDistance < sy_dist:
+                    maxDistance = sy_dist
+
+            if pl_orbper is not None:
+                if minPeriod > pl_orbper:
+                    minPeriod = pl_orbper
+                if maxPeriod < pl_orbper:
+                    maxPeriod = pl_orbper
 
     conn.commit()
+    print("minDistance = ", minDistance, "; maxDistance = ", maxDistance)
+    print("minPeriod = ", minPeriod, "; maxPeriod = ", maxPeriod)
 
 if __name__ == '__main__':
     main()

@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_nav_exoplanets_to_planetFragment"
             app:destination="@id/planetFragment" />
+        <action
+            android:id="@+id/action_nav_exoplanets_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_favorites"
@@ -48,5 +51,10 @@
             android:id="@+id/action_nav_favorites_to_planetFragment"
             app:destination="@id/planetFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="bav.astrobirthday.ui.filter.FilterFragment"
+        android:label="FilterFragment"
+        tools:layout="@layout/fragment_filter" />
 
 </navigation>

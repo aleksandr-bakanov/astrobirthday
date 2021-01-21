@@ -16,6 +16,13 @@ enum class SortOrder {
 
 data class PlanetSorting(val column: SortableColumn, val order: SortOrder)
 
+data class PlanetFilter(
+    val distanceFrom: Float = 0f,
+    val distanceTo: Float = 6780.0f,
+    val periodFrom: Float = 0f,
+    val periodTo: Float = 7300010.0f
+)
+
 data class PlanetAndInfo(
     @Embedded val planet: Planet,
 

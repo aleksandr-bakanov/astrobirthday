@@ -9,6 +9,7 @@
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
     <string name="title_exoplanets">Exoplanets</string>
+    <string name="search_hint">Search %s</string>
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
@@ -65,6 +66,16 @@
     <!-- Favorites -->
     <string name="title_favorites">Favorites</string>
 
+    <!-- Filters -->
+    <string name="filter_distance_header">Distance [au]</string>
+    <string name="filter_period_header">Period [days]</string>
+    <string name="filter_submit_button_title">filter</string>
+    <string name="distance_from_hint">From</string>
+    <string name="distance_to_hint">To</string>
+    <string name="period_from_hint">From</string>
+    <string name="period_to_hint">To</string>
+    <string name="submit_button_title">Filter (%d)</string>
+
     <!-- Common -->
     <string name="disc_method_astrometry">Astrometry</string>
     <string name="disc_method_disk_kinematics">Disk kinematics</string>
@@ -77,6 +88,4 @@
     <string name="disc_method_radial_velocity">Radial velocity</string>
     <string name="disc_method_transit">Transit</string>
     <string name="disc_method_transit_timing_variations">Transit timing variations</string>
-
-    <string name="search_hint">Search %s</string>
 </resources>

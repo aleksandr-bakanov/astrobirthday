@@ -9,8 +9,7 @@
         android:title="Search"/>
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/ic_baseline_filter_list_24"
         app:showAsAction="always|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:title="Filters"/>
 </menu>

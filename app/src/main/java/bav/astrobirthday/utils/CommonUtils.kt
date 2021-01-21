@@ -25,6 +25,7 @@ fun Int.toDp(context: Context): Float {
 fun String?.orNa(): String = if (this.isNullOrBlank()) "n/a" else this
 fun Int?.orNa(): String = this?.toString() ?: "n/a"
 fun Double?.orNa(): String = this?.toString() ?: "n/a"
+fun CharSequence?.toFloatOrZero(): Float = this?.toString()?.toFloatOrNull() ?: 0f
 
 fun Context.localDateToString(date: LocalDate): String {
     val dateFormat = DateTimeFormatter.ofPattern(

@@ -11,18 +11,19 @@ import bav.astrobirthday.databinding.FragmentExoplanetsBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.common.peek
+import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToFilterFragment
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
 import bav.astrobirthday.utils.setupToolbar
+import bav.astrobirthday.utils.sharedGraphViewModel
 import bav.astrobirthday.utils.smoothSnapToPosition
 import kotlinx.coroutines.flow.collectLatest
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 class ExoplanetsFragment :
     BaseFragment<FragmentExoplanetsBinding>(FragmentExoplanetsBinding::inflate) {
 
-    private val viewModel: ExoplanetsViewModel by viewModel()
+    private val viewModel: ExoplanetsViewModel by sharedGraphViewModel(R.id.mobile_navigation)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +51,13 @@ class ExoplanetsFragment :
             (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
             setupSearchView()
+
+            topAppBar.menu.findItem(R.id.action_filter).setOnMenuItemClickListener {
+                findNavController().navigate(
+                    actionNavExoplanetsToFilterFragment()
+                )
+                true
+            }
         }
     }
 

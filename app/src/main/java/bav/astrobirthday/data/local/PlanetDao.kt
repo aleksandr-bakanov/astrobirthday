@@ -38,6 +38,9 @@ interface PlanetDao {
     @Query("SELECT COUNT(id) FROM planets")
     suspend fun countPlanets(): Int
 
+    @RawQuery
+    suspend fun countPlanetsWithFilter(query: SupportSQLiteQuery): Int
+
     @Transaction
     @Query("SELECT * FROM PlanetSyncView ORDER BY id LIMIT :count OFFSET :start")
     suspend fun getPlanetsChunked(start: Int, count: Int): List<PlanetSyncView>

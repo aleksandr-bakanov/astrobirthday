@@ -10,6 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.data.entities.PlanetFilter
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.entities.SortOrder
 import bav.astrobirthday.data.entities.SortableColumn
@@ -29,15 +30,16 @@ class ExoplanetsViewModel(
 
     private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.ID, SortOrder.ASC))
     private val searchRequest = MutableStateFlow("")
+    val filtering = MutableStateFlow(PlanetFilter())
 
     val events: LiveData<ExoplanetsEvent>
         get() = _events
     private val _events = MutableLiveData<ExoplanetsEvent>()
 
     val planetsList: Flow<PagingData<PlanetDescription>> =
-        combine(sorting, searchRequest) { sortBy, search ->
+        combine(sorting, searchRequest, filtering) { sortBy, search, filter ->
             Pager(PagingConfig(pageSize = 20)) {
-                getExoplanets.getSource(sortBy, search)
+                getExoplanets.getSource(sortBy, search, filter)
             }
         }
             .flatMapLatest { it.flow }
@@ -53,6 +55,10 @@ class ExoplanetsViewModel(
 
     fun setSearchRequest(request: String) {
         searchRequest.value = request
+    }
+
+    fun setFilter(filterBy: PlanetFilter) {
+        filtering.value = filterBy
     }
 
     sealed class ExoplanetsEvent : ViewEvent() {
