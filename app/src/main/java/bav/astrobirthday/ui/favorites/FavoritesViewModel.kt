@@ -17,7 +17,7 @@ class FavoritesViewModel(
     private val getFavorites: GetFavorites
 ) : ViewModel() {
 
-    private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.ID, SortOrder.ASC))
+    private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.NAME, SortOrder.ASC))
 
     val planetsList: Flow<PagingData<PlanetDescription>> = sorting
         .flatMapLatest { sortBy ->

@@ -28,7 +28,7 @@ class ExoplanetsViewModel(
     private val getExoplanets: GetExoplanets
 ) : ViewModel() {
 
-    private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.ID, SortOrder.ASC))
+    val sorting = MutableStateFlow(PlanetSorting(SortableColumn.NAME, SortOrder.ASC))
     private val searchRequest = MutableStateFlow("")
     val filtering = MutableStateFlow(PlanetFilter())
 

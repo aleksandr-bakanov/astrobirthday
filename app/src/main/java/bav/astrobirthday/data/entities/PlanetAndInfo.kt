@@ -1,17 +1,19 @@
 package bav.astrobirthday.data.entities
 
+import androidx.annotation.StringRes
 import androidx.room.Embedded
 import androidx.room.Relation
+import bav.astrobirthday.R
 
-enum class SortableColumn(val column: String) {
-    ID("id"),
-    NAME("pl_name"),
-    AGE("age"),
-    BIRTHDAY("birthday")
+enum class SortableColumn(val column: String, @StringRes val resId: Int) {
+    NAME("pl_name", R.string.sort_by_name),
+    AGE("age", R.string.sort_by_age),
+    BIRTHDAY("birthday", R.string.sort_by_birthday)
 }
 
-enum class SortOrder {
-    DESC, ASC
+enum class SortOrder(@StringRes val resId: Int) {
+    DESC(R.string.sort_by_desc),
+    ASC(R.string.sort_by_asc)
 }
 
 data class PlanetSorting(val column: SortableColumn, val order: SortOrder)
