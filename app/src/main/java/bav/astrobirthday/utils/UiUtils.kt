@@ -2,7 +2,9 @@ package bav.astrobirthday.utils
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.annotation.IdRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -55,4 +57,16 @@ fun Activity.hideKeyboard() {
     (this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
         this.currentFocus?.windowToken, 0
     )
+}
+
+fun EditText.updateText(updated: CharSequence?) {
+    val s: Editable? = text
+    if (isFocused) {
+        return
+    }
+    if (s == null || updated.isNullOrBlank()) {
+        setText(updated)
+    } else if (s.toString() != updated) {
+        s.replace(0, s.length, updated)
+    }
 }

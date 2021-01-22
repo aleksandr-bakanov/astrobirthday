@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="bav.astrobirthday.ui.filter.FilterFragment"
-        android:label="FilterFragment"
+        android:label="@string/title_filter"
         tools:layout="@layout/fragment_filter" />
 
 </navigation>

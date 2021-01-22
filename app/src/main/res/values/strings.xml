@@ -69,21 +69,32 @@
     <string name="title_favorites">Favorites</string>
 
     <!-- Filters -->
+    <string name="title_filter">Filters</string>
     <string name="filter_distance_header">Distance [au]</string>
     <string name="filter_period_header">Period [days]</string>
-    <string name="filter_sorting_header">Sort by</string>
+    <string name="filter_planet_radius_header">Planet radius [R🜨]</string>
+    <string name="filter_star_radius_header">Star radius [R☉]</string>
+    <string name="filter_planet_mass_header">Planet mass [M🜨]</string>
+    <string name="filter_star_mass_header">Star mass [M☉]</string>
+    <string name="from_hint">From</string>
+    <string name="to_hint">To</string>
     <string name="filter_submit_button_title">filter</string>
-    <string name="distance_from_hint">From</string>
-    <string name="distance_to_hint">To</string>
-    <string name="period_from_hint">From</string>
-    <string name="period_to_hint">To</string>
-    <string name="sorting_hint">Sort by</string>
-    <string name="submit_button_title">Filter (%d)</string>
+    <string name="apply_button_title">Apply</string>
+    <string name="apply_button_title_pattern">Apply (%d)</string>
+    <string name="filter_sorting_header">Sort by</string>
+    <string name="select_hint">Select</string>
     <string name="sort_by_name">Name</string>
     <string name="sort_by_age">Age</string>
     <string name="sort_by_birthday">Birthday</string>
+    <string name="sort_by_distance">Distance</string>
+    <string name="sort_by_period">Period</string>
+    <string name="sort_by_planet_mass">Planet mass</string>
+    <string name="sort_by_planet_radius">Planet radius</string>
+    <string name="sort_by_star_mass">Star mass</string>
+    <string name="sort_by_star_radius">Star radius</string>
     <string name="sort_by_asc"> ↑</string>
     <string name="sort_by_desc"> ↓</string>
+    <string name="action_clear">Clear</string>
 
     <!-- Common -->
     <string name="disc_method_astrometry">Astrometry</string>
@@ -102,4 +113,5 @@
     <string name="unknown_birthday">Next birthday: unknown</string>
     <string name="unknown_birthday_short">unknown</string>
     <string name="not_available">n/a</string>
+    <string name="pattern_join" translatable="false">%1$s %2$s</string>
 </resources>

@@ -13,7 +13,17 @@ import androidx.core.graphics.BlendModeCompat
 import androidx.core.os.ConfigurationCompat
 import bav.astrobirthday.R
 import bav.astrobirthday.common.DiscoveryMethod
-import bav.astrobirthday.common.DiscoveryMethod.*
+import bav.astrobirthday.common.DiscoveryMethod.ASTROMETRY
+import bav.astrobirthday.common.DiscoveryMethod.DISK_KINEMATICS
+import bav.astrobirthday.common.DiscoveryMethod.ECLIPSE_TIMING_VARIATIONS
+import bav.astrobirthday.common.DiscoveryMethod.IMAGING
+import bav.astrobirthday.common.DiscoveryMethod.MICROLENSING
+import bav.astrobirthday.common.DiscoveryMethod.ORBITAL_BRIGHTNESS_MODULATION
+import bav.astrobirthday.common.DiscoveryMethod.PULSAR_TIMING
+import bav.astrobirthday.common.DiscoveryMethod.PULSATION_TIMING_VARIATIONS
+import bav.astrobirthday.common.DiscoveryMethod.RADIAL_VELOCITY
+import bav.astrobirthday.common.DiscoveryMethod.TRANSIT
+import bav.astrobirthday.common.DiscoveryMethod.TRANSIT_TIMING_VARIATIONS
 import bav.astrobirthday.data.entities.Config
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -26,6 +36,11 @@ fun String?.orNa(): String = if (this.isNullOrBlank()) "n/a" else this
 fun Int?.orNa(): String = this?.toString() ?: "n/a"
 fun Double?.orNa(): String = this?.toString() ?: "n/a"
 fun CharSequence?.toFloatOrZero(): Float = this?.toString()?.toFloatOrNull() ?: 0f
+fun Float?.toPrettyString() = when {
+    this == null -> "0"
+    this - this.toLong() == 0f -> String.format("%d", this.toLong())
+    else -> String.format("%s", this)
+}
 
 fun Context.localDateToString(date: LocalDate): String {
     val dateFormat = DateTimeFormatter.ofPattern(

@@ -5,6 +5,8 @@ import bav.astrobirthday.MainActivityViewModel
 import bav.astrobirthday.common.InitData
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
+import bav.astrobirthday.data.entities.PlanetFilters
+import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.local.PlanetDb
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.exoplanets.GetExoplanets
@@ -40,7 +42,13 @@ val appModule = module {
     viewModel { ExoplanetsViewModel(get()) }
     viewModel { FavoritesViewModel(get()) }
     viewModel { SettingsViewModel(get(), get()) }
-    viewModel { FilterViewModel(get()) }
+    viewModel { (filterBy: PlanetFilters, sortBy: PlanetSorting) ->
+        FilterViewModel(
+            get(),
+            filterBy,
+            sortBy
+        )
+    }
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }

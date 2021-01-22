@@ -10,13 +10,14 @@
         android:id="@+id/top_app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:menu="@menu/exoplanets_menu"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/exoplanets_menu" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.l4digital.fastscroll.FastScrollRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:handleColor="?attr/colorPrimary"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

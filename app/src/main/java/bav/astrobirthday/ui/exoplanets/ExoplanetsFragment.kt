@@ -15,28 +15,28 @@ import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.ac
 import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
 import bav.astrobirthday.utils.setupToolbar
-import bav.astrobirthday.utils.sharedGraphViewModel
 import bav.astrobirthday.utils.smoothSnapToPosition
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
 class ExoplanetsFragment :
     BaseFragment<FragmentExoplanetsBinding>(FragmentExoplanetsBinding::inflate) {
 
-    private val viewModel: ExoplanetsViewModel by sharedGraphViewModel(R.id.mobile_navigation)
+    private val viewModel: ExoplanetsViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(requireBinding()) {
             setupToolbar(topAppBar)
-            val adapter = ExoplanetsAdapter { planetDescription ->
+            val exoplanetsAdapter = ExoplanetsAdapter { planetDescription ->
                 findNavController().navigate(
                     actionNavExoplanetsToPlanetFragment(planetDescription.planet.pl_name)
                 )
             }
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewModel.planetsList.collectLatest(adapter::submitData)
+                viewModel.planetsList.collectLatest(exoplanetsAdapter::submitData)
             }
             viewModel.events.observe(viewLifecycleOwner) { events ->
                 events.peek { event ->
@@ -47,12 +47,19 @@ class ExoplanetsFragment :
                 }
             }
 
-            recyclerView.adapter = adapter
-            (recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            recyclerView.run {
+                setHasFixedSize(true)
+                adapter = exoplanetsAdapter
+                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            }
 
             setupSearchView()
 
-            topAppBar.menu.findItem(R.id.action_filter).setOnMenuItemClickListener {
+            val actionFilter = topAppBar.menu.findItem(R.id.action_filter)
+            viewModel.filterIcon.observe(viewLifecycleOwner) {
+                actionFilter.setIcon(it)
+            }
+            actionFilter.setOnMenuItemClickListener {
                 findNavController().navigate(
                     actionNavExoplanetsToFilterFragment()
                 )
