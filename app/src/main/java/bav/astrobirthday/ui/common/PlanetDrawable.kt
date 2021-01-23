@@ -32,12 +32,20 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         ContextCompat.getDrawable(context, R.drawable.ic_features_radial_shadow)!!.mutate()
     private val surfaceRings =
         ContextCompat.getDrawable(context, R.drawable.ic_features_surface_rings)!!.mutate()
+    private val polarHat =
+        ContextCompat.getDrawable(context, R.drawable.ic_features_polar_hat)!!.mutate()
     private val ring =
         ContextCompat.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
+    private val innerRing =
+        ContextCompat.getDrawable(context, R.drawable.ic_features_inner_ring)!!.mutate()
 
     private val random = Random(planet.sha1().contentHashCode())
     private val showRing = random.nextBoolean()
+    private val showInnerRing = random.nextBoolean()
+    private val showPolarHat = random.nextBoolean()
     private val showCraters = random.nextBoolean()
+    private val surfaceRotation = random.nextInt(0, 360).toFloat()
+    private val ringsRotation = random.nextInt(0, 360).toFloat()
     private val showSurfaceRings = random.nextBoolean()
     private val craterPaint = Paint().apply {
         style = Paint.Style.FILL
@@ -62,6 +70,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
                 Color.argb(nextAlpha(from = 75, to = 100), sRR, sRG, sRB), BlendModeCompat.SRC
             )
             ring.setColorFilter(nextColor(), nextColor(), nextColor(), nextAlpha())
+            innerRing.setColorFilter(nextColor(), nextColor(), nextColor(), nextAlpha())
         }
     }
 
@@ -72,14 +81,29 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
                 canvas.drawOval(crater.oval, craterPaint)
             }
         }
-        if (showSurfaceRings) {
-            canvas.rotateRandomlyAndDraw(surfaceRings, random, bounds)
-        }
+
+        canvas.save()
+        canvas.rotate(
+            surfaceRotation,
+            bounds.width().toFloat() / 2,
+            bounds.height().toFloat() / 2
+        )
+        if (showSurfaceRings) surfaceRings.draw(canvas)
+        if (showPolarHat) polarHat.draw(canvas)
+        canvas.restore()
+
         shadow.draw(canvas)
         radialShadow.draw(canvas)
-        if (showRing) {
-            canvas.rotateRandomlyAndDraw(ring, random, bounds)
-        }
+
+        canvas.save()
+        canvas.rotate(
+            ringsRotation,
+            bounds.width().toFloat() / 2,
+            bounds.height().toFloat() / 2
+        )
+        if (showRing) ring.draw(canvas)
+        if (showInnerRing) innerRing.draw(canvas)
+        canvas.restore()
     }
 
     override fun setAlpha(alpha: Int) {
@@ -95,14 +119,21 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
 
     override fun setBounds(left: Int, top: Int, right: Int, bottom: Int) {
         super.setBounds(left, top, right, bottom)
-        val padding = if (showRing) 30 else 0
+        val largePadding = 10.toDp(context).toInt()
+        val smallPadding = 0
+        val padding = when {
+            showRing || showInnerRing -> largePadding
+            else -> smallPadding
+        }
         val bgBounds = Rect(left + padding, top + padding, right - padding, bottom - padding)
         val ringBounds = Rect(left, top, right, bottom)
         bg.bounds = bgBounds
         shadow.bounds = bgBounds
         radialShadow.bounds = bgBounds
         surfaceRings.bounds = bgBounds
+        polarHat.bounds = bgBounds
         ring.bounds = ringBounds
+        innerRing.bounds = ringBounds
 
         // Craters
         if (showCraters) {
