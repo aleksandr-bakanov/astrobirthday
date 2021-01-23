@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.entities.PlanetAndInfo
 import bav.astrobirthday.data.entities.PlanetDescription
@@ -12,7 +11,6 @@ import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getPlanetType
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 
 class PlanetViewModel(
     private val database: PlanetDao,
@@ -35,8 +33,8 @@ class PlanetViewModel(
             PlanetDescription(
                 planet = planet,
                 isFavorite = info?.is_favorite ?: false,
-                ageOnPlanet = info?.age ?: 0.0,
-                nearestBirthday = info?.birthday ?: LocalDate.MIN,
+                ageOnPlanet = info?.age,
+                nearestBirthday = info?.birthday,
                 planetType = getPlanetType(planet.pl_name),
                 neighbours = neighbours.map(PlanetAndInfo::planet)
             )

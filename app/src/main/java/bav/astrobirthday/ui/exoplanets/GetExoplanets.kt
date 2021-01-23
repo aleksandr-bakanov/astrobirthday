@@ -8,11 +8,14 @@ import bav.astrobirthday.data.entities.PlanetAndInfo
 import bav.astrobirthday.data.entities.PlanetFilter
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.local.PlanetDao
-import kotlinx.coroutines.flow.Flow
 
 class GetExoplanets(private val database: PlanetDao) {
 
-    fun getSource(sort: PlanetSorting, searchRequest: String, filter: PlanetFilter): PagingSource<Int, PlanetAndInfo> {
+    fun getSource(
+        sort: PlanetSorting,
+        searchRequest: String,
+        filter: PlanetFilter
+    ): PagingSource<Int, PlanetAndInfo> {
         val searchQuery = if (searchRequest.isBlank()) "" else "AND pl_name LIKE '%$searchRequest%'"
         val filterQuery = getFilterQuery(filter)
         val query = SimpleSQLiteQuery(
@@ -42,10 +45,10 @@ class GetExoplanets(private val database: PlanetDao) {
 
     private fun getFilterQuery(filter: PlanetFilter): String {
         return """
-            AND sy_dist >= ${filter.distanceFrom} 
-            AND sy_dist <= ${filter.distanceTo} 
-            AND pl_orbper >= ${filter.periodFrom} 
-            AND pl_orbper <= ${filter.periodTo} 
+            AND (sy_dist >= ${filter.distanceFrom} OR sy_dist IS NULL) 
+            AND (sy_dist <= ${filter.distanceTo} OR sy_dist IS NULL) 
+            AND (pl_orbper >= ${filter.periodFrom} OR pl_orbper IS NULL) 
+            AND (pl_orbper <= ${filter.periodTo} OR pl_orbper IS NULL) 
         """.trimIndent()
     }
 }

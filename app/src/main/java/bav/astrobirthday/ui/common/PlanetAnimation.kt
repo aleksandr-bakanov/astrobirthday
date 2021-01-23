@@ -16,8 +16,15 @@ import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.utils.getIntAttribute
 import bav.astrobirthday.utils.toDp
-import bav.astrobirthday.utils.toPlanetIndex
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.atan
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.log10
+import kotlin.math.max
+import kotlin.math.sin
+import kotlin.math.sqrt
+import kotlin.math.tan
 
 class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
@@ -62,9 +69,6 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var a: Float = 0f
     private var b: Float = 0f
     private var c: Float = 0f
-
-    private var totalPlanets = 1
-    private var planetIndex = 1
 
     private var initialized = false
     private var isDataSet = false
@@ -158,8 +162,6 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         mainPlanet = description.planet
         mainPlanet?.let { planet ->
             this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
-            totalPlanets = planet.sy_pnum ?: 1
-            planetIndex = planet.pl_name.toPlanetIndex().coerceIn(1, totalPlanets)
 
             neighbours = description.neighbours
             neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }

@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.databinding.ViewItemExoplanetBinding
 import bav.astrobirthday.utils.getAgeStringShort
 import bav.astrobirthday.utils.localDateToString
-import bav.astrobirthday.utils.orNa
 
 class ExoplanetsAdapter(
     private val itemClickListener: (PlanetDescription) -> Unit
@@ -33,8 +33,11 @@ class ExoplanetsAdapter(
         fun bindTo(desc: PlanetDescription) = with(binding) {
             val context = itemView.context
             name.text = desc.planet.pl_name
-            age.text = context.getAgeStringShort(desc.ageOnPlanet).orNa()
-            nearestBirthday.text = context.localDateToString(desc.nearestBirthday).orNa()
+            age.text = context.getAgeStringShort(desc.ageOnPlanet)
+            nearestBirthday.text =
+                desc.nearestBirthday?.let { context.localDateToString(it) } ?: context.getString(
+                    R.string.unknown_birthday_short
+                )
             image.setPlanet(desc)
             itemView.setOnClickListener { clickListener(desc) }
         }

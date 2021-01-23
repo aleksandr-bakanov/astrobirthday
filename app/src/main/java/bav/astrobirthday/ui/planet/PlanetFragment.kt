@@ -5,10 +5,15 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.ui.common.BaseFragment
-import bav.astrobirthday.utils.*
+import bav.astrobirthday.utils.discoveryMethodToStr
+import bav.astrobirthday.utils.getAgeString
+import bav.astrobirthday.utils.getNearestBirthdayString
+import bav.astrobirthday.utils.getReferenceLink
+import bav.astrobirthday.utils.getReferenceText
+import bav.astrobirthday.utils.openUrl
+import bav.astrobirthday.utils.orNa
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -30,10 +35,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             planetNameCollapsed.text = p.planet.pl_name.orNa()
             stellarName.text = p.planet.hostname.orNa()
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
-            nearestBirthday.text = getString(
-                R.string.next_birthday,
-                context.localDateToString(p.nearestBirthday).orNa()
-            )
+            nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 
             planetReferenceText.text = getReferenceText(p.planet.pl_refname).orNa()
             planetDiscoveryMethod.text =

@@ -9,6 +9,7 @@ import bav.astrobirthday.databinding.ViewGridPlanetBinding
 import bav.astrobirthday.ui.common.adapter.BindingViewHolder
 import bav.astrobirthday.utils.getAgeStringForMainScreen
 import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.utils.orNa
 
 class SolarPlanetsAdapter(
     private val itemClickListener: (PlanetDescription) -> Unit
@@ -33,7 +34,8 @@ class SolarPlanetsAdapter(
         fun bindTo(planet: PlanetDescription) = with(binding) {
             val context = itemView.context
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
-            nearestBirthday.text = context.localDateToString(planet.nearestBirthday)
+            nearestBirthday.text =
+                planet.nearestBirthday?.let { context.localDateToString(it) }.orNa()
             image.setPlanet(planet)
             itemView.setOnClickListener { clickListener(planet) }
         }

@@ -83,7 +83,6 @@
     <string name="sort_by_asc"> ↑</string>
     <string name="sort_by_desc"> ↓</string>
 
-
     <!-- Common -->
     <string name="disc_method_astrometry">Astrometry</string>
     <string name="disc_method_disk_kinematics">Disk kinematics</string>
@@ -96,4 +95,9 @@
     <string name="disc_method_radial_velocity">Radial velocity</string>
     <string name="disc_method_transit">Transit</string>
     <string name="disc_method_transit_timing_variations">Transit timing variations</string>
+    <string name="unknown_age">Age: unknown</string>
+    <string name="unknown_age_short">unknown</string>
+    <string name="unknown_birthday">Next birthday: unknown</string>
+    <string name="unknown_birthday_short">unknown</string>
+    <string name="not_available">n/a</string>
 </resources>

@@ -18,6 +18,6 @@ val PLANET_USER_INFO_COLUMNS = arrayOf(
 data class PlanetUserInfo(
     @PrimaryKey val name: String,
     @ColumnInfo(name = "is_favorite") val is_favorite: Boolean = false,
-    @ColumnInfo(name = "age") val age: Double,
-    @ColumnInfo(name = "birthday") val birthday: LocalDate
+    @ColumnInfo(name = "age") val age: Double?,
+    @ColumnInfo(name = "birthday") val birthday: LocalDate?
 )

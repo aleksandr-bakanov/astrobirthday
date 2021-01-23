@@ -10,13 +10,15 @@ import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
 import kotlin.math.floor
 
-fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double {
+fun getAgeOnPlanet(userBirthday: LocalDate, period: Double?): Double? {
+    if (period == null) return null
     val now = LocalDate.now()
     val userAgeInEarthDays = ChronoUnit.DAYS.between(userBirthday, now).toDouble()
-    return userAgeInEarthDays / (period ?: 1.0)
+    return userAgeInEarthDays / period
 }
 
-fun Context.getAgeString(age: Double): String {
+fun Context.getAgeString(age: Double?): String {
+    if (age == null) return resources.getString(R.string.unknown_age)
     val years = floor(age)
     var days = floor(360.0 * (age - years)).toInt()
     val months = floor(days / 30.0).toInt()
@@ -63,7 +65,8 @@ fun Context.getAgeString(age: Double): String {
     }
 }
 
-fun Context.getAgeStringShort(age: Double): String {
+fun Context.getAgeStringShort(age: Double?): String {
+    if (age == null) return resources.getString(R.string.unknown_age_short)
     val years = floor(age)
     var days = floor(360.0 * (age - years)).toInt()
     val months = floor(days / 30.0).toInt()
@@ -77,7 +80,8 @@ fun Context.getAgeStringShort(age: Double): String {
     }
 }
 
-fun Context.getAgeStringForMainScreen(age: Double): String {
+fun Context.getAgeStringForMainScreen(age: Double?): String {
+    if (age == null) return resources.getString(R.string.not_available)
     val years = floor(age)
     val days = floor(360.0 * (age - years))
     val months = floor(days / 30.0)
@@ -105,20 +109,33 @@ fun getReferenceLink(reference: String?): String? {
     return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1)
 }
 
-fun getNearestBirthday(userBirthday: LocalDate, name: String, period: Double?): LocalDate {
+fun getNearestBirthday(userBirthday: LocalDate, name: String, period: Double?): LocalDate? {
+    if (period == null) return null
     val now = LocalDate.now()
     if (name == "Earth") {
         val years = ChronoUnit.YEARS.between(userBirthday, now)
         return userBirthday.plusYears(years + 1)
     }
-    val p = period ?: 1.0
     val userAgeInEarthDays = if (userBirthday == now) {
-        p
+        period
     } else {
         ChronoUnit.DAYS.between(userBirthday, now).toDouble()
     }
-    val daysInNextBirthday = ceil((p * ceil(userAgeInEarthDays / p))).toLong()
+    val daysInNextBirthday = ceil((period * ceil(userAgeInEarthDays / period))).toLong()
     return userBirthday.plusDays(daysInNextBirthday)
+}
+
+fun Context.getNearestBirthdayString(date: LocalDate?): String {
+    return if (date == null) resources.getString(R.string.unknown_birthday)
+    else resources.getString(
+        R.string.next_birthday,
+        this.localDateToString(date)
+    )
+}
+
+fun Context.getNearestBirthdayShortString(date: LocalDate?): String {
+    return if (date == null) resources.getString(R.string.unknown_birthday_short)
+    else this.localDateToString(date)
 }
 
 fun getPlanetType(planetName: String?): PlanetType? {
@@ -145,8 +162,8 @@ fun PlanetAndInfo.toPlanetDescription(): PlanetDescription {
     return PlanetDescription( // TODO check defaults
         planet = planet,
         isFavorite = info?.is_favorite ?: false,
-        ageOnPlanet = info?.age ?: 0.0,
-        nearestBirthday = info?.birthday ?: LocalDate.MIN,
+        ageOnPlanet = info?.age,
+        nearestBirthday = info?.birthday,
         planetType = getPlanetType(planet.pl_name)
     )
 }
