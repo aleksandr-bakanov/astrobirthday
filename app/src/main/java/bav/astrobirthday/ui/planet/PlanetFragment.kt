@@ -61,6 +61,8 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             systemDistance.text = p.planet.sy_dist.orNa()
 
             datePlanetReference.text = p.planet.pl_pubdate.orNa()
+            dateReleasedByNasa.text = p.planet.releasedate.orNa()
+            dateLastUpdate.text = p.planet.rowupdate.orNa()
 
             favoriteButton.setFavorite(p.isFavorite)
 

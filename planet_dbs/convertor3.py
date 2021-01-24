@@ -4,7 +4,7 @@ import re
 import sqlite3
 from enum import Enum
 
-regex = re.compile(r'(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)')
+regex = re.compile(r'(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?),(.*?)$')
 
 dbfile = "planets.db"
 
@@ -159,7 +159,7 @@ def main():
             rowupdate = m.group(23)
             pl_pubdate = m.group(24)
             releasedate = m.group(25)
-            
+
             row = [(pl_name, cnt, hostname, sy_snum, sy_pnum, discoverymethod, disc_year, disc_facility, pl_refname, pl_orbper, pl_orbsmax, pl_rade, pl_bmasse, pl_orbeccen, pl_eqt, st_refname, st_spectype, st_teff, st_rad, st_mass, sy_refname, sy_dist, rowupdate, pl_pubdate, releasedate)]
             cursor.executemany("INSERT INTO planets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", row)
             
