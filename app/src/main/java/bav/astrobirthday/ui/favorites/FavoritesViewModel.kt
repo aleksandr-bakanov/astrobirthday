@@ -6,7 +6,7 @@ import androidx.paging.*
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.entities.SortOrder
-import bav.astrobirthday.data.entities.SortableColumn
+import bav.astrobirthday.data.entities.Column
 import bav.astrobirthday.utils.toPlanetDescription
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ class FavoritesViewModel(
     private val getFavorites: GetFavorites
 ) : ViewModel() {
 
-    private val sorting = MutableStateFlow(PlanetSorting(SortableColumn.NAME, SortOrder.ASC))
+    private val sorting = MutableStateFlow(PlanetSorting(Column.NAME, SortOrder.ASC))
 
     val planetsList: Flow<PagingData<PlanetDescription>> = sorting
         .flatMapLatest { sortBy ->

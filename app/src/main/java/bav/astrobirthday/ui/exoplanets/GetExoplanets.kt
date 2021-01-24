@@ -5,7 +5,8 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import bav.astrobirthday.data.entities.PLANETS_TABLE
 import bav.astrobirthday.data.entities.PLANET_USER_INFO_TABLE
 import bav.astrobirthday.data.entities.PlanetAndInfo
-import bav.astrobirthday.data.entities.PlanetFilter
+import bav.astrobirthday.data.entities.PlanetFilter.FilterFromTo
+import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.local.PlanetDao
 
@@ -14,7 +15,7 @@ class GetExoplanets(private val database: PlanetDao) {
     fun getSource(
         sort: PlanetSorting,
         searchRequest: String,
-        filter: PlanetFilter
+        filter: PlanetFilters
     ): PagingSource<Int, PlanetAndInfo> {
         val searchQuery = if (searchRequest.isBlank()) "" else "AND pl_name LIKE '%$searchRequest%'"
         val filterQuery = getFilterQuery(filter)
@@ -26,13 +27,13 @@ class GetExoplanets(private val database: PlanetDao) {
                 WHERE id > 14 
                 $searchQuery 
                 $filterQuery 
-                ORDER BY ${sort.column} ${sort.order}
+                ORDER BY ${sort.column.columnName} ${sort.order}
             """.trimIndent()
         )
         return database.planetsByUidOrder(query)
     }
 
-    suspend fun getCount(filter: PlanetFilter): Int {
+    suspend fun getCount(filter: PlanetFilters): Int {
         val query = SimpleSQLiteQuery(
             """
                 SELECT COUNT(id) FROM $PLANETS_TABLE 
@@ -43,12 +44,16 @@ class GetExoplanets(private val database: PlanetDao) {
         return database.countPlanetsWithFilter(query)
     }
 
-    private fun getFilterQuery(filter: PlanetFilter): String {
-        return """
-            AND (sy_dist >= ${filter.distanceFrom} OR sy_dist IS NULL) 
-            AND (sy_dist <= ${filter.distanceTo} OR sy_dist IS NULL) 
-            AND (pl_orbper >= ${filter.periodFrom} OR pl_orbper IS NULL) 
-            AND (pl_orbper <= ${filter.periodTo} OR pl_orbper IS NULL) 
-        """.trimIndent()
+    private fun getFilterQuery(filterBy: PlanetFilters): String {
+        val sb = StringBuilder()
+        filterBy.filters.forEach { (column, filter) ->
+            when (filter) {
+                is FilterFromTo -> {
+                    sb.append("AND (${column.columnName} >= ${filter.from} OR ${column.columnName} IS NULL) ")
+                    sb.append("AND (${column.columnName} <= ${filter.to}  OR ${column.columnName} IS NULL) ")
+                }
+            }
+        }
+        return sb.toString()
     }
 }

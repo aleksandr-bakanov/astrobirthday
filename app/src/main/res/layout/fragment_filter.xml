@@ -1,117 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/filter_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/centerGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/filters_menu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <TextView
-        android:id="@+id/distance_header"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/filter_distance_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/distance_from_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/distance_from_hint"
-        app:layout_constraintEnd_toEndOf="@id/centerGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/distance_header">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/distance_from_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/distance_to_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/distance_to_hint"
+        android:paddingBottom="80dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/centerGuideline"
-        app:layout_constraintTop_toBottomOf="@id/distance_header">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/distance_to_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/period_header"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/filter_period_header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/distance_from_input_layout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/period_from_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:hint="@string/period_from_hint"
-        app:layout_constraintEnd_toEndOf="@id/centerGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/period_header">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/period_from_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/period_to_input_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/period_to_hint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/centerGuideline"
-        app:layout_constraintTop_toBottomOf="@id/period_header">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/period_to_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/submit_button"
+        android:id="@+id/apply_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -119,35 +37,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/sorting_header"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/filter_sorting_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/period_from_input_layout" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/sorting_dropdown"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/sorting_hint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sorting_header">
-
-        <AutoCompleteTextView
-            android:id="@+id/sorting_dropdown_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

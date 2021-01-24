@@ -9,11 +9,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.PlanetDescription
-import bav.astrobirthday.data.entities.PlanetFilter
+import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
-import bav.astrobirthday.data.entities.SortOrder
-import bav.astrobirthday.data.entities.SortableColumn
+import bav.astrobirthday.data.entities.isDefault
 import bav.astrobirthday.ui.common.ViewEvent
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
 import bav.astrobirthday.utils.toPlanetDescription
@@ -28,17 +28,35 @@ class ExoplanetsViewModel(
     private val getExoplanets: GetExoplanets
 ) : ViewModel() {
 
-    val sorting = MutableStateFlow(PlanetSorting(SortableColumn.NAME, SortOrder.ASC))
+    val filterIcon: LiveData<Int>
+        get() = _filterIcon
+    private val _filterIcon = MutableLiveData<Int>()
+
+    val sorting = MutableStateFlow(PlanetSorting())
     private val searchRequest = MutableStateFlow("")
-    val filtering = MutableStateFlow(PlanetFilter())
+    val filtering = MutableStateFlow(PlanetFilters())
 
     val events: LiveData<ExoplanetsEvent>
         get() = _events
     private val _events = MutableLiveData<ExoplanetsEvent>()
 
+    private val config = PagingConfig(
+        pageSize = 100,
+        enablePlaceholders = true,
+        jumpThreshold = 2000
+    )
+
+    private val filtersflow = filtering.onEach { filterBy ->
+        if (filterBy.isDefault) {
+            _filterIcon.value = R.drawable.ic_baseline_filter_list_24
+        } else {
+            _filterIcon.value = R.drawable.ic_baseline_filter_list_active_24
+        }
+    }
+
     val planetsList: Flow<PagingData<PlanetDescription>> =
-        combine(sorting, searchRequest, filtering) { sortBy, search, filter ->
-            Pager(PagingConfig(pageSize = 20)) {
+        combine(sorting, searchRequest, filtersflow) { sortBy, search, filter ->
+            Pager(config) {
                 getExoplanets.getSource(sortBy, search, filter)
             }
         }
@@ -49,15 +67,12 @@ class ExoplanetsViewModel(
             .onEach { _events.value = ScrollTo(0) }
             .cachedIn(viewModelScope)
 
-    fun changeSorting(sortBy: PlanetSorting) {
-        sorting.value = sortBy
-    }
-
     fun setSearchRequest(request: String) {
         searchRequest.value = request
     }
 
-    fun setFilter(filterBy: PlanetFilter) {
+    fun updateParameters(sortBy: PlanetSorting, filterBy: PlanetFilters) {
+        sorting.value = sortBy
         filtering.value = filterBy
     }
 
