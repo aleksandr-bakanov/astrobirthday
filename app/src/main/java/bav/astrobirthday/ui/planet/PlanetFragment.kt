@@ -1,7 +1,9 @@
 package bav.astrobirthday.ui.planet
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
+import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,6 +16,7 @@ import bav.astrobirthday.utils.getReferenceLink
 import bav.astrobirthday.utils.getReferenceText
 import bav.astrobirthday.utils.openUrl
 import bav.astrobirthday.utils.orNa
+import bav.astrobirthday.utils.setHtml
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -37,7 +40,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 
-            planetReferenceText.text = getReferenceText(p.planet.pl_refname).orNa()
+            planetReferenceText.setHtml(getReferenceText(p.planet.pl_refname).orNa())
             planetDiscoveryMethod.text =
                 context.discoveryMethodToStr(p.planet.discoverymethod)
             planetDiscoveryYear.text = p.planet.disc_year.orNa()
@@ -49,13 +52,13 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             planetEccentricity.text = p.planet.pl_orbeccen.orNa()
             planetEquilibriumTemperature.text = p.planet.pl_eqt.orNa()
 
-            stellarReferenceText.text = getReferenceText(p.planet.st_refname).orNa()
+            stellarReferenceText.setHtml(getReferenceText(p.planet.st_refname).orNa())
             stellarSpectralType.text = p.planet.st_spectype.orNa()
             stellarEffectiveTemperature.text = p.planet.st_teff.orNa()
             stellarRaduis.text = p.planet.st_rad.orNa()
             stellarMass.text = p.planet.st_mass.orNa()
 
-            systemReferenceText.text = getReferenceText(p.planet.sy_refname).orNa()
+            systemReferenceText.setHtml(getReferenceText(p.planet.sy_refname).orNa())
             systemNumberOfStars.text = p.planet.sy_snum.orNa()
             systemNumberOfPlanets.text = p.planet.sy_pnum.orNa()
             systemDistance.text = p.planet.sy_dist.orNa()

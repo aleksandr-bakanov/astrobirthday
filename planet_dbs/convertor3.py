@@ -125,6 +125,18 @@ def main():
     
     maxPeriod = 0.0
     minPeriod = 100000000000000000000000.0
+    
+    maxPlMass = 0.0
+    minPlMass = 100000000000000000000000.0
+    
+    maxPlRad = 0.0
+    minPlRad = 100000000000000000000000.0
+    
+    maxStMass = 0.0
+    minStMass = 100000000000000000000000.0
+    
+    maxStRad = 0.0
+    minStRad = 100000000000000000000000.0
 
     with open(filepath) as fp:
         cnt = 15
@@ -177,9 +189,37 @@ def main():
                 if maxPeriod < pl_orbper:
                     maxPeriod = pl_orbper
 
+            if pl_bmasse is not None:
+                if minPlMass > pl_bmasse:
+                    minPlMass = pl_bmasse
+                if maxPlMass < pl_bmasse:
+                    maxPlMass = pl_bmasse
+
+            if pl_rade is not None:
+                if minPlRad > pl_rade:
+                    minPlRad = pl_rade
+                if maxPlRad < pl_rade:
+                    maxPlRad = pl_rade
+                    
+            if st_mass is not None:
+                if minStMass > st_mass:
+                    minStMass = st_mass
+                if maxStMass < st_mass:
+                    maxStMass = st_mass
+
+            if st_rad is not None:
+                if minStRad > st_rad:
+                    minStRad = st_rad
+                if maxStRad < st_rad:
+                    maxStRad = st_rad
+
     conn.commit()
     print("minDistance = ", minDistance, "; maxDistance = ", maxDistance)
     print("minPeriod = ", minPeriod, "; maxPeriod = ", maxPeriod)
+    print("minPlMass = ", minPlMass, "; maxPlMass = ", maxPlMass)
+    print("minPlRad = ", minPlRad, "; maxPlRad = ", maxPlRad)
+    print("minStMass = ", minStMass, "; maxStMass = ", maxStMass)
+    print("minStRad = ", minStRad, "; maxStRad = ", maxStRad)
 
 if __name__ == '__main__':
     main()

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -69,4 +71,8 @@ fun EditText.updateText(updated: CharSequence?) {
     } else if (s.toString() != updated) {
         s.replace(0, s.length, updated)
     }
+}
+
+fun TextView.setHtml(value: String) {
+    text = HtmlCompat.fromHtml(value, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }
