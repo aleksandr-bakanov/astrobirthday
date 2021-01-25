@@ -48,9 +48,9 @@
     <string name="number_of_planets">Number of planets</string>
     <string name="distance_pc">Distance [pc]</string>
     <string name="dates">Dates</string>
-    <string name="planetary_reference_publication_date">Planetary reference publication date</string>
-    <string name="last_update_date">Data of last update</string>
-    <string name="nasa_exoplanet_archive_release_date">Released by NASA Exoplanets archive</string>
+    <string name="planetary_reference_publication_date">Publication date</string>
+    <string name="last_update_date">Date of last update</string>
+    <string name="nasa_exoplanet_archive_release_date">Release date</string>
 
     <plurals name="years_amount">
         <item quantity="one">%d year</item>

@@ -12,7 +12,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import bav.astrobirthday.R
@@ -21,30 +21,32 @@ import bav.astrobirthday.utils.sha1
 import bav.astrobirthday.utils.toDp
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() {
 
     private val bg =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_background)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_background)!!.mutate()
     private val shadow =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_shadow)!!.mutate()
     private val radialShadow =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_radial_shadow)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_radial_shadow)!!.mutate()
     private val surfaceRings =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_surface_rings)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_surface_rings)!!.mutate()
     private val polarHat =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_polar_hat)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_polar_hat)!!.mutate()
     private val ring =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_ring)!!.mutate()
     private val innerRing =
-        ContextCompat.getDrawable(context, R.drawable.ic_features_inner_ring)!!.mutate()
+        AppCompatResources.getDrawable(context, R.drawable.ic_features_inner_ring)!!.mutate()
 
     private val config = Config(planet)
 
     private val radialGradient =
-        RadialGradient(0f, 0f, 4.toDp(context), radialColors, null, Shader.TileMode.CLAMP)
+        RadialGradient(0f, 0f, 8.toDp(context), radialColors, null, Shader.TileMode.CLAMP)
     private val craterMatrix = Matrix()
     private val craterPaint = Paint().apply {
         style = Paint.Style.FILL
@@ -139,7 +141,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
             val boundsR = bgBounds.right - bgBounds.exactCenterX()
             val cx = bgBounds.exactCenterX()
             val cy = bgBounds.exactCenterY()
-            craters = config.craterConfigs.map { crater ->
+            craters = filterIntersectCraters(config.craterConfigs, boundsR, context).map { crater ->
                 val r = crater.r.toDp(context).toInt()
                 val a = crater.a
                 val rv = (crater.rv * (boundsR - 2 * r)) + r
@@ -157,11 +159,25 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         }
     }
 
+    private fun filterIntersectCraters(craters: List<CraterConfig>, br: Float, context: Context): List<CraterConfig> {
+        val filteredCraters = mutableListOf<CraterConfig>()
+        craters.forEach { c ->
+            val cr = c.r.toDp(context).toInt()
+            val r1 = ((c.rv * (br - 2 * cr)) + cr).toDouble()
+            if (filteredCraters.none { f ->
+                    val fr = f.r.toDp(context).toInt()
+                    val r2 = ((f.rv * (br - 2 * fr)) + fr).toDouble()
+                    (sqrt(r1.pow(2.0) + r2.pow(2.0) - 2.0 * r1 * r2 * cos(c.a - f.a)) <= cr + fr)
+                }) filteredCraters.add(c)
+        }
+        return filteredCraters.take(config.craterCount)
+    }
+
     private companion object {
         fun Random.nextColor(): Int = this.nextInt(0, 255)
         fun Random.nextAlpha(from: Int = 75, to: Int = 180): Int = this.nextInt(from, to)
         fun Random.nextBoolean(chance: Float): Boolean = this.nextFloat() < chance
-        val radialColors = arrayOf(0x88000000.toInt(), 0x00000000).toIntArray()
+        val radialColors = arrayOf(0xFF000000.toInt(), 0x00000000).toIntArray()
     }
 
     class Config(planet: Planet) {
@@ -170,7 +186,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         val showRing = random.nextBoolean(0.4f)
         val showInnerRing = random.nextBoolean(0.4f)
         val showPolarHat = random.nextBoolean()
-        val showCraters = random.nextBoolean()
+        val showCraters = random.nextBoolean(0.65f)
         val surfaceRotation = random.nextInt(0, 360).toFloat()
         val ringsRotation = surfaceRotation + random.nextInt(-15, 15).toFloat()
         val showSurfaceRings = random.nextBoolean()
@@ -211,9 +227,9 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
                 random.nextColor()
             ), BlendModeCompat.SRC_IN
         )
-        private val craterCount = random.nextInt(3, 12)
-        val craterConfigs = (0 until craterCount).map {
-            CraterConfig(random.nextInt(3, 5), random.nextDouble(0.0, 2 * PI), random.nextFloat())
+        val craterCount = random.nextInt(3, 20)
+        val craterConfigs = (0 until 25).map {
+            CraterConfig(random.nextInt(3, 7), random.nextDouble(0.0, 2 * PI), random.nextFloat())
         }
     }
 
