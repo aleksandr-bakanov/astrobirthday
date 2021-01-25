@@ -52,8 +52,13 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
 
             viewModel.state.observe(viewLifecycleOwner) { state ->
                 filterAdapter.items = state.adapterItems
-                applyButton.text = state.applyText.resolve(requireContext())
+                applyButton.text = state.applyText?.resolve(requireContext())
                 actionClear.isVisible = state.clearVisible
+                if (state.applyVisible) {
+                    applyButton.show()
+                } else {
+                    applyButton.hide()
+                }
             }
 
             viewModel.events.observe(viewLifecycleOwner) { events ->

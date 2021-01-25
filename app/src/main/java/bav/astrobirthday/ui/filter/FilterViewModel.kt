@@ -63,15 +63,12 @@ class FilterViewModel(
         adapterItems: List<FilterItems>,
         filterBy: PlanetFilters,
         sortBy: PlanetSorting,
-        count: Int = 0
+        count: Int? = null
     ) = FilterViewState(
         adapterItems = adapterItems,
         clearVisible = filterBy.isDefault.not() || sortBy.isDefault.not(),
-        applyText = if (count == 0) {
-            String.Res(R.string.apply_button_title)
-        } else {
-            String.Res(R.string.apply_button_title_pattern, count)
-        }
+        applyText = count?.let { String.Res(R.string.apply_button_title_pattern, it) },
+        applyVisible = count != null
     )
 
     private fun mapAdapterItems(filterBy: PlanetFilters, sortBy: PlanetSorting): List<FilterItems> {
@@ -119,7 +116,8 @@ class FilterViewModel(
     data class FilterViewState(
         val adapterItems: List<FilterItems>,
         val clearVisible: Boolean,
-        val applyText: String
+        val applyText: String?,
+        val applyVisible: Boolean
     )
 
     sealed class FilterEvent : ViewEvent() {

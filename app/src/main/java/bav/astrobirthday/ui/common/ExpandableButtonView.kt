@@ -1,10 +1,15 @@
 package bav.astrobirthday.ui.common
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.view.doOnLayout
+import androidx.core.view.isVisible
+import androidx.core.view.marginEnd
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.utils.toDp
@@ -19,8 +24,8 @@ class ExpandableButtonView @JvmOverloads constructor(
     private val expandInterpolator = AccelerateDecelerateInterpolator()
 
     private val radiusAnimator = ValueAnimator.ofInt(
-        24.toDp(context).toInt(),
-        4.toDp(context).toInt()
+        EXPANDED_RADIUS.toDp(context).toInt(),
+        COLLAPSED_RADIUS.toDp(context).toInt()
     ).apply {
         addUpdateListener {
             cornerRadius = it.animatedValue as Int
@@ -28,8 +33,26 @@ class ExpandableButtonView @JvmOverloads constructor(
         interpolator = expandInterpolator
     }
 
+    private val showAnimator = AnimatorSet().apply {
+        playTogether(
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, ALPHA, 0f, 1f),
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, SCALE_X, 0f, 1f),
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, SCALE_Y, 0f, 1f)
+        )
+        interpolator = expandInterpolator
+    }
+
+    private val hideAnimator = AnimatorSet().apply {
+        playTogether(
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, ALPHA, 1f, 0f),
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, SCALE_X, 1f, 0f),
+            ObjectAnimator.ofFloat(this@ExpandableButtonView, SCALE_Y, 1f, 0f)
+        )
+        interpolator = expandInterpolator
+    }
+
     init {
-        cornerRadius = 24.toDp(context).toInt()
+        cornerRadius = EXPANDED_RADIUS.toDp(context).toInt()
     }
 
     private var expandWidth: Int = 0
@@ -37,7 +60,7 @@ class ExpandableButtonView @JvmOverloads constructor(
 
     fun bindToRecycler(recyclerView: RecyclerView) {
         recyclerView.doOnLayout {
-            expandWidth = recyclerView.measuredWidth - 32.toDp(context).toInt()
+            expandWidth = recyclerView.measuredWidth - marginStart - marginEnd
         }
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -56,6 +79,19 @@ class ExpandableButtonView @JvmOverloads constructor(
         })
     }
 
+    fun show() {
+        if (!isVisible) {
+            isVisible = true
+            showAnimator.start()
+        }
+    }
+
+    fun hide() {
+        if (!isVisible) {
+            isVisible = true
+            hideAnimator.start()
+        }
+    }
 
     private fun expand() {
         radiusAnimator.start()
@@ -79,6 +115,11 @@ class ExpandableButtonView @JvmOverloads constructor(
             }
             interpolator = expandInterpolator
         }
+    }
+
+    private companion object {
+        const val EXPANDED_RADIUS = 24
+        const val COLLAPSED_RADIUS = 4
     }
 }
 

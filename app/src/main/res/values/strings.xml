@@ -79,7 +79,6 @@
     <string name="from_hint">From</string>
     <string name="to_hint">To</string>
     <string name="filter_submit_button_title">filter</string>
-    <string name="apply_button_title">Apply</string>
     <string name="apply_button_title_pattern">Apply (%d)</string>
     <string name="filter_sorting_header">Sort by</string>
     <string name="select_hint">Select</string>
