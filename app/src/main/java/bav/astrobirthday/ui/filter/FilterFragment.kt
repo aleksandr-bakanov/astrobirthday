@@ -2,14 +2,8 @@ package bav.astrobirthday.ui.filter
 
 import android.os.Bundle
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.WRAP_CONTENT
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
 import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentFilterBinding
 import bav.astrobirthday.ui.common.BaseFragment
@@ -79,6 +73,7 @@ class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding
                 adapter = filterAdapter
                 setHasFixedSize(true)
                 (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                applyButton.bindToRecycler(this)
             }
 
             applyButton.setOnClickListener {
