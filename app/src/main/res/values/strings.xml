@@ -72,10 +72,10 @@
     <string name="title_filter">Filters</string>
     <string name="filter_distance_header">Distance [au]</string>
     <string name="filter_period_header">Period [days]</string>
-    <string name="filter_planet_radius_header">Planet radius [R🜨]</string>
-    <string name="filter_star_radius_header">Star radius [R☉]</string>
-    <string name="filter_planet_mass_header">Planet mass [M🜨]</string>
-    <string name="filter_star_mass_header">Star mass [M☉]</string>
+    <string name="filter_planet_radius_header">Planet radius [Earth radius]</string>
+    <string name="filter_star_radius_header">Star radius [Solar radius]</string>
+    <string name="filter_planet_mass_header">Planet mass [Earth mass]</string>
+    <string name="filter_star_mass_header">Star mass [Solar mass]</string>
     <string name="from_hint">From</string>
     <string name="to_hint">To</string>
     <string name="filter_submit_button_title">filter</string>

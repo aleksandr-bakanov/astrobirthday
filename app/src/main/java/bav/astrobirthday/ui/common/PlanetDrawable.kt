@@ -4,10 +4,13 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.ColorFilter
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.PixelFormat
+import android.graphics.RadialGradient
 import android.graphics.Rect
 import android.graphics.RectF
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -40,8 +43,12 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
 
     private val config = Config(planet)
 
+    private val radialGradient =
+        RadialGradient(0f, 0f, 4.toDp(context), radialColors, null, Shader.TileMode.CLAMP)
+    private val craterMatrix = Matrix()
     private val craterPaint = Paint().apply {
         style = Paint.Style.FILL
+        shader = radialGradient
     }
 
     private var craters: List<Crater> = emptyList()
@@ -61,6 +68,12 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         bg.draw(canvas)
         if (config.showCraters) {
             craters.forEach { crater ->
+                craterMatrix.reset()
+                craterMatrix.postTranslate(
+                    (crater.oval.left + crater.oval.right) / 2,
+                    (crater.oval.top + crater.oval.bottom) / 2
+                )
+                craterPaint.shader.setLocalMatrix(craterMatrix)
                 canvas.drawOval(crater.oval, craterPaint)
             }
         }
@@ -148,13 +161,14 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         fun Random.nextColor(): Int = this.nextInt(0, 255)
         fun Random.nextAlpha(from: Int = 75, to: Int = 180): Int = this.nextInt(from, to)
         fun Random.nextBoolean(chance: Float): Boolean = this.nextFloat() < chance
+        val radialColors = arrayOf(0x88000000.toInt(), 0x00000000).toIntArray()
     }
 
     class Config(planet: Planet) {
         private val random = Random(planet.pl_name.sha1().contentHashCode())
 
-        val showRing = random.nextBoolean(0.3f)
-        val showInnerRing = random.nextBoolean(0.3f)
+        val showRing = random.nextBoolean(0.4f)
+        val showInnerRing = random.nextBoolean(0.4f)
         val showPolarHat = random.nextBoolean()
         val showCraters = random.nextBoolean()
         val surfaceRotation = random.nextInt(0, 360).toFloat()
@@ -197,7 +211,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
                 random.nextColor()
             ), BlendModeCompat.SRC_IN
         )
-        val craterCount = random.nextInt(3, 8)
+        private val craterCount = random.nextInt(3, 12)
         val craterConfigs = (0 until craterCount).map {
             CraterConfig(random.nextInt(3, 5), random.nextDouble(0.0, 2 * PI), random.nextFloat())
         }
