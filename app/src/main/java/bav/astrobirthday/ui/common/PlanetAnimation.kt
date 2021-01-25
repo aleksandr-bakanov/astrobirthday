@@ -15,7 +15,7 @@ import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.utils.getIntAttribute
-import bav.astrobirthday.utils.toDp
+import bav.astrobirthday.utils.toPx
 import kotlin.math.PI
 import kotlin.math.atan
 import kotlin.math.atan2
@@ -31,7 +31,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private val mainOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x55000000
-        strokeWidth = 2.toDp(context)
+        strokeWidth = 2.toPx(context)
     }
 
     private val planetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -46,7 +46,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private val secondaryOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x28000000
-        strokeWidth = 1.toDp(context)
+        strokeWidth = 1.toPx(context)
     }
 
     private var w: Float = 0f
@@ -64,8 +64,8 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var neighboursOrbitRects: List<RectF> = emptyList()
     private var starX: Float = 0f
     private var starY: Float = 0f
-    private val starRadius: Float = 8.toDp(context)
-    private val margin: Int = 16.toDp(context).toInt()
+    private val starRadius: Float = 8.toPx(context)
+    private val margin: Int = 16.toPx(context).toInt()
     private var a: Float = 0f
     private var b: Float = 0f
     private var c: Float = 0f

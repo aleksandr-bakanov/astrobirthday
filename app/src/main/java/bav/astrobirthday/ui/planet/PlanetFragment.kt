@@ -7,8 +7,10 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.ui.common.BaseFragment
+import bav.astrobirthday.ui.common.PlanetDrawable
 import bav.astrobirthday.utils.discoveryMethodToStr
 import bav.astrobirthday.utils.getAgeString
 import bav.astrobirthday.utils.getNearestBirthdayString
@@ -17,6 +19,7 @@ import bav.astrobirthday.utils.getReferenceText
 import bav.astrobirthday.utils.openUrl
 import bav.astrobirthday.utils.orNa
 import bav.astrobirthday.utils.setHtml
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -24,6 +27,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
     private val viewModel: PlanetViewModel by viewModel { parametersOf(args.name) }
     private val args: PlanetFragmentArgs by navArgs()
+    private val enlargedView = EnlargedPlanetView()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,6 +71,8 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             dateReleasedByNasa.text = p.planet.releasedate.orNa()
             dateLastUpdate.text = p.planet.rowupdate.orNa()
 
+            enlargedView.setPlanet(p)
+
             favoriteButton.setFavorite(p.isFavorite)
 
             getReferenceLink(p.planet.pl_refname)?.let { url ->
@@ -87,7 +93,10 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     }
 
     private fun setupClickListeners() = with(requireBinding()) {
-        backButton.setOnClickListener { findNavController().popBackStack() }
+        backButton.setOnClickListener { findNavController().navigateUp() }
         favoriteButton.setOnClickListener { viewModel.toggleFavorite() }
+        enlargePlanetButton.setOnClickListener {
+            enlargedView.show(parentFragmentManager, "enlarged_planet")
+        }
     }
 }

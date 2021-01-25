@@ -12,7 +12,7 @@ import androidx.core.view.marginEnd
 import androidx.core.view.marginStart
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import bav.astrobirthday.utils.toDp
+import bav.astrobirthday.utils.toPx
 import com.google.android.material.button.MaterialButton
 
 class ExpandableButtonView @JvmOverloads constructor(
@@ -24,8 +24,8 @@ class ExpandableButtonView @JvmOverloads constructor(
     private val expandInterpolator = AccelerateDecelerateInterpolator()
 
     private val radiusAnimator = ValueAnimator.ofInt(
-        EXPANDED_RADIUS.toDp(context).toInt(),
-        COLLAPSED_RADIUS.toDp(context).toInt()
+        EXPANDED_RADIUS.toPx(context).toInt(),
+        COLLAPSED_RADIUS.toPx(context).toInt()
     ).apply {
         addUpdateListener {
             cornerRadius = it.animatedValue as Int
@@ -52,7 +52,7 @@ class ExpandableButtonView @JvmOverloads constructor(
     }
 
     init {
-        cornerRadius = EXPANDED_RADIUS.toDp(context).toInt()
+        cornerRadius = EXPANDED_RADIUS.toPx(context).toInt()
     }
 
     private var expandWidth: Int = 0

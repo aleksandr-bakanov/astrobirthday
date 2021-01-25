@@ -28,7 +28,7 @@ import bav.astrobirthday.data.entities.Config
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun Int.toDp(context: Context): Float {
+fun Int.toPx(context: Context): Float {
     return (this * context.resources.displayMetrics.density)
 }
 
