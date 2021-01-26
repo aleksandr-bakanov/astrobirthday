@@ -8,19 +8,25 @@ import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.ui.common.PlanetView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class EnlargedPlanetView: DialogFragment() {
+class EnlargedPlanetView : DialogFragment() {
 
-    private lateinit var planet: PlanetDescription
+    private var planet: PlanetDescription? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = layoutInflater.inflate(R.layout.fragment_enlarged_planet_view, null)
         val planetView = view.findViewById<PlanetView>(R.id.planet_drawable)
-        planetView?.setPlanet(planet)
+        savedInstanceState?.let { planet = it.getParcelable("planet") }
+        planet?.let { planetView?.setPlanet(it) }
         val d = MaterialAlertDialogBuilder(requireContext())
             .setView(view)
             .create()
-        d.window?.setBackgroundDrawableResource(android.R.color.transparent);
+        d.window?.setBackgroundDrawableResource(android.R.color.transparent)
         return d
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        planet?.let { outState.putParcelable("planet", it) }
+        super.onSaveInstanceState(outState)
     }
 
     fun setPlanet(description: PlanetDescription) {

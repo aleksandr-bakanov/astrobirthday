@@ -1,9 +1,11 @@
 package bav.astrobirthday.data.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import bav.astrobirthday.common.DiscoveryMethod
+import kotlinx.parcelize.Parcelize
 
 /**
  * Data: https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=PS
@@ -13,6 +15,7 @@ import bav.astrobirthday.common.DiscoveryMethod
 const val PLANETS_TABLE = "planets"
 
 @Entity(tableName = PLANETS_TABLE)
+@Parcelize
 data class Planet(
     @PrimaryKey val pl_name: String,
     @ColumnInfo(name = "id") val id: Int,
@@ -39,4 +42,4 @@ data class Planet(
     @ColumnInfo(name = "rowupdate") val rowupdate: String? = null,
     @ColumnInfo(name = "pl_pubdate") val pl_pubdate: String? = null,
     @ColumnInfo(name = "releasedate") val releasedate: String? = null
-)
+) : Parcelable
