@@ -83,9 +83,7 @@
         android:background="@drawable/bg_icon_button"
         android:contentDescription="@string/enlarge_planet_view_description"
         android:elevation="4dp"
-        android:src="@drawable/ic_baseline_travel_explore_24"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/favorite_button"/>
+        android:src="@drawable/ic_baseline_travel_explore_24" />
 
     <bav.astrobirthday.ui.common.FavoriteButton
         android:id="@+id/favorite_button"
