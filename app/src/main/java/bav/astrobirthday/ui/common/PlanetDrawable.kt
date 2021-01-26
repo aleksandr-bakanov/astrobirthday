@@ -45,17 +45,14 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
 
     private val config = Config(planet)
 
-    private val radialGradient =
-        RadialGradient(0f, 0f, 8.toPx(context), radialColors, null, Shader.TileMode.CLAMP)
     private val craterMatrix = Matrix()
     private val craterPaint = Paint().apply {
         style = Paint.Style.FILL
-        shader = radialGradient
     }
 
     private var craters: List<Crater> = emptyList()
 
-    data class Crater(val oval: RectF = RectF())
+    data class Crater(val oval: RectF = RectF(), val gradient: RadialGradient)
 
     init {
         bg.colorFilter = config.bgColorFilter
@@ -71,6 +68,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         if (config.showCraters) {
             craters.forEach { crater ->
                 craterMatrix.reset()
+                craterPaint.shader = crater.gradient
                 craterMatrix.postTranslate(
                     (crater.oval.left + crater.oval.right) / 2,
                     (crater.oval.top + crater.oval.bottom) / 2
@@ -142,10 +140,15 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
             val boundsR = bgBounds.right - bgBounds.exactCenterX()
             val cx = bgBounds.exactCenterX()
             val cy = bgBounds.exactCenterY()
-            craters = filterIntersectCraters(config.craterConfigs, boundsR, context).map { crater ->
-                val r = crater.r.toPx(context).toInt()
+            craters = filterIntersectCraters(
+                config.craterConfigs,
+                boundsR,
+                context,
+                ratio
+            ).map { crater ->
+                val r = crater.r.toPx(context).toInt() * ratio
                 val a = crater.a
-                val rv = (crater.rv * (boundsR - 2 * r)) + r
+                val rv = ((crater.rv * (boundsR - 2 * r)) + r)
                 val px = rv * cos(a)
                 val py = rv * sin(a)
                 Crater(
@@ -154,19 +157,32 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
                         (py - r).toFloat() + cy,
                         (px + r).toFloat() + cx,
                         (py + r).toFloat() + cy
+                    ),
+                    gradient = RadialGradient(
+                        0f,
+                        0f,
+                        r,
+                        radialColors,
+                        null,
+                        Shader.TileMode.CLAMP
                     )
                 )
             }
         }
     }
 
-    private fun filterIntersectCraters(craters: List<CraterConfig>, br: Float, context: Context): List<CraterConfig> {
+    private fun filterIntersectCraters(
+        craters: List<CraterConfig>,
+        br: Float,
+        context: Context,
+        ratio: Float
+    ): List<CraterConfig> {
         val filteredCraters = mutableListOf<CraterConfig>()
         craters.forEach { c ->
-            val cr = c.r.toPx(context).toInt()
+            val cr = c.r.toPx(context) * ratio
             val r1 = ((c.rv * (br - 2 * cr)) + cr).toDouble()
             if (filteredCraters.none { f ->
-                    val fr = f.r.toPx(context).toInt()
+                    val fr = f.r.toPx(context) * ratio
                     val r2 = ((f.rv * (br - 2 * fr)) + fr).toDouble()
                     (sqrt(r1.pow(2.0) + r2.pow(2.0) - 2.0 * r1 * r2 * cos(c.a - f.a)) <= cr + fr)
                 }) filteredCraters.add(c)
@@ -179,10 +195,6 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
         fun Random.nextAlpha(from: Int = 75, to: Int = 180): Int = this.nextInt(from, to)
         fun Random.nextBoolean(chance: Float): Boolean = this.nextFloat() < chance
         val radialColors = arrayOf(0xFF000000.toInt(), 0x00000000).toIntArray()
-
-        const val LARGE_MARGIN_RATIO = 12f / 56f
-        const val MEDIUM_MARGIN_RATIO = 7f / 56f
-        const val SMALL_IMAGE_SIZE = 56
     }
 
     class Config(planet: Planet) {
