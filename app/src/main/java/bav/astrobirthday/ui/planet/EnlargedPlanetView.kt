@@ -21,6 +21,7 @@ class EnlargedPlanetView : DialogFragment() {
             .setView(view)
             .create()
         d.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        view.setOnClickListener { d.dismiss() }
         return d
     }
 
