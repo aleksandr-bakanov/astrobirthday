@@ -87,8 +87,8 @@ class ExpandableButtonView @JvmOverloads constructor(
     }
 
     fun hide() {
-        if (!isVisible) {
-            isVisible = true
+        if (isVisible) {
+            isVisible = false
             hideAnimator.start()
         }
     }
