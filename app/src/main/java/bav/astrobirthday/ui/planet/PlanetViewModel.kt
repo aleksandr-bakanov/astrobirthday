@@ -24,7 +24,7 @@ class PlanetViewModel(
         val neighboursFlow = if (planetName in Config.solarPlanets)
             database.getByNames(Config.solarPlanets)
         else
-            database.getByNamesLike("${planetName.substringBeforeLast(" ")}%")
+            database.getByNamesLike("${planetName.substringBeforeLast(" ")} %")
         combine(
             database.getByName(planetName),
             neighboursFlow
