@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import bav.astrobirthday.R
 
 class FavoriteButton @JvmOverloads constructor(
@@ -31,6 +32,7 @@ class FavoriteButton @JvmOverloads constructor(
             if (isChecked) R.drawable.anim_favorite_unchecked_to_checked
             else R.drawable.anim_favorite_checked_to_unchecked
         )
-        (drawable as AnimatedVectorDrawable).start()
+        val animatedDrawable = (drawable as? AnimatedVectorDrawableCompat) ?: (drawable as? AnimatedVectorDrawable)
+        animatedDrawable?.start()
     }
 }
