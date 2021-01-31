@@ -16,3 +16,6 @@
 images
 planet_dbs
 app/schemas
+app/google-services.json
+app/release
+keys/
