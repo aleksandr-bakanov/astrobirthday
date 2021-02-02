@@ -10,7 +10,7 @@
             motion:dragDirection="dragUp"
             motion:maxAcceleration="40"
             motion:maxVelocity="20"
-            motion:touchAnchorId="@+id/scrollable"
+            motion:touchAnchorId="@+id/recycler_view"
             motion:touchAnchorSide="top" />
 
         <KeyFrameSet>
@@ -104,7 +104,7 @@
             motion:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
-            android:id="@id/scrollable"
+            android:id="@id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             motion:layout_constraintBottom_toBottomOf="parent"
@@ -116,7 +116,7 @@
             android:id="@id/backdrop"
             android:layout_width="0dp"
             android:layout_height="@dimen/planet_animation_height"
-            motion:layout_constraintBottom_toTopOf="@id/scrollable"
+            motion:layout_constraintBottom_toTopOf="@id/recycler_view"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
@@ -180,7 +180,7 @@
             motion:layout_constraintTop_toTopOf="@id/back_button" />
 
         <Constraint
-            android:id="@id/scrollable"
+            android:id="@id/recycler_view"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -189,7 +189,7 @@
         <Constraint
             android:id="@id/backdrop"
             android:layout_height="?attr/actionBarSize"
-            motion:layout_constraintBottom_toTopOf="@id/scrollable"
+            motion:layout_constraintBottom_toTopOf="@id/recycler_view"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />

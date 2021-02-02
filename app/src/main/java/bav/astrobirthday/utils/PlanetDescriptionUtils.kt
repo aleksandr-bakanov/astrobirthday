@@ -105,8 +105,8 @@ fun getReferenceText(reference: String?): String {
     return refTextRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
 }
 
-fun getReferenceLink(reference: String?): String? {
-    return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1)
+fun getReferenceLink(reference: String?): String {
+    return refLinkRegex.find(reference.orEmpty())?.groupValues?.get(1).orEmpty()
 }
 
 fun getNearestBirthday(userBirthday: LocalDate, name: String, period: Double?): LocalDate? {

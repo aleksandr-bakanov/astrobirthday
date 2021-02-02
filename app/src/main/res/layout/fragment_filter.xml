@@ -23,6 +23,7 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingBottom="80dp"
+        android:splitMotionEvents="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

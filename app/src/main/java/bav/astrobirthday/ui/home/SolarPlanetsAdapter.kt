@@ -33,8 +33,9 @@ class SolarPlanetsAdapter(
 
         fun bindTo(planet: PlanetDescription) = with(binding) {
             val context = itemView.context
+            name.text = planet.planet.pl_name
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
-            nearestBirthday.text =
+            nextBirthday.text =
                 planet.nearestBirthday?.let { context.localDateToString(it) }.orNa()
             image.setPlanet(planet)
             itemView.setOnClickListener { clickListener(planet) }

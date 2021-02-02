@@ -41,7 +41,7 @@ class ExoplanetsFragment :
             viewModel.events.observe(viewLifecycleOwner) { events ->
                 events.peek { event ->
                     when (event) {
-                        is ScrollTo -> recyclerView.smoothSnapToPosition(event.position)
+                        is ScrollTo -> recyclerView.scrollToPosition(event.position)
                     }
                     true
                 }

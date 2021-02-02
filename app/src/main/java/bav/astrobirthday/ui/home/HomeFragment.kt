@@ -21,7 +21,6 @@ import bav.astrobirthday.utils.setupToolbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: В списке экзопланет справа сделать прокрутку как в контактах
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val homeViewModel: HomeViewModel by viewModel()

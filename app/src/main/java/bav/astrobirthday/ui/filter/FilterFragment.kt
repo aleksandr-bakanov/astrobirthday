@@ -18,7 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-
 class FilterFragment : BaseFragment<FragmentFilterBinding>(FragmentFilterBinding::inflate) {
 
     private val exoplanetsViewModel: ExoplanetsViewModel by sharedViewModel()

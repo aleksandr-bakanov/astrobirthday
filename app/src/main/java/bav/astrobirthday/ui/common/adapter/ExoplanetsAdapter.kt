@@ -34,7 +34,7 @@ class ExoplanetsAdapter(
             val context = itemView.context
             name.text = desc.planet.pl_name
             age.text = context.getAgeStringShort(desc.ageOnPlanet)
-            nearestBirthday.text =
+            nextBirthday.text =
                 desc.nearestBirthday?.let { context.localDateToString(it) } ?: context.getString(
                     R.string.unknown_birthday_short
                 )

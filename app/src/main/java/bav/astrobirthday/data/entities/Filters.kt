@@ -9,7 +9,7 @@ enum class Column(val columnName: String, @StringRes val resId: Int) {
     AGE("age", R.string.sort_by_age),
     BIRTHDAY("birthday", R.string.sort_by_birthday),
     DISTANCE("sy_dist", R.string.sort_by_distance),
-    PERIOD("pl_orbper", R.string.sort_by_distance),
+    PERIOD("pl_orbper", R.string.sort_by_period),
     PLANET_MASS("pl_bmasse", R.string.sort_by_planet_mass),
     PLANET_RADIUS("pl_rade", R.string.sort_by_planet_radius),
     STAR_MASS("st_mass", R.string.sort_by_star_mass),
