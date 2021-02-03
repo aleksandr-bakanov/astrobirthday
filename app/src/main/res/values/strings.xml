@@ -114,4 +114,5 @@
     <string name="not_available">n/a</string>
     <string name="pattern_join" translatable="false">%1$s %2$s</string>
     <string name="enlarge_planet_view_description">Enlarge planet view</string>
+    <string name="empty_favorites_placeholder_text">Nothing here just yet ¯\\_(ツ)_/¯\n\nTap ♡ on planet screen to add it here</string>
 </resources>

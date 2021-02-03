@@ -40,7 +40,7 @@ val appModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { (planetName: String) -> PlanetViewModel(get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
-    viewModel { FavoritesViewModel(get()) }
+    viewModel { FavoritesViewModel(get(), get()) }
     viewModel { SettingsViewModel(get(), get()) }
     viewModel { (filterBy: PlanetFilters, sortBy: PlanetSorting) ->
         FilterViewModel(

@@ -38,6 +38,9 @@ interface PlanetDao {
     @Query("SELECT COUNT(id) FROM planets")
     suspend fun countPlanets(): Int
 
+    @Query("SELECT COUNT(name) FROM planets_user_info WHERE is_favorite = 1")
+    suspend fun countFavoritePlanets(): Int
+
     @RawQuery
     suspend fun countPlanetsWithFilter(query: SupportSQLiteQuery): Int
 

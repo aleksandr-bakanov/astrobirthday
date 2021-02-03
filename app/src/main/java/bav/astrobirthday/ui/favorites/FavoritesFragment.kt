@@ -2,6 +2,7 @@ package bav.astrobirthday.ui.favorites
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import bav.astrobirthday.databinding.FragmentFavoritesBinding
@@ -30,6 +31,9 @@ class FavoritesFragment :
             }
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.planetsList.collectLatest(adapter::submitData)
+            }
+            viewLifecycleOwner.lifecycleScope.launch {
+                emptyListPlaceholder.isVisible = viewModel.countFavorites() == 0
             }
 
             recyclerView.adapter = adapter
