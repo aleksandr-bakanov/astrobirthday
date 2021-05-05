@@ -11,6 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.core.os.ConfigurationCompat
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import bav.astrobirthday.R
 import bav.astrobirthday.common.DiscoveryMethod
 import bav.astrobirthday.common.DiscoveryMethod.ASTROMETRY
@@ -25,8 +28,12 @@ import bav.astrobirthday.common.DiscoveryMethod.RADIAL_VELOCITY
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT_TIMING_VARIATIONS
 import bav.astrobirthday.data.entities.Config
+import bav.astrobirthday.ui.settings.BirthdayUpdateWorker
+import org.koin.core.component.KoinApiExtension
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 fun Int.toPx(context: Context): Float {
     return (this * context.resources.displayMetrics.density)
@@ -100,5 +107,29 @@ fun Drawable.setColorFilter(
 ) {
     colorFilter = BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
         Color.argb(alpha, rColor, bColor, gColor), mode
+    )
+}
+
+fun getMillisUntilNextMidnight(): Long {
+    val c = Calendar.getInstance()
+    c.add(Calendar.DAY_OF_MONTH, 1)
+    c.set(Calendar.HOUR_OF_DAY, 0)
+    c.set(Calendar.MINUTE, 0)
+    c.set(Calendar.SECOND, 0)
+    c.set(Calendar.MILLISECOND, 0)
+    return c.timeInMillis - System.currentTimeMillis()
+}
+
+@KoinApiExtension
+fun enqueuePeriodicBirthdayUpdateWorker(context: Context) {
+    val periodicWorkRequest =
+        PeriodicWorkRequestBuilder<BirthdayUpdateWorker>(1, TimeUnit.DAYS)
+            .setInitialDelay(getMillisUntilNextMidnight(), TimeUnit.MILLISECONDS)
+            .build()
+
+    WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+        BirthdayUpdateWorker.UNIQUE_WORK_NAME,
+        ExistingPeriodicWorkPolicy.KEEP,
+        periodicWorkRequest
     )
 }

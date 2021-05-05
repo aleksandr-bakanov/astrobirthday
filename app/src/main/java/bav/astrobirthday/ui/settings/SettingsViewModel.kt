@@ -1,23 +1,28 @@
 package bav.astrobirthday.ui.settings
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.ui.common.ViewEvent
+import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinApiExtension
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 
 class SettingsViewModel(
-    private val preferences: UserPreferences,
-    private val syncPlanetsInfo: SyncPlanetsInfo
+    private val context: Context,
+    private val preferences: UserPreferences
 ) : ViewModel() {
 
     val birthday: LiveData<LocalDate>
@@ -41,10 +46,15 @@ class SettingsViewModel(
         _events.value = PickerEvent.OpenPicker(millis)
     }
 
+    @KoinApiExtension
     fun onDateSelected(millis: Long) = viewModelScope.launch {
         val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate()
         preferences.setBirthday(date)
-        syncPlanetsInfo.sync()
+
+        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<BirthdayUpdateWorker>().build()
+        WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
+
+        enqueuePeriodicBirthdayUpdateWorker(context)
     }
 
     sealed class PickerEvent : ViewEvent() {

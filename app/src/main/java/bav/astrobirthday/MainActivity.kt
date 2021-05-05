@@ -16,7 +16,9 @@ import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
 import bav.astrobirthday.databinding.ActivityMainBinding
 import bav.astrobirthday.ui.common.NavUiConfigurator
 import bav.astrobirthday.ui.common.peek
+import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
 class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private val viewModel: MainActivityViewModel by viewModel()
 
+    @KoinApiExtension
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +51,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                 }
             }
         }
+
+        enqueuePeriodicBirthdayUpdateWorker(applicationContext)
     }
 
     override fun setupToolbar(toolbar: Toolbar) {
