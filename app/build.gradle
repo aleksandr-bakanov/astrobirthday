@@ -13,8 +13,8 @@ android {
         applicationId "bav.astrobirthday"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.2.0"
+        versionCode 4
+        versionName "1.2.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -113,4 +113,12 @@ dependencies {
     // WorkManager
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:2.6.0-rc01"
+
+    // This dependency is downloaded from the Google’s Maven repository.
+    // So, make sure you also include that repository in your project's build.gradle file.
+    implementation "com.google.android.play:core:1.10.0"
+
+    // For Kotlin users also import the Kotlin extensions library for Play Core:
+    implementation "com.google.android.play:core-ktx:1.8.1"
+
 }
