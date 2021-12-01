@@ -13,8 +13,8 @@ android {
         applicationId "bav.astrobirthday"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.2.2"
+        versionCode 18
+        versionName "1.2.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -121,4 +121,6 @@ dependencies {
     // For Kotlin users also import the Kotlin extensions library for Play Core:
     implementation "com.google.android.play:core-ktx:1.8.1"
 
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

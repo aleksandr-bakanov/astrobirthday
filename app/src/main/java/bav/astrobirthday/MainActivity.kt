@@ -4,7 +4,6 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
+import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.databinding.ActivityMainBinding
 import bav.astrobirthday.ui.common.NavUiConfigurator
 import bav.astrobirthday.ui.common.peek
@@ -26,14 +26,17 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainActivityViewModel by viewModel()
+    private val preferences: UserPreferences by inject()
 
     @KoinApiExtension
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,12 +78,13 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         appUpdateManager
             .appUpdateInfo
             .addOnSuccessListener { appUpdateInfo ->
+                val isImmediate = preferences.getImmediate()
                 if (appUpdateInfo.updateAvailability()
                     == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                    && isImmediate
                 ) {
-                    Log.e(
-                        "cqhg43",
-                        "onResume: UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS"
+                    Timber.e(
+                        "cqhg43: onResume: UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS"
                     )
                     // If an in-app update is already running, resume the update.
                     appUpdateManager.startUpdateFlowForResult(
@@ -93,7 +97,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                 // If the update is downloaded but not installed,
                 // notify the user to complete the update.
                 else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                    Log.e("cqhg43", "onResume: InstallStatus.DOWNLOADED")
+                    Timber.e("cqhg43: onResume: InstallStatus.DOWNLOADED")
                     popupSnackbarForCompleteUpdate(appUpdateManager)
                 }
             }
@@ -135,18 +139,38 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private fun setupInAppUpdates() {
         val appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
+        Timber.e("cqhg43: manager created")
 
         // Returns an intent object that you use to check for an update.
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         // Checks that the platform will allow the specified type of update.
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            Timber.e(
+                "cqhg43 OnSuccessListener: \n" +
+                        "  cqhg43 updatePriority = ${appUpdateInfo.updatePriority()}\n" +
+                        "  cqhg43 installStatus = ${appUpdateInfo.installStatus()}\n" +
+                        "  cqhg43 updateAvailability = ${appUpdateInfo.updateAvailability()}\n" +
+                        "  cqhg43 clientVersionStalenessDays = ${appUpdateInfo.clientVersionStalenessDays()}\n" +
+                        "  cqhg43 isUpdateTypeAllowed IMMEDIATE = ${
+                            appUpdateInfo.isUpdateTypeAllowed(
+                                AppUpdateType.IMMEDIATE
+                            )
+                        }\n" +
+                        "  cqhg43 isUpdateTypeAllowed FLEXIBLE = ${
+                            appUpdateInfo.isUpdateTypeAllowed(
+                                AppUpdateType.FLEXIBLE
+                            )
+                        }\n" +
+                        "  cqhg43 availableVersionCode = ${appUpdateInfo.availableVersionCode()}"
+            )
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
                 when {
-                    appUpdateInfo.updatePriority() >= 4 /* high priority */
+                    appUpdateInfo.updatePriority() < 4 /* high priority */
                             && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) -> {
-                        Log.e("cqhg43", "High priority: request immediate update")
+                        Timber.e("cqhg43: High priority: request immediate update")
                         // Request the update.
+                        preferences.setImmediate(true)
                         appUpdateManager.startUpdateFlowForResult(
                             // Pass the intent that is returned by 'getAppUpdateInfo()'.
                             appUpdateInfo,
@@ -160,7 +184,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                     }
                     appUpdateInfo.updatePriority() < 4
                             && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE) -> {
-                        Log.e("cqhg43", "Low priority: request flexible update")
+                        Timber.e("cqhg43: Low priority: request flexible update")
                         // Create a listener to track request state updates.
                         installStateUpdatedListener = InstallStateUpdatedListener { state ->
                             // (Optional) Provide a download progress bar.
@@ -169,13 +193,12 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                                     val bytesDownloaded = state.bytesDownloaded()
                                     val totalBytesToDownload = state.totalBytesToDownload()
                                     // Show update progress bar.
-                                    Log.e(
-                                        "cqhg43",
-                                        "Downloading update InstallStatus.DOWNLOADING: $bytesDownloaded / $totalBytesToDownload bytes"
+                                    Timber.e(
+                                        "cqhg43: Downloading update InstallStatus.DOWNLOADING: $bytesDownloaded / $totalBytesToDownload bytes"
                                     )
                                 }
                                 InstallStatus.DOWNLOADED -> {
-                                    Log.e("cqhg43", "Install update InstallStatus.DOWNLOADED")
+                                    Timber.e("cqhg43: Install update InstallStatus.DOWNLOADED")
                                     // When status updates are no longer needed, unregister the listener.
                                     appUpdateManager.unregisterListener(installStateUpdatedListener!!)
                                     installStateUpdatedListener = null
@@ -184,9 +207,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                                     popupSnackbarForCompleteUpdate(appUpdateManager)
                                 }
                                 else -> {
-                                    Log.e(
-                                        "cqhg43",
-                                        "Other install status: ${state.installStatus()}"
+                                    Timber.e(
+                                        "cqhg43: Other install status: ${state.installStatus()}"
                                     )
                                 }
                             }
@@ -208,7 +230,13 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                         )
                     }
                 }
+            } else {
+                preferences.setImmediate(false)
             }
+        }
+
+        appUpdateInfoTask.addOnFailureListener {
+            Timber.e("cqhg43 OnFailureListener: exception = $it")
         }
 
     }
@@ -217,12 +245,15 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     // Displays the snackbar notification and call to action.
     private fun popupSnackbarForCompleteUpdate(appUpdateManager: AppUpdateManager) {
+        Timber.e("cqhg43 popupSnackbarForCompleteUpdate called")
         Snackbar.make(
             findViewById(R.id.activity_main_layout),
             "An update has just been downloaded.",
             Snackbar.LENGTH_INDEFINITE
         ).apply {
-            setAction("RESTART") { appUpdateManager.completeUpdate() }
+            setAction("RESTART") {
+                appUpdateManager.completeUpdate()
+            }
             setActionTextColor(resources.getColor(R.color.secondaryColor))
             show()
         }
@@ -234,11 +265,11 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MY_REQUEST_CODE) {
             if (resultCode != RESULT_OK) {
-                Log.e("cqhg43", "Update flow failed! Result code: $resultCode")
+                Timber.e("cqhg43: Update flow failed! Result code: $resultCode")
                 // If the update is cancelled or fails,
                 // you can request to start the update again.
             } else {
-                Log.e("cqhg43", "Update flow success! Result code: $resultCode")
+                Timber.e("cqhg43: Update flow success! Result code: $resultCode")
             }
         }
     }

@@ -2,6 +2,7 @@ package bav.astrobirthday.common
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.squareup.moshi.FromJson
@@ -20,6 +21,8 @@ class UserPreferencesImpl(
     private val localDateAdapter = LocalDateAdapter()
 
     private val BIRTHDAY_KEY = stringPreferencesKey("birthday")
+    private val IMMEDIATE_KEY = booleanPreferencesKey("immediate")
+    private val FLEXIBLE_KEY = booleanPreferencesKey("flexible")
     private val birthdayStoreFlow: Flow<String?> = dataStore.data
         .map { preferences ->
             preferences[BIRTHDAY_KEY]
@@ -34,6 +37,30 @@ class UserPreferencesImpl(
         dataStore.edit { settings ->
             settings[BIRTHDAY_KEY] = localDateAdapter.toJson(value) ?: ""
         }
+    }
+
+    override fun setImmediate(value: Boolean) {
+        runBlocking {
+            dataStore.edit { settings ->
+                settings[IMMEDIATE_KEY] = value
+            }
+        }
+    }
+
+    override fun getImmediate(): Boolean {
+        return runBlocking { dataStore.data.firstOrNull()?.get(IMMEDIATE_KEY) ?: false }
+    }
+
+    override fun setFlexible(value: Boolean) {
+        runBlocking {
+            dataStore.edit { settings ->
+                settings[FLEXIBLE_KEY] = value
+            }
+        }
+    }
+
+    override fun getFlexible(): Boolean {
+        return runBlocking { dataStore.data.firstOrNull()?.get(FLEXIBLE_KEY) ?: false }
     }
 
     inner class LocalDateAdapter {
