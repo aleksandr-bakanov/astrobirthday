@@ -29,7 +29,6 @@ import bav.astrobirthday.common.DiscoveryMethod.TRANSIT
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT_TIMING_VARIATIONS
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.ui.settings.BirthdayUpdateWorker
-import org.koin.core.component.KoinApiExtension
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -120,7 +119,6 @@ fun getMillisUntilNextMidnight(): Long {
     return c.timeInMillis - System.currentTimeMillis()
 }
 
-@KoinApiExtension
 fun enqueuePeriodicBirthdayUpdateWorker(context: Context) {
     val periodicWorkRequest =
         PeriodicWorkRequestBuilder<BirthdayUpdateWorker>(1, TimeUnit.DAYS)

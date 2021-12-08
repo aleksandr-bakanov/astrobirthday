@@ -1,25 +1,16 @@
 package bav.astrobirthday.utils
 
 import android.app.Activity
-import android.os.Bundle
 import android.text.Editable
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import bav.astrobirthday.ui.common.NavUiConfigurator
-import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ViewModelParameter
-import org.koin.androidx.viewmodel.koin.getViewModel
-import org.koin.core.parameter.ParametersDefinition
-import org.koin.core.qualifier.Qualifier
 
 fun Fragment.setupToolbar(toolbar: Toolbar) {
     (requireActivity() as NavUiConfigurator).setupToolbar(toolbar)
@@ -35,24 +26,6 @@ fun RecyclerView.smoothSnapToPosition(
     }
     smoothScroller.targetPosition = position
     layoutManager?.startSmoothScroll(smoothScroller)
-}
-
-inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
-    @IdRes navGraphId: Int,
-    qualifier: Qualifier? = null,
-    noinline parameters: ParametersDefinition? = null
-) = lazy {
-    val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
-    getKoin().getViewModel(
-        ViewModelParameter(
-            VM::class,
-            qualifier,
-            parameters,
-            Bundle(),
-            store,
-            null
-        )
-    )
 }
 
 fun Activity.hideKeyboard() {

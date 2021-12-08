@@ -3,11 +3,9 @@ package bav.astrobirthday.ui.settings
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@KoinApiExtension
 class BirthdayUpdateWorker(
     context: Context,
     params: WorkerParameters

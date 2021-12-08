@@ -11,11 +11,8 @@ import bav.astrobirthday.databinding.FragmentExoplanetsBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.adapter.ExoplanetsAdapter
 import bav.astrobirthday.ui.common.peek
-import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToFilterFragment
-import bav.astrobirthday.ui.exoplanets.ExoplanetsFragmentDirections.Companion.actionNavExoplanetsToPlanetFragment
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
 import bav.astrobirthday.utils.setupToolbar
-import bav.astrobirthday.utils.smoothSnapToPosition
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
@@ -32,7 +29,9 @@ class ExoplanetsFragment :
             setupToolbar(topAppBar)
             val exoplanetsAdapter = ExoplanetsAdapter { planetDescription ->
                 findNavController().navigate(
-                    actionNavExoplanetsToPlanetFragment(planetDescription.planet.pl_name)
+                    ExoplanetsFragmentDirections.actionNavExoplanetsToPlanetFragment(
+                        planetDescription.planet.pl_name
+                    )
                 )
             }
             viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -61,7 +60,7 @@ class ExoplanetsFragment :
             }
             actionFilter.setOnMenuItemClickListener {
                 findNavController().navigate(
-                    actionNavExoplanetsToFilterFragment()
+                    ExoplanetsFragmentDirections.actionNavExoplanetsToFilterFragment()
                 )
                 true
             }
@@ -70,7 +69,7 @@ class ExoplanetsFragment :
 
     private fun FragmentExoplanetsBinding.setupSearchView() {
         val searchView = (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView)
-        val itemsName = topAppBar.title.toString().toLowerCase(Locale.getDefault())
+        val itemsName = topAppBar.title.toString().lowercase(Locale.getDefault())
         searchView.queryHint = resources.getString(R.string.search_hint, itemsName)
         searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {

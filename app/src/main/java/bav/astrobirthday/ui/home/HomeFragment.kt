@@ -13,8 +13,6 @@ import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentHomeBinding
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.peek
-import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToNavSettings
-import bav.astrobirthday.ui.home.HomeFragmentDirections.Companion.actionNavHomeToPlanetFragment
 import bav.astrobirthday.ui.settings.SettingsViewModel
 import bav.astrobirthday.utils.openDatePicker
 import bav.astrobirthday.utils.setupToolbar
@@ -67,7 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
             val adapter = SolarPlanetsAdapter { item ->
                 findNavController().navigate(
-                    actionNavHomeToPlanetFragment(item.planet.pl_name)
+                    HomeFragmentDirections.actionNavHomeToPlanetFragment(item.planet.pl_name)
                 )
             }
             recyclerView.adapter = adapter
@@ -79,7 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             topAppBar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.nav_settings -> {
-                        findNavController().navigate(actionNavHomeToNavSettings())
+                        findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavSettings())
                         true
                     }
                     else -> false

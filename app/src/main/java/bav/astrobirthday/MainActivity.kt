@@ -8,6 +8,7 @@ import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -28,7 +29,6 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.KoinApiExtension
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavUiConfigurator {
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
     private val viewModel: MainActivityViewModel by viewModel()
     private val preferences: UserPreferences by inject()
 
-    @KoinApiExtension
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -254,7 +253,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
             setAction("RESTART") {
                 appUpdateManager.completeUpdate()
             }
-            setActionTextColor(resources.getColor(R.color.secondaryColor))
+            setActionTextColor(ContextCompat.getColor(context, R.color.secondaryColor))
             show()
         }
     }

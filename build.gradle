@@ -1,20 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext {
-        koinVersion = "2.2.3"
-    }
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
-        classpath "io.insert-koin:koin-gradle-plugin:$koinVersion"
+        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
+        classpath "io.insert-koin:koin-gradle-plugin:3.1.4"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
 
-        classpath 'com.google.gms:google-services:4.3.9'
+        classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 

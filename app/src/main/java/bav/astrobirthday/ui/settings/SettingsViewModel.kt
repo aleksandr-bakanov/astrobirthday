@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinApiExtension
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -46,7 +45,6 @@ class SettingsViewModel(
         _events.value = PickerEvent.OpenPicker(millis)
     }
 
-    @KoinApiExtension
     fun onDateSelected(millis: Long) = viewModelScope.launch {
         val date = Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate()
         preferences.setBirthday(date)
