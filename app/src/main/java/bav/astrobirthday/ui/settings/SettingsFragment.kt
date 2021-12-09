@@ -37,6 +37,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsB
                     true
                 }
             }
+            solarPlanetsByDate.setOnClickListener {
+                viewModel.toggleSortSolarPlanetsByDate()
+            }
+            solarPlanetsByDate.isChecked = viewModel.getSortSolarPlanetsByDate()
         }
     }
 }

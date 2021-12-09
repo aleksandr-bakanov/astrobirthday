@@ -13,4 +13,8 @@ interface UserPreferences {
 
     fun getFlexible(): Boolean
     fun setFlexible(value: Boolean)
+
+    fun getSortSolarPlanetsByDate(): Boolean
+    fun setSortSolarPlanetsByDate(value: Boolean)
+    val sortSolarPlanetsByDateFlow: Flow<Boolean>
 }

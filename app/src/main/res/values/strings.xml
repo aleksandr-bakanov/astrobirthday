@@ -13,6 +13,7 @@
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
+    <string name="solar_planets_by_date_title">Sort solar planets by birthday</string>
     <string name="credits">Made on Twitch by otselotl\nwith heartful support of:\n|starforce|, Archevod</string>
 
     <!-- Planet -->

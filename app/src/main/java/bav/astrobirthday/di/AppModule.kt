@@ -37,7 +37,7 @@ val appModule = module {
     }
 
     viewModel { MainActivityViewModel(get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { (planetName: String) -> PlanetViewModel(get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
     viewModel { FavoritesViewModel(get(), get()) }

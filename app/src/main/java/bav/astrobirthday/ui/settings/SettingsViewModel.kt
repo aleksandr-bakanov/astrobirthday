@@ -55,6 +55,12 @@ class SettingsViewModel(
         enqueuePeriodicBirthdayUpdateWorker(context)
     }
 
+    fun toggleSortSolarPlanetsByDate() {
+        preferences.setSortSolarPlanetsByDate(preferences.getSortSolarPlanetsByDate().not())
+    }
+
+    fun getSortSolarPlanetsByDate(): Boolean = preferences.getSortSolarPlanetsByDate()
+
     sealed class PickerEvent : ViewEvent() {
         class OpenPicker(val millis: Long) : PickerEvent()
     }
