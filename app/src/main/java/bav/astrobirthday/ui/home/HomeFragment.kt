@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             settingsViewModel.events.observe(viewLifecycleOwner) { events ->
                 events.peek { event ->
                     when (event) {
-                        is SettingsViewModel.PickerEvent.OpenPicker -> openDatePicker(
+                        is SettingsViewModel.SettingsEvents.OpenPicker -> openDatePicker(
                             millis = event.millis,
                             onDateSelected = settingsViewModel::onDateSelected
                         )

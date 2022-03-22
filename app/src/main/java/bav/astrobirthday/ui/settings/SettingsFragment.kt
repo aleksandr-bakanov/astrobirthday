@@ -2,45 +2,35 @@ package bav.astrobirthday.ui.settings
 
 import android.os.Bundle
 import android.view.View
-import bav.astrobirthday.databinding.FragmentSettingsBinding
-import bav.astrobirthday.ui.common.BaseFragment
+import androidx.compose.ui.platform.ComposeView
+import androidx.navigation.fragment.findNavController
+import bav.astrobirthday.ui.common.ComposeFragment
 import bav.astrobirthday.ui.common.peek
-import bav.astrobirthday.ui.settings.SettingsViewModel.PickerEvent
-import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.ui.settings.SettingsViewModel.SettingsEvents
 import bav.astrobirthday.utils.openDatePicker
-import bav.astrobirthday.utils.setupToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsFragment : BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
+class SettingsFragment : ComposeFragment() {
 
     private val viewModel: SettingsViewModel by viewModel()
 
+    override fun ComposeView.setContent() {
+        setContent { SettingsScreen(viewModel) }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        with(requireBinding()) {
-            setupToolbar(topAppBar)
-            viewModel.birthday.observe(viewLifecycleOwner) {
-                birthdayDate.text = requireContext().localDateToString(it)
-            }
-            setBirthday.setOnClickListener {
-                viewModel.pickBirthday()
-            }
-            viewModel.events.observe(viewLifecycleOwner) { events ->
-                events.peek { event ->
-                    when (event) {
-                        is PickerEvent.OpenPicker -> openDatePicker(
-                            millis = event.millis,
-                            onDateSelected = viewModel::onDateSelected
-                        )
-                    }
-                    true
+        viewModel.events.observe(viewLifecycleOwner) { events ->
+            events.peek { event ->
+                when (event) {
+                    is SettingsEvents.OpenPicker -> openDatePicker(
+                        millis = event.millis,
+                        onDateSelected = viewModel::onDateSelected
+                    )
+                    is SettingsEvents.Close -> findNavController().navigateUp()
                 }
+                true
             }
-            solarPlanetsByDate.setOnClickListener {
-                viewModel.toggleSortSolarPlanetsByDate()
-            }
-            solarPlanetsByDate.isChecked = viewModel.getSortSolarPlanetsByDate()
         }
     }
 }

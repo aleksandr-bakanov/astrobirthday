@@ -11,5 +11,13 @@
 
     <color name="favoriteColor">#F30F0F</color>
 
-    <color name="planetShadowColor">#626AFF</color>
+    <color name="planetShadowColor">@color/deepOrangeA700Dark</color>
+
+    <color name="deepOrange900">#bf360c</color>
+    <color name="deepOrange900Light">#f9683a</color>
+    <color name="deepOrange900Dark">#870000</color>
+    <color name="deepOrangeA700">#dd2c00</color>
+    <color name="deepOrangeA700Light">#ff6434</color>
+    <color name="deepOrangeA700Dark">#a30000</color>
+    <color name="yellow500">#ffeb3b</color>
 </resources>
