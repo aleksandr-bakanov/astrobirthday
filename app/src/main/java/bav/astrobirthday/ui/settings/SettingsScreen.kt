@@ -32,19 +32,6 @@ import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 import bav.astrobirthday.utils.localDateToString
 import java.time.LocalDate
 
-//  with(requireBinding()) {
-//            setupToolbar(topAppBar)
-//            viewModel.birthday.observe(viewLifecycleOwner) {
-//                birthdayDate.text = requireContext().localDateToString(it)
-//            }
-//            setBirthday.setOnClickListener {
-//                viewModel.pickBirthday()
-//            }
-//            solarPlanetsByDate.setOnClickListener {
-//                viewModel.toggleSortSolarPlanetsByDate()
-//            }
-//            solarPlanetsByDate.isChecked = viewModel.getSortSolarPlanetsByDate()
-
 @Composable
 fun SettingsScreen(viewModel: SettingsViewModel) {
     val state by viewModel.state.observeAsState()
