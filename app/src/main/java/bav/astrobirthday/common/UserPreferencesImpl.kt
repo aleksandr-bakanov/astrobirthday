@@ -23,7 +23,6 @@ class UserPreferencesImpl(
 
     private val BIRTHDAY_KEY = stringPreferencesKey("birthday")
     private val IMMEDIATE_KEY = booleanPreferencesKey("immediate")
-    private val FLEXIBLE_KEY = booleanPreferencesKey("flexible")
     private val SORT_SOLAR_PLANETS_BY_DATE_KEY = booleanPreferencesKey("sortSolarPlanetsByDate")
 
     private val birthdayStoreFlow: Flow<String?> = dataStore.data
@@ -33,37 +32,10 @@ class UserPreferencesImpl(
     override val birthdayFlow: Flow<LocalDate?> =
         birthdayStoreFlow.map { it?.let { localDateAdapter.fromJson(it) } }
 
-    override val userBirthday: LocalDate?
-        get() = runBlocking { birthdayFlow.firstOrNull() }
-
     override suspend fun setBirthday(value: LocalDate?) {
         dataStore.edit { settings ->
             settings[BIRTHDAY_KEY] = localDateAdapter.toJson(value) ?: ""
         }
-    }
-
-    override fun setImmediate(value: Boolean) {
-        runBlocking {
-            dataStore.edit { settings ->
-                settings[IMMEDIATE_KEY] = value
-            }
-        }
-    }
-
-    override fun getImmediate(): Boolean {
-        return runBlocking { dataStore.data.firstOrNull()?.get(IMMEDIATE_KEY) ?: false }
-    }
-
-    override fun setFlexible(value: Boolean) {
-        runBlocking {
-            dataStore.edit { settings ->
-                settings[FLEXIBLE_KEY] = value
-            }
-        }
-    }
-
-    override fun getFlexible(): Boolean {
-        return runBlocking { dataStore.data.firstOrNull()?.get(FLEXIBLE_KEY) ?: false }
     }
 
     override fun setSortSolarPlanetsByDate(value: Boolean) {

@@ -6,13 +6,6 @@ import java.time.LocalDate
 interface UserPreferences {
     suspend fun setBirthday(value: LocalDate?)
     val birthdayFlow: Flow<LocalDate?>
-    val userBirthday: LocalDate?
-
-    fun getImmediate(): Boolean
-    fun setImmediate(value: Boolean)
-
-    fun getFlexible(): Boolean
-    fun setFlexible(value: Boolean)
 
     fun getSortSolarPlanetsByDate(): Boolean
     fun setSortSolarPlanetsByDate(value: Boolean)

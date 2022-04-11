@@ -1,24 +1,16 @@
 package bav.astrobirthday
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.BounceInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import bav.astrobirthday.MainActivityViewModel.MainViewEvent.AnimateBars
-import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.databinding.ActivityMainBinding
 import bav.astrobirthday.ui.common.NavUiConfigurator
-import bav.astrobirthday.ui.common.peek
 import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -27,16 +19,11 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private lateinit var binding: ActivityMainBinding
-
-    private val viewModel: MainActivityViewModel by viewModel()
-    private val preferences: UserPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,21 +34,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         setContentView(binding.root)
 
         setupNavigation()
-
-        viewModel.state.observe(this) { state ->
-            binding.bottomNavView.isVisible = state.barsVisible
-        }
-
-        viewModel.events.observe(this) { events ->
-            events.peek { event ->
-                when (event) {
-                    is AnimateBars -> {
-                        animateBarsAppearance()
-                        false
-                    }
-                }
-            }
-        }
 
         enqueuePeriodicBirthdayUpdateWorker(applicationContext)
 
@@ -77,25 +49,9 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         appUpdateManager
             .appUpdateInfo
             .addOnSuccessListener { appUpdateInfo ->
-                val isImmediate = preferences.getImmediate()
-                if (appUpdateInfo.updateAvailability()
-                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
-                    && isImmediate
-                ) {
-                    Timber.e(
-                        "cqhg43: onResume: UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS"
-                    )
-                    // If an in-app update is already running, resume the update.
-                    appUpdateManager.startUpdateFlowForResult(
-                        appUpdateInfo,
-                        AppUpdateType.IMMEDIATE,
-                        this,
-                        MY_REQUEST_CODE
-                    )
-                }
                 // If the update is downloaded but not installed,
                 // notify the user to complete the update.
-                else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
                     Timber.e("cqhg43: onResume: InstallStatus.DOWNLOADED")
                     popupSnackbarForCompleteUpdate(appUpdateManager)
                 }
@@ -107,22 +63,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         val appBarConfiguration =
             AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_exoplanets, R.id.nav_favorites))
         toolbar.setupWithNavController(navController, appBarConfiguration)
-    }
-
-    private fun animateBarsAppearance() = with(binding) {
-        bottomNavView.isVisible = true
-        val bottomNavViewAnim = ObjectAnimator.ofFloat(
-            bottomNavView,
-            "translationY",
-            resources.getDimension(R.dimen.navigation_bar_height),
-            0f
-        )
-        AnimatorSet().apply {
-            playTogether(bottomNavViewAnim)
-            duration = 1000L
-            interpolator = BounceInterpolator()
-            start()
-        }
     }
 
     private fun findNavController(): NavController {
@@ -145,42 +85,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
         // Checks that the platform will allow the specified type of update.
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            Timber.e(
-                "cqhg43 OnSuccessListener: \n" +
-                        "  cqhg43 updatePriority = ${appUpdateInfo.updatePriority()}\n" +
-                        "  cqhg43 installStatus = ${appUpdateInfo.installStatus()}\n" +
-                        "  cqhg43 updateAvailability = ${appUpdateInfo.updateAvailability()}\n" +
-                        "  cqhg43 clientVersionStalenessDays = ${appUpdateInfo.clientVersionStalenessDays()}\n" +
-                        "  cqhg43 isUpdateTypeAllowed IMMEDIATE = ${
-                            appUpdateInfo.isUpdateTypeAllowed(
-                                AppUpdateType.IMMEDIATE
-                            )
-                        }\n" +
-                        "  cqhg43 isUpdateTypeAllowed FLEXIBLE = ${
-                            appUpdateInfo.isUpdateTypeAllowed(
-                                AppUpdateType.FLEXIBLE
-                            )
-                        }\n" +
-                        "  cqhg43 availableVersionCode = ${appUpdateInfo.availableVersionCode()}"
-            )
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
                 when {
-                    appUpdateInfo.updatePriority() < 4 /* high priority */
-                            && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) -> {
-                        Timber.e("cqhg43: High priority: request immediate update")
-                        // Request the update.
-                        preferences.setImmediate(true)
-                        appUpdateManager.startUpdateFlowForResult(
-                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
-                            appUpdateInfo,
-                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
-                            AppUpdateType.IMMEDIATE,
-                            // The current activity making the update request.
-                            this,
-                            // Include a request code to later monitor this update request.
-                            MY_REQUEST_CODE
-                        )
-                    }
                     appUpdateInfo.updatePriority() < 4
                             && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE) -> {
                         Timber.e("cqhg43: Low priority: request flexible update")
@@ -218,19 +124,13 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
                         // Start an update.
                         appUpdateManager.startUpdateFlowForResult(
-                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
                             appUpdateInfo,
-                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
                             AppUpdateType.FLEXIBLE,
-                            // The current activity making the update request.
                             this,
-                            // Include a request code to later monitor this update request.
                             MY_REQUEST_CODE
                         )
                     }
                 }
-            } else {
-                preferences.setImmediate(false)
             }
         }
 

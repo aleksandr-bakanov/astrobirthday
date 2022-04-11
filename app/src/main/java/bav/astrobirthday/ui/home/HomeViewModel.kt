@@ -20,6 +20,9 @@ class HomeViewModel(
     private val preferences: UserPreferences
 ) : ViewModel() {
 
+    private val _solarPlanets: MutableLiveData<List<PlanetDescription>> = MutableLiveData()
+    val solarPlanets: LiveData<List<PlanetDescription>> = _solarPlanets
+
     private val solarPlanetsFlow: Flow<List<PlanetDescription>> =
         database.getByNames(Config.solarPlanets)
             .map { planets -> planets.map { it.toPlanetDescription() } }
@@ -36,7 +39,4 @@ class HomeViewModel(
             }
         }
     }
-
-    private val _solarPlanets: MutableLiveData<List<PlanetDescription>> = MutableLiveData()
-    val solarPlanets: LiveData<List<PlanetDescription>> = _solarPlanets
 }

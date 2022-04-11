@@ -1,8 +1,6 @@
 package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
-import bav.astrobirthday.MainActivityViewModel
-import bav.astrobirthday.common.InitData
 import bav.astrobirthday.common.UserPreferences
 import bav.astrobirthday.common.UserPreferencesImpl
 import bav.astrobirthday.data.entities.PlanetFilters
@@ -36,7 +34,6 @@ val appModule = module {
         androidContext().createDataStore(name = "settings")
     }
 
-    viewModel { MainActivityViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { (planetName: String) -> PlanetViewModel(get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
@@ -52,5 +49,4 @@ val appModule = module {
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
-    factory { InitData(get(), get()) }
 }
