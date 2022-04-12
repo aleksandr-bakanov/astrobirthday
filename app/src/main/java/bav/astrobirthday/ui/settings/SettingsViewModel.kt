@@ -8,7 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.ui.common.ViewEvent
 import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
 import kotlinx.coroutines.flow.combine
@@ -23,28 +23,29 @@ class SettingsViewState(val birthday: LocalDate, val sortSolarPlanetsByDate: Boo
 
 class SettingsViewModel(
     private val context: Context,
-    private val preferences: UserPreferences
+    private val repository: UserRepository
 ) : ViewModel() {
 
-    private val birthdayFlow = preferences.birthdayFlow.filterNotNull()
-    private val sortByDateFlow = preferences.sortSolarPlanetsByDateFlow
+    private val birthdayFlow = repository.birthdayFlow.filterNotNull()
+    private val sortByDateFlow = repository.sortSolarPlanetsByDateFlow
 
     val events: LiveData<SettingsEvents>
         get() = _events
     private val _events = MutableLiveData<SettingsEvents>()
 
-    val state: LiveData<SettingsViewState> = combine(birthdayFlow, sortByDateFlow, ::SettingsViewState)
-        .asLiveData()
+    val state: LiveData<SettingsViewState> =
+        combine(birthdayFlow, sortByDateFlow, ::SettingsViewState)
+            .asLiveData()
 
     fun pickBirthday() = viewModelScope.launch {
-        val date = preferences.birthdayFlow.firstOrNull() ?: LocalDate.now()
+        val date = repository.birthdayFlow.firstOrNull() ?: LocalDate.now()
         val millis = date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
         _events.value = SettingsEvents.OpenPicker(millis)
     }
 
     fun onDateSelected(millis: Long) = viewModelScope.launch {
         val date = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
-        preferences.setBirthday(date)
+        repository.setBirthday(date)
 
         val oneTimeWorkRequest = OneTimeWorkRequestBuilder<BirthdayUpdateWorker>().build()
         WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
@@ -53,10 +54,12 @@ class SettingsViewModel(
     }
 
     fun toggleSortSolarPlanetsByDate() {
-        preferences.setSortSolarPlanetsByDate(preferences.getSortSolarPlanetsByDate().not())
+        viewModelScope.launch {
+            state.value?.sortSolarPlanetsByDate?.let {
+                repository.setSortSolarPlanetsByDate(it.not())
+            }
+        }
     }
-
-    fun getSortSolarPlanetsByDate(): Boolean = preferences.getSortSolarPlanetsByDate()
 
     fun onBackClick() {
         _events.value = SettingsEvents.Close()

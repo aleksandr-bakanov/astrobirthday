@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.local.PlanetDao
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val database: PlanetDao,
-    private val preferences: UserPreferences
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _solarPlanets: MutableLiveData<List<PlanetDescription>> = MutableLiveData()
@@ -29,7 +29,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            solarPlanetsFlow.combine(preferences.sortSolarPlanetsByDateFlow) { solarPlanets, isByDate ->
+            solarPlanetsFlow.combine(repository.sortSolarPlanetsByDateFlow) { solarPlanets, isByDate ->
                 if (isByDate)
                     solarPlanets.sortedBy { description -> description.nearestBirthday }
                 else

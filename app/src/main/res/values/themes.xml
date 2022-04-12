@@ -25,7 +25,14 @@
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>
 
-    <style name="BottomNavigationTheme" parent="AppTheme"></style>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen.IconBackground">
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+<!--        <item name="windowSplashScreenIconBackgroundColor">@drawable/ic_launcher_background</item>-->
+<!--        <item name="windowSplashScreenBackground">?attr/colorSurface</item>-->
+    </style>
+
+    <style name="BottomNavigationTheme" parent="AppTheme" />
 
     <style name="SearchViewOverlay" parent="AppTheme">
         <item name="colorControlNormal">?attr/colorOnPrimarySurface</item>

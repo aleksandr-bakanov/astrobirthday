@@ -1,13 +1,12 @@
-package bav.astrobirthday.common
+package bav.astrobirthday.data
 
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
-interface UserPreferences {
+interface UserRepository {
     suspend fun setBirthday(value: LocalDate?)
     val birthdayFlow: Flow<LocalDate?>
 
-    fun getSortSolarPlanetsByDate(): Boolean
-    fun setSortSolarPlanetsByDate(value: Boolean)
+    suspend fun setSortSolarPlanetsByDate(value: Boolean)
     val sortSolarPlanetsByDateFlow: Flow<Boolean>
 }

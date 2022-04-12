@@ -1,6 +1,6 @@
 package bav.astrobirthday.ui.settings
 
-import bav.astrobirthday.common.UserPreferences
+import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.entities.PlanetUserInfo
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet
@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
 
 class SyncPlanetsInfo(
-    private val userPreferences: UserPreferences,
+    private val userRepository: UserRepository,
     private val planetDao: PlanetDao
 ) {
 
     suspend fun sync() {
-        val birthday = userPreferences.birthdayFlow.firstOrNull() ?: return
+        val birthday = userRepository.birthdayFlow.firstOrNull() ?: return
         val count = planetDao.countPlanets()
         for (i in 0..count step BATCH_SIZE) {
             sync(birthday, i, BATCH_SIZE)

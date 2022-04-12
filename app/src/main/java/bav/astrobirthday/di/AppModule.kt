@@ -1,8 +1,9 @@
 package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
-import bav.astrobirthday.common.UserPreferences
-import bav.astrobirthday.common.UserPreferencesImpl
+import bav.astrobirthday.data.UserRepository
+import bav.astrobirthday.data.UserDataSource
+import bav.astrobirthday.data.UserRepositoryImpl
 import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.local.PlanetDb
@@ -22,9 +23,10 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<UserPreferences> { UserPreferencesImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl(get()) }
     single { PlanetDb.create(androidContext()) }
     single { get<PlanetDb>().planetDao() }
+    factory { UserDataSource(get()) }
 
     single {
         Moshi.Builder().build()
