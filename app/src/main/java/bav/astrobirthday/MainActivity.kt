@@ -2,10 +2,12 @@ package bav.astrobirthday
 
 import android.content.Intent
 import android.os.Bundle
+import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,6 +28,12 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var navController: NavController
+
+    private val navigationListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+        binding.bottomNavView.isVisible = destination.id != R.id.nav_setup
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
 
@@ -36,6 +44,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        navController = findNavController()
+
         setupNavigation()
 
         enqueuePeriodicBirthdayUpdateWorker(applicationContext)
@@ -45,6 +55,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     override fun onResume() {
         super.onResume()
+        navController.addOnDestinationChangedListener(navigationListener)
 
         val appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
         appUpdateManager
@@ -54,6 +65,11 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                     popupSnackbarForCompleteUpdate(appUpdateManager)
                 }
             }
+    }
+
+    override fun onPause() {
+        navController.removeOnDestinationChangedListener(navigationListener)
+        super.onPause()
     }
 
     override fun setupToolbar(toolbar: Toolbar) {
@@ -70,7 +86,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
     }
 
     private fun setupNavigation() {
-        val navController = findNavController()
         binding.bottomNavView.setupWithNavController(navController)
     }
 

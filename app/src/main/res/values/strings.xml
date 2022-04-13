@@ -116,4 +116,7 @@
     <string name="pattern_join" translatable="false">%1$s %2$s</string>
     <string name="enlarge_planet_view_description">Enlarge planet view</string>
     <string name="empty_favorites_placeholder_text">Nothing here just yet ¯\\_(ツ)_/¯\n\nTap ♡ on planet screen to add it here</string>
+    
+    <!-- Setup screen -->
+    <string name="birthday_thresholds_disclaimer">Minimum value is -999999999-01-01.\nAD 1 = year 1, 1 BC = year 0, 2 BC = year −1</string>
 </resources>

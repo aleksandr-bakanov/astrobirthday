@@ -1,6 +1,7 @@
 package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
+import bav.astrobirthday.MainViewModel
 import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.UserDataSource
 import bav.astrobirthday.data.UserRepositoryImpl
@@ -16,6 +17,8 @@ import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
 import bav.astrobirthday.ui.settings.SyncPlanetsInfo
+import bav.astrobirthday.ui.setup.SetupUseCase
+import bav.astrobirthday.ui.setup.SetupViewModel
 import com.squareup.moshi.Moshi
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -36,6 +39,7 @@ val appModule = module {
         androidContext().createDataStore(name = "settings")
     }
 
+    viewModel { MainViewModel(get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { (planetName: String) -> PlanetViewModel(get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
@@ -48,7 +52,9 @@ val appModule = module {
             sortBy
         )
     }
+    viewModel { SetupViewModel() }
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
+    factory { SetupUseCase(get()) }
 }

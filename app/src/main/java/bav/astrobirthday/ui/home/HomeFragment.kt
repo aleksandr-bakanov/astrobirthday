@@ -2,42 +2,33 @@ package bav.astrobirthday.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import bav.astrobirthday.MainViewModel
 import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentHomeBinding
 import bav.astrobirthday.ui.common.BaseFragment
-import bav.astrobirthday.ui.common.peek
-import bav.astrobirthday.ui.settings.SettingsViewModel
-import bav.astrobirthday.utils.openDatePicker
 import bav.astrobirthday.utils.setupToolbar
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val homeViewModel: HomeViewModel by viewModel()
-    private val settingsViewModel: SettingsViewModel by viewModel()
+    private val mainViewModel: MainViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (mainViewModel.isBirthdaySet().not()) {
+                findNavController().navigate(R.id.nav_setup)
+            }
+        }
+
         with(requireBinding()) {
             setupToolbar(topAppBar)
-
-            settingsViewModel.events.observe(viewLifecycleOwner) { events ->
-                events.peek { event ->
-                    when (event) {
-                        is SettingsViewModel.SettingsEvents.OpenPicker -> openDatePicker(
-                            millis = event.millis,
-                            onDateSelected = settingsViewModel::onDateSelected
-                        )
-                    }
-                    true
-                }
-            }
-
-            setBirthday.setOnClickListener {
-                settingsViewModel.pickBirthday()
-            }
 
             val adapter = SolarPlanetsAdapter { item ->
                 findNavController().navigate(

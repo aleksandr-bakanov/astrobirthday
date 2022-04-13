@@ -18,6 +18,9 @@
             app:destination="@id/nav_settings" />
     </fragment>
     <fragment
+        android:id="@+id/nav_setup"
+        android:name="bav.astrobirthday.ui.setup.SetupFragment"/>
+    <fragment
         android:id="@+id/nav_settings"
         android:name="bav.astrobirthday.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
