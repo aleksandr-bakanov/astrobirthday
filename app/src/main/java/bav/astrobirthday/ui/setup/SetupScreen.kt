@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -45,21 +47,43 @@ fun SetupScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
-                    .align(Alignment.Center)
+                    .align(Alignment.TopCenter)
                     .padding(horizontal = 32.dp)
             ) {
                 Row {
                     OutlinedTextField(
                         value = state.date,
                         onValueChange = onDateChange,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         label = { Text("Birthday") },
                         placeholder = { Text("yyyy-MM-dd") },
                         maxLines = 1,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        isError = state.dateState != DateState.Valid
                     )
+                }
+                if (state.dateState != DateState.Valid) {
+                    Row {
+                        Text(
+                            text = stringResource(
+                                id = when (state.dateState) {
+                                    DateState.Valid -> R.string.empty_string
+                                    DateState.NotFilled -> R.string.birthday_not_filled
+                                    DateState.ExceedMinValue -> R.string.birthday_exceeded_min_value
+                                    DateState.InFuture -> R.string.birthday_is_in_future
+                                    DateState.WrongDate -> R.string.birthday_wrong_date
+                                }
+                            ),
+                            color = MaterialTheme.colors.error,
+                            style = MaterialTheme.typography.caption,
+                            modifier = Modifier.padding(start = 16.dp, top = 0.dp, bottom = 8.dp)
+                        )
+                    }
+                }
+                else {
+                    Row {
+                        Spacer(modifier = Modifier.height(24.dp))
+                    }
                 }
                 Row {
                     Text(
@@ -88,7 +112,7 @@ fun SetupScreen(
 @Preview
 fun SetupScreenPreview() {
     SetupScreen(
-        SetupUiState("2022-04-13", true),
+        SetupUiState("2022-04-13", DateState.Valid),
         {},
         {}
     )

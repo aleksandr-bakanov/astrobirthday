@@ -17,6 +17,7 @@ import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
 import bav.astrobirthday.ui.settings.SyncPlanetsInfo
+import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
 import com.squareup.moshi.Moshi
@@ -52,9 +53,10 @@ val appModule = module {
             sortBy
         )
     }
-    viewModel { SetupViewModel() }
+    viewModel { SetupViewModel(get()) }
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
     factory { SetupUseCase(get()) }
+    factory { DateParseUseCase() }
 }

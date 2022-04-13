@@ -4,36 +4,59 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import bav.astrobirthday.common.Formatters
+import bav.astrobirthday.domain.exception.DateInFuture
+import bav.astrobirthday.domain.exception.DateNotParsed
+import bav.astrobirthday.domain.exception.YearExceedMinValue
 import java.time.LocalDate
+import java.time.format.DateTimeParseException
 
-class SetupUiState(val date: String, val isDateValid: Boolean)
+class SetupUiState(val date: String, val dateState: DateState)
 
-class SetupViewModel() : ViewModel() {
+sealed class DateState {
+    object Valid : DateState()
+    object ExceedMinValue : DateState()
+    object InFuture : DateState()
+    object NotFilled : DateState()
+    object WrongDate : DateState()
+}
+
+class SetupViewModel(
+    private val dateParseUseCase: DateParseUseCase
+) : ViewModel() {
 
     private val _state = MutableLiveData(getDefaultUiState())
     val state: LiveData<SetupUiState> = _state
 
     fun setDate(value: String) {
-        try {
-            val date = Formatters.parseIsoLocalDate(value)
-            _state.value = SetupUiState(value, true)
-        } catch (t: Throwable) {
-            _state.value = SetupUiState(_state.value?.date!!, false)
-        }
+        _state.value = SetupUiState(value, _state.value?.dateState!!)
     }
 
     fun submitDate() {
-
-    }
-
-    private fun parseDate(value: String) {
-        // -999 999 999
+        try {
+            val date = dateParseUseCase.parseDate(_state.value?.date!!)
+            _state.value = getUiState(state = DateState.Valid)
+        } catch (t: DateNotParsed) {
+            _state.value = getUiState(state = DateState.NotFilled)
+        } catch (t: YearExceedMinValue) {
+            _state.value = getUiState(state = DateState.ExceedMinValue)
+        } catch (t: DateTimeParseException) {
+            _state.value = getUiState(state = DateState.WrongDate)
+        } catch (t: DateInFuture) {
+            _state.value = getUiState(state = DateState.InFuture)
+        }
     }
 
     private fun getDefaultUiState(): SetupUiState {
         return SetupUiState(
             date = Formatters.formatLocalDate(LocalDate.now()),
-            isDateValid = true
+            dateState = DateState.Valid
+        )
+    }
+
+    private fun getUiState(state: DateState): SetupUiState {
+        return SetupUiState(
+            date = _state.value!!.date,
+            dateState = state
         )
     }
 }
