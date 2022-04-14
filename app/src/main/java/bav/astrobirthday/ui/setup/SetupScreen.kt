@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -62,36 +61,35 @@ fun SetupScreen(
                         isError = state.dateState != DateState.Valid
                     )
                 }
-                if (state.dateState != DateState.Valid) {
-                    Row {
+                Row {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        if (state.dateState != DateState.Valid) {
+                            Text(
+                                text = stringResource(
+                                    id = when (state.dateState) {
+                                        DateState.Valid -> R.string.empty_string
+                                        DateState.NotFilled -> R.string.birthday_not_filled
+                                        DateState.ExceedMinValue -> R.string.birthday_exceeded_min_value
+                                        DateState.InFuture -> R.string.birthday_is_in_future
+                                        DateState.WrongDate -> R.string.birthday_wrong_date
+                                    }
+                                ),
+                                color = MaterialTheme.colors.error,
+                                style = MaterialTheme.typography.caption,
+                                modifier = Modifier.padding(
+                                    start = 16.dp,
+                                    top = 4.dp,
+                                    bottom = 8.dp
+                                )
+                            )
+                        }
                         Text(
-                            text = stringResource(
-                                id = when (state.dateState) {
-                                    DateState.Valid -> R.string.empty_string
-                                    DateState.NotFilled -> R.string.birthday_not_filled
-                                    DateState.ExceedMinValue -> R.string.birthday_exceeded_min_value
-                                    DateState.InFuture -> R.string.birthday_is_in_future
-                                    DateState.WrongDate -> R.string.birthday_wrong_date
-                                }
-                            ),
-                            color = MaterialTheme.colors.error,
-                            style = MaterialTheme.typography.caption,
-                            modifier = Modifier.padding(start = 16.dp, top = 0.dp, bottom = 8.dp)
+                            text = stringResource(R.string.birthday_thresholds_disclaimer),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp, top = 32.dp)
                         )
                     }
-                }
-                else {
-                    Row {
-                        Spacer(modifier = Modifier.height(24.dp))
-                    }
-                }
-                Row {
-                    Text(
-                        text = stringResource(R.string.birthday_thresholds_disclaimer),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp)
-                    )
                 }
                 Row {
                     Spacer(modifier = Modifier.weight(1f))
@@ -112,7 +110,7 @@ fun SetupScreen(
 @Preview
 fun SetupScreenPreview() {
     SetupScreen(
-        SetupUiState("2022-04-13", DateState.Valid),
+        SetupUiState("2022-04-13", DateState.InFuture),
         {},
         {}
     )

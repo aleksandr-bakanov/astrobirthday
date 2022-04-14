@@ -7,8 +7,8 @@ import bav.astrobirthday.common.Formatters
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue
+import java.time.DateTimeException
 import java.time.LocalDate
-import java.time.format.DateTimeParseException
 
 class SetupUiState(val date: String, val dateState: DateState)
 
@@ -39,7 +39,7 @@ class SetupViewModel(
             _state.value = getUiState(state = DateState.NotFilled)
         } catch (t: YearExceedMinValue) {
             _state.value = getUiState(state = DateState.ExceedMinValue)
-        } catch (t: DateTimeParseException) {
+        } catch (t: DateTimeException) {
             _state.value = getUiState(state = DateState.WrongDate)
         } catch (t: DateInFuture) {
             _state.value = getUiState(state = DateState.InFuture)

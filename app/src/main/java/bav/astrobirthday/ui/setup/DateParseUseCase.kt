@@ -1,11 +1,9 @@
 package bav.astrobirthday.ui.setup
 
-import bav.astrobirthday.common.Formatters
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue
 import java.time.LocalDate
-import java.time.format.DateTimeParseException
 
 class DateParseUseCase {
 
@@ -22,10 +20,12 @@ class DateParseUseCase {
         } else {
             try {
                 val year = groups[1]?.value!!.toInt()
+                val month = groups[2]?.value!!.toInt()
+                val day = groups[3]?.value!!.toInt()
                 if (year < MIN_YEAR) {
                     throw YearExceedMinValue()
                 }
-                val date = Formatters.parseIsoLocalDate(value)
+                val date = LocalDate.of(year, month, day)
                 if (date.isAfter(LocalDate.now())) {
                     throw DateInFuture()
                 }

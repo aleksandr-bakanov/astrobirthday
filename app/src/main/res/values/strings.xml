@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Astro Birthday</string>
 
-    <string name="set_your_birthday">Set your birthday</string>
+    <string name="set_your_birthday">Set birthday</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Solar</string>
     <string name="title_settings">Settings</string>
