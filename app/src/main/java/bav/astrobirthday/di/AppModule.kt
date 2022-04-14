@@ -2,6 +2,7 @@ package bav.astrobirthday.di
 
 import androidx.datastore.preferences.createDataStore
 import bav.astrobirthday.MainViewModel
+import bav.astrobirthday.data.BirthdayUpdater
 import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.UserDataSource
 import bav.astrobirthday.data.UserRepositoryImpl
@@ -53,10 +54,12 @@ val appModule = module {
             sortBy
         )
     }
-    viewModel { SetupViewModel(get()) }
+    viewModel { SetupViewModel(get(), get(), get()) }
+
     factory { SyncPlanetsInfo(get(), get()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
     factory { SetupUseCase(get()) }
     factory { DateParseUseCase() }
+    factory { BirthdayUpdater(androidContext()) }
 }

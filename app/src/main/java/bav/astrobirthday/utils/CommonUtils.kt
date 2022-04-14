@@ -28,7 +28,7 @@ import bav.astrobirthday.common.DiscoveryMethod.RADIAL_VELOCITY
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT_TIMING_VARIATIONS
 import bav.astrobirthday.data.entities.Config
-import bav.astrobirthday.ui.settings.BirthdayUpdateWorker
+import bav.astrobirthday.data.BirthdayUpdateWorker
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*

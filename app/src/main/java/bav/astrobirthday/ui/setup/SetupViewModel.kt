@@ -3,10 +3,14 @@ package bav.astrobirthday.ui.setup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import bav.astrobirthday.common.Formatters
+import androidx.lifecycle.viewModelScope
+import bav.astrobirthday.common.SingleLiveEvent
+import bav.astrobirthday.data.BirthdayUpdater
+import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue
+import kotlinx.coroutines.launch
 import java.time.DateTimeException
 import java.time.LocalDate
 
@@ -21,11 +25,16 @@ sealed class DateState {
 }
 
 class SetupViewModel(
-    private val dateParseUseCase: DateParseUseCase
+    private val dateParseUseCase: DateParseUseCase,
+    private val userRepository: UserRepository,
+    private val birthdayUpdater: BirthdayUpdater
 ) : ViewModel() {
 
     private val _state = MutableLiveData(getDefaultUiState())
     val state: LiveData<SetupUiState> = _state
+
+    private val _events = SingleLiveEvent<Event>()
+    val events: LiveData<Event> = _events
 
     fun setDate(value: String) {
         _state.value = SetupUiState(value, _state.value?.dateState!!)
@@ -33,22 +42,29 @@ class SetupViewModel(
 
     fun submitDate() {
         try {
-            val date = dateParseUseCase.parseDate(_state.value?.date!!)
+            val date = dateParseUseCase.stringToDate(_state.value?.date!!)
             _state.value = getUiState(state = DateState.Valid)
-        } catch (t: DateNotParsed) {
-            _state.value = getUiState(state = DateState.NotFilled)
-        } catch (t: YearExceedMinValue) {
-            _state.value = getUiState(state = DateState.ExceedMinValue)
-        } catch (t: DateTimeException) {
-            _state.value = getUiState(state = DateState.WrongDate)
-        } catch (t: DateInFuture) {
-            _state.value = getUiState(state = DateState.InFuture)
+            viewModelScope.launch {
+                userRepository.setBirthday(date)
+            }
+            birthdayUpdater.updateBirthdays()
+            _events.value = Event.Close
+        } catch (t: Throwable) {
+            _state.value = getUiState(
+                state = when (t) {
+                    is DateNotParsed -> DateState.NotFilled
+                    is YearExceedMinValue -> DateState.ExceedMinValue
+                    is DateTimeException -> DateState.WrongDate
+                    is DateInFuture -> DateState.InFuture
+                    else -> DateState.Valid
+                }
+            )
         }
     }
 
     private fun getDefaultUiState(): SetupUiState {
         return SetupUiState(
-            date = Formatters.formatLocalDate(LocalDate.now()),
+            date = dateParseUseCase.dateToString(LocalDate.now()),
             dateState = DateState.Valid
         )
     }
@@ -58,5 +74,9 @@ class SetupViewModel(
             date = _state.value!!.date,
             dateState = state
         )
+    }
+
+    sealed class Event {
+        object Close : Event()
     }
 }

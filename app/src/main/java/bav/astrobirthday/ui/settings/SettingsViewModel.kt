@@ -1,6 +1,5 @@
 package bav.astrobirthday.ui.settings
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import bav.astrobirthday.data.BirthdayUpdater
 import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.ui.common.ViewEvent
 import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
@@ -22,8 +22,8 @@ import java.time.ZoneId
 class SettingsViewState(val birthday: LocalDate, val sortSolarPlanetsByDate: Boolean)
 
 class SettingsViewModel(
-    private val context: Context,
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    private val worker: BirthdayUpdater,
 ) : ViewModel() {
 
     private val birthdayFlow = repository.birthdayFlow.filterNotNull()
@@ -46,11 +46,7 @@ class SettingsViewModel(
     fun onDateSelected(millis: Long) = viewModelScope.launch {
         val date = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
         repository.setBirthday(date)
-
-        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<BirthdayUpdateWorker>().build()
-        WorkManager.getInstance(context).enqueue(oneTimeWorkRequest)
-
-        enqueuePeriodicBirthdayUpdateWorker(context)
+        worker.updateBirthdays()
     }
 
     fun toggleSortSolarPlanetsByDate() {

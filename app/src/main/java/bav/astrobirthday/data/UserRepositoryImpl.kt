@@ -6,7 +6,7 @@ import java.time.LocalDate
 class UserRepositoryImpl(
     private val userDataSource: UserDataSource
 ) : UserRepository {
-    override suspend fun setBirthday(value: LocalDate?) {
+    override suspend fun setBirthday(value: LocalDate) {
         userDataSource.setBirthday(value)
     }
 
