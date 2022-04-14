@@ -3,7 +3,6 @@ package bav.astrobirthday.data
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import bav.astrobirthday.ui.settings.SyncPlanetsInfo
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 

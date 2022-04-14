@@ -1,6 +1,5 @@
-package bav.astrobirthday.ui.settings
+package bav.astrobirthday.data
 
-import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.entities.PlanetUserInfo
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.utils.getAgeOnPlanet

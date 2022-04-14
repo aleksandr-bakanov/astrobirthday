@@ -10,6 +10,7 @@ import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.time.DateTimeException
 import java.time.LocalDate
@@ -35,6 +36,14 @@ class SetupViewModel(
 
     private val _events = SingleLiveEvent<Event>()
     val events: LiveData<Event> = _events
+
+    init {
+        viewModelScope.launch {
+            userRepository.birthdayFlow.firstOrNull()?.let { date ->
+                setDate(dateParseUseCase.dateToString(date))
+            }
+        }
+    }
 
     fun setDate(value: String) {
         _state.value = SetupUiState(value, _state.value?.dateState!!)

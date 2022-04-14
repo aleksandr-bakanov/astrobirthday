@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.findNavController
+import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.ComposeFragment
-import bav.astrobirthday.ui.common.peek
-import bav.astrobirthday.ui.settings.SettingsViewModel.SettingsEvents
-import bav.astrobirthday.utils.openDatePicker
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : ComposeFragment() {
@@ -20,16 +18,10 @@ class SettingsFragment : ComposeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.events.observe(viewLifecycleOwner) { events ->
-            events.peek { event ->
-                when (event) {
-                    is SettingsEvents.OpenPicker -> openDatePicker(
-                        millis = event.millis,
-                        onDateSelected = viewModel::onDateSelected
-                    )
-                    is SettingsEvents.Close -> findNavController().navigateUp()
-                }
-                true
+        viewModel.events.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is SettingsViewModel.Event.OpenPicker -> findNavController().navigate(R.id.nav_setup)
+                is SettingsViewModel.Event.Close -> findNavController().navigateUp()
             }
         }
     }

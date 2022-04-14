@@ -17,7 +17,7 @@ import bav.astrobirthday.ui.filter.FilterViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
-import bav.astrobirthday.ui.settings.SyncPlanetsInfo
+import bav.astrobirthday.data.SyncPlanetsInfo
 import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
@@ -46,7 +46,7 @@ val appModule = module {
     viewModel { (planetName: String) -> PlanetViewModel(get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
     viewModel { FavoritesViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
     viewModel { (filterBy: PlanetFilters, sortBy: PlanetSorting) ->
         FilterViewModel(
             get(),

@@ -43,10 +43,14 @@ fun SetupScreen(
     onDateSubmit: () -> Unit
 ) {
     AstroBirthdayTheme {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 64.dp)
+        ) {
             Column(
                 modifier = Modifier
-                    .align(Alignment.TopCenter)
+                    .align(Alignment.Center)
                     .padding(horizontal = 32.dp)
             ) {
                 Row {
