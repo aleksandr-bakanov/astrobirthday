@@ -24,24 +24,24 @@ fun Context.getAgeString(age: Double?): String {
     val months = floor(days / 30.0).toInt()
     days -= months * 30
 
-    val iYears = years.toInt()
+    val iYears = years.toLong()
     return when {
         years >= 1.0 -> {
             when {
                 months >= 1 && days >= 1 -> getString(
                     R.string.age_string_pattern_three,
-                    resources.getQuantityString(R.plurals.years_amount, iYears, iYears),
+                    resources.getQuantityString(R.plurals.years_amount, iYears.toInt(), iYears),
                     resources.getQuantityString(R.plurals.months_amount, months, months),
                     resources.getQuantityString(R.plurals.days_amount, days, days)
                 )
                 months >= 1 -> getString(
                     R.string.age_string_pattern_two,
-                    resources.getQuantityString(R.plurals.years_amount, iYears, iYears),
+                    resources.getQuantityString(R.plurals.years_amount, iYears.toInt(), iYears),
                     resources.getQuantityString(R.plurals.months_amount, months, months)
                 )
                 else -> getString(
                     R.string.age_string_pattern_one,
-                    resources.getQuantityString(R.plurals.years_amount, iYears, iYears)
+                    resources.getQuantityString(R.plurals.years_amount, iYears.toInt(), iYears)
                 )
             }
         }
@@ -71,10 +71,10 @@ fun Context.getAgeStringShort(age: Double?): String {
     var days = floor(360.0 * (age - years)).toInt()
     val months = floor(days / 30.0).toInt()
     days -= months * 30
-    val iYears = years.toInt()
+    val iYears = years.toLong()
 
     return when {
-        years >= 1.0 -> resources.getQuantityString(R.plurals.years_amount, iYears, iYears)
+        years >= 1.0 -> resources.getQuantityString(R.plurals.years_amount, iYears.toInt(), iYears)
         months >= 1 -> resources.getQuantityString(R.plurals.months_amount, months, months)
         else -> resources.getQuantityString(R.plurals.days_amount, days, days)
     }
@@ -87,7 +87,7 @@ fun Context.getAgeStringForMainScreen(age: Double?): String {
     val months = floor(days / 30.0)
     return when {
         years >= 1.0 -> {
-            getString(R.string.age_string_pattern_years_short, years.toInt())
+            getString(R.string.age_string_pattern_years_short, years.toLong())
         }
         months >= 1.0 -> {
             getString(R.string.age_string_pattern_months_short, months.toInt())
