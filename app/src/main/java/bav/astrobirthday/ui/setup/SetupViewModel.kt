@@ -10,19 +10,20 @@ import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue
+import bav.astrobirthday.ui.setup.SetupUiState.DateState
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.time.DateTimeException
 import java.time.LocalDate
 
-class SetupUiState(val date: String, val dateState: DateState)
-
-sealed class DateState {
-    object Valid : DateState()
-    object ExceedMinValue : DateState()
-    object InFuture : DateState()
-    object NotFilled : DateState()
-    object WrongDate : DateState()
+class SetupUiState(val date: String, val dateState: DateState) {
+    sealed class DateState {
+        object Valid : DateState()
+        object ExceedMinValue : DateState()
+        object InFuture : DateState()
+        object NotFilled : DateState()
+        object WrongDate : DateState()
+    }
 }
 
 class SetupViewModel(
@@ -52,7 +53,7 @@ class SetupViewModel(
     fun submitDate() {
         try {
             val date = dateParseUseCase.stringToDate(_state.value?.date!!)
-            _state.value = getUiState(state = DateState.Valid)
+            _state.value = getUiState(dateState = DateState.Valid)
             viewModelScope.launch {
                 userRepository.setBirthday(date)
             }
@@ -60,7 +61,7 @@ class SetupViewModel(
             _events.value = Event.Close
         } catch (t: Throwable) {
             _state.value = getUiState(
-                state = when (t) {
+                dateState = when (t) {
                     is DateNotParsed -> DateState.NotFilled
                     is YearExceedMinValue -> DateState.ExceedMinValue
                     is DateTimeException -> DateState.WrongDate
@@ -78,10 +79,10 @@ class SetupViewModel(
         )
     }
 
-    private fun getUiState(state: DateState): SetupUiState {
+    private fun getUiState(dateState: DateState): SetupUiState {
         return SetupUiState(
             date = _state.value!!.date,
-            dateState = state
+            dateState = dateState
         )
     }
 

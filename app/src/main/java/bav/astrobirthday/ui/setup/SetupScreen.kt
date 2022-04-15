@@ -12,16 +12,19 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import bav.astrobirthday.R
+import bav.astrobirthday.ui.setup.SetupUiState.DateState
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 
 @Composable
@@ -62,7 +65,12 @@ fun SetupScreen(
                         placeholder = { Text("yyyy-MM-dd") },
                         maxLines = 1,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        isError = state.dateState != DateState.Valid
+                        isError = state.dateState != DateState.Valid,
+                        textStyle = MaterialTheme.typography.button,
+                        colors = TextFieldDefaults.textFieldColors(
+                            textColor = MaterialTheme.colors.onBackground,
+                            backgroundColor = Color.Transparent
+                        )
                     )
                 }
                 Row {
@@ -91,7 +99,9 @@ fun SetupScreen(
                             text = stringResource(R.string.birthday_thresholds_disclaimer),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 16.dp, top = 32.dp)
+                                .padding(bottom = 16.dp, top = 32.dp),
+                            style = MaterialTheme.typography.body2,
+                            color = MaterialTheme.colors.onBackground
                         )
                     }
                 }

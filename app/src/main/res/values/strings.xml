@@ -119,9 +119,9 @@
     
     <!-- Setup screen -->
     <string name="birthday_thresholds_disclaimer">Minimum value is -999999999-01-01.\nAD 1 = year 1, 1 BC = year 0, 2 BC = year −1\nUse format: year-month-day</string>
-    <string name="birthday_exceeded_min_value">Can\'t process so far in past</string>
+    <string name="birthday_exceeded_min_value">Can\'t process so far in the past</string>
     <string name="birthday_is_in_future">You haven\'t been born yet</string>
-    <string name="birthday_not_filled">Fill birthday properly</string>
-    <string name="birthday_wrong_date">Something wrong with date</string>
+    <string name="birthday_not_filled">Fill your birthday properly</string>
+    <string name="birthday_wrong_date">Something\'s wrong with the date</string>
     <string name="empty_string"></string>
 </resources>

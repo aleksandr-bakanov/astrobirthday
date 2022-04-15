@@ -20,7 +20,7 @@ class SettingsFragment : ComposeFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.events.observe(viewLifecycleOwner) { event ->
             when (event) {
-                is SettingsViewModel.Event.OpenPicker -> findNavController().navigate(R.id.nav_setup)
+                is SettingsViewModel.Event.OpenPicker -> findNavController().navigate(R.id.action_nav_settings_to_setup)
                 is SettingsViewModel.Event.Close -> findNavController().navigateUp()
             }
         }
