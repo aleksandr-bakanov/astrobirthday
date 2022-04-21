@@ -1,10 +1,10 @@
 package bav.astrobirthday.di
 
-import androidx.datastore.preferences.createDataStore
 import bav.astrobirthday.MainViewModel
 import bav.astrobirthday.data.BirthdayUpdater
-import bav.astrobirthday.data.UserRepository
+import bav.astrobirthday.data.SyncPlanetsInfo
 import bav.astrobirthday.data.UserDataSource
+import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.UserRepositoryImpl
 import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
@@ -17,7 +17,6 @@ import bav.astrobirthday.ui.filter.FilterViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
-import bav.astrobirthday.data.SyncPlanetsInfo
 import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
@@ -35,10 +34,6 @@ val appModule = module {
 
     single {
         Moshi.Builder().build()
-    }
-
-    single {
-        androidContext().createDataStore(name = "settings")
     }
 
     viewModel { MainViewModel(get()) }
