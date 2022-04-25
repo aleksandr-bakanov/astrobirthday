@@ -2,9 +2,7 @@ package bav.astrobirthday
 
 import android.content.Intent
 import android.os.Bundle
-import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -76,7 +74,14 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
     override fun setupToolbar(toolbar: Toolbar) {
         val navController = findNavController()
         val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_exoplanets, R.id.nav_favorites))
+            AppBarConfiguration(
+                setOf(
+                    R.id.nav_home,
+                    R.id.nav_exoplanets,
+                    R.id.nav_favorites,
+                    R.id.nav_settings
+                )
+            )
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 

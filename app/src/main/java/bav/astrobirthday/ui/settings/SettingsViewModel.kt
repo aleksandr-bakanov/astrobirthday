@@ -40,12 +40,7 @@ class SettingsViewModel(
         }
     }
 
-    fun onBackClick() {
-        _events.value = Event.Close
-    }
-
     sealed class Event {
         object OpenPicker : Event()
-        object Close : Event()
     }
 }

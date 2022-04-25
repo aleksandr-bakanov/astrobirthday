@@ -13,18 +13,14 @@
         <action
             android:id="@+id/action_nav_home_to_planetFragment"
             app:destination="@id/planetFragment" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_settings"
-            app:destination="@id/nav_settings" />
     </fragment>
     <fragment
         android:id="@+id/nav_setup"
-        android:name="bav.astrobirthday.ui.setup.SetupFragment"/>
+        android:name="bav.astrobirthday.ui.setup.SetupFragment" />
     <fragment
         android:id="@+id/nav_settings"
         android:name="bav.astrobirthday.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings">
+        android:label="@string/title_settings">
         <action
             android:id="@+id/action_nav_settings_to_setup"
             app:destination="@id/nav_setup" />

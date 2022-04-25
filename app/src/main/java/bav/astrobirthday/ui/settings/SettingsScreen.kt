@@ -8,15 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -38,8 +34,7 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         SettingsScreen(
             it,
             viewModel::pickBirthday,
-            viewModel::toggleSortSolarPlanetsByDate,
-            viewModel::onBackClick
+            viewModel::toggleSortSolarPlanetsByDate
         )
     }
 }
@@ -48,8 +43,7 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 fun SettingsScreen(
     state: SettingsViewState,
     onBirthdayClick: () -> Unit = {},
-    onSortByBirthdayClick: () -> Unit = {},
-    onBackButtonClick: () -> Unit = {}
+    onSortByBirthdayClick: () -> Unit = {}
 ) {
     AstroBirthdayTheme {
         Scaffold(
@@ -59,11 +53,6 @@ fun SettingsScreen(
                         Text(
                             text = stringResource(R.string.title_settings),
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onBackButtonClick) {
-                            Icon(Icons.Filled.ArrowBack, "backIcon")
-                        }
                     }
                 )
             }

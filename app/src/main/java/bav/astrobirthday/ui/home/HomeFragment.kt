@@ -40,16 +40,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             homeViewModel.solarPlanets.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
             }
-
-            topAppBar.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.nav_settings -> {
-                        findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavSettings())
-                        true
-                    }
-                    else -> false
-                }
-            }
         }
     }
 
