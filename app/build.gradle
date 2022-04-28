@@ -85,8 +85,8 @@ dependencies {
     //   so it keeps backstack and don't glow bottom icon till we return to start destination
     //   This is against material design: https://material.io/components/bottom-navigation#behavior
     //   https://developer.android.com/jetpack/androidx/releases/navigation#version_240_3
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 

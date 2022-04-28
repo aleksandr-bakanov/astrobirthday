@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,6 +22,8 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), NavUiConfigurator {
@@ -28,10 +31,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
-
-    private val navigationListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
-        binding.bottomNavView.isVisible = destination.id != R.id.nav_setup
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
@@ -45,6 +44,14 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
         navController = findNavController()
 
+        lifecycleScope.launch {
+            navController.currentBackStackEntryFlow
+                .collect { navBackStackEntry ->
+                    binding.bottomNavView.isVisible =
+                        navBackStackEntry.destination.id != R.id.nav_setup
+                }
+        }
+
         setupNavigation()
 
         enqueuePeriodicBirthdayUpdateWorker(applicationContext)
@@ -54,7 +61,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     override fun onResume() {
         super.onResume()
-        navController.addOnDestinationChangedListener(navigationListener)
 
         val appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
         appUpdateManager
@@ -64,11 +70,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
                     popupSnackbarForCompleteUpdate(appUpdateManager)
                 }
             }
-    }
-
-    override fun onPause() {
-        navController.removeOnDestinationChangedListener(navigationListener)
-        super.onPause()
     }
 
     override fun setupToolbar(toolbar: Toolbar) {
