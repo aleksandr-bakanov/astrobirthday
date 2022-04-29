@@ -1,15 +1,40 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
+adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.4.0] - 2022-04-25
+
+### Changed
+
+- Minimum birthday date may be -999999999-01-01 which is equal to LocalDate.MIN_VALUE
+
+## [1.3.0] - 2021-12-09
+
 ### Added
+
+- Solar planets may be sorted by birthday
+
+## [1.2.1] - 2021-12-01
+
+### Added
+
+- In-app updates implemented
+
+## [1.2.0] - 2021-05-11
+
+### Added
+
 - Background job that updates birthdays every midnight
 
 ## [1.1.0] - 2021-02-03
+
 ### Added
+
 - Enable Crashlytics
 - Planet names at home screen
 - Empty favorites list placeholder
