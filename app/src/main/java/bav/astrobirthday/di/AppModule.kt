@@ -4,11 +4,11 @@ import bav.astrobirthday.MainViewModel
 import bav.astrobirthday.data.BirthdayUpdater
 import bav.astrobirthday.data.SyncPlanetsInfo
 import bav.astrobirthday.data.UserDataSource
-import bav.astrobirthday.data.UserRepository
 import bav.astrobirthday.data.UserRepositoryImpl
 import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.local.PlanetDb
+import bav.astrobirthday.domain.UserRepository
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel
 import bav.astrobirthday.ui.exoplanets.GetExoplanets
 import bav.astrobirthday.ui.favorites.FavoritesViewModel

@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import bav.astrobirthday.common.DiscoveryMethod
+import bav.astrobirthday.domain.model.Planet
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -16,7 +17,7 @@ const val PLANETS_TABLE = "planets"
 
 @Entity(tableName = PLANETS_TABLE)
 @Parcelize
-data class Planet(
+data class PlanetDTO(
     @PrimaryKey val pl_name: String,
     @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "hostname") val hostname: String? = null,
@@ -43,3 +44,29 @@ data class Planet(
     @ColumnInfo(name = "pl_pubdate") val pl_pubdate: String? = null,
     @ColumnInfo(name = "releasedate") val releasedate: String? = null
 ) : Parcelable
+
+fun PlanetDTO.toDomain(): Planet {
+    return Planet(
+        planetName = pl_name,
+        systemStarNumber = sy_snum,
+        systemPlanetNumber = sy_pnum,
+        discoveryMethod = discoverymethod,
+        discoveryYear = disc_year,
+        discoveryFacility = disc_facility,
+        planetBestMassEstimateEarth = pl_bmasse,
+        planetReference = pl_refname,
+        planetOrbitalPeriod = pl_orbper,
+        planetOrbitSemiMajorAxis = pl_orbsmax,
+        planetRadiusEarth = pl_rade,
+        planetOrbitEccentricity = pl_orbeccen,
+        planetEquilibriumTemperature = pl_eqt,
+        starName = hostname,
+        starReference = st_refname,
+        starSpectralType = st_spectype,
+        starEffectiveTemperature = st_teff,
+        starRadiusSolar = st_rad,
+        starMassSolar = st_mass,
+        systemReference = sy_refname,
+        systemDistance = sy_dist
+    )
+}

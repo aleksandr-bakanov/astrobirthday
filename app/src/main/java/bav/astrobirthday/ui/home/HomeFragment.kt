@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
             val adapter = SolarPlanetsAdapter { item ->
                 findNavController().navigate(
-                    HomeFragmentDirections.actionNavHomeToPlanetFragment(item.planet.pl_name)
+                    HomeFragmentDirections.actionNavHomeToPlanetFragment(item.planet.planetName)
                 )
             }
             recyclerView.adapter = adapter

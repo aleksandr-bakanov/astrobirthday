@@ -25,7 +25,7 @@ class FavoritesFragment :
             setupToolbar(topAppBar)
             val adapter = ExoplanetsAdapter { planetDescription ->
                 findNavController().navigate(
-                    FavoritesFragmentDirections.actionNavFavoritesToPlanetFragment(planetDescription.planet.pl_name)
+                    FavoritesFragmentDirections.actionNavFavoritesToPlanetFragment(planetDescription.planet.planetName)
                 )
             }
             viewLifecycleOwner.lifecycleScope.launch {

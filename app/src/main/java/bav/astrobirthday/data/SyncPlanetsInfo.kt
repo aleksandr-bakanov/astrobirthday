@@ -1,7 +1,8 @@
 package bav.astrobirthday.data
 
-import bav.astrobirthday.data.entities.PlanetUserInfo
+import bav.astrobirthday.data.entities.PlanetUserInfoDTO
 import bav.astrobirthday.data.local.PlanetDao
+import bav.astrobirthday.domain.UserRepository
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import kotlinx.coroutines.flow.firstOrNull
@@ -25,7 +26,7 @@ class SyncPlanetsInfo(
         val planets = planetDao.getPlanetsChunked(start, count)
         planetDao.syncInfo(
             updates = planets.map { planet ->
-                PlanetUserInfo(
+                PlanetUserInfoDTO(
                     planet.pl_name,
                     planet.is_favorite ?: false,
                     getAgeOnPlanet(birthday, planet.pl_orbper),

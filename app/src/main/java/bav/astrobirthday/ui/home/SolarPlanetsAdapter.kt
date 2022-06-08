@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.databinding.ViewGridPlanetBinding
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.adapter.BindingViewHolder
 import bav.astrobirthday.utils.getAgeStringForMainScreen
 import bav.astrobirthday.utils.localDateToString
 import bav.astrobirthday.utils.orNa
 
 class SolarPlanetsAdapter(
-    private val itemClickListener: (PlanetDescription) -> Unit
-) : ListAdapter<PlanetDescription, SolarPlanetsAdapter.SolarPlanetsVH>(DIFF_CALLBACK) {
+    private val itemClickListener: (PlanetAndInfo) -> Unit
+) : ListAdapter<PlanetAndInfo, SolarPlanetsAdapter.SolarPlanetsVH>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SolarPlanetsVH {
         return SolarPlanetsVH(
@@ -28,12 +28,12 @@ class SolarPlanetsAdapter(
 
     inner class SolarPlanetsVH(
         binding: ViewGridPlanetBinding,
-        private val clickListener: (PlanetDescription) -> Unit
+        private val clickListener: (PlanetAndInfo) -> Unit
     ) : BindingViewHolder<ViewGridPlanetBinding>(binding) {
 
-        fun bindTo(planet: PlanetDescription) = with(binding) {
+        fun bindTo(planet: PlanetAndInfo) = with(binding) {
             val context = itemView.context
-            name.text = planet.planet.pl_name
+            name.text = planet.planet.planetName
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
             nextBirthday.text =
                 planet.nearestBirthday?.let { context.localDateToString(it) }.orNa()
@@ -44,15 +44,15 @@ class SolarPlanetsAdapter(
 
     companion object {
         private val DIFF_CALLBACK = object :
-            DiffUtil.ItemCallback<PlanetDescription>() {
+            DiffUtil.ItemCallback<PlanetAndInfo>() {
             override fun areItemsTheSame(
-                oldPlanet: PlanetDescription,
-                newPlanet: PlanetDescription
-            ) = oldPlanet.planet.id == newPlanet.planet.id
+                oldPlanet: PlanetAndInfo,
+                newPlanet: PlanetAndInfo
+            ) = oldPlanet.planet.planetName == newPlanet.planet.planetName
 
             override fun areContentsTheSame(
-                oldPlanet: PlanetDescription,
-                newPlanet: PlanetDescription
+                oldPlanet: PlanetAndInfo,
+                newPlanet: PlanetAndInfo
             ) = oldPlanet == newPlanet
         }
     }

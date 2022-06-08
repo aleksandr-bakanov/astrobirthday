@@ -16,7 +16,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.Planet
+import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.utils.sha1
 import bav.astrobirthday.utils.toPx
 import kotlin.math.PI
@@ -199,7 +199,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
     }
 
     class Config(planet: Planet) {
-        private val random = Random(planet.pl_name.sha1().contentHashCode())
+        private val random = Random(planet.planetName.sha1().contentHashCode())
 
         val showRing = random.nextBoolean(0.4f)
         val showInnerRing = random.nextBoolean(0.4f)

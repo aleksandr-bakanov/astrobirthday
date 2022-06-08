@@ -3,8 +3,9 @@ package bav.astrobirthday.utils
 import android.content.Context
 import bav.astrobirthday.R
 import bav.astrobirthday.common.PlanetType
-import bav.astrobirthday.data.entities.PlanetAndInfo
-import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.data.entities.PlanetAndInfoDTO
+import bav.astrobirthday.data.entities.toDomain
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.ceil
@@ -158,9 +159,9 @@ fun getPlanetType(planetName: String?): PlanetType? {
     }
 }
 
-fun PlanetAndInfo.toPlanetDescription(): PlanetDescription {
-    return PlanetDescription( // TODO check defaults
-        planet = planet,
+fun PlanetAndInfoDTO.toDomain(): PlanetAndInfo {
+    return PlanetAndInfo( // TODO check defaults
+        planet = planet.toDomain(),
         isFavorite = info?.is_favorite ?: false,
         ageOnPlanet = info?.age,
         nearestBirthday = info?.birthday,

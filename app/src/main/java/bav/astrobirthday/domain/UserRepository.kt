@@ -1,4 +1,4 @@
-package bav.astrobirthday.data
+package bav.astrobirthday.domain
 
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

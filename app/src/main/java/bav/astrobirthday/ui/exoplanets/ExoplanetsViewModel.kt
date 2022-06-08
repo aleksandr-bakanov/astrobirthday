@@ -10,13 +10,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.PlanetDescription
 import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.entities.isDefault
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.ViewEvent
 import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.ScrollTo
-import bav.astrobirthday.utils.toPlanetDescription
+import bav.astrobirthday.utils.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -54,7 +54,7 @@ class ExoplanetsViewModel(
         }
     }
 
-    val planetsList: Flow<PagingData<PlanetDescription>> =
+    val planetsList: Flow<PagingData<PlanetAndInfo>> =
         combine(sorting, searchRequest, filtersflow) { sortBy, search, filter ->
             Pager(config) {
                 getExoplanets.getSource(sortBy, search, filter)
@@ -62,7 +62,7 @@ class ExoplanetsViewModel(
         }
             .flatMapLatest { it.flow }
             .mapLatest { data ->
-                data.map { it.toPlanetDescription() }
+                data.map { it.toDomain() }
             }
             .onEach { _events.value = ScrollTo(0) }
             .cachedIn(viewModelScope)

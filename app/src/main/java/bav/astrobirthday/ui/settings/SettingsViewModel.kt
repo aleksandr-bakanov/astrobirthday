@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.common.SingleLiveEvent
-import bav.astrobirthday.data.UserRepository
+import bav.astrobirthday.domain.UserRepository
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch

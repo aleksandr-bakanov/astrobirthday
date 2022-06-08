@@ -5,15 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import bav.astrobirthday.data.entities.Planet
+import bav.astrobirthday.data.entities.PlanetDTO
 import bav.astrobirthday.data.entities.PlanetSyncView
-import bav.astrobirthday.data.entities.PlanetUserInfo
+import bav.astrobirthday.data.entities.PlanetUserInfoDTO
 
 const val DB_VERSION = 1
 const val DB_NAME = "planets.db"
 
 @Database(
-    entities = [Planet::class, PlanetUserInfo::class],
+    entities = [PlanetDTO::class, PlanetUserInfoDTO::class],
     views = [PlanetSyncView::class],
     version = DB_VERSION
 )

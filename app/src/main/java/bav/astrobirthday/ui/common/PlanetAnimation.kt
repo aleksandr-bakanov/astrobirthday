@@ -12,8 +12,8 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.content.ContextCompat
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.Planet
-import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.domain.model.Planet
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.getIntAttribute
 import bav.astrobirthday.utils.toPx
 import kotlin.math.PI
@@ -158,20 +158,22 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         return E
     }
 
-    fun setData(description: PlanetDescription) {
+    fun setData(description: PlanetAndInfo) {
         mainPlanet = description.planet
         mainPlanet?.let { planet ->
-            this.mainPlanetEcc = planet.pl_orbeccen?.toFloat() ?: 0f
+            this.mainPlanetEcc = planet.planetOrbitEccentricity?.toFloat() ?: 0f
 
             neighbours = description.neighbours
-            neighboursEccs = description.neighbours.map { it.pl_orbeccen?.toFloat() ?: 0f }
-            neighboursSemiMajorAxes = description.neighbours.map { it.pl_orbsmax?.toFloat() ?: 0f }
+            neighboursEccs =
+                description.neighbours.map { it.planetOrbitEccentricity?.toFloat() ?: 0f }
+            neighboursSemiMajorAxes =
+                description.neighbours.map { it.planetOrbitSemiMajorAxis?.toFloat() ?: 0f }
 
             prepareParams()
             isDataSet = true
 
             animator.duration =
-                (log10(planet.pl_orbper ?: 10.0) * 10000).toLong().coerceIn(500, 60000)
+                (log10(planet.planetOrbitalPeriod ?: 10.0) * 10000).toLong().coerceIn(500, 60000)
             if (!animator.isStarted) {
                 animator.start()
             }
@@ -218,12 +220,12 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
             starX = (initialW / 2) + c
             starY = initialH / 2
 
-            val auInPx = max(1f, a / (planet.pl_orbsmax?.toFloat() ?: 1f))
+            val auInPx = max(1f, a / (planet.planetOrbitSemiMajorAxis?.toFloat() ?: 1f))
 
             neighboursOrbitRects =
-                neighbours.filter { it.pl_name != mainPlanet?.pl_name }.map { neighbour ->
-                    val ecc = neighbour.pl_orbeccen?.toFloat() ?: 0f
-                    val aInAu = neighbour.pl_orbsmax?.toFloat() ?: 1f
+                neighbours.filter { it.planetName != mainPlanet?.planetName }.map { neighbour ->
+                    val ecc = neighbour.planetOrbitEccentricity?.toFloat() ?: 0f
+                    val aInAu = neighbour.planetOrbitSemiMajorAxis?.toFloat() ?: 1f
                     val na = aInAu * auInPx
                     val nc = na * ecc
                     val np = na - nc

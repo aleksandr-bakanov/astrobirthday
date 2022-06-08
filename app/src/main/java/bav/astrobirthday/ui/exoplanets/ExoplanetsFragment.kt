@@ -30,7 +30,7 @@ class ExoplanetsFragment :
             val exoplanetsAdapter = ExoplanetsAdapter { planetDescription ->
                 findNavController().navigate(
                     ExoplanetsFragmentDirections.actionNavExoplanetsToPlanetFragment(
-                        planetDescription.planet.pl_name
+                        planetDescription.planet.planetName
                     )
                 )
             }

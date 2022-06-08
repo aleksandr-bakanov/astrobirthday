@@ -1,6 +1,6 @@
 package bav.astrobirthday.ui.setup
 
-import bav.astrobirthday.data.UserRepository
+import bav.astrobirthday.domain.UserRepository
 import kotlinx.coroutines.flow.firstOrNull
 
 class SetupUseCase(

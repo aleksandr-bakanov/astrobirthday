@@ -1,12 +1,17 @@
 package bav.astrobirthday.data.local
 
 import androidx.paging.PagingSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.room.Transaction
 import androidx.sqlite.db.SupportSQLiteQuery
-import bav.astrobirthday.data.entities.Planet
-import bav.astrobirthday.data.entities.PlanetAndInfo
+import bav.astrobirthday.data.entities.PlanetAndInfoDTO
+import bav.astrobirthday.data.entities.PlanetDTO
 import bav.astrobirthday.data.entities.PlanetSyncView
-import bav.astrobirthday.data.entities.PlanetUserInfo
+import bav.astrobirthday.data.entities.PlanetUserInfoDTO
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,23 +19,23 @@ interface PlanetDao {
 
     @Transaction
     @Query("SELECT * FROM planets WHERE pl_name = :name")
-    fun getByName(name: String): Flow<PlanetAndInfo>
+    fun getByName(name: String): Flow<PlanetAndInfoDTO>
 
     @Transaction
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
-    fun getByNames(names: Collection<String>): Flow<List<PlanetAndInfo>>
+    fun getByNames(names: Collection<String>): Flow<List<PlanetAndInfoDTO>>
 
     @Transaction
     @Query("SELECT * FROM planets WHERE pl_name LIKE :pattern ORDER BY id ASC")
-    fun getByNamesLike(pattern: String): Flow<List<PlanetAndInfo>>
+    fun getByNamesLike(pattern: String): Flow<List<PlanetAndInfoDTO>>
 
     @Transaction
-    @RawQuery(observedEntities = [Planet::class, PlanetUserInfo::class])
-    fun planetsByUidOrder(query: SupportSQLiteQuery): PagingSource<Int, PlanetAndInfo>
+    @RawQuery(observedEntities = [PlanetDTO::class, PlanetUserInfoDTO::class])
+    fun planetsByUidOrder(query: SupportSQLiteQuery): PagingSource<Int, PlanetAndInfoDTO>
 
     @Transaction
-    @RawQuery(observedEntities = [Planet::class, PlanetUserInfo::class])
-    fun getFavoritePlanets(query: SupportSQLiteQuery): PagingSource<Int, PlanetAndInfo>
+    @RawQuery(observedEntities = [PlanetDTO::class, PlanetUserInfoDTO::class])
+    fun getFavoritePlanets(query: SupportSQLiteQuery): PagingSource<Int, PlanetAndInfoDTO>
 
     @Query("UPDATE planets_user_info SET is_favorite = :isFavorite WHERE name = :name")
     suspend fun setFavorite(name: String, isFavorite: Boolean)
@@ -49,5 +54,5 @@ interface PlanetDao {
     suspend fun getPlanetsChunked(start: Int, count: Int): List<PlanetSyncView>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun syncInfo(updates: List<PlanetUserInfo>)
+    suspend fun syncInfo(updates: List<PlanetUserInfoDTO>)
 }

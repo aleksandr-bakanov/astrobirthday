@@ -5,8 +5,9 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.databinding.FragmentPlanetBinding
+import bav.astrobirthday.domain.model.Planet
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.opengl.PlanetView3d
 import bav.astrobirthday.utils.discoveryMethodToStr
@@ -25,7 +26,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
     private val viewModel: PlanetViewModel by viewModel { parametersOf(args.name) }
     private val args: PlanetFragmentArgs by navArgs()
-    private val enlargedView = EnlargedPlanetView()
+    private var planetAndInfo: PlanetAndInfo? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,15 +54,15 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
         viewModel.planet.observe(viewLifecycleOwner) { p ->
             val context = requireContext()
+            planetAndInfo = p
 
             planetDescriptionAdapter.items = getPlanetItems(p.planet)
 
-            planetName.text = p.planet.pl_name.orNa()
-            planetNameCollapsed.text = p.planet.pl_name.orNa()
+            planetName.text = p.planet.planetName.orNa()
+            planetNameCollapsed.text = p.planet.planetName.orNa()
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 
-            enlargedView.setPlanet(p)
             favoriteButton.setFavorite(p.isFavorite)
             planetAnimation.setData(p)
         }
@@ -74,47 +75,155 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     private fun getPlanetItems(planet: Planet): List<PlanetItems?> {
         val context = requireContext()
         val list = mutableListOf<PlanetItems>()
-        with (planet) {
-            if (pl_refname != null || discoverymethod != null || disc_year != null || disc_facility != null ||
-                pl_orbper != null || pl_orbsmax != null || pl_rade != null || pl_bmasse != null ||
-                pl_orbeccen != null || pl_eqt != null) {
+        with(planet) {
+            if (planetReference != null || discoveryMethod != null || discoveryYear != null || discoveryFacility != null ||
+                planetOrbitalPeriod != null || planetOrbitSemiMajorAxis != null || planetRadiusEarth != null || planetBestMassEstimateEarth != null ||
+                planetOrbitEccentricity != null || planetEquilibriumTemperature != null
+            ) {
                 list.add(PlanetItems.Header(R.string.planet_title))
-                pl_refname?.let { list.add(PlanetItems.Reference(getReferenceText(it), getReferenceLink(it))) }
-                discoverymethod?.let { list.add(PlanetItems.Text(R.string.discovery_method, context.discoveryMethodToStr(it))) }
-                disc_year?.let { list.add(PlanetItems.Text(R.string.year, it.toString())) }
-                disc_facility?.let { list.add(PlanetItems.Text(R.string.facility, it)) }
-                pl_orbper?.let { list.add(PlanetItems.Text(R.string.orbital_period_days, it.toString())) }
-                pl_orbsmax?.let { list.add(PlanetItems.Text(R.string.orbital_semi_major_axis_au, it.toString())) }
-                pl_rade?.let { list.add(PlanetItems.Text(R.string.radius_earth_radius, it.toString())) }
-                pl_bmasse?.let { list.add(PlanetItems.Text(R.string.mass_earth_mass, it.toString())) }
-                pl_orbeccen?.let { list.add(PlanetItems.Text(R.string.orbit_eccentricity, it.toString())) }
-                pl_eqt?.let { list.add(PlanetItems.Text(R.string.equilibrium_temperature, it.toString())) }
+                planetReference?.let {
+                    list.add(
+                        PlanetItems.Reference(
+                            getReferenceText(it),
+                            getReferenceLink(it)
+                        )
+                    )
                 }
+                discoveryMethod?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.discovery_method,
+                            context.discoveryMethodToStr(it)
+                        )
+                    )
+                }
+                discoveryYear?.let { list.add(PlanetItems.Text(R.string.year, it.toString())) }
+                discoveryFacility?.let { list.add(PlanetItems.Text(R.string.facility, it)) }
+                planetOrbitalPeriod?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.orbital_period_days,
+                            it.toString()
+                        )
+                    )
+                }
+                planetOrbitSemiMajorAxis?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.orbital_semi_major_axis_au,
+                            it.toString()
+                        )
+                    )
+                }
+                planetRadiusEarth?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.radius_earth_radius,
+                            it.toString()
+                        )
+                    )
+                }
+                planetBestMassEstimateEarth?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.mass_earth_mass,
+                            it.toString()
+                        )
+                    )
+                }
+                planetOrbitEccentricity?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.orbit_eccentricity,
+                            it.toString()
+                        )
+                    )
+                }
+                planetEquilibriumTemperature?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.equilibrium_temperature,
+                            it.toString()
+                        )
+                    )
+                }
+            }
 
-            if (st_refname != null || st_spectype != null || hostname != null || st_teff != null ||
-                st_rad != null || st_mass != null) {
+            if (starReference != null || starSpectralType != null || starName != null || starEffectiveTemperature != null ||
+                starRadiusSolar != null || starMassSolar != null
+            ) {
                 list.add(PlanetItems.Header(R.string.stellar))
-                st_refname?.let { list.add(PlanetItems.Reference(getReferenceText(it), getReferenceLink(it))) }
-                st_spectype?.takeUnless { it.isBlank() }?.let { list.add(PlanetItems.Text(R.string.spectral_type, it)) }
-                hostname?.let { list.add(PlanetItems.Text(R.string.name, it)) }
-                st_teff?.let { list.add(PlanetItems.Text(R.string.effective_temperature, it.toString())) }
-                st_rad?.let { list.add(PlanetItems.Text(R.string.radius_solar_radius, it.toString())) }
-                st_mass?.let { list.add(PlanetItems.Text(R.string.mass_solar_mass, it.toString())) }
+                starReference?.let {
+                    list.add(
+                        PlanetItems.Reference(
+                            getReferenceText(it),
+                            getReferenceLink(it)
+                        )
+                    )
+                }
+                starSpectralType?.takeUnless { it.isBlank() }
+                    ?.let { list.add(PlanetItems.Text(R.string.spectral_type, it)) }
+                starName?.let { list.add(PlanetItems.Text(R.string.name, it)) }
+                starEffectiveTemperature?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.effective_temperature,
+                            it.toString()
+                        )
+                    )
+                }
+                starRadiusSolar?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.radius_solar_radius,
+                            it.toString()
+                        )
+                    )
+                }
+                starMassSolar?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.mass_solar_mass,
+                            it.toString()
+                        )
+                    )
+                }
             }
 
-            if (sy_refname != null || sy_snum != null || sy_pnum != null || sy_dist != null) {
+            if (systemReference != null || systemStarNumber != null || systemPlanetNumber != null || systemDistance != null) {
                 list.add(PlanetItems.Header(R.string.system))
-                sy_refname?.let { list.add(PlanetItems.Reference(getReferenceText(it), getReferenceLink(it))) }
-                sy_snum?.let { list.add(PlanetItems.Text(R.string.number_of_stars, it.toString())) }
-                sy_pnum?.let { list.add(PlanetItems.Text(R.string.number_of_planets, it.toString())) }
-                sy_dist?.let { list.add(PlanetItems.Text(R.string.distance_pc, it.toString())) }
-            }
-
-            if (pl_pubdate != null || releasedate != null || rowupdate != null) {
-                list.add(PlanetItems.Header(R.string.dates))
-                pl_pubdate?.let { list.add(PlanetItems.Text(R.string.planetary_reference_publication_date, it)) }
-                releasedate?.let { list.add(PlanetItems.Text(R.string.nasa_exoplanet_archive_release_date, it)) }
-                rowupdate?.let { list.add(PlanetItems.Text(R.string.last_update_date, it)) }
+                systemReference?.let {
+                    list.add(
+                        PlanetItems.Reference(
+                            getReferenceText(it),
+                            getReferenceLink(it)
+                        )
+                    )
+                }
+                systemStarNumber?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.number_of_stars,
+                            it.toString()
+                        )
+                    )
+                }
+                systemPlanetNumber?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.number_of_planets,
+                            it.toString()
+                        )
+                    )
+                }
+                systemDistance?.let {
+                    list.add(
+                        PlanetItems.Text(
+                            R.string.distance_pc,
+                            it.toString()
+                        )
+                    )
+                }
             }
         }
         return list
@@ -124,7 +233,16 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         backButton.setOnClickListener { findNavController().navigateUp() }
         favoriteButton.setOnClickListener { viewModel.toggleFavorite() }
         enlargePlanetButton.setOnClickListener {
-            enlargedView.show(parentFragmentManager, "enlarged_planet")
+            planetAndInfo?.let {
+                val enlargedView = EnlargedPlanetView()
+                enlargedView.setPlanet(it)
+                val fragment = parentFragmentManager.findFragmentByTag(ENLARGED_DIALOG_TAG)
+                if (fragment != null && fragment.isAdded) {
+                    Log.d("cqhg43", "fragment != null && fragment.isAdded")
+                    return@setOnClickListener
+                }
+                enlargedView.show(parentFragmentManager, ENLARGED_DIALOG_TAG)
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.common.SingleLiveEvent
 import bav.astrobirthday.data.BirthdayUpdater
-import bav.astrobirthday.data.UserRepository
+import bav.astrobirthday.domain.UserRepository
 import bav.astrobirthday.domain.exception.DateInFuture
 import bav.astrobirthday.domain.exception.DateNotParsed
 import bav.astrobirthday.domain.exception.YearExceedMinValue

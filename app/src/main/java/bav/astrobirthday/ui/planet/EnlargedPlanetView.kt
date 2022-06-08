@@ -4,13 +4,13 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.PlanetView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class EnlargedPlanetView : DialogFragment() {
 
-    private var planet: PlanetDescription? = null
+    private var planet: PlanetAndInfo? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = layoutInflater.inflate(R.layout.fragment_enlarged_planet_view, null)
@@ -30,7 +30,7 @@ class EnlargedPlanetView : DialogFragment() {
         super.onSaveInstanceState(outState)
     }
 
-    fun setPlanet(description: PlanetDescription) {
+    fun setPlanet(description: PlanetAndInfo) {
         planet = description
     }
 }

@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.sqlite.db.SimpleSQLiteQuery
 import bav.astrobirthday.data.entities.PLANETS_TABLE
 import bav.astrobirthday.data.entities.PLANET_USER_INFO_TABLE
-import bav.astrobirthday.data.entities.PlanetAndInfo
+import bav.astrobirthday.data.entities.PlanetAndInfoDTO
 import bav.astrobirthday.data.entities.PlanetFilter.FilterFromTo
 import bav.astrobirthday.data.entities.PlanetFilters
 import bav.astrobirthday.data.entities.PlanetSorting
@@ -16,7 +16,7 @@ class GetExoplanets(private val database: PlanetDao) {
         sort: PlanetSorting,
         searchRequest: String,
         filter: PlanetFilters
-    ): PagingSource<Int, PlanetAndInfo> {
+    ): PagingSource<Int, PlanetAndInfoDTO> {
         val searchQuery = if (searchRequest.isBlank()) "" else "AND pl_name LIKE '%$searchRequest%'"
         val filterQuery = getFilterQuery(filter)
         val query = SimpleSQLiteQuery(

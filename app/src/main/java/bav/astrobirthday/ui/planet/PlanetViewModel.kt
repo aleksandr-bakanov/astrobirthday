@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.data.entities.Config
-import bav.astrobirthday.data.entities.PlanetAndInfo
-import bav.astrobirthday.data.entities.PlanetDescription
+import bav.astrobirthday.data.entities.toDomain
 import bav.astrobirthday.data.local.PlanetDao
+import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.getPlanetType
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class PlanetViewModel(
@@ -17,8 +19,8 @@ class PlanetViewModel(
     private val planetName: String
 ) : ViewModel() {
 
-    private val _planet = MutableLiveData<PlanetDescription>()
-    val planet: LiveData<PlanetDescription> = _planet
+    private val _planet = MutableLiveData<PlanetAndInfo>()
+    val planet: LiveData<PlanetAndInfo> = _planet
 
     init {
         val neighboursFlow = if (planetName in Config.solarPlanets)
@@ -30,13 +32,13 @@ class PlanetViewModel(
             neighboursFlow
         ) { planetAndInfo, neighbours ->
             val (planet, info) = planetAndInfo
-            PlanetDescription(
-                planet = planet,
+            PlanetAndInfo(
+                planet = planet.toDomain(),
                 isFavorite = info?.is_favorite ?: false,
                 ageOnPlanet = info?.age,
                 nearestBirthday = info?.birthday,
                 planetType = getPlanetType(planet.pl_name),
-                neighbours = neighbours.map(PlanetAndInfo::planet)
+                neighbours = neighbours.map { it.planet.toDomain() }
             )
         }
             .onEach(_planet::setValue)
@@ -45,6 +47,6 @@ class PlanetViewModel(
 
     fun toggleFavorite() = viewModelScope.launch {
         val desc = planet.value ?: return@launch
-        database.setFavorite(desc.planet.pl_name, !desc.isFavorite)
+        database.setFavorite(desc.planet.planetName, !desc.isFavorite)
     }
 }

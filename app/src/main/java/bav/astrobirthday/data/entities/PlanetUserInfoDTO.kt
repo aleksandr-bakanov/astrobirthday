@@ -15,7 +15,7 @@ val PLANET_USER_INFO_COLUMNS = arrayOf(
 )
 
 @Entity(tableName = PLANET_USER_INFO_TABLE)
-data class PlanetUserInfo(
+data class PlanetUserInfoDTO(
     @PrimaryKey val name: String,
     @ColumnInfo(name = "is_favorite") val is_favorite: Boolean = false,
     @ColumnInfo(name = "age") val age: Double?,
