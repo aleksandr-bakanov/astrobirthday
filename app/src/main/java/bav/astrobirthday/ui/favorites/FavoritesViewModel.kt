@@ -1,12 +1,6 @@
 package bav.astrobirthday.ui.favorites
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import androidx.paging.map
 import bav.astrobirthday.data.entities.Column
 import bav.astrobirthday.data.entities.PlanetSorting
 import bav.astrobirthday.data.entities.SortOrder
@@ -25,15 +19,12 @@ class FavoritesViewModel(
 
     private val sorting = MutableStateFlow(PlanetSorting(Column.NAME, SortOrder.ASC))
 
-    val planetsList: Flow<PagingData<PlanetAndInfo>> = sorting
+    val planetsList: Flow<List<PlanetAndInfo>> = sorting
         .flatMapLatest { sortBy ->
-            Pager(PagingConfig(pageSize = 20)) {
-                getFavorites.getSource(sortBy)
-            }.flow
+            getFavorites.getSource(sortBy)
         }.mapLatest { data ->
             data.map { it.toDomain() }
         }
-        .cachedIn(viewModelScope)
 
     suspend fun countFavorites(): Int {
         return database.countFavoritePlanets()

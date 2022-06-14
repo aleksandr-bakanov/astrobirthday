@@ -27,8 +27,8 @@ import bav.astrobirthday.common.DiscoveryMethod.PULSATION_TIMING_VARIATIONS
 import bav.astrobirthday.common.DiscoveryMethod.RADIAL_VELOCITY
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT
 import bav.astrobirthday.common.DiscoveryMethod.TRANSIT_TIMING_VARIATIONS
-import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.BirthdayUpdateWorker
+import bav.astrobirthday.data.entities.Config
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -57,8 +57,8 @@ fun Context.localDateToString(date: LocalDate): String {
 }
 
 fun String.toPlanetIndex(): Int {
-    return if (Config.solarPlanets.contains(this))
-        Config.solarPlanets.indexOf(this) + 1
+    return if (Config.solarPlanetNames.contains(this))
+        Config.solarPlanetNames.indexOf(this) + 1
     else
         this.substringAfterLast(" ")[0] - "a"[0]
 }

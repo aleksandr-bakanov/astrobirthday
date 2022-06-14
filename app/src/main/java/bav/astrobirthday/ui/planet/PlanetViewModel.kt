@@ -23,8 +23,8 @@ class PlanetViewModel(
     val planet: LiveData<PlanetAndInfo> = _planet
 
     init {
-        val neighboursFlow = if (planetName in Config.solarPlanets)
-            database.getByNames(Config.solarPlanets)
+        val neighboursFlow = if (planetName in Config.solarPlanetNames)
+            database.getByNames(Config.solarPlanetNames)
         else
             database.getByNamesLike("${planetName.substringBeforeLast(" ")} %")
         combine(

@@ -35,7 +35,7 @@ interface PlanetDao {
 
     @Transaction
     @RawQuery(observedEntities = [PlanetDTO::class, PlanetUserInfoDTO::class])
-    fun getFavoritePlanets(query: SupportSQLiteQuery): PagingSource<Int, PlanetAndInfoDTO>
+    fun getFavoritePlanets(query: SupportSQLiteQuery): Flow<List<PlanetAndInfoDTO>>
 
     @Query("UPDATE planets_user_info SET is_favorite = :isFavorite WHERE name = :name")
     suspend fun setFavorite(name: String, isFavorite: Boolean)
