@@ -8,6 +8,7 @@ import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.Planet
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.ui.common.BaseFragment
+import bav.astrobirthday.ui.common.opengl.PlanetView3d
 import bav.astrobirthday.utils.discoveryMethodToStr
 import bav.astrobirthday.utils.getAgeString
 import bav.astrobirthday.utils.getNearestBirthdayString
@@ -30,6 +31,14 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupClickListeners()
+        setupOpenGL()
+    }
+
+    private fun setupOpenGL() {
+        with(requireBinding()) {
+            val view = PlanetView3d(requireActivity())
+            planetView3d.addView(view)
+        }
     }
 
     private fun setupObservers() = with(requireBinding()) {

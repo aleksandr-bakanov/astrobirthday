@@ -102,4 +102,9 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+    <FrameLayout
+        android:id="@+id/planet_view_3d"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

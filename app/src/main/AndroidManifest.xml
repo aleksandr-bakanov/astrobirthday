@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="bav.astrobirthday">
 
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
     <application
         android:name=".AstroBirthdayApp"
         android:allowBackup="true"
