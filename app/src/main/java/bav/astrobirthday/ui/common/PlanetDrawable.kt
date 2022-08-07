@@ -109,6 +109,7 @@ class PlanetDrawable(private val context: Context, planet: Planet) : Drawable() 
     override fun setColorFilter(colorFilter: ColorFilter?) {
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getOpacity(): Int {
         return PixelFormat.OPAQUE
     }
