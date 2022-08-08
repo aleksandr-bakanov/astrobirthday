@@ -6,6 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
+import java.nio.ShortBuffer
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -45,11 +46,15 @@ class Sphere(
         var sectorAngle: Float
         var stackAngle: Float
 
+        var vIndex = 0
+        var nIndex = 0
+        var tIndex = 0
+
         for (i in 0..stackCount)
         {
             stackAngle = (PI / 2 - i * stackStep).toFloat()        // starting from pi/2 to -pi/2
-            xy = radius * cos(stackAngle);             // r * cos(u)
-            z = radius * sin(stackAngle);              // r * sin(u)
+            xy = radius * cos(stackAngle)             // r * cos(u)
+            z = radius * sin(stackAngle)              // r * sin(u)
 
             // the first and last vertices have same position and normal, but different tex coords
             for (j in 0..sectorCount)
@@ -59,23 +64,23 @@ class Sphere(
                 // vertex position (x, y, z)
                 x = xy * cos(sectorAngle)             // r * cos(u) * cos(v)
                 y = xy * sin(sectorAngle)             // r * cos(u) * sin(v)
-                vertices[i * sectorCount + j] = x
-                vertices[i * sectorCount + j + 1] = y
-                vertices[i * sectorCount + j + 2] = z
+                vertices[vIndex++] = x
+                vertices[vIndex++] = y
+                vertices[vIndex++] = z
 
                 // normalized vertex normal (nx, ny, nz)
                 nx = x * lengthInv
                 ny = y * lengthInv
                 nz = z * lengthInv
-                normals[i * sectorCount + j] = nx
-                normals[i * sectorCount + j + 1] = ny
-                normals[i * sectorCount + j + 2] = nz
+                normals[nIndex++] = nx
+                normals[nIndex++] = ny
+                normals[nIndex++] = nz
 
                 // vertex tex coord (s, t) range between [0, 1]
                 s = j.toFloat() / sectorCount
                 t = i.toFloat() / stackCount
-                texCoords[i * sectorCount + j] = s
-                texCoords[i * sectorCount + j + 1] = t
+                texCoords[tIndex++] = s
+                texCoords[tIndex++] = t
             }
         }
 
@@ -124,8 +129,6 @@ class Sphere(
                 k2++
             }
         }
-        Log.d("cqhg43", "kIndex = $kIndex, indices.size = ${indices.size}")
-        Log.d("cqhg43", "kLineIndex = $kLineIndex, lineIndices.size = ${lineIndices.size}")
     }
 
     private var vertexBuffer: FloatBuffer =
@@ -152,18 +155,10 @@ class Sphere(
             }
         }
 
-    private var vertexHandle = 0
-
     fun draw(program: Int, mvpMatrix: FloatArray) {
         GLES20.glUseProgram(program)
-        Log.d("cqhg43", "program = $program")
 
-        // get handle to shape's transformation matrix
-        GLES20.glGetUniformLocation(program, "uMVPMatrix").also {
-            GLES20.glUniformMatrix4fv(it, 1, false, mvpMatrix, 0)
-        }
-
-        vertexHandle = GLES20.glGetAttribLocation(program, "vPosition").also {
+        val vertexHandle = GLES20.glGetAttribLocation(program, "vPosition").also {
             // Enable a handle to the triangle vertices
             GLES20.glEnableVertexAttribArray(it)
             GLES20.glVertexAttribPointer(
@@ -181,7 +176,12 @@ class Sphere(
             GLES20.glUniform4fv(colorHandle, 1, color, 0)
         }
 
-        GLES20.glDrawElements(GLES20.GL_LINES, vertices.size / coordsPerVertex, GLES20.GL_UNSIGNED_INT, lineIndicesBuffer)
+        // get handle to shape's transformation matrix
+        GLES20.glGetUniformLocation(program, "uMVPMatrix").also {
+            GLES20.glUniformMatrix4fv(it, 1, false, mvpMatrix, 0)
+        }
+
+        GLES20.glDrawElements(GLES20.GL_LINES, lineIndices.size, GLES20.GL_UNSIGNED_INT, lineIndicesBuffer)
 
         GLES20.glDisableVertexAttribArray(vertexHandle)
     }
