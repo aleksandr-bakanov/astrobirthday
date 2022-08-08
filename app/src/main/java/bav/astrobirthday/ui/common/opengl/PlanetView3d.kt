@@ -12,12 +12,12 @@ class PlanetView3d(activityContext: Context): GLSurfaceView(activityContext) {
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2)
 
+        setEGLConfigChooser(8, 8, 8, 8, 16, 0)
+
         renderer = PlanetView3dRenderer()
 
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(renderer)
-
-        renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
     }
 
 }

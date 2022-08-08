@@ -1,6 +1,8 @@
 package bav.astrobirthday.ui.common.opengl
 
 import android.opengl.GLES20
+import android.opengl.Matrix
+import android.os.SystemClock
 import android.util.Log
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -25,7 +27,13 @@ class Sphere(
     val lineIndices: IntArray = IntArray(size = stackCount * sectorCount * 4 - sectorCount * 2)
 
     // Set color with red, green, blue and alpha (opacity) values
-    val color = floatArrayOf(1.0f, 0f, 0f, 1.0f)
+    val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
+    val colorTrans = floatArrayOf(0f, 0f, 0f, 0.5f)
+
+    val transform = FloatArray(16).also {
+        Matrix.setIdentityM(it, 0)
+        Matrix.translateM(it, 0, 0.5f, 0f, 0f)
+    }
 
     init {
         var x: Float
@@ -146,6 +154,15 @@ class Sphere(
             }
         }
 
+    private var indicesBuffer: IntBuffer =
+        ByteBuffer.allocateDirect(indices.size * 4).run {
+            order(ByteOrder.nativeOrder())
+            asIntBuffer().apply {
+                put(indices)
+                position(0)
+            }
+        }
+
     private var lineIndicesBuffer: IntBuffer =
         ByteBuffer.allocateDirect(lineIndices.size * 4).run {
             order(ByteOrder.nativeOrder())
@@ -171,17 +188,27 @@ class Sphere(
             )
         }
 
-        GLES20.glGetUniformLocation(program, "vColor").also { colorHandle ->
-            // Set color for drawing the triangle
-            GLES20.glUniform4fv(colorHandle, 1, color, 0)
-        }
-
         // get handle to shape's transformation matrix
         GLES20.glGetUniformLocation(program, "uMVPMatrix").also {
             GLES20.glUniformMatrix4fv(it, 1, false, mvpMatrix, 0)
         }
 
+        Matrix.rotateM(transform, 0, 0.2f, 0f, 0f, 1f)
+
+        // Apply transformation matrix
+        GLES20.glGetUniformLocation(program, "uTransform").also {
+            GLES20.glUniformMatrix4fv(it, 1, false, transform, 0)
+        }
+
+        GLES20.glGetUniformLocation(program, "vColor").also { colorHandle ->
+            GLES20.glUniform4fv(colorHandle, 1, color, 0)
+        }
         GLES20.glDrawElements(GLES20.GL_LINES, lineIndices.size, GLES20.GL_UNSIGNED_INT, lineIndicesBuffer)
+
+        GLES20.glGetUniformLocation(program, "vColor").also { colorHandle ->
+            GLES20.glUniform4fv(colorHandle, 1, colorTrans, 0)
+        }
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)
 
         GLES20.glDisableVertexAttribArray(vertexHandle)
     }
