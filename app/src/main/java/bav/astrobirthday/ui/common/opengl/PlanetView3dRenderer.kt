@@ -25,6 +25,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
     private val viewMatrix = FloatArray(16)
 
     private var texture: Int = 0
+    private var moonTexture: Int = 0
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         // Set the background frame color
@@ -42,8 +43,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         initProgram()
 
         texture = TextureUtils.loadTexture(context, R.drawable.earth_texture)
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
+        moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
 
         sphere = Sphere(1.0f, 64, 32)
         Matrix.translateM(sphere.transform, 0, 0.5f, 0f, 0f)
@@ -60,12 +60,18 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
+
         sphere.draw(program, vPMatrix)
 
         val time = SystemClock.uptimeMillis() % 144000L
         val angle = 0.0025f * time.toInt()
         Matrix.setIdentityM(sphere2.transform, 0)
         Matrix.translateM(sphere2.transform, 0, -0.75f * sin(angle), -0.75f * cos(angle), 0f)
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, moonTexture)
 
         sphere2.draw(program, vPMatrix)
     }
