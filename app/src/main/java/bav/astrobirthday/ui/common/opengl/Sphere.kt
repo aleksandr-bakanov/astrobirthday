@@ -2,13 +2,10 @@ package bav.astrobirthday.ui.common.opengl
 
 import android.opengl.GLES20
 import android.opengl.Matrix
-import android.os.SystemClock
-import android.util.Log
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 import java.nio.IntBuffer
-import java.nio.ShortBuffer
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -29,6 +26,8 @@ class Sphere(
     // Set color with red, green, blue and alpha (opacity) values
     val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
     val colorTrans = floatArrayOf(0f, 0f, 0f, 0.7f)
+    val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
+    val lightPos = floatArrayOf(-500.0f, 0.0f, 3.0f)
 
     val transform = FloatArray(16).also {
         Matrix.setIdentityM(it, 0)
@@ -162,15 +161,6 @@ class Sphere(
             }
         }
 
-    private var lineIndicesBuffer: IntBuffer =
-        ByteBuffer.allocateDirect(lineIndices.size * 4).run {
-            order(ByteOrder.nativeOrder())
-            asIntBuffer().apply {
-                put(lineIndices)
-                position(0)
-            }
-        }
-
     private var textureBuffer: FloatBuffer =
         ByteBuffer.allocateDirect(texCoords.size * 4).run {
             order(ByteOrder.nativeOrder())
@@ -180,10 +170,27 @@ class Sphere(
             }
         }
 
-    fun draw(program: Int, mvpMatrix: FloatArray) {
+    private var normalBuffer: FloatBuffer =
+        ByteBuffer.allocateDirect(normals.size * 4).run {
+            order(ByteOrder.nativeOrder())
+            asFloatBuffer().apply {
+                put(normals)
+                position(0)
+            }
+        }
+
+    fun draw(program: Int, vpMatrix: FloatArray) {
         GLES20.glUseProgram(program)
 
-        val vertexHandle = GLES20.glGetAttribLocation(program, "vPosition").also {
+        GLES20.glGetUniformLocation(program, "lightColor").also {
+            GLES20.glUniform3fv(it, 1, lightColor, 0)
+        }
+
+        GLES20.glGetUniformLocation(program, "lightPos").also {
+            GLES20.glUniform3fv(it, 1, lightPos, 0)
+        }
+
+        val vertexHandle = GLES20.glGetAttribLocation(program, "aPosition").also {
             // Enable a handle to the triangle vertices
             GLES20.glEnableVertexAttribArray(it)
             GLES20.glVertexAttribPointer(
@@ -208,25 +215,39 @@ class Sphere(
             )
         }
 
+        val normalHandle = GLES20.glGetAttribLocation(program, "aNormal").also {
+            // Enable a handle to the triangle vertices
+            GLES20.glEnableVertexAttribArray(it)
+            GLES20.glVertexAttribPointer(
+                it,
+                coordsPerVertex,
+                GLES20.GL_FLOAT,
+                false,
+                vertexStride,
+                normalBuffer
+            )
+        }
+
         GLES20.glGetAttribLocation(program, "a_Texture").also {
             GLES20.glUniform1i(it, 0)
         }
 
         // get handle to shape's transformation matrix
-        GLES20.glGetUniformLocation(program, "uMVPMatrix").also {
-            GLES20.glUniformMatrix4fv(it, 1, false, mvpMatrix, 0)
+        GLES20.glGetUniformLocation(program, "uVPMatrix").also {
+            GLES20.glUniformMatrix4fv(it, 1, false, vpMatrix, 0)
         }
 
         Matrix.rotateM(transform, 0, 0.2f, 0f, 0f, 1f)
 
         // Apply transformation matrix
-        GLES20.glGetUniformLocation(program, "uTransform").also {
+        GLES20.glGetUniformLocation(program, "uModel").also {
             GLES20.glUniformMatrix4fv(it, 1, false, transform, 0)
         }
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)
 
         GLES20.glDisableVertexAttribArray(vertexHandle)
+        GLES20.glDisableVertexAttribArray(normalHandle)
         GLES20.glDisableVertexAttribArray(textureHandle)
     }
 

@@ -19,10 +19,10 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
     private var program: Int = 0
 
-    // vPMatrix is an abbreviation for "Model View Projection Matrix"
-    private val vPMatrix = FloatArray(16)
-    private val projectionMatrix = FloatArray(16)
     private val viewMatrix = FloatArray(16)
+    private val projectionMatrix = FloatArray(16)
+    // vPMatrix is an abbreviation for "View Projection Matrix"
+    private val vPMatrix = FloatArray(16)
 
     private var texture: Int = 0
     private var moonTexture: Int = 0
@@ -55,18 +55,13 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
     override fun onDrawFrame(unused: GL10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
 
-        // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 0f, -4f, 5f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
-        // Calculate the projection and view transformation
-        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
-
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
 
         sphere.draw(program, vPMatrix)
 
-        val time = SystemClock.uptimeMillis() % 144000L
-        val angle = 0.0025f * time.toInt()
+        val time = SystemClock.uptimeMillis() % 288000L
+        val angle = 0.00125f * time.toInt()
         Matrix.setIdentityM(sphere2.transform, 0)
         Matrix.translateM(sphere2.transform, 0, -0.75f * sin(angle), -0.75f * cos(angle), 0f)
 
@@ -83,8 +78,12 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 10f)
+        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 100f)
 
+        // Set the camera position (View matrix)
+        Matrix.setLookAtM(viewMatrix, 0, 0f, -10f, 3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+        // Calculate the projection and view transformation
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
 
     private fun initProgram() {
@@ -114,22 +113,38 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
     companion object {
         private val vertexShaderCode =
-                    "uniform mat4 uMVPMatrix;" +
-                    "uniform mat4 uTransform;" +
+            "uniform mat4 uVPMatrix;" +
+                    "uniform mat4 uModel;" +
                     "attribute vec2 a_Texture;" +
                     "varying vec2 v_Texture;" +
-                    "attribute vec4 vPosition;" +
+                    "attribute vec4 aPosition;" +
+                    "attribute vec3 aNormal;" +
+                    "varying vec3 vNormal;" +
+                    "varying vec3 vFragPos;" +
                     "void main() {" +
-                    "  gl_Position = uMVPMatrix * uTransform * vPosition;" +
+                    "  gl_Position = uVPMatrix * uModel * aPosition;" +
                     "  v_Texture = a_Texture;" +
+                    "  vNormal = vec3(uModel * vec4(aNormal, 1.0));" +
+                    "  vFragPos = vec3(uModel * aPosition);" +
                     "}"
 
         private val fragmentShaderCode =
-                    "precision mediump float;" +
+            "precision mediump float;" +
                     "uniform sampler2D u_TextureUnit;" +
+                    "uniform vec3 lightPos;" +
+                    "uniform vec3 lightColor;" +
                     "varying vec2 v_Texture;" +
+                    "varying vec3 vNormal;" +
+                    "varying vec3 vFragPos;" +
                     "void main() {" +
-                    "  gl_FragColor = texture2D(u_TextureUnit, v_Texture);" +
+                    "  vec3 norm = normalize(vNormal);" +
+                    "  vec3 lightDir = normalize(lightPos - vFragPos);" +
+                    "  float diff = max(dot(norm, lightDir), 0.0);" +
+                    "  vec3 diffuse = diff * lightColor;" +
+                    "  float ambientStrength = 0.1;" +
+                    "  vec3 ambient = ambientStrength * lightColor;" +
+                    "  vec4 result = vec4(ambient + diffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
+                    "  gl_FragColor = result;" +
                     "}"
     }
 
