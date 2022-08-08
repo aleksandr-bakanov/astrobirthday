@@ -14,7 +14,7 @@ class PlanetView3d(activityContext: Context): GLSurfaceView(activityContext) {
 
         setEGLConfigChooser(8, 8, 8, 8, 16, 0)
 
-        renderer = PlanetView3dRenderer()
+        renderer = PlanetView3dRenderer(activityContext)
 
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(renderer)

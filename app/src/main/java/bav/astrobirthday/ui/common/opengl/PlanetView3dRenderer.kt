@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.common.opengl
 
+import android.content.Context
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -7,10 +8,11 @@ import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
 import android.os.SystemClock
+import bav.astrobirthday.R
 import kotlin.math.cos
 import kotlin.math.sin
 
-class PlanetView3dRenderer : GLSurfaceView.Renderer {
+class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Renderer {
 
     private lateinit var sphere: Sphere
     private lateinit var sphere2: Sphere
@@ -21,6 +23,8 @@ class PlanetView3dRenderer : GLSurfaceView.Renderer {
     private val vPMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
     private val viewMatrix = FloatArray(16)
+
+    private var texture: Int = 0
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         // Set the background frame color
@@ -36,6 +40,10 @@ class PlanetView3dRenderer : GLSurfaceView.Renderer {
         GLES20.glLineWidth(3f)
 
         initProgram()
+
+        texture = TextureUtils.loadTexture(context, R.drawable.earth_texture)
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
 
         sphere = Sphere(1.0f, 64, 32)
         Matrix.translateM(sphere.transform, 0, 0.5f, 0f, 0f)
@@ -100,18 +108,22 @@ class PlanetView3dRenderer : GLSurfaceView.Renderer {
 
     companion object {
         private val vertexShaderCode =
-            "uniform mat4 uMVPMatrix;" +
-            "uniform mat4 uTransform;" +
+                    "uniform mat4 uMVPMatrix;" +
+                    "uniform mat4 uTransform;" +
+                    "attribute vec2 a_Texture;" +
+                    "varying vec2 v_Texture;" +
                     "attribute vec4 vPosition;" +
                     "void main() {" +
                     "  gl_Position = uMVPMatrix * uTransform * vPosition;" +
+                    "  v_Texture = a_Texture;" +
                     "}"
 
         private val fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
+                    "precision mediump float;" +
+                    "uniform sampler2D u_TextureUnit;" +
+                    "varying vec2 v_Texture;" +
                     "void main() {" +
-                    "  gl_FragColor = vColor;" +
+                    "  gl_FragColor = texture2D(u_TextureUnit, v_Texture);" +
                     "}"
     }
 

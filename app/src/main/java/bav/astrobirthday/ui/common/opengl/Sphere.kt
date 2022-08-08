@@ -171,6 +171,15 @@ class Sphere(
             }
         }
 
+    private var textureBuffer: FloatBuffer =
+        ByteBuffer.allocateDirect(texCoords.size * 4).run {
+            order(ByteOrder.nativeOrder())
+            asFloatBuffer().apply {
+                put(texCoords)
+                position(0)
+            }
+        }
+
     fun draw(program: Int, mvpMatrix: FloatArray) {
         GLES20.glUseProgram(program)
 
@@ -187,6 +196,22 @@ class Sphere(
             )
         }
 
+        val textureHandle = GLES20.glGetAttribLocation(program, "a_Texture").also {
+            GLES20.glEnableVertexAttribArray(it)
+            GLES20.glVertexAttribPointer(
+                it,
+                texturePerVertex,
+                GLES20.GL_FLOAT,
+                false,
+                textureStride,
+                textureBuffer
+            )
+        }
+
+        GLES20.glGetAttribLocation(program, "a_Texture").also {
+            GLES20.glUniform1i(it, 0)
+        }
+
         // get handle to shape's transformation matrix
         GLES20.glGetUniformLocation(program, "uMVPMatrix").also {
             GLES20.glUniformMatrix4fv(it, 1, false, mvpMatrix, 0)
@@ -199,21 +224,16 @@ class Sphere(
             GLES20.glUniformMatrix4fv(it, 1, false, transform, 0)
         }
 
-        GLES20.glGetUniformLocation(program, "vColor").also { colorHandle ->
-            GLES20.glUniform4fv(colorHandle, 1, color, 0)
-        }
-        GLES20.glDrawElements(GLES20.GL_LINES, lineIndices.size, GLES20.GL_UNSIGNED_INT, lineIndicesBuffer)
-
-        GLES20.glGetUniformLocation(program, "vColor").also { colorHandle ->
-            GLES20.glUniform4fv(colorHandle, 1, colorTrans, 0)
-        }
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)
 
         GLES20.glDisableVertexAttribArray(vertexHandle)
+        GLES20.glDisableVertexAttribArray(textureHandle)
     }
 
     companion object {
         private const val coordsPerVertex = 3
+        private const val texturePerVertex = 2
         private const val vertexStride = coordsPerVertex * 4
+        private const val textureStride = texturePerVertex * 4
     }
 }
