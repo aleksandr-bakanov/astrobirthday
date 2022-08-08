@@ -6,10 +6,14 @@ import javax.microedition.khronos.opengles.GL10
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
+import android.os.SystemClock
+import kotlin.math.cos
+import kotlin.math.sin
 
 class PlanetView3dRenderer : GLSurfaceView.Renderer {
 
     private lateinit var sphere: Sphere
+    private lateinit var sphere2: Sphere
 
     private var program: Int = 0
 
@@ -29,9 +33,15 @@ class PlanetView3dRenderer : GLSurfaceView.Renderer {
         GLES20.glDepthFunc(GLES20.GL_LEQUAL)
         GLES20.glDepthMask(true)
 
+        GLES20.glLineWidth(3f)
+
         initProgram()
 
-        sphere = Sphere(1.0f, 32, 16)
+        sphere = Sphere(1.0f, 64, 32)
+        Matrix.translateM(sphere.transform, 0, 0.5f, 0f, 0f)
+
+        sphere2 = Sphere(0.5f, 64, 32)
+        Matrix.translateM(sphere2.transform, 0, -0.5f, -0.5f, 0f)
     }
 
     override fun onDrawFrame(unused: GL10) {
@@ -43,6 +53,13 @@ class PlanetView3dRenderer : GLSurfaceView.Renderer {
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
         sphere.draw(program, vPMatrix)
+
+        val time = SystemClock.uptimeMillis() % 144000L
+        val angle = 0.0025f * time.toInt()
+        Matrix.setIdentityM(sphere2.transform, 0)
+        Matrix.translateM(sphere2.transform, 0, -0.75f * sin(angle), -0.75f * cos(angle), 0f)
+
+        sphere2.draw(program, vPMatrix)
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {

@@ -28,11 +28,10 @@ class Sphere(
 
     // Set color with red, green, blue and alpha (opacity) values
     val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
-    val colorTrans = floatArrayOf(0f, 0f, 0f, 0.5f)
+    val colorTrans = floatArrayOf(0f, 0f, 0f, 0.7f)
 
     val transform = FloatArray(16).also {
         Matrix.setIdentityM(it, 0)
-        Matrix.translateM(it, 0, 0.5f, 0f, 0f)
     }
 
     init {
