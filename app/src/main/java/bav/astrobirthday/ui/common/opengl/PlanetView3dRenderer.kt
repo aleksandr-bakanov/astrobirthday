@@ -127,7 +127,6 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "  gl_Position = uVPMatrix * uModel * aPosition;" +
                     "  v_Texture = a_Texture;" +
                     "  vNormal = vec3(uModelRotation * vec4(aNormal, 1.0));" +
-                    //"  vNormal = aNormal;" +
                     "  vFragPos = vec3(uModel * aPosition);" +
                     "}"
 
@@ -136,17 +135,22 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "uniform sampler2D u_TextureUnit;" +
                     "uniform vec3 lightPos;" +
                     "uniform vec3 lightColor;" +
+                    "uniform vec3 secondLightPos;" +
+                    "uniform vec3 secondLightColor;" +
                     "varying vec2 v_Texture;" +
                     "varying vec3 vNormal;" +
                     "varying vec3 vFragPos;" +
                     "void main() {" +
                     "  vec3 norm = normalize(vNormal);" +
                     "  vec3 lightDir = normalize(lightPos - vFragPos);" +
+                    "  vec3 secondLightDir = normalize(secondLightPos - vFragPos);" +
                     "  float diff = max(dot(norm, lightDir), 0.0);" +
+                    "  float secondDiff = max(dot(norm, secondLightDir), 0.0);" +
                     "  vec3 diffuse = diff * lightColor;" +
-                    "  float ambientStrength = 0.1;" +
+                    "  vec3 secondDiffuse = secondDiff * secondLightColor;" +
+                    "  float ambientStrength = 0.2;" +
                     "  vec3 ambient = ambientStrength * lightColor;" +
-                    "  vec4 result = vec4(ambient + diffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
+                    "  vec4 result = vec4(ambient + diffuse + secondDiffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
                     "  gl_FragColor = result;" +
                     "}"
     }

@@ -28,6 +28,8 @@ class Sphere(
     val colorTrans = floatArrayOf(0f, 0f, 0f, 0.7f)
     val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
     val lightPos = floatArrayOf(0.0f, 0.0f, 3.0f)
+    val secondLightColor = floatArrayOf(0.1f, 0.1f, 0.1f)
+    val secondLightPos = floatArrayOf(0.0f, 0.0f, -5.0f)
 
     var angle: Float = 0f
 
@@ -190,9 +192,15 @@ class Sphere(
         GLES20.glGetUniformLocation(program, "lightColor").also {
             GLES20.glUniform3fv(it, 1, lightColor, 0)
         }
-
         GLES20.glGetUniformLocation(program, "lightPos").also {
             GLES20.glUniform3fv(it, 1, lightPos, 0)
+        }
+
+        GLES20.glGetUniformLocation(program, "secondLightColor").also {
+            GLES20.glUniform3fv(it, 1, secondLightColor, 0)
+        }
+        GLES20.glGetUniformLocation(program, "secondLightPos").also {
+            GLES20.glUniform3fv(it, 1, secondLightPos, 0)
         }
 
         val vertexHandle = GLES20.glGetAttribLocation(program, "aPosition").also {
