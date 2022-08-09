@@ -27,9 +27,14 @@ class Sphere(
     val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
     val colorTrans = floatArrayOf(0f, 0f, 0f, 0.7f)
     val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
-    val lightPos = floatArrayOf(-500.0f, 0.0f, 3.0f)
+    val lightPos = floatArrayOf(0.0f, 0.0f, 3.0f)
 
-    val transform = FloatArray(16).also {
+    var angle: Float = 0f
+
+    val modelTransformMatrix = FloatArray(16).also {
+        Matrix.setIdentityM(it, 0)
+    }
+    val modelRotationMatrix = FloatArray(16).also {
         Matrix.setIdentityM(it, 0)
     }
 
@@ -237,11 +242,16 @@ class Sphere(
             GLES20.glUniformMatrix4fv(it, 1, false, vpMatrix, 0)
         }
 
-        Matrix.rotateM(transform, 0, 0.2f, 0f, 0f, 1f)
+        angle = if (angle + 0.2f > 360f) 0f else angle + 0.2f
+        Matrix.setIdentityM(modelRotationMatrix, 0)
+        Matrix.rotateM(modelRotationMatrix, 0, angle, 0f, 0f, 1f)
 
         // Apply transformation matrix
-        GLES20.glGetUniformLocation(program, "uModel").also {
-            GLES20.glUniformMatrix4fv(it, 1, false, transform, 0)
+        GLES20.glGetUniformLocation(program, "uModelTransform").also {
+            GLES20.glUniformMatrix4fv(it, 1, false, modelTransformMatrix, 0)
+        }
+        GLES20.glGetUniformLocation(program, "uModelRotation").also {
+            GLES20.glUniformMatrix4fv(it, 1, false, modelRotationMatrix, 0)
         }
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)

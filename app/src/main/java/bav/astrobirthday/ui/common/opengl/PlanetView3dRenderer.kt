@@ -46,10 +46,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
 
         sphere = Sphere(1.0f, 64, 32)
-        Matrix.translateM(sphere.transform, 0, 0.5f, 0f, 0f)
-
         sphere2 = Sphere(0.5f, 64, 32)
-        Matrix.translateM(sphere2.transform, 0, -0.5f, -0.5f, 0f)
     }
 
     override fun onDrawFrame(unused: GL10) {
@@ -58,12 +55,15 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
 
+        Matrix.setIdentityM(sphere.modelTransformMatrix, 0)
+        Matrix.translateM(sphere.modelTransformMatrix, 0, 0.5f, 0f, 0f)
         sphere.draw(program, vPMatrix)
 
         val time = SystemClock.uptimeMillis() % 288000L
         val angle = 0.00125f * time.toInt()
-        Matrix.setIdentityM(sphere2.transform, 0)
-        Matrix.translateM(sphere2.transform, 0, -0.75f * sin(angle), -0.75f * cos(angle), 0f)
+        Matrix.setIdentityM(sphere2.modelTransformMatrix, 0)
+        Matrix.translateM(sphere2.modelTransformMatrix, 0, 2f * sin(angle), 2f * cos(angle), 0f)
+
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, moonTexture)
@@ -114,7 +114,8 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
     companion object {
         private val vertexShaderCode =
             "uniform mat4 uVPMatrix;" +
-                    "uniform mat4 uModel;" +
+                    "uniform mat4 uModelTransform;" +
+                    "uniform mat4 uModelRotation;" +
                     "attribute vec2 a_Texture;" +
                     "varying vec2 v_Texture;" +
                     "attribute vec4 aPosition;" +
@@ -122,9 +123,11 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "varying vec3 vNormal;" +
                     "varying vec3 vFragPos;" +
                     "void main() {" +
+                    "  mat4 uModel = uModelTransform * uModelRotation;" +
                     "  gl_Position = uVPMatrix * uModel * aPosition;" +
                     "  v_Texture = a_Texture;" +
-                    "  vNormal = vec3(uModel * vec4(aNormal, 1.0));" +
+                    "  vNormal = vec3(uModelRotation * vec4(aNormal, 1.0));" +
+                    //"  vNormal = aNormal;" +
                     "  vFragPos = vec3(uModel * aPosition);" +
                     "}"
 
