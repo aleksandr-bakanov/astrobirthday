@@ -16,6 +16,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
     private lateinit var sphere: Sphere
     private lateinit var sphere2: Sphere
+    private lateinit var ring: Ring
 
     private var program: Int = 0
 
@@ -26,6 +27,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
     private var texture: Int = 0
     private var moonTexture: Int = 0
+    private var ringTexture: Int = 0
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         // Set the background frame color
@@ -44,9 +46,11 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
         texture = TextureUtils.loadTexture(context, R.drawable.earth_texture)
         moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
+        ringTexture = TextureUtils.loadTexture(context, R.drawable.ring)
 
         sphere = Sphere(1.0f, 64, 32)
-        sphere2 = Sphere(0.5f, 64, 32)
+        sphere2 = Sphere(0.5f, 64, 32, 1f)
+        ring = Ring(1.0f, 1.7f, 64)
     }
 
     override fun onDrawFrame(unused: GL10) {
@@ -69,6 +73,12 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, moonTexture)
 
         sphere2.draw(program, vPMatrix)
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, ringTexture)
+        Matrix.setIdentityM(ring.modelTransformMatrix, 0)
+        Matrix.translateM(ring.modelTransformMatrix, 0, 0.5f, 0f, 0f)
+        ring.draw(program, vPMatrix)
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {

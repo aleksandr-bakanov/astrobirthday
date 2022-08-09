@@ -10,19 +10,17 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Sphere(
-    radius: Float,
-    sectorCount: Int,
-    stackCount: Int,
-    private val selfRotationSpeed: Float = 0.2f
+class Ring(
+    innerRadius: Float,
+    outerRadius: Float,
+    sectorCount: Int
 ) {
 
-    val vertices: FloatArray = FloatArray(size = (sectorCount + 1) * (stackCount + 1) * 3)
-    val normals: FloatArray = FloatArray(size = (sectorCount + 1) * (stackCount + 1) * 3)
-    val texCoords: FloatArray = FloatArray(size = (sectorCount + 1) * (stackCount + 1) * 2)
+    val vertices: FloatArray = FloatArray(size = 2 * (sectorCount + 1) * 3)
+    val normals: FloatArray = FloatArray(size = 2 * (sectorCount + 1) * 3)
+    val texCoords: FloatArray = FloatArray(size = 2 * (sectorCount + 1) * 2)
 
-    val indices: IntArray = IntArray(size = (stackCount - 1) * sectorCount * 6)
-    val lineIndices: IntArray = IntArray(size = stackCount * sectorCount * 4 - sectorCount * 2)
+    val indices: IntArray = IntArray(size = sectorCount * 6)
 
     // Set color with red, green, blue and alpha (opacity) values
     val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
@@ -44,61 +42,54 @@ class Sphere(
     init {
         var x: Float
         var y: Float
-        var z: Float
-        var xy: Float
+        val z: Float = 0f
+        var radius: Float
 
         var nx: Float
         var ny: Float
         var nz: Float
-        val lengthInv = 1.0f / radius
 
         var s: Float
         var t: Float
 
         val sectorStep = (2 * PI / sectorCount).toFloat()
-        val stackStep = (PI / stackCount).toFloat()
         var sectorAngle: Float
-        var stackAngle: Float
 
         var vIndex = 0
         var nIndex = 0
         var tIndex = 0
 
-        for (i in 0..stackCount)
-        {
-            stackAngle = (PI / 2 - i * stackStep).toFloat()        // starting from pi/2 to -pi/2
-            xy = radius * cos(stackAngle)             // r * cos(u)
-            z = radius * sin(stackAngle)              // r * sin(u)
+        for (i in 0..1) {
+            radius = if (i == 0) innerRadius else outerRadius
 
-            // the first and last vertices have same position and normal, but different tex coords
             for (j in 0..sectorCount)
             {
                 sectorAngle = j * sectorStep           // starting from 0 to 2pi
 
                 // vertex position (x, y, z)
-                x = xy * cos(sectorAngle)             // r * cos(u) * cos(v)
-                y = xy * sin(sectorAngle)             // r * cos(u) * sin(v)
+                x = radius * cos(sectorAngle)
+                y = radius * sin(sectorAngle)
                 vertices[vIndex++] = x
                 vertices[vIndex++] = y
                 vertices[vIndex++] = z
 
                 // normalized vertex normal (nx, ny, nz)
-                nx = x * lengthInv
-                ny = y * lengthInv
-                nz = z * lengthInv
+                nx = 0f
+                ny = 0f
+                nz = 1f
                 normals[nIndex++] = nx
                 normals[nIndex++] = ny
                 normals[nIndex++] = nz
 
                 // vertex tex coord (s, t) range between [0, 1]
                 s = j.toFloat() / sectorCount
-                t = i.toFloat() / stackCount
+                t = i.toFloat()
                 texCoords[tIndex++] = s
                 texCoords[tIndex++] = t
             }
         }
 
-        // generate CCW index list of sphere triangles
+        // generate CCW index list of ring triangles
         // k1--k1+1
         // |  / |
         // | /  |
@@ -106,38 +97,20 @@ class Sphere(
         var k1: Int
         var k2: Int
         var kIndex = 0
-        var kLineIndex = 0
-        for (i in 0 until stackCount) {
+        for (i in 0 until 1) {
             k1 = i * (sectorCount + 1)  // beginning of current stack
             k2 = k1 + sectorCount + 1   // beginning of next stack
 
             for (j in 0 until sectorCount) {
-                // 2 triangles per sector excluding first and last stacks
                 // k1 => k2 => k1+1
-                if(i != 0)
-                {
-                    indices[kIndex++] = k1
-                    indices[kIndex++] = k2
-                    indices[kIndex++] = k1 + 1
-                }
+                indices[kIndex++] = k1
+                indices[kIndex++] = k2
+                indices[kIndex++] = k1 + 1
 
                 // k1+1 => k2 => k2+1
-                if(i != (stackCount-1))
-                {
-                    indices[kIndex++] = k1 + 1
-                    indices[kIndex++] = k2
-                    indices[kIndex++] = k2 + 1
-                }
-
-                // store indices for lines
-                // vertical lines for all stacks, k1 => k2
-                lineIndices[kLineIndex++] = k1
-                lineIndices[kLineIndex++] = k2
-                if(i != 0)  // horizontal lines except 1st stack, k1 => k+1
-                {
-                    lineIndices[kLineIndex++] = k1
-                    lineIndices[kLineIndex++] = k1 + 1
-                }
+                indices[kIndex++] = k1 + 1
+                indices[kIndex++] = k2
+                indices[kIndex++] = k2 + 1
 
                 k1++
                 k2++
@@ -250,12 +223,6 @@ class Sphere(
         GLES20.glGetUniformLocation(program, "uVPMatrix").also {
             GLES20.glUniformMatrix4fv(it, 1, false, vpMatrix, 0)
         }
-
-        angle += selfRotationSpeed
-        if (angle > 360f) angle -= 360f
-
-        Matrix.setIdentityM(modelRotationMatrix, 0)
-        Matrix.rotateM(modelRotationMatrix, 0, angle, 0f, 0f, 1f)
 
         // Apply transformation matrix
         GLES20.glGetUniformLocation(program, "uModelTransform").also {
