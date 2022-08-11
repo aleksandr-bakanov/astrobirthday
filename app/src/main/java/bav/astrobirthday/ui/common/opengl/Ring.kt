@@ -13,7 +13,7 @@ import kotlin.math.sin
 class Ring(
     innerRadius: Float,
     outerRadius: Float,
-    sectorCount: Int
+    sectorCount: Int = 64
 ) {
 
     val vertices: FloatArray = FloatArray(size = 2 * (sectorCount + 1) * 3)
@@ -84,8 +84,8 @@ class Ring(
                 // vertex tex coord (s, t) range between [0, 1]
                 s = j.toFloat() / sectorCount
                 t = i.toFloat()
-                texCoords[tIndex++] = s
                 texCoords[tIndex++] = t
+                texCoords[tIndex++] = s
             }
         }
 
@@ -160,7 +160,7 @@ class Ring(
             }
         }
 
-    fun draw(program: Int, vpMatrix: FloatArray) {
+    fun draw(program: Int, vpMatrix: FloatArray, texture: Int) {
         GLES20.glUseProgram(program)
 
         GLES20.glGetUniformLocation(program, "lightColor").also {
@@ -231,6 +231,9 @@ class Ring(
         GLES20.glGetUniformLocation(program, "uModelRotation").also {
             GLES20.glUniformMatrix4fv(it, 1, false, modelRotationMatrix, 0)
         }
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)
 

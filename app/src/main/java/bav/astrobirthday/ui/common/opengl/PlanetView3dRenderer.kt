@@ -7,16 +7,10 @@ import javax.microedition.khronos.opengles.GL10
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
-import android.os.SystemClock
 import bav.astrobirthday.R
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.PI
 
 class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Renderer {
-
-    private lateinit var sphere: Sphere
-    private lateinit var sphere2: Sphere
-    private lateinit var ring: Ring
 
     private var program: Int = 0
 
@@ -27,11 +21,12 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
     private var texture: Int = 0
     private var moonTexture: Int = 0
-    private var ringTexture: Int = 0
+
+    private var planetSystem: PlanetSystemNode? = null
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         // Set the background frame color
-        GLES20.glClearColor(0.0f, 0.0f, 0.2f, 1.0f)
+        //GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
 
         GLES20.glEnable(GLES20.GL_BLEND)
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA)
@@ -40,45 +35,40 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         GLES20.glDepthFunc(GLES20.GL_LEQUAL)
         GLES20.glDepthMask(true)
 
-        GLES20.glLineWidth(3f)
-
         initProgram()
 
         texture = TextureUtils.loadTexture(context, R.drawable.earth_texture)
         moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
-        ringTexture = TextureUtils.loadTexture(context, R.drawable.ring)
 
-        sphere = Sphere(1.0f, 64, 32)
-        sphere2 = Sphere(0.5f, 64, 32, 1f)
-        ring = Ring(1.0f, 1.7f, 64)
+        planetSystem = PlanetSystemNode(
+            planets = mutableListOf(
+                PlanetData(
+                    axisRotationSpeed = 3.0f,
+                    orbitRadius = 0.2f,
+                    orbitAngle = 0.0f,
+                    angularVelocity = (PI / 180.0).toFloat(),
+                    sphere = Sphere(1f),
+                    sphereTexture = texture
+                ),
+                PlanetData(
+                    axisRotationSpeed = 1.0f,
+                    orbitRadius = 3.0f,
+                    orbitAngle = PI.toFloat(),
+                    angularVelocity = (PI / 180.0).toFloat(),
+                    sphere = Sphere(0.2f),
+                    sphereTexture = moonTexture
+                )
+            )
+        )
     }
 
     override fun onDrawFrame(unused: GL10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
 
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
-
-        Matrix.setIdentityM(sphere.modelTransformMatrix, 0)
-        Matrix.translateM(sphere.modelTransformMatrix, 0, 0.5f, 0f, 0f)
-        sphere.draw(program, vPMatrix)
-
-        val time = SystemClock.uptimeMillis() % 288000L
-        val angle = 0.00125f * time.toInt()
-        Matrix.setIdentityM(sphere2.modelTransformMatrix, 0)
-        Matrix.translateM(sphere2.modelTransformMatrix, 0, 2f * sin(angle), 2f * cos(angle), 0f)
-
-
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, moonTexture)
-
-        sphere2.draw(program, vPMatrix)
-
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, ringTexture)
-        Matrix.setIdentityM(ring.modelTransformMatrix, 0)
-        Matrix.translateM(ring.modelTransformMatrix, 0, 0.5f, 0f, 0f)
-        ring.draw(program, vPMatrix)
+        planetSystem?.let {
+            it.update()
+            it.draw(program, vPMatrix)
+        }
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
@@ -91,7 +81,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 100f)
 
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 0f, -10f, 3f, 0f, 0f, 0f, 0f, 1.0f, 0.0f)
+        Matrix.setLookAtM(viewMatrix, 0, 0f, -15f, 3f, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
@@ -158,7 +148,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "  float secondDiff = max(dot(norm, secondLightDir), 0.0);" +
                     "  vec3 diffuse = diff * lightColor;" +
                     "  vec3 secondDiffuse = secondDiff * secondLightColor;" +
-                    "  float ambientStrength = 0.2;" +
+                    "  float ambientStrength = 0.15;" +
                     "  vec3 ambient = ambientStrength * lightColor;" +
                     "  vec4 result = vec4(ambient + diffuse + secondDiffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
                     "  gl_FragColor = result;" +

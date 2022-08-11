@@ -12,9 +12,8 @@ import kotlin.math.sin
 
 class Sphere(
     radius: Float,
-    sectorCount: Int,
-    stackCount: Int,
-    private val selfRotationSpeed: Float = 0.2f
+    sectorCount: Int = 64,
+    stackCount: Int = 32,
 ) {
 
     val vertices: FloatArray = FloatArray(size = (sectorCount + 1) * (stackCount + 1) * 3)
@@ -187,7 +186,7 @@ class Sphere(
             }
         }
 
-    fun draw(program: Int, vpMatrix: FloatArray) {
+    fun draw(program: Int, vpMatrix: FloatArray, texture: Int) {
         GLES20.glUseProgram(program)
 
         GLES20.glGetUniformLocation(program, "lightColor").also {
@@ -251,9 +250,6 @@ class Sphere(
             GLES20.glUniformMatrix4fv(it, 1, false, vpMatrix, 0)
         }
 
-        angle += selfRotationSpeed
-        if (angle > 360f) angle -= 360f
-
         Matrix.setIdentityM(modelRotationMatrix, 0)
         Matrix.rotateM(modelRotationMatrix, 0, angle, 0f, 0f, 1f)
 
@@ -264,6 +260,9 @@ class Sphere(
         GLES20.glGetUniformLocation(program, "uModelRotation").also {
             GLES20.glUniformMatrix4fv(it, 1, false, modelRotationMatrix, 0)
         }
+
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture)
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, indices.size, GLES20.GL_UNSIGNED_INT, indicesBuffer)
 

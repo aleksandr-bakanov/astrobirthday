@@ -105,6 +105,7 @@
     <FrameLayout
         android:id="@+id/planet_view_3d"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
