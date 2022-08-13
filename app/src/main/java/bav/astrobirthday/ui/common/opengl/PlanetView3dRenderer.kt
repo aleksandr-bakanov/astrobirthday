@@ -49,14 +49,31 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     angularVelocity = (PI / 180.0).toFloat(),
                     sphere = Sphere(1f),
                     sphereTexture = texture
-                ),
-                PlanetData(
-                    axisRotationSpeed = 1.0f,
-                    orbitRadius = 3.0f,
+                )
+            ),
+            satellites = mutableListOf(
+                PlanetSystemNode(
+                    orbitRadius = 2.7f,
                     orbitAngle = PI.toFloat(),
                     angularVelocity = (PI / 180.0).toFloat(),
-                    sphere = Sphere(0.2f),
-                    sphereTexture = moonTexture
+                    planets = mutableListOf(
+                        PlanetData(
+                            axisRotationSpeed = 2.0f,
+                            orbitRadius = 0.0f,
+                            orbitAngle = 0.0f,
+                            angularVelocity = 0.0f,
+                            sphere = Sphere(0.3f),
+                            sphereTexture = moonTexture
+                        ),
+                        PlanetData(
+                            axisRotationSpeed = 3.0f,
+                            orbitRadius = 0.7f,
+                            orbitAngle = 0.0f,
+                            angularVelocity = 5f * (PI / 180.0).toFloat(),
+                            sphere = Sphere(0.1f, 32, 16),
+                            sphereTexture = moonTexture
+                        )
+                    )
                 )
             )
         )

@@ -5,11 +5,6 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class PlanetSystemNode(
-    // in world coordinates
-    var massCenterX: Float = 0.0f,
-    var massCenterY: Float = 0.0f,
-    var massCenterZ: Float = 0.0f,
-
     // relative to parent mass center
     val orbitRadius: Float = 0.0f,
     // in radians
@@ -20,6 +15,11 @@ class PlanetSystemNode(
     val planets: MutableList<PlanetData> = mutableListOf(),
     val satellites: MutableList<PlanetSystemNode> = mutableListOf()
 ) {
+    // in world coordinates
+    private var massCenterX: Float = 0.0f
+    private var massCenterY: Float = 0.0f
+    private var massCenterZ: Float = 0.0f
+
     /**
      * Update planet system according to its params. Each frame
      *
