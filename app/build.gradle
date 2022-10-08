@@ -53,22 +53,23 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.2.0'
     }
+    namespace 'bav.astrobirthday'
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // Compose
-    implementation 'androidx.compose.ui:ui:1.2.0'
-    implementation 'androidx.compose.ui:ui-tooling:1.2.0'
-    implementation 'androidx.compose.foundation:foundation:1.2.0'
-    implementation 'androidx.compose.material:material:1.2.0'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.2.0'
+    implementation 'androidx.compose.ui:ui:1.2.1'
+    implementation 'androidx.compose.ui:ui-tooling:1.2.1'
+    implementation 'androidx.compose.foundation:foundation:1.2.1'
+    implementation 'androidx.compose.material:material:1.2.1'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.2.1'
 
 
     // Koin for Kotlin
@@ -86,17 +87,17 @@ dependencies {
     //   so it keeps backstack and don't glow bottom icon till we return to start destination
     //   This is against material design: https://material.io/components/bottom-navigation#behavior
     //   https://developer.android.com/jetpack/androidx/releases/navigation#version_240_3
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.0-alpha02"
-    implementation "androidx.room:room-paging:2.5.0-alpha02"
-    kapt "androidx.room:room-compiler:2.5.0-alpha02"
+    implementation "androidx.room:room-runtime:2.5.0-beta01"
+    implementation "androidx.room:room-paging:2.5.0-beta01"
+    kapt "androidx.room:room-compiler:2.5.0-beta01"
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.5.0-alpha02"
+    implementation "androidx.room:room-ktx:2.5.0-beta01"
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:2.4.3"
 
