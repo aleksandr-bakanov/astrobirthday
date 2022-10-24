@@ -1,6 +1,7 @@
 package bav.astrobirthday.ui.planet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -10,6 +11,7 @@ import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.opengl.PlanetView3d
+import bav.astrobirthday.ui.planet.PlanetItems.Companion.DIFF_CALLBACK
 import bav.astrobirthday.utils.discoveryMethodToStr
 import bav.astrobirthday.utils.getAgeString
 import bav.astrobirthday.utils.getNearestBirthdayString
@@ -18,7 +20,6 @@ import bav.astrobirthday.utils.getReferenceText
 import bav.astrobirthday.utils.openUrl
 import bav.astrobirthday.utils.orNa
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import bav.astrobirthday.ui.planet.PlanetItems.Companion.DIFF_CALLBACK
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -244,5 +245,9 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                 enlargedView.show(parentFragmentManager, ENLARGED_DIALOG_TAG)
             }
         }
+    }
+
+    companion object {
+        const val ENLARGED_DIALOG_TAG = "enlarged_planet"
     }
 }

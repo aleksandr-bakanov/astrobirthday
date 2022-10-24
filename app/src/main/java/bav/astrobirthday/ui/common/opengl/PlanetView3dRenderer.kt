@@ -1,13 +1,12 @@
 package bav.astrobirthday.ui.common.opengl
 
 import android.content.Context
-import javax.microedition.khronos.egl.EGLConfig
-import javax.microedition.khronos.opengles.GL10
-
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
 import bav.astrobirthday.R
+import javax.microedition.khronos.egl.EGLConfig
+import javax.microedition.khronos.opengles.GL10
 import kotlin.math.PI
 
 class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Renderer {
@@ -165,7 +164,7 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "  float secondDiff = max(dot(norm, secondLightDir), 0.0);" +
                     "  vec3 diffuse = diff * lightColor;" +
                     "  vec3 secondDiffuse = secondDiff * secondLightColor;" +
-                    "  float ambientStrength = 0.15;" +
+                    "  float ambientStrength = 0.5;" +
                     "  vec3 ambient = ambientStrength * lightColor;" +
                     "  vec4 result = vec4(ambient + diffuse + secondDiffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
                     "  gl_FragColor = result;" +
