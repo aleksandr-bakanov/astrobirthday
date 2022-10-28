@@ -27,7 +27,7 @@ class Sphere(
     val color = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f)
     val colorTrans = floatArrayOf(0f, 0f, 0f, 0.7f)
     val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
-    val lightPos = floatArrayOf(0.0f, 0.0f, 3.0f)
+    val lightPos = floatArrayOf(0.0f, 0.0f, 5.0f)
     val secondLightColor = floatArrayOf(0.1f, 0.1f, 0.1f)
     val secondLightPos = floatArrayOf(0.0f, 0.0f, -5.0f)
 

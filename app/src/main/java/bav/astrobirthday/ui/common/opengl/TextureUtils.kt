@@ -1,13 +1,7 @@
 package bav.astrobirthday.ui.common.opengl
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
 import android.opengl.GLES20
 import android.opengl.GLUtils
 
@@ -30,21 +24,9 @@ object TextureUtils {
         val options = BitmapFactory.Options()
         options.inScaled = false
         // получение Bitmap
-        val bitmapIn = BitmapFactory.decodeResource(
+        val bitmap = BitmapFactory.decodeResource(
             context.resources, resourceId, options
         )
-
-        val width = 1024
-        val height = 512
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        val paint = Paint(Paint.FILTER_BITMAP_FLAG)
-
-        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.OVERLAY)
-        paint.alpha = 178
-        canvas.drawBitmap(bitmapIn, Matrix()/*Rect(0, 0, width, height)*/, paint)
-        val matrix = Matrix().apply { setRotate(180f, 512f, 256f) }
-        canvas.drawBitmap(bitmapIn, matrix, paint)
 
         if (bitmap == null) {
             GLES20.glDeleteTextures(1, textureIds, 0)

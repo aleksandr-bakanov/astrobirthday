@@ -5,16 +5,23 @@ import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
 import bav.astrobirthday.R
+import bav.astrobirthday.domain.model.PlanetAndInfo
+import bav.astrobirthday.utils.sha1
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-import kotlin.math.PI
+import kotlin.math.max
+import kotlin.random.Random
 
-class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Renderer {
+class PlanetView3dRenderer(
+    private val context: Context,
+    private val planetAndInfo: PlanetAndInfo
+) : GLSurfaceView.Renderer {
 
     private var program: Int = 0
 
     private val viewMatrix = FloatArray(16)
     private val projectionMatrix = FloatArray(16)
+
     // vPMatrix is an abbreviation for "View Projection Matrix"
     private val vPMatrix = FloatArray(16)
 
@@ -36,46 +43,48 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
 
         initProgram()
 
-        texture = TextureUtils.loadTexture(context, R.drawable.earth_texture)
-        moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
+//        texture = TextureUtils.loadTexture(context, R.drawable.dry)
+//        moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
 
-        planetSystem = PlanetSystemNode(
-            planets = mutableListOf(
-                PlanetData(
-                    axisRotationSpeed = 3.0f,
-                    orbitRadius = 0.2f,
-                    orbitAngle = 0.0f,
-                    angularVelocity = (PI / 180.0).toFloat(),
-                    sphere = Sphere(1f),
-                    sphereTexture = texture
-                )
-            ),
-            satellites = mutableListOf(
-                PlanetSystemNode(
-                    orbitRadius = 2.7f,
-                    orbitAngle = PI.toFloat(),
-                    angularVelocity = (PI / 180.0).toFloat(),
-                    planets = mutableListOf(
-                        PlanetData(
-                            axisRotationSpeed = 2.0f,
-                            orbitRadius = 0.0f,
-                            orbitAngle = 0.0f,
-                            angularVelocity = 0.0f,
-                            sphere = Sphere(0.3f),
-                            sphereTexture = moonTexture
-                        ),
-                        PlanetData(
-                            axisRotationSpeed = 3.0f,
-                            orbitRadius = 0.7f,
-                            orbitAngle = 0.0f,
-                            angularVelocity = 5f * (PI / 180.0).toFloat(),
-                            sphere = Sphere(0.1f, 32, 16),
-                            sphereTexture = moonTexture
-                        )
-                    )
-                )
-            )
-        )
+        planetSystem = getPlanetSystemDescription(planetAndInfo, context)
+
+//        planetSystem = PlanetSystemNode(
+//            planets = mutableListOf(
+//                PlanetData(
+//                    axisRotationSpeed = 1.0f,
+//                    orbitRadius = 0.2f,
+//                    orbitAngle = 0.0f,
+//                    angularVelocity = (PI / 180.0).toFloat(),
+//                    sphere = Sphere(1.5f),
+//                    sphereTexture = texture
+//                )
+//            ),
+//            satellites = mutableListOf(
+//                PlanetSystemNode(
+//                    orbitRadius = 2.7f,
+//                    orbitAngle = PI.toFloat(),
+//                    angularVelocity = (PI / 180.0).toFloat(),
+//                    planets = mutableListOf(
+//                        PlanetData(
+//                            axisRotationSpeed = 2.0f,
+//                            orbitRadius = 0.0f,
+//                            orbitAngle = 0.0f,
+//                            angularVelocity = 0.0f,
+//                            sphere = Sphere(0.3f),
+//                            sphereTexture = moonTexture
+//                        ),
+//                        PlanetData(
+//                            axisRotationSpeed = 3.0f,
+//                            orbitRadius = 0.7f,
+//                            orbitAngle = 0.0f,
+//                            angularVelocity = 5f * (PI / 180.0).toFloat(),
+//                            sphere = Sphere(0.1f, 32, 16),
+//                            sphereTexture = moonTexture
+//                        )
+//                    )
+//                )
+//            )
+//        )
     }
 
     override fun onDrawFrame(unused: GL10) {
@@ -127,6 +136,55 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
         }
     }
 
+    private fun getPlanetSystemDescription(
+        planetAndInfo: PlanetAndInfo,
+        context: Context
+    ): PlanetSystemNode {
+        val random = Random(planetAndInfo.planet.planetName.sha1().contentHashCode())
+        return PlanetSystemNode(
+            planets = mutableListOf(
+                getRandomPlanetDescription(random, 3f, context)
+            )
+        )
+    }
+
+    private fun getRandomPlanetDescription(
+        random: Random,
+        maxRadius: Float,
+        context: Context
+    ): PlanetData {
+        val isRing = random.nextFloat() < 0.33f
+        var innerRingRadius = 0f
+        val ring: Ring? = if (isRing) {
+            innerRingRadius = 0.3f * maxRadius + 0.6f * maxRadius * random.nextFloat()
+            Ring(
+                innerRadius = innerRingRadius,
+                outerRadius = innerRingRadius + (maxRadius - innerRingRadius) * random.nextFloat()
+            )
+        } else {
+            innerRingRadius = maxRadius
+            null
+        }
+        val sphere = Sphere(
+            radius = max(0.1f, innerRingRadius * random.nextFloat())
+        )
+        return PlanetData(
+            axisRotationSpeed = random.nextFloat() * 3f,
+            orbitRadius = 0f,
+            orbitAngle = 0f,
+            angularVelocity = 0f,
+            sphere = sphere,
+            ring = ring,
+            sphereTexture = TextureUtils.loadTexture(
+                context,
+                gasGiantTextures[random.nextInt(gasGiantTextures.size)]
+            ),
+            ringTexture = if (ring != null)
+                TextureUtils.loadTexture(context, R.drawable.ring)
+            else 0
+        )
+    }
+
     companion object {
         private val vertexShaderCode =
             "uniform mat4 uVPMatrix;" +
@@ -164,11 +222,20 @@ class PlanetView3dRenderer(private val context: Context) : GLSurfaceView.Rendere
                     "  float secondDiff = max(dot(norm, secondLightDir), 0.0);" +
                     "  vec3 diffuse = diff * lightColor;" +
                     "  vec3 secondDiffuse = secondDiff * secondLightColor;" +
-                    "  float ambientStrength = 0.5;" +
+                    "  float ambientStrength = 0.35;" +
                     "  vec3 ambient = ambientStrength * lightColor;" +
                     "  vec4 result = vec4(ambient + diffuse + secondDiffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
                     "  gl_FragColor = result;" +
                     "}"
+
+        private val gasGiantTextures = listOf(
+            R.drawable.tex_gas_giant_1,
+            R.drawable.tex_gas_giant_2,
+            R.drawable.tex_gas_giant_3,
+            R.drawable.tex_gas_giant_4,
+            R.drawable.tex_gas_giant_5,
+            R.drawable.tex_gas_giant_6,
+        )
     }
 
 }

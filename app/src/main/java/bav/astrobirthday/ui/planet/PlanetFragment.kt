@@ -33,12 +33,11 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupClickListeners()
-        setupOpenGL()
     }
 
-    private fun setupOpenGL() {
+    private fun setupOpenGL(p: PlanetAndInfo) {
         with(requireBinding()) {
-            val view = PlanetView3d(requireActivity())
+            val view = PlanetView3d(requireActivity(), p)
             planetView3d.addView(view)
         }
     }
@@ -56,6 +55,8 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         viewModel.planet.observe(viewLifecycleOwner) { p ->
             val context = requireContext()
             planetAndInfo = p
+
+            setupOpenGL(p)
 
             planetDescriptionAdapter.items = getPlanetItems(p.planet)
 
