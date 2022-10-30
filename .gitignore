@@ -10,6 +10,7 @@
 /.idea/misc.xml
 /.idea/gradle.xml
 /.idea/inspectionProfiles
+/.idea/*
 .DS_Store
 /build
 /captures

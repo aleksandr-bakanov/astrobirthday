@@ -5,12 +5,18 @@ import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
 import bav.astrobirthday.R
+import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.sha1
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 import kotlin.math.max
 import kotlin.random.Random
+
+val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
+val lightPos = floatArrayOf(0.0f, 0.0f, 10.0f)
+val secondLightColor = floatArrayOf(0.1f, 0.1f, 0.1f)
+val secondLightPos = floatArrayOf(0.0f, 0.0f, -15.0f)
 
 class PlanetView3dRenderer(
     private val context: Context,
@@ -28,7 +34,7 @@ class PlanetView3dRenderer(
     private var texture: Int = 0
     private var moonTexture: Int = 0
 
-    private var planetSystem: PlanetSystemNode? = null
+    private var planetSystem: PlanetRenderSystemNode? = null
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         // Set the background frame color
@@ -45,6 +51,7 @@ class PlanetView3dRenderer(
 
 //        texture = TextureUtils.loadTexture(context, R.drawable.dry)
 //        moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
+
 
         planetSystem = getPlanetSystemDescription(planetAndInfo, context)
 
@@ -139,20 +146,24 @@ class PlanetView3dRenderer(
     private fun getPlanetSystemDescription(
         planetAndInfo: PlanetAndInfo,
         context: Context
-    ): PlanetSystemNode {
-        val random = Random(planetAndInfo.planet.planetName.sha1().contentHashCode())
-        return PlanetSystemNode(
-            planets = mutableListOf(
-                getRandomPlanetDescription(random, 3f, context)
+    ): PlanetRenderSystemNode? {
+        return if (planetAndInfo.planet.planetName in Config.solarPlanetNames) {
+            solarPlanetSystems[planetAndInfo.planet.planetName]?.toPlanetRenderSystemNode(context)
+        } else {
+            val random = Random(planetAndInfo.planet.planetName.sha1().contentHashCode())
+            return PlanetRenderSystemNode(
+                planets = mutableListOf(
+                    getRandomPlanetDescription(random, 3f, context)
+                )
             )
-        )
+        }
     }
 
     private fun getRandomPlanetDescription(
         random: Random,
         maxRadius: Float,
         context: Context
-    ): PlanetData {
+    ): PlanetRenderData {
         val isRing = random.nextFloat() < 0.33f
         var innerRingRadius = 0f
         val ring: Ring? = if (isRing) {
@@ -168,7 +179,7 @@ class PlanetView3dRenderer(
         val sphere = Sphere(
             radius = max(0.1f, innerRingRadius * random.nextFloat())
         )
-        return PlanetData(
+        return PlanetRenderData(
             axisRotationSpeed = random.nextFloat() * 3f,
             orbitRadius = 0f,
             orbitAngle = 0f,
@@ -180,13 +191,13 @@ class PlanetView3dRenderer(
                 gasGiantTextures[random.nextInt(gasGiantTextures.size)]
             ),
             ringTexture = if (ring != null)
-                TextureUtils.loadTexture(context, R.drawable.ring)
+                TextureUtils.loadTexture(context, R.drawable.tex_solar_saturn_ring_alpha)
             else 0
         )
     }
 
     companion object {
-        private val vertexShaderCode =
+        private const val vertexShaderCode =
             "uniform mat4 uVPMatrix;" +
                     "uniform mat4 uModelTransform;" +
                     "uniform mat4 uModelRotation;" +
@@ -204,7 +215,7 @@ class PlanetView3dRenderer(
                     "  vFragPos = vec3(uModel * aPosition);" +
                     "}"
 
-        private val fragmentShaderCode =
+        private const val fragmentShaderCode =
             "precision mediump float;" +
                     "uniform sampler2D u_TextureUnit;" +
                     "uniform vec3 lightPos;" +
@@ -222,20 +233,11 @@ class PlanetView3dRenderer(
                     "  float secondDiff = max(dot(norm, secondLightDir), 0.0);" +
                     "  vec3 diffuse = diff * lightColor;" +
                     "  vec3 secondDiffuse = secondDiff * secondLightColor;" +
-                    "  float ambientStrength = 0.35;" +
+                    "  float ambientStrength = 0.15;" +
                     "  vec3 ambient = ambientStrength * lightColor;" +
                     "  vec4 result = vec4(ambient + diffuse + secondDiffuse, 1.0) * texture2D(u_TextureUnit, v_Texture);" +
                     "  gl_FragColor = result;" +
                     "}"
-
-        private val gasGiantTextures = listOf(
-            R.drawable.tex_gas_giant_1,
-            R.drawable.tex_gas_giant_2,
-            R.drawable.tex_gas_giant_3,
-            R.drawable.tex_gas_giant_4,
-            R.drawable.tex_gas_giant_5,
-            R.drawable.tex_gas_giant_6,
-        )
     }
 
 }
