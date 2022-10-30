@@ -27,7 +27,7 @@ val solarPlanetSystems = mapOf(
             PlanetData(
                 axisRotationSpeed = 3f,
                 sphereRadius = 2f,
-                sphereTextureResId = R.drawable.tex_solar_earth,
+                sphereTextureResId = R.drawable.tex_solar_earth_with_clouds,
             )
         ),
         satellites = mutableListOf(

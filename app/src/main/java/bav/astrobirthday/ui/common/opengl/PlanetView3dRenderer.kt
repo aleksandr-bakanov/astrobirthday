@@ -177,7 +177,7 @@ class PlanetView3dRenderer(
             null
         }
         val sphere = Sphere(
-            radius = max(0.1f, innerRingRadius * random.nextFloat())
+            radius = max(0.3f, innerRingRadius * random.nextFloat())
         )
         return PlanetRenderData(
             axisRotationSpeed = random.nextFloat() * 3f,
@@ -188,12 +188,20 @@ class PlanetView3dRenderer(
             ring = ring,
             sphereTexture = TextureUtils.loadTexture(
                 context,
-                gasGiantTextures[random.nextInt(gasGiantTextures.size)]
+                getRandomPlanetTexture(random)
             ),
             ringTexture = if (ring != null)
                 TextureUtils.loadTexture(context, R.drawable.tex_solar_saturn_ring_alpha)
             else 0
         )
+    }
+
+    /**
+     * @return texture resource id
+     */
+    private fun getRandomPlanetTexture(random: Random): Int {
+        val textures = allPlanetTextures[random.nextInt(allPlanetTextures.size)]
+        return textures[random.nextInt(textures.size)]
     }
 
     companion object {
