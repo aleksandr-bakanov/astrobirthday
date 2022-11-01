@@ -3,6 +3,8 @@ package bav.astrobirthday.ui.common.opengl
 import bav.astrobirthday.R
 import kotlin.math.PI
 
+fun Float.degToRad(): Float = (this * PI / 180.0).toFloat()
+
 val solarPlanetSystems = mapOf(
     "Mercury" to PlanetSystemNode(
         planets = mutableListOf(
@@ -32,8 +34,8 @@ val solarPlanetSystems = mapOf(
         ),
         satellites = mutableListOf(
             PlanetSystemNode(
-                orbitRadius = 4f,
-                angularVelocity = (PI / 180.0).toFloat(),
+                orbitRadius = 6f,
+                angularVelocity = 1f.degToRad(),
                 planets = mutableListOf(
                     PlanetData(
                         axisRotationSpeed = 1.0f,
@@ -50,6 +52,22 @@ val solarPlanetSystems = mapOf(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 1.2f,
                 sphereTextureResId = R.drawable.tex_solar_mars,
+            ),
+            PlanetData(
+                axisRotationSpeed = 1.0f,
+                sphereRadius = 0.06f,
+                sphereTextureResId = R.drawable.tex_rock_1,
+                orbitRadius = 2.7f,
+                orbitAngle = 0f,
+                angularVelocity = 0.5f.degToRad()
+            ),
+            PlanetData(
+                axisRotationSpeed = 1.0f,
+                sphereRadius = 0.05f,
+                sphereTextureResId = R.drawable.tex_rock_2,
+                orbitRadius = 5f,
+                orbitAngle = 180f.degToRad(),
+                angularVelocity = 0.25f.degToRad()
             )
         )
     ),
@@ -105,13 +123,76 @@ val solarPlanetSystems = mapOf(
     ),
     "Saturn" to PlanetSystemNode(
         planets = mutableListOf(
-            PlanetData(
+            PlanetData( // Saturn
                 axisRotationSpeed = 1.0f,
-                sphereRadius = 2.3f,
-                ringInnerRadius = 2.0f,
-                ringOuterRadius = 7.5f,
+                sphereRadius = 1.8f,
+                ringInnerRadius = 1.57f,
+                ringOuterRadius = 5.85f,
                 sphereTextureResId = R.drawable.tex_solar_saturn,
                 ringTextureResId = R.drawable.tex_solar_saturn_ring_alpha
+            ),
+            PlanetData(
+                // Mimas
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 6f,
+                orbitAngle = 0f,
+                angularVelocity = 1f.degToRad(),
+                sphereRadius = 0.02f,
+                sphereTextureResId = R.drawable.tex_ice_1,
+            ),
+            PlanetData(
+                // Enceladus
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 7f,
+                orbitAngle = 50f.degToRad(),
+                angularVelocity = 0.5f.degToRad(),
+                sphereRadius = 0.02f,
+                sphereTextureResId = R.drawable.tex_ice_2,
+            ),
+            PlanetData(
+                // Tethys
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 8f,
+                orbitAngle = 100f.degToRad(),
+                angularVelocity = 0.25f.degToRad(),
+                sphereRadius = 0.04f,
+                sphereTextureResId = R.drawable.tex_ice_3,
+            ),
+            PlanetData(
+                // Dione
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 9f,
+                orbitAngle = 150f.degToRad(),
+                angularVelocity = 0.125f.degToRad(),
+                sphereRadius = 0.04f,
+                sphereTextureResId = R.drawable.tex_ice_4,
+            ),
+            PlanetData(
+                // Rhea
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 10f,
+                orbitAngle = 200f.degToRad(),
+                angularVelocity = 0.0625f.degToRad(),
+                sphereRadius = 0.05f,
+                sphereTextureResId = R.drawable.tex_ice_5,
+            ),
+            PlanetData(
+                // Titan
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 11f,
+                orbitAngle = 250f.degToRad(),
+                angularVelocity = 0.03125f.degToRad(),
+                sphereRadius = 0.15f,
+                sphereTextureResId = R.drawable.tex_ice_6,
+            ),
+            PlanetData(
+                // Iapetus
+                axisRotationSpeed = 1.0f,
+                orbitRadius = 12f,
+                orbitAngle = 300f.degToRad(),
+                angularVelocity = 0.015625f.degToRad(),
+                sphereRadius = 0.05f,
+                sphereTextureResId = R.drawable.tex_ice_7,
             )
         )
     ),
@@ -137,19 +218,19 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
-                orbitRadius = 1.2f,
+                orbitRadius = 1.1f,
                 orbitAngle = 0.0f,
-                angularVelocity = (PI / 180.0).toFloat(),
+                angularVelocity = 1f.degToRad(),
                 sphereRadius = 0.8f,
                 sphereTextureResId = R.drawable.tex_solar_pluto,
             ),
             PlanetData(
                 axisRotationSpeed = 1.0f,
-                orbitRadius = 2f,
+                orbitRadius = 3f,
                 orbitAngle = PI.toFloat(),
-                angularVelocity = (PI / 180.0).toFloat(),
-                sphereRadius = 0.4f,
-                sphereTextureResId = R.drawable.tex_solar_makemake,
+                angularVelocity = 1f.degToRad(),
+                sphereRadius = 0.3f,
+                sphereTextureResId = R.drawable.tex_rock_3,
             )
         )
     ),
