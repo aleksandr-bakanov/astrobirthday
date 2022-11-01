@@ -23,6 +23,13 @@ class PlanetView3dRenderer(
     private val planetAndInfo: PlanetAndInfo
 ) : GLSurfaceView.Renderer {
 
+    @Volatile
+    var zoom: Float = 0f
+    val minCameraFactor = 1f
+    val maxCameraFactor = 5f
+    val zCameraDistance = 2f
+    val yCameraDistance = -10f
+
     private var program: Int = 0
 
     private val viewMatrix = FloatArray(16)
@@ -30,9 +37,6 @@ class PlanetView3dRenderer(
 
     // vPMatrix is an abbreviation for "View Projection Matrix"
     private val vPMatrix = FloatArray(16)
-
-    private var texture: Int = 0
-    private var moonTexture: Int = 0
 
     private var planetSystem: PlanetRenderSystemNode? = null
 
@@ -49,53 +53,21 @@ class PlanetView3dRenderer(
 
         initProgram()
 
-//        texture = TextureUtils.loadTexture(context, R.drawable.dry)
-//        moonTexture = TextureUtils.loadTexture(context, R.drawable.moon_texture)
-
-
         planetSystem = getPlanetSystemDescription(planetAndInfo, context)
-
-//        planetSystem = PlanetSystemNode(
-//            planets = mutableListOf(
-//                PlanetData(
-//                    axisRotationSpeed = 1.0f,
-//                    orbitRadius = 0.2f,
-//                    orbitAngle = 0.0f,
-//                    angularVelocity = (PI / 180.0).toFloat(),
-//                    sphere = Sphere(1.5f),
-//                    sphereTexture = texture
-//                )
-//            ),
-//            satellites = mutableListOf(
-//                PlanetSystemNode(
-//                    orbitRadius = 2.7f,
-//                    orbitAngle = PI.toFloat(),
-//                    angularVelocity = (PI / 180.0).toFloat(),
-//                    planets = mutableListOf(
-//                        PlanetData(
-//                            axisRotationSpeed = 2.0f,
-//                            orbitRadius = 0.0f,
-//                            orbitAngle = 0.0f,
-//                            angularVelocity = 0.0f,
-//                            sphere = Sphere(0.3f),
-//                            sphereTexture = moonTexture
-//                        ),
-//                        PlanetData(
-//                            axisRotationSpeed = 3.0f,
-//                            orbitRadius = 0.7f,
-//                            orbitAngle = 0.0f,
-//                            angularVelocity = 5f * (PI / 180.0).toFloat(),
-//                            sphere = Sphere(0.1f, 32, 16),
-//                            sphereTexture = moonTexture
-//                        )
-//                    )
-//                )
-//            )
-//        )
     }
 
     override fun onDrawFrame(unused: GL10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
+
+        val zoomFactor = zoom / PlanetView3d.zoomThreshold
+        val cameraFactor = minCameraFactor + zoomFactor * (maxCameraFactor - minCameraFactor)
+        val zCamera = zCameraDistance * cameraFactor
+        val yCamera = yCameraDistance * cameraFactor
+
+        // Set the camera position (View matrix)
+        Matrix.setLookAtM(viewMatrix, 0, 0f, yCamera, zCamera, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
+        // Calculate the projection and view transformation
+        Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
         planetSystem?.let {
             it.update()
@@ -112,8 +84,13 @@ class PlanetView3dRenderer(
         // in the onDrawFrame() method
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 100f)
 
+        val zoomFactor = zoom / PlanetView3d.zoomThreshold
+        val cameraFactor = minCameraFactor + zoomFactor * (maxCameraFactor - minCameraFactor)
+        val zCamera = zCameraDistance * cameraFactor
+        val yCamera = yCameraDistance * cameraFactor
+
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 0f, -30f, 6f, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
+        Matrix.setLookAtM(viewMatrix, 0, 0f, yCamera, zCamera, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
     }
