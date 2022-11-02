@@ -4,14 +4,9 @@ import android.content.Context
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
 import android.opengl.Matrix
-import bav.astrobirthday.R
-import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.PlanetAndInfo
-import bav.astrobirthday.utils.sha1
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
-import kotlin.math.max
-import kotlin.random.Random
 
 val lightColor = floatArrayOf(1.0f, 1.0f, 1.0f)
 val lightPos = floatArrayOf(0.0f, 0.0f, 10.0f)
@@ -118,67 +113,6 @@ class PlanetView3dRenderer(
             GLES20.glShaderSource(shader, shaderCode)
             GLES20.glCompileShader(shader)
         }
-    }
-
-    private fun getPlanetSystemDescription(
-        planetAndInfo: PlanetAndInfo,
-        context: Context
-    ): PlanetRenderSystemNode? {
-        return if (planetAndInfo.planet.planetName in Config.solarPlanetNames) {
-            solarPlanetSystems[planetAndInfo.planet.planetName]?.toPlanetRenderSystemNode(context)
-        } else {
-            val random = Random(planetAndInfo.planet.planetName.sha1().contentHashCode())
-            return PlanetRenderSystemNode(
-                planets = mutableListOf(
-                    getRandomPlanetDescription(random, 3f, context)
-                )
-            )
-        }
-    }
-
-    private fun getRandomPlanetDescription(
-        random: Random,
-        maxRadius: Float,
-        context: Context
-    ): PlanetRenderData {
-        val isRing = random.nextFloat() < 0.33f
-        var innerRingRadius = 0f
-        val ring: Ring? = if (isRing) {
-            innerRingRadius = 0.3f * maxRadius + 0.6f * maxRadius * random.nextFloat()
-            Ring(
-                innerRadius = innerRingRadius,
-                outerRadius = innerRingRadius + (maxRadius - innerRingRadius) * random.nextFloat()
-            )
-        } else {
-            innerRingRadius = maxRadius
-            null
-        }
-        val sphere = Sphere(
-            radius = max(0.3f, innerRingRadius * random.nextFloat())
-        )
-        return PlanetRenderData(
-            axisRotationSpeed = random.nextFloat() * 3f,
-            orbitRadius = 0f,
-            orbitAngle = 0f,
-            angularVelocity = 0f,
-            sphere = sphere,
-            ring = ring,
-            sphereTexture = TextureUtils.loadTexture(
-                context,
-                getRandomPlanetTexture(random)
-            ),
-            ringTexture = if (ring != null)
-                TextureUtils.loadTexture(context, R.drawable.tex_solar_saturn_ring_alpha)
-            else 0
-        )
-    }
-
-    /**
-     * @return texture resource id
-     */
-    private fun getRandomPlanetTexture(random: Random): Int {
-        val textures = allPlanetTextures[random.nextInt(allPlanetTextures.size)]
-        return textures[random.nextInt(textures.size)]
     }
 
     companion object {

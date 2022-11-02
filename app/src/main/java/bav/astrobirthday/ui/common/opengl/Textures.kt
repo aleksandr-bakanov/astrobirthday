@@ -1,6 +1,39 @@
 package bav.astrobirthday.ui.common.opengl
 
 import bav.astrobirthday.R
+import kotlin.random.Random
+
+sealed class TextureType(
+    val minPlanetRadius: Float,
+    val maxPlanetRadius: Float,
+) {
+    object GasGiant : TextureType(3f, 4f)
+    object Ice : TextureType(0.5f, 1.5f)
+    object Martian : TextureType(0.5f, 2f)
+    object Primordial : TextureType(0.5f, 2f)
+    object Rock : TextureType(0.25f, 1f)
+    object Terrestrial : TextureType(0.5f, 2f)
+    object Volcanic : TextureType(0.25f, 1.5f)
+    object Venusian : TextureType(0.5f, 2f)
+    object Unknown : TextureType(0f, 0f) // == random
+
+    fun getRandomRadius(random: Random): Float {
+        return minPlanetRadius + (maxPlanetRadius - minPlanetRadius) * random.nextFloat()
+    }
+
+    companion object {
+        val allTypes = listOf(
+            GasGiant,
+            Ice,
+            Martian,
+            Primordial,
+            Rock,
+            Terrestrial,
+            Volcanic,
+            Venusian
+        )
+    }
+}
 
 val gasGiantTextures = listOf(
     R.drawable.tex_gas_giant_1,
@@ -723,6 +756,59 @@ val volcanicTextures = listOf(
     R.drawable.tex_volcanic_100
 )
 
+val venusianTextures = listOf(
+    R.drawable.tex_venusian_1,
+    R.drawable.tex_venusian_2,
+    R.drawable.tex_venusian_3,
+    R.drawable.tex_venusian_4,
+    R.drawable.tex_venusian_5,
+    R.drawable.tex_venusian_6,
+    R.drawable.tex_venusian_7,
+    R.drawable.tex_venusian_8,
+    R.drawable.tex_venusian_9,
+    R.drawable.tex_venusian_10,
+    R.drawable.tex_venusian_11,
+    R.drawable.tex_venusian_12,
+    R.drawable.tex_venusian_13,
+    R.drawable.tex_venusian_14,
+    R.drawable.tex_venusian_15,
+    R.drawable.tex_venusian_16,
+    R.drawable.tex_venusian_17,
+    R.drawable.tex_venusian_18,
+    R.drawable.tex_venusian_19,
+    R.drawable.tex_venusian_20,
+    R.drawable.tex_venusian_21,
+    R.drawable.tex_venusian_22,
+    R.drawable.tex_venusian_23,
+    R.drawable.tex_venusian_24,
+    R.drawable.tex_venusian_25,
+    R.drawable.tex_venusian_26,
+    R.drawable.tex_venusian_27,
+    R.drawable.tex_venusian_28,
+    R.drawable.tex_venusian_29,
+    R.drawable.tex_venusian_30,
+    R.drawable.tex_venusian_31,
+    R.drawable.tex_venusian_32,
+    R.drawable.tex_venusian_33,
+    R.drawable.tex_venusian_34,
+    R.drawable.tex_venusian_35,
+    R.drawable.tex_venusian_36,
+    R.drawable.tex_venusian_37,
+    R.drawable.tex_venusian_38,
+    R.drawable.tex_venusian_39,
+    R.drawable.tex_venusian_40,
+    R.drawable.tex_venusian_41,
+    R.drawable.tex_venusian_42,
+    R.drawable.tex_venusian_43,
+    R.drawable.tex_venusian_44,
+    R.drawable.tex_venusian_45,
+    R.drawable.tex_venusian_46,
+    R.drawable.tex_venusian_47,
+    R.drawable.tex_venusian_48,
+    R.drawable.tex_venusian_49,
+    R.drawable.tex_venusian_50
+)
+
 val allPlanetTextures = listOf(
     gasGiantTextures,
     iceTextures,
@@ -730,5 +816,6 @@ val allPlanetTextures = listOf(
     primordialTextures,
     rockTextures,
     terrestrialCloudsTextures,
-    volcanicTextures
+    volcanicTextures,
+    venusianTextures
 )

@@ -11,7 +11,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class Sphere(
-    radius: Float,
+    val radius: Float,
     sectorCount: Int = 64,
     stackCount: Int = 32,
 ) {

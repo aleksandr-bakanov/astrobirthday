@@ -3,6 +3,7 @@ package bav.astrobirthday.ui.common.opengl
 import android.opengl.Matrix
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.max
 import kotlin.math.sin
 
 class PlanetRenderData(
@@ -10,7 +11,7 @@ class PlanetRenderData(
     val axisRotationSpeed: Float = 1.0f,
 
     // relative to parent mass center
-    val orbitRadius: Float = 0.0f,
+    var orbitRadius: Float = 0.0f,
     // in radians
     var orbitAngle: Float = 0.0f,
     // in radians
@@ -22,6 +23,9 @@ class PlanetRenderData(
     var sphereTexture: Int = 0,
     var ringTexture: Int = 0
 ) {
+    val totalRadius: Float
+        get() = max(this.sphere?.radius ?: 0f, this.ring?.outerRadius ?: 0f)
+
     // position in world coordinates
     private var x: Float = 0.0f
     private var y: Float = 0.0f

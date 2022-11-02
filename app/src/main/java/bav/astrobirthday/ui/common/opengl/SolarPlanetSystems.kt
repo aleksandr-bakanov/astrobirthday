@@ -183,7 +183,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 250f.degToRad(),
                 angularVelocity = 0.03125f.degToRad(),
                 sphereRadius = 0.15f,
-                sphereTextureResId = R.drawable.tex_ice_6,
+                sphereTextureResId = R.drawable.tex_venusian_11,
             ),
             PlanetData(
                 // Iapetus

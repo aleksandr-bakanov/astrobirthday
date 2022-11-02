@@ -11,8 +11,8 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class Ring(
-    innerRadius: Float,
-    outerRadius: Float,
+    val innerRadius: Float,
+    val outerRadius: Float,
     sectorCount: Int = 64
 ) {
 
