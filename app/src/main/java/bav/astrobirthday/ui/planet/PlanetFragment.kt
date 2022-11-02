@@ -38,6 +38,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     private fun setupOpenGL(p: PlanetAndInfo) {
         with(requireBinding()) {
             val view = PlanetView3d(requireActivity(), p)
+            planetView3d.removeAllViews()
             planetView3d.addView(view)
         }
     }

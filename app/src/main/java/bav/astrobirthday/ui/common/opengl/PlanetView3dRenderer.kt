@@ -66,8 +66,55 @@ class PlanetView3dRenderer(
 
         planetSystem?.let {
             it.update()
-            it.draw(program, vPMatrix)
+            drawPlanetSystem(it, program, vPMatrix)
         }
+    }
+
+    private fun drawPlanetSystem(
+        planetSystem: PlanetRenderSystemNode,
+        program: Int,
+        vpMatrix: FloatArray
+    ) {
+        val sphereAndTextures = getSpheres(planetSystem)
+        val ringAndTextures = getRings(planetSystem)
+        for (s in sphereAndTextures) {
+            s.sphere.draw(program, vpMatrix, s.texture)
+        }
+        for (r in ringAndTextures) {
+            r.ring.draw(program, vpMatrix, r.texture)
+        }
+    }
+
+    class SphereAndTexture(
+        val sphere: Sphere,
+        val texture: Int
+    )
+
+    class RingAndTexture(
+        val ring: Ring,
+        val texture: Int
+    )
+
+    private fun getSpheres(node: PlanetRenderSystemNode): List<SphereAndTexture> {
+        val list = mutableListOf<SphereAndTexture>()
+        for (planet in node.planets) {
+            planet.sphere?.let { list.add(SphereAndTexture(planet.sphere, planet.sphereTexture)) }
+        }
+        for (satellite in node.satellites) {
+            list.addAll(getSpheres(satellite))
+        }
+        return list
+    }
+
+    private fun getRings(node: PlanetRenderSystemNode): List<RingAndTexture> {
+        val list = mutableListOf<RingAndTexture>()
+        for (planet in node.planets) {
+            planet.ring?.let { list.add(RingAndTexture(planet.ring, planet.ringTexture)) }
+        }
+        for (satellite in node.satellites) {
+            list.addAll(getRings(satellite))
+        }
+        return list
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {

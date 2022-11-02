@@ -7,7 +7,7 @@ import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.sha1
 import kotlin.random.Random
 
-private const val doubleSystemProbability = 0.5f
+private const val doubleSystemProbability = 0.2f
 private const val ringProbability = 0.33f
 
 fun getPlanetSystemDescription(
@@ -34,10 +34,24 @@ fun getPlanetSystemDescription(
                 context,
                 angularVelocity = angularVelocity
             )
-            firstPlanet.orbitAngle = 0f
-            secondPlanet.orbitAngle = 180f.degToRad()
-            firstPlanet.orbitRadius = 2f * secondPlanet.totalRadius
-            secondPlanet.orbitRadius = 2f * firstPlanet.totalRadius
+
+            val distanceBetweenPlanets =
+                firstPlanet.totalRadius + secondPlanet.totalRadius + 1f + 2f * random.nextFloat()
+
+            // Bigger planet should be behind on the start
+            if (firstPlanet.sphere!!.radius > secondPlanet.sphere!!.radius) {
+                firstPlanet.orbitAngle = 85f.degToRad()
+                secondPlanet.orbitAngle = 265f.degToRad()
+            } else {
+                firstPlanet.orbitAngle = 265f.degToRad()
+                secondPlanet.orbitAngle = 85f.degToRad()
+            }
+
+            val radiusSum = firstPlanet.sphere.radius + secondPlanet.sphere.radius
+            firstPlanet.orbitRadius =
+                distanceBetweenPlanets * (secondPlanet.sphere.radius / radiusSum)
+            secondPlanet.orbitRadius =
+                distanceBetweenPlanets * (firstPlanet.sphere.radius / radiusSum)
 
             planets.add(firstPlanet)
             planets.add(secondPlanet)
@@ -67,19 +81,17 @@ fun getRandomPlanetDescription(
     angularVelocity: Float = 0f,
     factor: Float = 1f
 ): PlanetRenderData {
-    var innerRingRadius = 0f
+    val planetRadius = textureType.getRandomRadius(random) * factor
     val ring: Ring? = if (isRing(random)) {
-        innerRingRadius = (textureType.maxPlanetRadius / 2f) * factor
         Ring(
-            innerRadius = innerRingRadius,
-            outerRadius = textureType.maxPlanetRadius * factor
+            innerRadius = planetRadius,
+            outerRadius = (1f + random.nextFloat()) * planetRadius * 2f
         )
     } else {
-        innerRingRadius = textureType.getRandomRadius(random) * factor
         null
     }
     val sphere = Sphere(
-        radius = innerRingRadius
+        radius = planetRadius
     )
     return PlanetRenderData(
         axisRotationSpeed = random.nextFloat() * 3f,
@@ -92,9 +104,10 @@ fun getRandomPlanetDescription(
             context,
             getRandomPlanetTexture(random, textureType)
         ),
-        ringTexture = if (ring != null)
+        ringTexture = if (ring != null) {
+            random.nextInt()
             TextureUtils.loadTexture(context, R.drawable.tex_solar_saturn_ring_alpha)
-        else 0
+        } else 0
     )
 }
 

@@ -38,9 +38,4 @@ class PlanetRenderSystemNode(
         for (planet in planets) planet.update(massCenterX, massCenterY, massCenterZ)
         for (satellite in satellites) satellite.update(massCenterX, massCenterY, massCenterZ)
     }
-
-    fun draw(program: Int, vpMatrix: FloatArray) {
-        for (planet in planets) planet.draw(program, vpMatrix)
-        for (satellite in satellites) satellite.draw(program, vpMatrix)
-    }
 }
