@@ -32,6 +32,19 @@ sealed class TextureType(
             Volcanic,
             Venusian
         )
+
+        val middleSizeTypes = listOf(
+            Martian,
+            Primordial,
+            Terrestrial,
+            Volcanic,
+            Venusian
+        )
+
+        val smallSizeTypes = listOf(
+            Ice,
+            Rock
+        )
     }
 }
 

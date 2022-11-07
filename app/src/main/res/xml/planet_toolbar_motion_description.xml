@@ -107,6 +107,7 @@
             android:id="@id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="100dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -190,6 +191,7 @@
 
         <Constraint
             android:id="@id/recycler_view"
+            android:layout_marginBottom="100dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"

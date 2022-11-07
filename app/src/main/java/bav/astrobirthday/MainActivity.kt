@@ -22,7 +22,6 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -36,6 +35,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         val splashScreen = installSplashScreen()
 
         super.onCreate(savedInstanceState)
+
+//        setBackgroundResource(R.drawable.stars2k)
 
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 

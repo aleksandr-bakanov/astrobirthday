@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.view.MotionEvent
-import bav.astrobirthday.R
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import kotlin.math.max
 import kotlin.math.min
@@ -22,7 +21,7 @@ class PlanetView3d(activityContext: Context, p: PlanetAndInfo) : GLSurfaceView(a
         holder.setFormat(PixelFormat.RGBA_8888)
         setZOrderOnTop(true)
 
-        setBackgroundResource(R.drawable.stars2k)
+        //setBackgroundResource(R.drawable.stars2k)
 
         renderer = PlanetView3dRenderer(activityContext, p)
 

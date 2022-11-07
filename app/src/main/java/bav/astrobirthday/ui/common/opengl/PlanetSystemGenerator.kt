@@ -3,12 +3,14 @@ package bav.astrobirthday.ui.common.opengl
 import android.content.Context
 import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.Config
+import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.sha1
+import kotlin.math.log10
 import kotlin.random.Random
 
-private const val doubleSystemProbability = 0.2f
-private const val ringProbability = 0.33f
+private const val doubleSystemProbability = 0.05f
+private const val ringProbability = 0.2f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
@@ -24,13 +26,13 @@ fun getPlanetSystemDescription(
             val angularVelocity = 3f.degToRad() * random.nextFloat()
             val firstPlanet = getRandomPlanetDescription(
                 random,
-                getRandomTextureType(random),
+                planetAndInfo.planet,
                 context,
                 angularVelocity = angularVelocity
             )
             val secondPlanet = getRandomPlanetDescription(
                 random,
-                getRandomTextureType(random),
+                planetAndInfo.planet,
                 context,
                 angularVelocity = angularVelocity
             )
@@ -56,7 +58,7 @@ fun getPlanetSystemDescription(
             planets.add(firstPlanet)
             planets.add(secondPlanet)
         } else {
-            planets.add(getRandomPlanetDescription(random, getRandomTextureType(random), context))
+            planets.add(getRandomPlanetDescription(random, planetAndInfo.planet, context))
         }
 
         return PlanetRenderSystemNode(
@@ -65,23 +67,46 @@ fun getPlanetSystemDescription(
     }
 }
 
-fun getRandomTextureType(random: Random): TextureType {
-    return TextureType.allTypes[random.nextInt(TextureType.allTypes.size)]
+fun getTextureTypeByRadius(random: Random, radius: Float): TextureType {
+    return when {
+        radius >= 3f -> TextureType.GasGiant
+        radius >= 1f -> TextureType.middleSizeTypes[random.nextInt(TextureType.middleSizeTypes.size)]
+        else -> TextureType.smallSizeTypes[random.nextInt(TextureType.smallSizeTypes.size)]
+    }
 }
 
 fun isSystemDouble(random: Random): Boolean = random.nextFloat() < doubleSystemProbability
 fun isRing(random: Random): Boolean = random.nextFloat() < ringProbability
 
+fun getPlanetRadiusByMass(planet: Planet): Float? {
+    return planet.planetBestMassEstimateEarth?.let {
+        (it / 4.0).toFloat()
+    }
+}
+
+fun getRenderPlanetRadius(planet: Planet): Float {
+    return (0.5f +
+            log10(
+                planet.planetRadiusEarth?.toFloat()
+                    ?: getPlanetRadiusByMass(planet)
+                    ?: 1.0f
+            )
+            ).coerceIn(0.3f, 4f)
+}
+
 fun getRandomPlanetDescription(
     random: Random,
-    textureType: TextureType,
+    planet: Planet,
     context: Context,
     orbitRadius: Float = 0f,
     orbitAngle: Float = 0f,
     angularVelocity: Float = 0f,
     factor: Float = 1f
 ): PlanetRenderData {
-    val planetRadius = textureType.getRandomRadius(random) * factor
+
+    val planetRadius = getRenderPlanetRadius(planet) * factor
+    val textureType = getTextureTypeByRadius(random, planetRadius)
+
     val ring: Ring? = if (isRing(random)) {
         Ring(
             innerRadius = planetRadius,
