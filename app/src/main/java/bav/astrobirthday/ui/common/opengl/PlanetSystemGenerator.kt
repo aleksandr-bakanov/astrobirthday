@@ -11,6 +11,9 @@ import kotlin.random.Random
 
 private const val doubleSystemProbability = 0.05f
 private const val ringProbability = 0.2f
+private const val maxSatellitesAmount = 11
+private const val minThresholdBetweenSatellites = 1f
+private const val maxThresholdBetweenSatellites = 3f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
@@ -58,13 +61,36 @@ fun getPlanetSystemDescription(
             planets.add(firstPlanet)
             planets.add(secondPlanet)
         } else {
-            planets.add(getRandomPlanetDescription(random, planetAndInfo.planet, context))
+            val centralPlanet = getRandomPlanetDescription(random, planetAndInfo.planet, context)
+            planets.add(centralPlanet)
+
+            val satellitesAmount = random.nextInt(maxSatellitesAmount)
+            var currentMaxOrbit =
+                centralPlanet.totalRadius + getRandomThresholdBetweenSatellites(random)
+            for (index in 0 until satellitesAmount) {
+                val satellite = getRandomPlanetDescription(
+                    random = random,
+                    planet = planetAndInfo.planet,
+                    context = context,
+                    isStrictlyWithoutRing = true,
+                    orbitRadius = currentMaxOrbit,
+                    orbitAngle = index * (360f / satellitesAmount).degToRad(),
+                    angularVelocity = (3f / (index + 1)).degToRad(),
+                    sizeFactor = 0.01f + 0.07f * random.nextFloat()
+                )
+                currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
+                planets.add(satellite)
+            }
         }
 
         return PlanetRenderSystemNode(
             planets = planets
         )
     }
+}
+
+fun getRandomThresholdBetweenSatellites(random: Random): Float {
+    return minThresholdBetweenSatellites + (maxThresholdBetweenSatellites - minThresholdBetweenSatellites) * random.nextFloat()
 }
 
 fun getTextureTypeByRadius(random: Random, radius: Float): TextureType {
@@ -98,16 +124,17 @@ fun getRandomPlanetDescription(
     random: Random,
     planet: Planet,
     context: Context,
+    isStrictlyWithoutRing: Boolean = false,
     orbitRadius: Float = 0f,
     orbitAngle: Float = 0f,
     angularVelocity: Float = 0f,
-    factor: Float = 1f
+    sizeFactor: Float = 1f
 ): PlanetRenderData {
 
-    val planetRadius = getRenderPlanetRadius(planet) * factor
+    val planetRadius = getRenderPlanetRadius(planet) * sizeFactor
     val textureType = getTextureTypeByRadius(random, planetRadius)
 
-    val ring: Ring? = if (isRing(random)) {
+    val ring: Ring? = if (isStrictlyWithoutRing.not() && isRing(random)) {
         Ring(
             innerRadius = planetRadius,
             outerRadius = (1f + random.nextFloat()) * planetRadius * 2f
