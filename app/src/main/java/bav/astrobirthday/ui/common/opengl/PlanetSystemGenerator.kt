@@ -67,6 +67,7 @@ fun getPlanetSystemDescription(
             val satellitesAmount = random.nextInt(maxSatellitesAmount)
             var currentMaxOrbit =
                 centralPlanet.totalRadius + getRandomThresholdBetweenSatellites(random)
+            var currentAngularVelocity = 1.2f.degToRad()
             for (index in 0 until satellitesAmount) {
                 val satellite = getRandomPlanetDescription(
                     random = random,
@@ -75,10 +76,11 @@ fun getPlanetSystemDescription(
                     isStrictlyWithoutRing = true,
                     orbitRadius = currentMaxOrbit,
                     orbitAngle = index * (360f / satellitesAmount).degToRad(),
-                    angularVelocity = (3f / (index + 1)).degToRad(),
+                    angularVelocity = currentAngularVelocity,
                     sizeFactor = 0.01f + 0.07f * random.nextFloat()
                 )
                 currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
+                currentAngularVelocity /= 1.85f + 0.3f * random.nextFloat()
                 planets.add(satellite)
             }
         }
