@@ -1,5 +1,6 @@
 package bav.astrobirthday.data.entities
 
+import bav.astrobirthday.R
 import bav.astrobirthday.domain.model.Planet
 
 object Config {
@@ -25,6 +26,7 @@ object Config {
     val solarPlanets = listOf(
         Planet(
             planetName = "Mercury",
+            planetNameResId = R.string.planet_name_mercury,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -41,6 +43,7 @@ object Config {
         ),
         Planet(
             planetName = "Venus",
+            planetNameResId = R.string.planet_name_venus,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -57,6 +60,7 @@ object Config {
         ),
         Planet(
             planetName = "Earth",
+            planetNameResId = R.string.planet_name_earth,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -73,6 +77,7 @@ object Config {
         ),
         Planet(
             planetName = "Mars",
+            planetNameResId = R.string.planet_name_mars,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -89,6 +94,7 @@ object Config {
         ),
         Planet(
             planetName = "Ceres",
+            planetNameResId = R.string.planet_name_ceres,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -106,6 +112,7 @@ object Config {
         ),
         Planet(
             planetName = "Jupiter",
+            planetNameResId = R.string.planet_name_jupiter,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -122,6 +129,7 @@ object Config {
         ),
         Planet(
             planetName = "Saturn",
+            planetNameResId = R.string.planet_name_saturn,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -138,6 +146,7 @@ object Config {
         ),
         Planet(
             planetName = "Uranus",
+            planetNameResId = R.string.planet_name_uranus,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -155,6 +164,7 @@ object Config {
         ),
         Planet(
             planetName = "Neptune",
+            planetNameResId = R.string.planet_name_neptune,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -172,6 +182,7 @@ object Config {
         ),
         Planet(
             planetName = "Pluto",
+            planetNameResId = R.string.planet_name_pluto,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -189,6 +200,7 @@ object Config {
         ),
         Planet(
             planetName = "Haumea",
+            planetNameResId = R.string.planet_name_haumea,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -206,6 +218,7 @@ object Config {
         ),
         Planet(
             planetName = "Makemake",
+            planetNameResId = R.string.planet_name_makemake,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -223,6 +236,7 @@ object Config {
         ),
         Planet(
             planetName = "Eris",
+            planetNameResId = R.string.planet_name_eris,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,
@@ -240,6 +254,7 @@ object Config {
         ),
         Planet(
             planetName = "Sedna",
+            planetNameResId = R.string.planet_name_sedna,
             starName = SUN_NAME,
             systemStarNumber = SUN_STAR_NUMBER,
             systemPlanetNumber = SUN_PLANET_NUMBER,

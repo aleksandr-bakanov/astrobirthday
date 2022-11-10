@@ -33,7 +33,7 @@ class SolarPlanetsAdapter(
 
         fun bindTo(planet: PlanetAndInfo) = with(binding) {
             val context = itemView.context
-            name.text = planet.planet.planetName
+            name.text = planet.planet.getPlanetName(context)
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
             nextBirthday.text =
                 planet.nearestBirthday?.let { context.localDateToString(it) }.orNa()

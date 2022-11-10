@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Astro Birthday</string>
+
+    <string name="set_your_birthday">Задать днюху</string>
+    <string name="title_home">Солнечные</string>
+    <string name="title_settings">Настройки</string>
+
+    <!-- Exoplanets -->
+    <string name="exoplanet_name">Имя: %s</string>
+    <string name="title_exoplanets">Экзопланеты</string>
+    <string name="search_hint">Искать %s</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Твой день рождения</string>
+    <string name="solar_planets_by_date_title">Сортировать солнечные планеты по дню рождения</string>
+    <string name="credits">Сделано на Твиче otselotl\'ем\nс душевной поддержкой:\n|starforce|, Archevod</string>
+
+    <!-- Planet -->
+    <string name="age_string_pattern_one">Возраст: %s</string>
+    <string name="age_string_pattern_two">Возраст: %s %s</string>
+    <string name="age_string_pattern_three">Возраст: %s %s %s</string>
+    <string name="age_string_pattern_years_short">%dy</string>
+    <string name="age_string_pattern_months_short">%dm</string>
+    <string name="age_string_pattern_days_short">%dd</string>
+    <string name="age_string_pattern_hours">Возраст: %d hour(s)</string>
+    <string name="age_string_pattern_minutes">Возраст: %d minute(s)</string>
+    <string name="age_string_pattern_seconds">Возраст: %d second(s)</string>
+    <string name="next_birthday">День рождения: %s</string>
+    <string name="planet_title">Планета</string>
+    <string name="reference">Ссылка</string>
+    <string name="discovery_method">Метод открытия</string>
+    <string name="year">Год</string>
+    <string name="facility">Обсерватория</string>
+    <string name="orbital_period_days">Орбитальный период [дни]</string>
+    <string name="orbital_semi_major_axis_au">Большая полуось орбиты [ае]</string>
+    <string name="radius_earth_radius">Радиус [в радиусах Земли]</string>
+    <string name="mass_earth_mass">Масса [в Земных массах]</string>
+    <string name="orbit_eccentricity">Эксцентриситет орбиты</string>
+    <string name="equilibrium_temperature">Равновестная температура</string>
+    <string name="stellar">Звезда</string>
+    <string name="name">Имя</string>
+    <string name="spectral_type">Спектральный тип</string>
+    <string name="effective_temperature">Эффективная температура</string>
+    <string name="radius_solar_radius">Радиус [в радиусах Солнца]</string>
+    <string name="mass_solar_mass">Масса [в массах Солнца]</string>
+    <string name="system">Система</string>
+    <string name="number_of_stars">Количество звезд</string>
+    <string name="number_of_planets">Количество планет</string>
+    <string name="distance_pc">Расстояние до системы [пк]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d год</item>
+        <item quantity="few">%d года</item>
+        <item quantity="many">%d лет</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d месяц</item>
+        <item quantity="few">%d месяца</item>
+        <item quantity="many">%d месяцев</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+    </plurals>
+
+    <!-- Favorites -->
+    <string name="title_favorites">Избранные</string>
+
+    <!-- Filters -->
+    <string name="title_filter">Фильтры</string>
+    <string name="filter_distance_header">Расстояние [пк]</string>
+    <string name="filter_period_header">Период [дни]</string>
+    <string name="filter_planet_radius_header">Радиус планеты [Земные радиусы]</string>
+    <string name="filter_star_radius_header">Радиус звезды [Солнечные радиусы]</string>
+    <string name="filter_planet_mass_header">Масса планеты [Земные массы]</string>
+    <string name="filter_star_mass_header">Масса звезды [Солнечные массы]</string>
+    <string name="from_hint">От</string>
+    <string name="to_hint">До</string>
+    <string name="apply_button_title_pattern">Применить (%d)</string>
+    <string name="filter_sorting_header">Сортировать по</string>
+    <string name="select_hint">Выбрать</string>
+    <string name="sort_by_name">Имя</string>
+    <string name="sort_by_age">Возраст</string>
+    <string name="sort_by_birthday">День рождения</string>
+    <string name="sort_by_distance">Расстояние</string>
+    <string name="sort_by_period">Период</string>
+    <string name="sort_by_planet_mass">Масса планеты</string>
+    <string name="sort_by_planet_radius">Радиус планеты</string>
+    <string name="sort_by_star_mass">Масса звезды</string>
+    <string name="sort_by_star_radius">Радиус звезды</string>
+    <string name="sort_by_asc"> ↑</string>
+    <string name="sort_by_desc"> ↓</string>
+    <string name="action_clear">Очистить</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Астрометрия</string>
+    <string name="disc_method_disk_kinematics">Кинематика диска</string>
+    <string name="disc_method_eclipse_timing_variations">Изменение времени прохождения затмения</string>
+    <string name="disc_method_imaging">Прямое изображение</string>
+    <string name="disc_method_microlensing">Микролинзирование</string>
+    <string name="disc_method_orbital_brightness_modulation">Орбитальная модуляция яркости</string>
+    <string name="disc_method_pulsar_timing">Изменение времени пульсара</string>
+    <string name="disc_method_pulsation_timing_variations">Изменение времени пульсации</string>
+    <string name="disc_method_radial_velocity">Лучевая скорость</string>
+    <string name="disc_method_transit">Транзиты</string>
+    <string name="disc_method_transit_timing_variations">Изменение времени транзитов</string>
+    <string name="unknown_age">Возраст: неизвестен</string>
+    <string name="unknown_age_short">неизвестен</string>
+    <string name="unknown_birthday">День рождения: неизвестен</string>
+    <string name="unknown_birthday_short">неизвестен</string>
+    <string name="not_available">н/д</string>
+    <string name="pattern_join" translatable="false">%1$s %2$s</string>
+    <string name="enlarge_planet_view_description">Увеличить изображение планеты</string>
+    <string name="empty_favorites_placeholder_text">Здесь пока ничего нет ¯\\_(ツ)_/¯\n\nНажми ♡ на экране планеты чтобы добавить её сюда</string>
+
+    <!-- Setup screen -->
+    <string name="birthday_thresholds_disclaimer">Минимальное значение -999999999-01-01.\n 1 н.э. = год 1, 1 до н.э. = год 0, 2 до н.э. = год −1\nФормат: год-месяц-день</string>
+    <string name="birthday_exceeded_min_value">Не могу заглянуть так далеко в прошлое</string>
+    <string name="birthday_is_in_future">Да ты еще не родился</string>
+    <string name="birthday_not_filled">Проверь, правильно ли ввёл дату</string>
+    <string name="birthday_wrong_date">С датой что-то не так</string>
+    <string name="empty_string"></string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Меркурий</string>
+    <string name="planet_name_venus">Венера</string>
+    <string name="planet_name_earth">Земля</string>
+    <string name="planet_name_mars">Марс</string>
+    <string name="planet_name_ceres">Церера</string>
+    <string name="planet_name_jupiter">Юпитер</string>
+    <string name="planet_name_saturn">Сатурн</string>
+    <string name="planet_name_uranus">Уран</string>
+    <string name="planet_name_neptune">Нептун</string>
+    <string name="planet_name_pluto">Плутон</string>
+    <string name="planet_name_haumea">Хаумеа</string>
+    <string name="planet_name_makemake">Макемаке</string>
+    <string name="planet_name_eris">Эрида</string>
+    <string name="planet_name_sedna">Седна</string>
+</resources>

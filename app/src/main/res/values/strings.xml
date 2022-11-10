@@ -2,7 +2,6 @@
     <string name="app_name">Astro Birthday</string>
 
     <string name="set_your_birthday">Set birthday</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Solar</string>
     <string name="title_settings">Settings</string>
 
@@ -48,10 +47,6 @@
     <string name="number_of_stars">Number of stars</string>
     <string name="number_of_planets">Number of planets</string>
     <string name="distance_pc">Distance [pc]</string>
-    <string name="dates">Dates</string>
-    <string name="planetary_reference_publication_date">Publication date</string>
-    <string name="last_update_date">Date of last update</string>
-    <string name="nasa_exoplanet_archive_release_date">Release date</string>
 
     <plurals name="years_amount">
         <item quantity="one">%d year</item>
@@ -79,7 +74,6 @@
     <string name="filter_star_mass_header">Star mass [Solar mass]</string>
     <string name="from_hint">From</string>
     <string name="to_hint">To</string>
-    <string name="filter_submit_button_title">filter</string>
     <string name="apply_button_title_pattern">Apply (%d)</string>
     <string name="filter_sorting_header">Sort by</string>
     <string name="select_hint">Select</string>
@@ -116,7 +110,7 @@
     <string name="pattern_join" translatable="false">%1$s %2$s</string>
     <string name="enlarge_planet_view_description">Enlarge planet view</string>
     <string name="empty_favorites_placeholder_text">Nothing here just yet ¯\\_(ツ)_/¯\n\nTap ♡ on planet screen to add it here</string>
-    
+
     <!-- Setup screen -->
     <string name="birthday_thresholds_disclaimer">Minimum value is -999999999-01-01.\nAD 1 = year 1, 1 BC = year 0, 2 BC = year −1\nUse format: year-month-day</string>
     <string name="birthday_exceeded_min_value">Can\'t process so far in the past</string>
@@ -124,4 +118,20 @@
     <string name="birthday_not_filled">Fill your birthday properly</string>
     <string name="birthday_wrong_date">Something\'s wrong with the date</string>
     <string name="empty_string"></string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Mercury</string>
+    <string name="planet_name_venus">Venus</string>
+    <string name="planet_name_earth">Earth</string>
+    <string name="planet_name_mars">Mars</string>
+    <string name="planet_name_ceres">Ceres</string>
+    <string name="planet_name_jupiter">Jupiter</string>
+    <string name="planet_name_saturn">Saturn</string>
+    <string name="planet_name_uranus">Uranus</string>
+    <string name="planet_name_neptune">Neptune</string>
+    <string name="planet_name_pluto">Pluto</string>
+    <string name="planet_name_haumea">Haumea</string>
+    <string name="planet_name_makemake">Makemake</string>
+    <string name="planet_name_eris">Eris</string>
+    <string name="planet_name_sedna">Sedna</string>
 </resources>

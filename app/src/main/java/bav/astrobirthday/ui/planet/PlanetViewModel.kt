@@ -5,16 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import bav.astrobirthday.data.entities.Config
-import bav.astrobirthday.data.entities.toDomain
 import bav.astrobirthday.data.local.PlanetDao
+import bav.astrobirthday.domain.SolarPlanetsRepository
 import bav.astrobirthday.domain.model.PlanetAndInfo
-import bav.astrobirthday.utils.getPlanetType
+import bav.astrobirthday.utils.toDomain
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class PlanetViewModel(
+    private val solarPlanetsRepository: SolarPlanetsRepository,
     private val database: PlanetDao,
     private val planetName: String
 ) : ViewModel() {
@@ -24,22 +27,19 @@ class PlanetViewModel(
 
     init {
         val neighboursFlow = if (planetName in Config.solarPlanetNames)
-            database.getByNames(Config.solarPlanetNames)
+            solarPlanetsRepository.planetsFlow
         else
             database.getByNamesLike("${planetName.substringBeforeLast(" ")} %")
+                .map { list -> list.map { it.toDomain() } }
         combine(
-            database.getByName(planetName),
+            if (planetName in Config.solarPlanetNames) {
+                solarPlanetsRepository.planetsFlow.mapLatest { list -> list.find { it.planet.planetName == planetName }!! }
+            } else {
+                database.getByName(planetName).map { it.toDomain() }
+            },
             neighboursFlow
         ) { planetAndInfo, neighbours ->
-            val (planet, info) = planetAndInfo
-            PlanetAndInfo(
-                planet = planet.toDomain(),
-                isFavorite = info?.is_favorite ?: false,
-                ageOnPlanet = info?.age,
-                nearestBirthday = info?.birthday,
-                planetType = getPlanetType(planet.pl_name),
-                neighbours = neighbours.map { it.planet.toDomain() }
-            )
+            planetAndInfo.copy(neighbours = neighbours.map { it.planet })
         }
             .onEach(_planet::setValue)
             .launchIn(viewModelScope)
@@ -47,6 +47,10 @@ class PlanetViewModel(
 
     fun toggleFavorite() = viewModelScope.launch {
         val desc = planet.value ?: return@launch
-        database.setFavorite(desc.planet.planetName, !desc.isFavorite)
+        if (desc.planet.planetName in Config.solarPlanetNames) {
+            solarPlanetsRepository.setFavorite(desc.planet.planetName, !desc.isFavorite)
+        } else {
+            database.setFavorite(desc.planet.planetName, !desc.isFavorite)
+        }
     }
 }

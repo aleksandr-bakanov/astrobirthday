@@ -61,8 +61,8 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
             planetDescriptionAdapter.items = getPlanetItems(p.planet)
 
-            planetName.text = p.planet.planetName.orNa()
-            planetNameCollapsed.text = p.planet.planetName.orNa()
+            planetName.text = p.planet.getPlanetName(context)
+            planetNameCollapsed.text = p.planet.getPlanetName(context)
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 

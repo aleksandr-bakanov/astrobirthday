@@ -43,6 +43,7 @@ class SolarPlanetsDataSource(
             settings[PLANETS_KEY] = Json.encodeToString(
                 planetsInfoFlow.firstOrNull()
                     ?.map { if (it.name == name) it.copy(isFavorite = isFavorite) else it }
+                    ?.map { it.toSerializable() }
             )
         }
     }

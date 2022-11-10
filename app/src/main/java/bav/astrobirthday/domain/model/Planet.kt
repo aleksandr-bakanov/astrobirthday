@@ -1,5 +1,6 @@
 package bav.astrobirthday.domain.model
 
+import android.content.Context
 import android.os.Parcelable
 import bav.astrobirthday.common.DiscoveryMethod
 import kotlinx.parcelize.Parcelize
@@ -7,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Planet(
     val planetName: String,
+    val planetNameResId: Int = 0,
     val systemStarNumber: Int? = null,
     val systemPlanetNumber: Int? = null,
     val discoveryMethod: DiscoveryMethod? = null,
@@ -27,4 +29,12 @@ data class Planet(
     val starMassSolar: Double? = null,
     val systemReference: String? = null,
     val systemDistance: Double? = null
-) : Parcelable
+) : Parcelable {
+    fun getPlanetName(context: Context): String {
+        return if (planetNameResId != 0) {
+            context.getString(planetNameResId)
+        } else {
+            planetName
+        }
+    }
+}
