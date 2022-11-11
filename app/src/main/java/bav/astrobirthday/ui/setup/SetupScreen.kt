@@ -123,9 +123,11 @@ fun SetupScreen(
 @Composable
 @Preview
 fun SetupScreenPreview() {
-    SetupScreen(
-        SetupUiState("2022-04-13", DateState.InFuture),
-        {},
-        {}
-    )
+    AstroBirthdayTheme {
+        SetupScreen(
+            SetupUiState("2022-04-13", DateState.InFuture),
+            {},
+            {}
+        )
+    }
 }
