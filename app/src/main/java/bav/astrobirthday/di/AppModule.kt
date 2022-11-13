@@ -55,7 +55,7 @@ val appModule = module {
             sortBy
         )
     }
-    viewModel { SetupViewModel(get(), get(), get()) }
+    viewModel { SetupViewModel(get(), get()) }
 
     factory { SyncPlanetsInfo(get(), get(), get()) }
     factory { GetExoplanets(get()) }

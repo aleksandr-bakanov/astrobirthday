@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.time.DateTimeException
 import java.time.LocalDate
 
-class SetupUiState(val date: String, val dateState: DateState) {
+class SetupUiState(val date: LocalDate, val dateState: DateState) {
     sealed class DateState {
         object Valid : DateState()
         object ExceedMinValue : DateState()
@@ -27,7 +27,6 @@ class SetupUiState(val date: String, val dateState: DateState) {
 }
 
 class SetupViewModel(
-    private val dateParseUseCase: DateParseUseCase,
     private val userRepository: UserRepository,
     private val birthdayUpdater: BirthdayUpdater
 ) : ViewModel() {
@@ -41,18 +40,18 @@ class SetupViewModel(
     init {
         viewModelScope.launch {
             userRepository.birthdayFlow.firstOrNull()?.let { date ->
-                setDate(dateParseUseCase.dateToString(date))
+                setDate(date)
             }
         }
     }
 
-    fun setDate(value: String) {
+    fun setDate(value: LocalDate) {
         _state.value = SetupUiState(value, _state.value?.dateState!!)
     }
 
     fun submitDate() {
         try {
-            val date = dateParseUseCase.stringToDate(_state.value?.date!!)
+            val date = _state.value?.date!!
             _state.value = getUiState(dateState = DateState.Valid)
             viewModelScope.launch {
                 userRepository.setBirthday(date)
@@ -74,7 +73,7 @@ class SetupViewModel(
 
     private fun getDefaultUiState(): SetupUiState {
         return SetupUiState(
-            date = dateParseUseCase.dateToString(LocalDate.now()),
+            date = LocalDate.now(),
             dateState = DateState.Valid
         )
     }
