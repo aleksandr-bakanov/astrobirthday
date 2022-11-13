@@ -17,4 +17,7 @@
     <color name="deepOrangeA700">#dd2c00</color>
     <color name="deepOrangeA700Light">#ff6434</color>
     <color name="deepOrangeA700Dark">#a30000</color>
+
+    <color name="backgroundDarkGrey">#161616</color>
+    <color name="greyStroke">#989698</color>
 </resources>

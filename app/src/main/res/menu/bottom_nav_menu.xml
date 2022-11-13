@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_baseline_adjust_24"
+        android:icon="@drawable/ic_solar_icon"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/nav_exoplanets"
-        android:icon="@drawable/ic_baseline_scatter_plot_24"
+        android:icon="@drawable/ic_exo_icon"
         android:title="@string/title_exoplanets" />
 
     <item
         android:id="@+id/nav_favorites"
-        android:icon="@drawable/ic_baseline_favorite_24"
+        android:icon="@drawable/ic_fav_icon"
         android:title="@string/title_favorites" />
 
     <item
         android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/ic_settings_icon"
         android:title="@string/title_settings" />
 
 </menu>
