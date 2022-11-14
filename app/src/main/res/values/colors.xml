@@ -23,4 +23,7 @@
 
     <color name="backgroundDarkGrey">#161616</color>
     <color name="greyStroke">#989698</color>
+    <color name="greyInactive">#696A6D</color>
+    <color name="white2">#E6EFF2</color>
+    <color name="buttonsBlue">#289BAE</color>
 </resources>

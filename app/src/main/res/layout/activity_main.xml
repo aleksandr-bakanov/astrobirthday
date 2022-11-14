@@ -24,6 +24,8 @@
         android:layout_height="@dimen/navigation_bar_height"
         android:background="@drawable/bottom_navigation_background"
         android:theme="@style/BottomNavigationTheme"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/buttonsBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
