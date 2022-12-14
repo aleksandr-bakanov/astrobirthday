@@ -119,6 +119,9 @@
     <string name="birthday_wrong_date">Something\'s wrong with the date</string>
     <string name="empty_string"></string>
 
+    <!-- Screen names -->
+    <string name="screen_solar_system">Solar System</string>
+
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Mercury</string>
     <string name="planet_name_venus">Venus</string>

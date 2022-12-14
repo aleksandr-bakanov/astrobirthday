@@ -26,4 +26,7 @@
     <color name="greyInactive">#696A6D</color>
     <color name="white2">#E6EFF2</color>
     <color name="buttonsBlue">#289BAE</color>
+
+    <color name="backgroundBlack1">#09080A</color>
+    <color name="grayText">#6F8086</color>
 </resources>

@@ -123,6 +123,9 @@
     <string name="birthday_wrong_date">С датой что-то не так</string>
     <string name="empty_string"></string>
 
+    <!-- Screen names -->
+    <string name="screen_solar_system">Солнечная система</string>
+
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Меркурий</string>
     <string name="planet_name_venus">Венера</string>

@@ -3,35 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_height="180dp"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/backgroundBlack1"
+    app:cardCornerRadius="40dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/name"
             style="?attr/textAppearanceBody1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="40dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="0dp"
+            android:textSize="32sp"
+            android:textColor="@color/white2"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Next birthday" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Earth" />
 
         <bav.astrobirthday.ui.common.PlanetView
             android:id="@+id/image"
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
-            app:layout_constraintBottom_toTopOf="@id/nextBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="fitEnd"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            tools:srcCompat="@drawable/ic_earth" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:srcCompat="@drawable/earth_pic" />
 
         <TextView
             android:id="@+id/age"
@@ -50,9 +56,10 @@
             style="?attr/textAppearanceBody2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/grayText"
+            app:layout_constraintTop_toBottomOf="@id/age"
             tools:text="Next birthday" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

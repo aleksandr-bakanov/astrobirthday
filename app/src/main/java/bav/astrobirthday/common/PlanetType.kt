@@ -3,18 +3,18 @@ package bav.astrobirthday.common
 import bav.astrobirthday.R
 
 enum class PlanetType(val imageResId: Int) {
-    MERCURY(R.drawable.mercury_crop),
-    VENUS(R.drawable.venus_crop),
-    EARTH(R.drawable.earth_crop),
-    MARS(R.drawable.mars_crop),
-    CERES(R.drawable.ceres_crop),
-    JUPITER(R.drawable.jupiter_crop),
-    SATURN(R.drawable.saturn_crop),
-    URANUS(R.drawable.uranus_crop),
-    NEPTUNE(R.drawable.neptune_crop),
-    PLUTO(R.drawable.pluto_crop),
-    HAUMEA(R.drawable.haumea_crop),
-    MAKEMAKE(R.drawable.makemake_crop),
-    ERIS(R.drawable.eris_crop),
-    SEDNA(R.drawable.sedna_crop)
+    MERCURY(R.drawable.mercury_pic),
+    VENUS(R.drawable.venus_pic),
+    EARTH(R.drawable.earth_pic),
+    MARS(R.drawable.mars_pic),
+    CERES(R.drawable.ceres_pic),
+    JUPITER(R.drawable.jupiter_pic),
+    SATURN(R.drawable.saturn_pic),
+    URANUS(R.drawable.neptune_pic),
+    NEPTUNE(R.drawable.neptune_pic),
+    PLUTO(R.drawable.pluto_pic),
+    HAUMEA(R.drawable.haumea_pic),
+    MAKEMAKE(R.drawable.makemake_pic),
+    ERIS(R.drawable.eris_pic),
+    SEDNA(R.drawable.sedna_pic)
 }
