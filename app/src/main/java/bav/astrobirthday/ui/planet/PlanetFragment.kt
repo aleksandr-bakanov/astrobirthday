@@ -1,8 +1,8 @@
 package bav.astrobirthday.ui.planet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.widget.NestedScrollView
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import bav.astrobirthday.R
@@ -28,6 +28,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     private val viewModel: PlanetViewModel by viewModel { parametersOf(args.name) }
     private val args: PlanetFragmentArgs by navArgs()
     private var planetAndInfo: PlanetAndInfo? = null
+    private var view3d: PlanetView3d? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,9 +38,12 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
     private fun setupOpenGL(p: PlanetAndInfo) {
         with(requireBinding()) {
-            val view = PlanetView3d(requireActivity(), p)
-            planetView3d.removeAllViews()
-            planetView3d.addView(view)
+            if (planetView3d.childCount == 0) {
+                val view = PlanetView3d(requireActivity(), p)
+                view3d = view
+                planetView3d.removeAllViews()
+                planetView3d.addView(view)
+            }
         }
     }
 
@@ -62,7 +66,6 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             planetDescriptionAdapter.items = getPlanetItems(p.planet)
 
             planetName.text = p.planet.getPlanetName(context)
-            planetNameCollapsed.text = p.planet.getPlanetName(context)
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 
@@ -73,6 +76,10 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         recyclerView.run {
             adapter = planetDescriptionAdapter
         }
+
+        scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            view3d?.setZoom(scrollY.toFloat())
+        })
     }
 
     private fun getPlanetItems(planet: Planet): List<PlanetItems?> {
@@ -235,21 +242,6 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     private fun setupClickListeners() = with(requireBinding()) {
         backButton.setOnClickListener { findNavController().navigateUp() }
         favoriteButton.setOnClickListener { viewModel.toggleFavorite() }
-        enlargePlanetButton.setOnClickListener {
-            planetAndInfo?.let {
-                val enlargedView = EnlargedPlanetView()
-                enlargedView.setPlanet(it)
-                val fragment = parentFragmentManager.findFragmentByTag(ENLARGED_DIALOG_TAG)
-                if (fragment != null && fragment.isAdded) {
-                    Log.d("cqhg43", "fragment != null && fragment.isAdded")
-                    return@setOnClickListener
-                }
-                enlargedView.show(parentFragmentManager, ENLARGED_DIALOG_TAG)
-            }
-        }
     }
 
-    companion object {
-        const val ENLARGED_DIALOG_TAG = "enlarged_planet"
-    }
 }

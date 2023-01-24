@@ -20,7 +20,7 @@ class PlanetView3dRenderer(
 
     @Volatile
     var zoom: Float = 0f
-    val minCameraFactor = 1f
+    val minCameraFactor = 2f
     val maxCameraFactor = 5f
     val zCameraDistance = 2f
     val yCameraDistance = -10f
