@@ -45,6 +45,7 @@ class PlanetRenderData(
 
         x = parentX + cos(orbitAngle) * orbitRadius
         y = parentY + sin(orbitAngle) * orbitRadius
+        z = parentZ
 
         sphere?.let {
             it.angle += axisRotationSpeed

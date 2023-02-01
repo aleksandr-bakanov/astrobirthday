@@ -19,7 +19,7 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 0.2f,
-                sphereRadius = 2f,
+                sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_venus_atmosphere,
             )
         )
@@ -28,7 +28,7 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 3f,
-                sphereRadius = 2f,
+                sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_earth_with_clouds,
             )
         ),
@@ -39,7 +39,7 @@ val solarPlanetSystems = mapOf(
                 planets = mutableListOf(
                     PlanetData(
                         axisRotationSpeed = 1.0f,
-                        sphereRadius = 0.5f,
+                        sphereRadius = 0.3f,
                         sphereTextureResId = R.drawable.tex_solar_moon,
                     )
                 )
@@ -84,7 +84,7 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
-                sphereRadius = 2.5f,
+                sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_jupiter,
             ),
             PlanetData(
@@ -200,7 +200,7 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
-                sphereRadius = 2.2f,
+                sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_uranus,
             )
         )
@@ -209,7 +209,7 @@ val solarPlanetSystems = mapOf(
         planets = mutableListOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
-                sphereRadius = 2.2f,
+                sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_neptune,
             )
         )

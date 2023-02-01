@@ -20,10 +20,14 @@ class PlanetView3dRenderer(
 
     @Volatile
     var zoom: Float = 0f
-    val minCameraFactor = 2f
-    val maxCameraFactor = 5f
-    val zCameraDistance = 2f
-    val yCameraDistance = -10f
+    private val minCameraFactor = 2f
+    private val maxCameraFactor = 5f
+    private val zCameraDistance = 2f
+    private val yCameraDistance = -10f
+
+    private val minPlanetZFactor = 0f
+    private val maxPlanetZFactor = 1f
+    private val zPlanetDistance = 1.5f
 
     private var program: Int = 0
 
@@ -60,13 +64,16 @@ class PlanetView3dRenderer(
         val zCamera = zCameraDistance * cameraFactor
         val yCamera = yCameraDistance * cameraFactor
 
+        val planetZFactor = minPlanetZFactor + zoomFactor * (maxPlanetZFactor - minPlanetZFactor)
+        val zPlanet = zPlanetDistance * planetZFactor
+
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0f, yCamera, zCamera, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
         planetSystem?.let {
-            it.update()
+            it.update(parentZ = zPlanet, parentY = zPlanet)
             drawPlanetSystem(it, program, vPMatrix)
         }
     }

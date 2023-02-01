@@ -34,6 +34,7 @@ class PlanetRenderSystemNode(
 
         massCenterX = parentX + cos(orbitAngle) * orbitRadius
         massCenterY = parentY + sin(orbitAngle) * orbitRadius
+        massCenterZ = parentZ
 
         for (planet in planets) planet.update(massCenterX, massCenterY, massCenterZ)
         for (satellite in satellites) satellite.update(massCenterX, massCenterY, massCenterZ)

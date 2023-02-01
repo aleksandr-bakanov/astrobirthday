@@ -14,6 +14,8 @@ private const val ringProbability = 0.2f
 private const val maxSatellitesAmount = 11
 private const val minThresholdBetweenSatellites = 1f
 private const val maxThresholdBetweenSatellites = 3f
+private const val maxPlanetRadius = 2.0f
+private const val minPlanetRadius = 0.3f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
@@ -97,7 +99,7 @@ fun getRandomThresholdBetweenSatellites(random: Random): Float {
 
 fun getTextureTypeByRadius(random: Random, radius: Float): TextureType {
     return when {
-        radius >= 3f -> TextureType.GasGiant
+        radius >= 1.5f -> TextureType.GasGiant
         radius >= 1f -> TextureType.middleSizeTypes[random.nextInt(TextureType.middleSizeTypes.size)]
         else -> TextureType.smallSizeTypes[random.nextInt(TextureType.smallSizeTypes.size)]
     }
@@ -119,7 +121,7 @@ fun getRenderPlanetRadius(planet: Planet): Float {
                     ?: getPlanetRadiusByMass(planet)
                     ?: 1.0f
             )
-            ).coerceIn(0.3f, 4f)
+            ).coerceIn(minPlanetRadius, maxPlanetRadius)
 }
 
 fun getRandomPlanetDescription(
