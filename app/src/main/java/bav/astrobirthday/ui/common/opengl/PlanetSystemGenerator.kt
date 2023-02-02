@@ -9,7 +9,7 @@ import bav.astrobirthday.utils.sha1
 import kotlin.math.log10
 import kotlin.random.Random
 
-private const val doubleSystemProbability = 0.05f
+private const val doubleSystemProbability = 0f
 private const val ringProbability = 0.2f
 private const val maxSatellitesAmount = 11
 private const val minThresholdBetweenSatellites = 1f
