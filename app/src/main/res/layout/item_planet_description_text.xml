@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="4dp">
+    android:paddingHorizontal="4dp">
 
     <TextView
         android:id="@+id/name"
-        style="?attr/textAppearanceBody1"
+        style="?attr/textAppearanceBody2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/discovery_method"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/value"
-        style="?attr/textAppearanceBody1"
+        style="?attr/textAppearanceBody2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

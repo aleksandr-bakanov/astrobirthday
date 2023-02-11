@@ -19,7 +19,8 @@ private const val minPlanetRadius = 0.3f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
-    context: Context
+    context: Context,
+    isMaximumSize: Boolean
 ): PlanetRenderSystemNode? {
     return if (planetAndInfo.planet.planetName in Config.solarPlanetNames) {
         solarPlanetSystems[planetAndInfo.planet.planetName]?.toPlanetRenderSystemNode(context)
@@ -177,7 +178,7 @@ fun getRandomPlanetTexture(random: Random, textureType: TextureType): Int {
         TextureType.Martian -> martianTextures
         TextureType.Primordial -> primordialTextures
         TextureType.Rock -> rockTextures
-        TextureType.Terrestrial -> terrestrialCloudsTextures
+        TextureType.Terrestrial -> terrestrialTextures
         TextureType.Volcanic -> volcanicTextures
         TextureType.Venusian -> venusianTextures
         else -> allPlanetTextures[random.nextInt(allPlanetTextures.size)]
