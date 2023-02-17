@@ -1,7 +1,6 @@
 package bav.astrobirthday.ui.common.opengl
 
 import android.content.Context
-import bav.astrobirthday.R
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
@@ -64,7 +63,12 @@ fun getPlanetSystemDescription(
             planets.add(firstPlanet)
             planets.add(secondPlanet)
         } else {
-            val centralPlanet = getRandomPlanetDescription(random, planetAndInfo.planet, context)
+            val centralPlanet = getRandomPlanetDescription(
+                random = random,
+                planet = planetAndInfo.planet,
+                context = context,
+                isRandomTexture = true
+            )
             planets.add(centralPlanet)
 
             if (isAnimated) {
@@ -135,11 +139,13 @@ fun getRandomPlanetDescription(
     orbitRadius: Float = 0f,
     orbitAngle: Float = 0f,
     angularVelocity: Float = 0f,
-    sizeFactor: Float = 1f
+    sizeFactor: Float = 1f,
+    isRandomTexture: Boolean = false
 ): PlanetRenderData {
 
     val planetRadius = getRenderPlanetRadius(planet) * sizeFactor
-    val textureType = getTextureTypeByRadius(random, planetRadius)
+    val textureType =
+        if (isRandomTexture) TextureType.Unknown else getTextureTypeByRadius(random, planetRadius)
 
     val ring: Ring? = if (isStrictlyWithoutRing.not() && isRing(random)) {
         Ring(
@@ -164,10 +170,13 @@ fun getRandomPlanetDescription(
             getRandomPlanetTexture(random, textureType)
         ),
         ringTexture = if (ring != null) {
-            random.nextInt()
-            TextureUtils.loadTexture(context, R.drawable.tex_solar_saturn_ring_alpha)
+            TextureUtils.loadTexture(context, getRandomRingTexture(random))
         } else 0
     )
+}
+
+fun getRandomRingTexture(random: Random): Int {
+    return ringTextures[random.nextInt(ringTextures.size)]
 }
 
 /**

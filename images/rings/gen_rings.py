@@ -10,9 +10,9 @@ height = 1
 for i in range(50):
     img = Image.new(mode = "RGBA", size = (width, height))
 
-    random_threshold = 10
+    random_threshold = 5
     color_seed = random.randint(0, 255)
-    alpha_seed = random.randint(0, 255)
+    alpha_seed = random.randint(0, 32)
 
     r = 0
     g = 0
@@ -39,4 +39,4 @@ for i in range(50):
         tosavedata.extend(newData)
 
     tosave.putdata(tosavedata)
-    tosave.save("tex_ring_{0}.png".format(i), "PNG")
+    tosave.save("tex_ring_{0}.png".format(i + 50), "PNG")
