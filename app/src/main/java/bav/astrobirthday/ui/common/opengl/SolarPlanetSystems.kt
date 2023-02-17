@@ -27,7 +27,7 @@ val solarPlanetSystems = mapOf(
     "Earth" to PlanetSystemNode(
         planets = mutableListOf(
             PlanetData(
-                axisRotationSpeed = 3f,
+                axisRotationSpeed = 1.5f,
                 sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_earth_with_clouds,
             )

@@ -31,8 +31,9 @@ class PlanetView3dRenderer(
     private val staticCameraY = -4f
 
     private val minPlanetZFactor = 0f
-    private val maxPlanetZFactor = 1f
+    private val maxPlanetZFactor = 6f
     private val zPlanetDistance = 1.5f
+    private val initialZPlanetDistance = 2f
 
     private var program: Int = 0
 
@@ -64,16 +65,29 @@ class PlanetView3dRenderer(
         GLES20.glClearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 0.0f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
 
-        val zoomFactor = zoom / PlanetView3d.zoomThreshold
+        val zoomFactor = zoom
         val cameraFactor = minCameraFactor + zoomFactor * (maxCameraFactor - minCameraFactor)
         val zCamera = if (isAnimated.not()) staticCameraZ else zCameraDistance * cameraFactor
         val yCamera = if (isAnimated.not()) staticCameraY else yCameraDistance * cameraFactor
 
         val planetZFactor = minPlanetZFactor + zoomFactor * (maxPlanetZFactor - minPlanetZFactor)
-        val zPlanet = if (isAnimated.not()) 0f else zPlanetDistance * planetZFactor
+        val zPlanet =
+            if (isAnimated.not()) 0f else zPlanetDistance * planetZFactor + initialZPlanetDistance
 
         // Set the camera position (View matrix)
-        Matrix.setLookAtM(viewMatrix, 0, 0f, yCamera, zCamera, 0f, 0f, 1f, 0f, 1.0f, 0.0f)
+        Matrix.setLookAtM(
+            viewMatrix,
+            0,
+            0f,
+            yCamera,
+            zCamera + initialZPlanetDistance,
+            0f,
+            0f,
+            1f,
+            0f,
+            1.0f,
+            0f
+        )
         // Calculate the projection and view transformation
         Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
 
@@ -140,7 +154,7 @@ class PlanetView3dRenderer(
         // in the onDrawFrame() method
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1f, 1f, 3f, 100f)
 
-        val zoomFactor = zoom / PlanetView3d.zoomThreshold
+        val zoomFactor = zoom
         val cameraFactor = minCameraFactor + zoomFactor * (maxCameraFactor - minCameraFactor)
         val zCamera = zCameraDistance * cameraFactor
         val yCamera = yCameraDistance * cameraFactor

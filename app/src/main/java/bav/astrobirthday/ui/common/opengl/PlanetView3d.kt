@@ -6,8 +6,6 @@ import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import bav.astrobirthday.R
 import bav.astrobirthday.domain.model.PlanetAndInfo
-import kotlin.math.max
-import kotlin.math.min
 
 class PlanetView3d(
     activityContext: Context,
@@ -40,18 +38,9 @@ class PlanetView3d(
         setRenderer(renderer)
     }
 
-    fun setZoom(newY: Float) {
-        val dy: Float = newY - previousY
-        renderer.zoom = min(max(renderer.zoom + dy * TOUCH_SCALE_FACTOR, 0f), zoomThreshold)
+    fun setZoom(zoom: Float) {
+        renderer.zoom = zoom
         requestRender()
-        previousY = newY
     }
-
-    companion object {
-        const val TOUCH_SCALE_FACTOR: Float = 180.0f / 320f
-        const val zoomThreshold = 300f
-    }
-
-    private var previousY: Float = 0f
 
 }

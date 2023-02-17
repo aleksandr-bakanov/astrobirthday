@@ -1,8 +1,9 @@
 package bav.astrobirthday.ui.planet
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.core.widget.NestedScrollView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import bav.astrobirthday.R
@@ -83,6 +84,29 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        root.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {}
+
+            override fun onTransitionChange(
+                p0: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
+                Log.d("cqhg43", "cqhg43: onTransitionChange progress = $progress")
+                view3d?.setZoom(progress)
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {}
+            override fun onTransitionTrigger(
+                p0: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float
+            ) {
+            }
+        })
+
         viewModel.planet.observe(viewLifecycleOwner) { p ->
             val context = requireContext()
             planetAndInfo = p
@@ -102,10 +126,6 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         recyclerView.run {
             adapter = planetDescriptionAdapter
         }
-
-        scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            view3d?.setZoom(scrollY.toFloat())
-        })
     }
 
     private fun getPlanetItems(planet: Planet, category: TabCategory): List<PlanetItems?> {
