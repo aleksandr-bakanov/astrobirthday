@@ -20,7 +20,7 @@ private const val minPlanetRadius = 0.3f
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
     context: Context,
-    isMaximumSize: Boolean
+    isAnimated: Boolean
 ): PlanetRenderSystemNode? {
     return if (planetAndInfo.planet.planetName in Config.solarPlanetNames) {
         solarPlanetSystems[planetAndInfo.planet.planetName]?.toPlanetRenderSystemNode(context)
@@ -67,24 +67,26 @@ fun getPlanetSystemDescription(
             val centralPlanet = getRandomPlanetDescription(random, planetAndInfo.planet, context)
             planets.add(centralPlanet)
 
-            val satellitesAmount = random.nextInt(maxSatellitesAmount)
-            var currentMaxOrbit =
-                centralPlanet.totalRadius + getRandomThresholdBetweenSatellites(random)
-            var currentAngularVelocity = 1f.degToRad()
-            for (index in 0 until satellitesAmount) {
-                val satellite = getRandomPlanetDescription(
-                    random = random,
-                    planet = planetAndInfo.planet,
-                    context = context,
-                    isStrictlyWithoutRing = true,
-                    orbitRadius = currentMaxOrbit,
-                    orbitAngle = index * (360f / satellitesAmount).degToRad(),
-                    angularVelocity = currentAngularVelocity,
-                    sizeFactor = 0.01f + 0.07f * random.nextFloat()
-                )
-                currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
-                currentAngularVelocity /= 1.85f + 0.3f * random.nextFloat()
-                planets.add(satellite)
+            if (isAnimated) {
+                val satellitesAmount = random.nextInt(maxSatellitesAmount)
+                var currentMaxOrbit =
+                    centralPlanet.totalRadius + getRandomThresholdBetweenSatellites(random)
+                var currentAngularVelocity = 1f.degToRad()
+                for (index in 0 until satellitesAmount) {
+                    val satellite = getRandomPlanetDescription(
+                        random = random,
+                        planet = planetAndInfo.planet,
+                        context = context,
+                        isStrictlyWithoutRing = true,
+                        orbitRadius = currentMaxOrbit,
+                        orbitAngle = index * (360f / satellitesAmount).degToRad(),
+                        angularVelocity = currentAngularVelocity,
+                        sizeFactor = 0.01f + 0.07f * random.nextFloat()
+                    )
+                    currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
+                    currentAngularVelocity /= 1.85f + 0.3f * random.nextFloat()
+                    planets.add(satellite)
+                }
             }
         }
 

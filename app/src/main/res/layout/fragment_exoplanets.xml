@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stars_background"
     tools:context=".ui.exoplanets.ExoplanetsFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/top_app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/exoplanets_menu" />
 

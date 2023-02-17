@@ -41,22 +41,15 @@ class FavoritePlanetsAdapter(
             name.text = planet.planet.getPlanetName(context)
             age.text = context.getAgeStringForMainScreen(planet.ageOnPlanet)
 
-//            val view = if (planet.planetType != null) {
-//                val v = PlanetView(context)
-//                v.setPlanet(planet)
-//                v
-//            } else {
-//                val v = PlanetView3d(activity, planet)
-//                v
-//            }
-            val view = PlanetView3d(activity, planet, false, false)
+            val view = PlanetView3d(
+                activityContext = activity,
+                planetAndInfo = planet,
+                zOrderOnTop = false,
+                isAnimated = false
+            )
 
             planetView3d.removeAllViews()
             planetView3d.addView(view)
-//            if (planetView3d.childCount == 0) {
-//            }
-
-            //image.setPlanet(planet)
             itemView.setOnClickListener { clickListener(planet) }
         }
     }

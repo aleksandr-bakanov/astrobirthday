@@ -1,9 +1,12 @@
 package bav.astrobirthday.ui.common.opengl
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import bav.astrobirthday.R
 import bav.astrobirthday.domain.model.PlanetAndInfo
 
@@ -17,7 +20,6 @@ class PlanetView3d(
     private val renderer: PlanetView3dRenderer
 
     init {
-
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2)
 
@@ -25,22 +27,30 @@ class PlanetView3d(
         holder.setFormat(PixelFormat.RGBA_8888)
         setZOrderOnTop(zOrderOnTop)
 
-        val backgroundColor = Color.valueOf(activityContext.getColor(R.color.backgroundBlack1))
+        val backgroundColor = ContextCompat.getColor(activityContext, R.color.backgroundBlack1)
         val colorArray = if (zOrderOnTop)
             floatArrayOf(0f, 0f, 0f)
         else floatArrayOf(
-            backgroundColor.red(), backgroundColor.green(), backgroundColor.blue()
+            backgroundColor.red.toColorFloat(),
+            backgroundColor.green.toColorFloat(),
+            backgroundColor.blue.toColorFloat()
         )
 
         renderer = PlanetView3dRenderer(activityContext, planetAndInfo, colorArray, isAnimated)
 
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(renderer)
+
+        if (isAnimated.not()) {
+            renderMode = RENDERMODE_WHEN_DIRTY
+        }
     }
 
     fun setZoom(zoom: Float) {
         renderer.zoom = zoom
         requestRender()
     }
+
+    private fun Int.toColorFloat(): Float = this / 256f
 
 }

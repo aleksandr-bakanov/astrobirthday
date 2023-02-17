@@ -1,7 +1,6 @@
 package bav.astrobirthday.ui.planet
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.navigation.fragment.findNavController
@@ -85,7 +84,11 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         })
 
         root.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {}
+            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
+                view3d?.setZoom(
+                    if (startId == R.id.planet_fragment_motion_start) 0f else 1f
+                )
+            }
 
             override fun onTransitionChange(
                 p0: MotionLayout?,
@@ -93,11 +96,15 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                 endId: Int,
                 progress: Float
             ) {
-                Log.d("cqhg43", "cqhg43: onTransitionChange progress = $progress")
                 view3d?.setZoom(progress)
             }
 
-            override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {}
+            override fun onTransitionCompleted(p0: MotionLayout?, currentId: Int) {
+                view3d?.setZoom(
+                    if (currentId == R.id.planet_fragment_motion_start) 0f else 1f
+                )
+            }
+
             override fun onTransitionTrigger(
                 p0: MotionLayout?,
                 triggerId: Int,
