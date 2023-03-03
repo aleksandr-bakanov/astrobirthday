@@ -73,9 +73,9 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var initialized = false
     private var isDataSet = false
 
-    private var angle = 0f
+    private var angle = START_ANGLE
 
-    private var animator = ValueAnimator.ofFloat(0f, MAX_ANGLE).apply {
+    private var animator = ValueAnimator.ofFloat(START_ANGLE, FINISH_ANGLE).apply {
         addUpdateListener {
             angle = it.animatedValue as Float
             invalidate()
@@ -190,7 +190,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     override fun onRestoreInstanceState(state: Parcelable?) {
         if (state is Bundle) {
             animator.currentPlayTime =
-                ((state.getFloat("angle") / MAX_ANGLE) * animator.duration).toLong()
+                (((state.getFloat("angle") - START_ANGLE) / MAX_ANGLE) * animator.duration).toLong()
             super.onRestoreInstanceState(state.getParcelable("superState"))
         } else {
             super.onRestoreInstanceState(state)
@@ -237,5 +237,8 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private companion object {
         const val MAX_ANGLE = 2 * PI.toFloat()
+
+        const val START_ANGLE = PI.toFloat()
+        const val FINISH_ANGLE = 3 * PI.toFloat()
     }
 }

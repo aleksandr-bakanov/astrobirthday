@@ -111,6 +111,11 @@
             android:text="System" />
     </com.google.android.material.tabs.TabLayout>
 
+    <bav.astrobirthday.ui.common.PlanetAnimation
+        android:id="@+id/planet_animation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
@@ -119,10 +124,5 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    <bav.astrobirthday.ui.common.PlanetAnimation
-        android:id="@+id/planet_animation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

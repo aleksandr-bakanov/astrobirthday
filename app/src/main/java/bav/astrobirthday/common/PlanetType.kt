@@ -10,7 +10,7 @@ enum class PlanetType(val imageResId: Int) {
     CERES(R.drawable.ceres_pic),
     JUPITER(R.drawable.jupiter_pic),
     SATURN(R.drawable.saturn_pic),
-    URANUS(R.drawable.neptune_pic),
+    URANUS(R.drawable.uranus_pic),
     NEPTUNE(R.drawable.neptune_pic),
     PLUTO(R.drawable.pluto_pic),
     HAUMEA(R.drawable.haumea_pic),
