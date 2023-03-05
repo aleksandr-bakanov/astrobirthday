@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -32,8 +31,6 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
-
         super.onCreate(savedInstanceState)
 
 //        setBackgroundResource(R.drawable.stars2k)
@@ -48,8 +45,10 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
         lifecycleScope.launch {
             navController.currentBackStackEntryFlow
                 .collect { navBackStackEntry ->
-                    binding.bottomNavView.isVisible =
-                        navBackStackEntry.destination.id != R.id.nav_setup
+                    val isBottomNavVisible = setOf(
+                        R.id.nav_setup, R.id.nav_welcome
+                    ).contains(navBackStackEntry.destination.id).not()
+                    binding.bottomNavView.isVisible = isBottomNavVisible
                 }
         }
 

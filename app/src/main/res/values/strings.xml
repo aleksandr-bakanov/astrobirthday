@@ -5,6 +5,10 @@
     <string name="title_home">Solar</string>
     <string name="title_settings">Settings</string>
 
+    <!-- Welcome screen -->
+    <string name="welcome_title">Welcome to Astro Birthday!</string>
+    <string name="welcome_button_text">Let\'s go!</string>
+
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
     <string name="title_exoplanets">Exoplanets</string>
