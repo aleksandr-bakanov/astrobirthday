@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import bav.astrobirthday.R
+import bav.astrobirthday.ui.common.GradientButton
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 
 @Composable
@@ -48,7 +49,7 @@ fun WelcomeScreen() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.7f)
+                .fillMaxHeight(fraction = 0.75f)
                 .constrainAs(column) {
                     top.linkTo(topGuideline)
                     start.linkTo(parent.start)
@@ -68,6 +69,7 @@ fun WelcomeScreen() {
             Text(
                 text = stringResource(id = R.string.welcome_title),
                 textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body1,
                 fontSize = 18.sp,
                 color = colorResource(id = R.color.white2)
             )
@@ -80,18 +82,18 @@ fun WelcomeScreen() {
                     .paint(painter = painterResource(id = R.drawable.vector_astronaut))
             )
 
-            Button(
-                onClick = { },
+            GradientButton(
+                text = stringResource(id = R.string.welcome_button_text),
                 modifier = Modifier
-            ) {
-                Text(text = stringResource(id = R.string.welcome_button_text))
-            }
+                    .fillMaxWidth(fraction = 0.5f)
+            )
         }
     }
 }
 
+
 @Composable
-@Preview(device = Devices.PIXEL)
+@Preview(device = Devices.PIXEL_4_XL)
 fun SetupScreenPreview() {
     AstroBirthdayTheme {
         WelcomeScreen()
