@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import bav.astrobirthday.domain.model.PlanetAndInfo
+import bav.astrobirthday.ui.common.opengl.getPlanetTextureId
+import bav.astrobirthday.ui.common.opengl.planetImagesByTextureId
 
 class PlanetView @JvmOverloads constructor(
     context: Context,
@@ -15,7 +17,9 @@ class PlanetView @JvmOverloads constructor(
         if (desc.planetType != null) {
             setImageResource(desc.planetType.imageResId)
         } else {
-            setImageDrawable(PlanetDrawable(context, desc.planet))
+            planetImagesByTextureId[getPlanetTextureId(desc.planet.planetName)]?.let {
+                setImageResource(it)
+            }
         }
     }
 }

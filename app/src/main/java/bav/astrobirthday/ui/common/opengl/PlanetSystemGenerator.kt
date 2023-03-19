@@ -9,7 +9,7 @@ import kotlin.math.log10
 import kotlin.random.Random
 
 private const val doubleSystemProbability = 0f
-private const val ringProbability = 0.2f
+private const val ringProbability = 0f
 private const val maxSatellitesAmount = 11
 private const val minThresholdBetweenSatellites = 1f
 private const val maxThresholdBetweenSatellites = 3f
@@ -85,7 +85,8 @@ fun getPlanetSystemDescription(
                         orbitRadius = currentMaxOrbit,
                         orbitAngle = index * (360f / satellitesAmount).degToRad(),
                         angularVelocity = currentAngularVelocity,
-                        sizeFactor = 0.01f + 0.07f * random.nextFloat()
+                        sizeFactor = 0.01f + 0.07f * random.nextFloat(),
+                        isSatellite = true
                     )
                     currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
                     currentAngularVelocity /= 1.85f + 0.3f * random.nextFloat()
@@ -98,6 +99,13 @@ fun getPlanetSystemDescription(
             planets = planets
         )
     }
+}
+
+fun getPlanetTextureId(planetName: String): Int {
+    val random = Random(planetName.sha1().contentHashCode())
+    isSystemDouble(random)
+    isRing(random)
+    return getRandomPlanetTexture(random, TextureType.Unknown)
 }
 
 fun getRandomThresholdBetweenSatellites(random: Random): Float {
@@ -140,12 +148,11 @@ fun getRandomPlanetDescription(
     orbitAngle: Float = 0f,
     angularVelocity: Float = 0f,
     sizeFactor: Float = 1f,
-    isRandomTexture: Boolean = false
+    isRandomTexture: Boolean = false,
+    isSatellite: Boolean = false
 ): PlanetRenderData {
 
     val planetRadius = getRenderPlanetRadius(planet) * sizeFactor
-    val textureType =
-        if (isRandomTexture) TextureType.Unknown else getTextureTypeByRadius(random, planetRadius)
 
     val ring: Ring? = if (isStrictlyWithoutRing.not() && isRing(random)) {
         Ring(
@@ -158,6 +165,13 @@ fun getRandomPlanetDescription(
     val sphere = Sphere(
         radius = planetRadius
     )
+
+    val textureResId = when {
+        isSatellite -> getRandomSatelliteTexture(random)
+        isRandomTexture -> getRandomPlanetTexture(random, TextureType.Unknown)
+        else -> getRandomPlanetTexture(random, getTextureTypeByRadius(random, planetRadius))
+    }
+
     return PlanetRenderData(
         axisRotationSpeed = random.nextFloat() * 3f,
         orbitRadius = orbitRadius,
@@ -167,7 +181,7 @@ fun getRandomPlanetDescription(
         ring = ring,
         sphereTexture = TextureUtils.loadTexture(
             context,
-            getRandomPlanetTexture(random, textureType)
+            textureResId
         ),
         ringTexture = if (ring != null) {
             TextureUtils.loadTexture(context, getRandomRingTexture(random))
@@ -190,9 +204,14 @@ fun getRandomPlanetTexture(random: Random, textureType: TextureType): Int {
         TextureType.Primordial -> primordialTextures
         TextureType.Rock -> rockTextures
         TextureType.Terrestrial -> terrestrialTextures
+        TextureType.TerrestrialClouds -> terrestrialCloudsTextures
         TextureType.Volcanic -> volcanicTextures
         TextureType.Venusian -> venusianTextures
         else -> allPlanetTextures[random.nextInt(allPlanetTextures.size)]
     }
     return textures[random.nextInt(textures.size)]
+}
+
+fun getRandomSatelliteTexture(random: Random): Int {
+    return satelliteTextures[random.nextInt(satelliteTextures.size)]
 }
