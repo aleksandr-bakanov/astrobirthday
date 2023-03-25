@@ -8,6 +8,7 @@
 
     <!-- Welcome screen -->
     <string name="welcome_title">Велкам ту Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Укажи свой день рождения</string>
     <string name="welcome_button_text">Поехали!</string>
 
     <!-- Exoplanets -->

@@ -7,6 +7,7 @@
 
     <!-- Welcome screen -->
     <string name="welcome_title">Welcome to Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Set your birthday</string>
     <string name="welcome_button_text">Let\'s go!</string>
 
     <!-- Exoplanets -->

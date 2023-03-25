@@ -20,5 +20,6 @@ class BirthdayUpdateWorker(
 
     companion object {
         const val UNIQUE_WORK_NAME = "bav.astrobirthday.birthdays_update"
+        const val UNIQUE_ONE_TIME_WORK_NAME = "bav.astrobirthday.birthdays_update_one_time"
     }
 }

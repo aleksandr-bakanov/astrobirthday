@@ -23,6 +23,7 @@ import bav.astrobirthday.ui.settings.SettingsViewModel
 import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
+import bav.astrobirthday.ui.welcome.WelcomeViewModel
 import bav.astrobirthday.utils.SolarPlanetsUpdateUseCase
 import com.squareup.moshi.Moshi
 import org.koin.android.ext.koin.androidContext
@@ -56,6 +57,7 @@ val appModule = module {
         )
     }
     viewModel { SetupViewModel(get(), get()) }
+    viewModel { WelcomeViewModel(get(), get()) }
 
     factory { SyncPlanetsInfo(get(), get(), get()) }
     factory { GetExoplanets(get()) }

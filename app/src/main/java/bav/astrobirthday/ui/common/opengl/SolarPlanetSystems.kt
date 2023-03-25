@@ -56,7 +56,7 @@ val solarPlanetSystems = mapOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.06f,
-                sphereTextureResId = R.drawable.tex_rock_1,
+                sphereTextureResId = R.drawable.tex_rock_satellite_1,
                 orbitRadius = 2.7f,
                 orbitAngle = 0f,
                 angularVelocity = 0.5f.degToRad()
@@ -64,7 +64,7 @@ val solarPlanetSystems = mapOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.05f,
-                sphereTextureResId = R.drawable.tex_rock_2,
+                sphereTextureResId = R.drawable.tex_rock_satellite_2,
                 orbitRadius = 5f,
                 orbitAngle = 180f.degToRad(),
                 angularVelocity = 0.25f.degToRad()
@@ -138,7 +138,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 0f,
                 angularVelocity = 1f.degToRad(),
                 sphereRadius = 0.02f,
-                sphereTextureResId = R.drawable.tex_ice_1,
+                sphereTextureResId = R.drawable.tex_ice_satellite_1,
             ),
             PlanetData(
                 // Enceladus
@@ -147,7 +147,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 50f.degToRad(),
                 angularVelocity = 0.5f.degToRad(),
                 sphereRadius = 0.02f,
-                sphereTextureResId = R.drawable.tex_ice_2,
+                sphereTextureResId = R.drawable.tex_ice_satellite_2,
             ),
             PlanetData(
                 // Tethys
@@ -156,7 +156,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 100f.degToRad(),
                 angularVelocity = 0.25f.degToRad(),
                 sphereRadius = 0.04f,
-                sphereTextureResId = R.drawable.tex_ice_3,
+                sphereTextureResId = R.drawable.tex_ice_satellite_3,
             ),
             PlanetData(
                 // Dione
@@ -165,7 +165,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 150f.degToRad(),
                 angularVelocity = 0.125f.degToRad(),
                 sphereRadius = 0.04f,
-                sphereTextureResId = R.drawable.tex_ice_4,
+                sphereTextureResId = R.drawable.tex_ice_satellite_1,
             ),
             PlanetData(
                 // Rhea
@@ -174,7 +174,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 200f.degToRad(),
                 angularVelocity = 0.0625f.degToRad(),
                 sphereRadius = 0.05f,
-                sphereTextureResId = R.drawable.tex_ice_5,
+                sphereTextureResId = R.drawable.tex_ice_satellite_2,
             ),
             PlanetData(
                 // Titan
@@ -183,7 +183,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 250f.degToRad(),
                 angularVelocity = 0.03125f.degToRad(),
                 sphereRadius = 0.15f,
-                sphereTextureResId = R.drawable.tex_venusian_11,
+                sphereTextureResId = R.drawable.tex_venusian_2,
             ),
             PlanetData(
                 // Iapetus
@@ -192,7 +192,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = 300f.degToRad(),
                 angularVelocity = 0.015625f.degToRad(),
                 sphereRadius = 0.05f,
-                sphereTextureResId = R.drawable.tex_ice_7,
+                sphereTextureResId = R.drawable.tex_ice_satellite_3,
             )
         )
     ),
@@ -230,7 +230,7 @@ val solarPlanetSystems = mapOf(
                 orbitAngle = PI.toFloat(),
                 angularVelocity = 1f.degToRad(),
                 sphereRadius = 0.3f,
-                sphereTextureResId = R.drawable.tex_rock_3,
+                sphereTextureResId = R.drawable.tex_rock_1,
             )
         )
     ),
