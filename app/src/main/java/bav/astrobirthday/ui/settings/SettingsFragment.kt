@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.findNavController
 import bav.astrobirthday.R
 import bav.astrobirthday.ui.common.ComposeFragment
+import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : ComposeFragment() {
@@ -13,7 +14,11 @@ class SettingsFragment : ComposeFragment() {
     private val viewModel: SettingsViewModel by viewModel()
 
     override fun ComposeView.setContent() {
-        setContent { SettingsScreen(viewModel) }
+        setContent {
+            AstroBirthdayTheme {
+                SettingsScreen(viewModel)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

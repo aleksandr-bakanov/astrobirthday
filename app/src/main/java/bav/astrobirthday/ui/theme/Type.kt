@@ -19,6 +19,11 @@ val Typography = Typography(
         fontWeight = FontWeight.W500,
         fontSize = 16.sp
     ),
+    h6 = TextStyle(
+        fontFamily = SfProDisplay,
+        fontWeight = FontWeight.W500,
+        fontSize = 20.sp
+    ),
     button = TextStyle(
         fontFamily = SfProDisplay,
         fontWeight = FontWeight.W500,

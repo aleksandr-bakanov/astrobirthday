@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
         enqueuePeriodicBirthdayUpdateWorker(applicationContext)
 
-        setupInAppUpdates()
+        //setupInAppUpdates()
     }
 
     override fun onResume() {

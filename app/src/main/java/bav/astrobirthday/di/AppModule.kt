@@ -26,11 +26,17 @@ import bav.astrobirthday.ui.setup.SetupViewModel
 import bav.astrobirthday.ui.welcome.WelcomeViewModel
 import bav.astrobirthday.utils.SolarPlanetsUpdateUseCase
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val appModule = module {
+
+    single(named("IoDispatcher")) {
+        Dispatchers.IO
+    }
 
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<SolarPlanetsRepository> { SolarPlanetsRepositoryImpl(get()) }
@@ -57,7 +63,7 @@ val appModule = module {
         )
     }
     viewModel { SetupViewModel(get(), get()) }
-    viewModel { WelcomeViewModel(get(), get()) }
+    viewModel { WelcomeViewModel(get(), get(), get(named("IoDispatcher"))) }
 
     factory { SyncPlanetsInfo(get(), get(), get()) }
     factory { GetExoplanets(get()) }

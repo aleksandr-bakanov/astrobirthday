@@ -58,7 +58,7 @@ fun WelcomeScreen(
     val dialogState = rememberMaterialDialogState()
 
     Image(
-        painter = painterResource(id = R.drawable.stars_background),
+        painter = painterResource(id = R.drawable.transparent_1_px),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize()
@@ -160,7 +160,6 @@ private fun getTitle(uiState: WelcomeUiState): String {
         is WelcomeUiState.Calendar -> stringResource(id = R.string.welcome_set_your_birthday_title)
         else -> ""
     }
-
 }
 
 @Composable

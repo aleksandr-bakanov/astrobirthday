@@ -8,10 +8,12 @@ import androidx.work.WorkInfo
 import bav.astrobirthday.common.SingleLiveEvent
 import bav.astrobirthday.data.BirthdayUpdater
 import bav.astrobirthday.domain.UserRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 sealed class WelcomeUiState {
@@ -22,7 +24,8 @@ sealed class WelcomeUiState {
 
 class WelcomeViewModel(
     private val userRepository: UserRepository,
-    private val birthdayUpdater: BirthdayUpdater
+    private val birthdayUpdater: BirthdayUpdater,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _state: MutableLiveData<WelcomeUiState> = MutableLiveData(WelcomeUiState.Loading)
@@ -62,8 +65,10 @@ class WelcomeViewModel(
                     viewModelScope.launch {
                         while (true) {
                             val data =
-                                birthdayUpdater.getBirthdayUpdateWorkerStateObserver().get()[0]
-                            delay(500)
+                                withContext(ioDispatcher) {
+                                    birthdayUpdater.getBirthdayUpdateWorkerStateObserver().get()
+                                }[0]
+                            delay(250)
                             if (data.state == WorkInfo.State.SUCCEEDED)
                                 break
                         }
