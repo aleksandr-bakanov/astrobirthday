@@ -1,6 +1,5 @@
 package bav.astrobirthday.di
 
-import bav.astrobirthday.MainViewModel
 import bav.astrobirthday.data.BirthdayUpdater
 import bav.astrobirthday.data.SolarPlanetsDataSource
 import bav.astrobirthday.data.SolarPlanetsRepositoryImpl
@@ -24,7 +23,6 @@ import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
 import bav.astrobirthday.ui.welcome.WelcomeViewModel
-import bav.astrobirthday.utils.SolarPlanetsUpdateUseCase
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
@@ -39,7 +37,7 @@ val appModule = module {
     }
 
     single<UserRepository> { UserRepositoryImpl(get()) }
-    single<SolarPlanetsRepository> { SolarPlanetsRepositoryImpl(get()) }
+    single<SolarPlanetsRepository> { SolarPlanetsRepositoryImpl(get(), get()) }
     single { PlanetDb.create(androidContext()) }
     single { get<PlanetDb>().planetDao() }
     factory { UserDataSource(get()) }
@@ -49,7 +47,6 @@ val appModule = module {
         Moshi.Builder().build()
     }
 
-    viewModel { MainViewModel(get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { (planetName: String) -> PlanetViewModel(get(), get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
@@ -69,7 +66,6 @@ val appModule = module {
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
     factory { SetupUseCase(get()) }
-    factory { SolarPlanetsUpdateUseCase(get(), get()) }
     factory { DateParseUseCase() }
     factory { BirthdayUpdater(androidContext()) }
 }
