@@ -19,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -51,14 +50,10 @@ fun SettingsScreen(
     onSortByBirthdayClick: () -> Unit = {}
 ) {
     Image(
-        painter = painterResource(id = R.drawable.transparent_1_px),
+        painter = painterResource(id = R.drawable.stars_background),
+        contentScale = ContentScale.FillBounds,
         contentDescription = null,
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(
-                painter = painterResource(id = R.drawable.stars_background),
-                contentScale = ContentScale.FillBounds
-            )
+        modifier = Modifier.fillMaxSize()
     )
 
     Column(modifier = Modifier.fillMaxSize()) {

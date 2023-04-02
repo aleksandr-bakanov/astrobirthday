@@ -2,31 +2,34 @@ package bav.astrobirthday.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.findNavController
-import bav.astrobirthday.databinding.FragmentHomeBinding
-import bav.astrobirthday.ui.common.BaseFragment
-import bav.astrobirthday.utils.setupToolbar
+import bav.astrobirthday.ui.common.ComposeFragment
+import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class HomeFragment : ComposeFragment() {
 
-    private val homeViewModel: HomeViewModel by viewModel()
+    private val viewModel: HomeViewModel by viewModel()
+
+    override fun ComposeView.setContent() {
+        setContent {
+            AstroBirthdayTheme {
+                HomeScreen(viewModel)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(requireBinding()) {
-            setupToolbar(topAppBar)
-
-            val adapter = SolarPlanetsAdapter { item ->
-                findNavController().navigate(
-                    HomeFragmentDirections.actionNavHomeToPlanetFragment(item.planet.planetName)
-                )
-            }
-            recyclerView.adapter = adapter
-
-            homeViewModel.solarPlanets.observe(viewLifecycleOwner) {
-                adapter.submitList(it)
+        viewModel.events.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is HomeViewModel.Event.GoToPlanet ->
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionNavHomeToPlanetFragment(event.planetName)
+                    )
+                else -> Unit
             }
         }
     }
