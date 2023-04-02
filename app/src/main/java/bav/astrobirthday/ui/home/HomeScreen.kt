@@ -10,13 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -35,7 +40,6 @@ import bav.astrobirthday.R
 import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.PlanetAndInfo
-import bav.astrobirthday.ui.common.TopBar
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 import bav.astrobirthday.utils.getAgeStringForMainScreen
 import bav.astrobirthday.utils.localDateToString
@@ -44,19 +48,21 @@ import java.time.LocalDate
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
-    val state by viewModel.solarPlanets.observeAsState()
+    val state by viewModel.uiState.observeAsState()
     state?.let {
         HomeScreen(
-            planetAndInfos = it,
-            goToPlanet = viewModel::goToPlanet
+            uiState = it,
+            goToPlanet = viewModel::goToPlanet,
+            toggleByDate = viewModel::toggleSortSolarPlanetsByDate
         )
     }
 }
 
 @Composable
 fun HomeScreen(
-    planetAndInfos: List<PlanetAndInfo>,
-    goToPlanet: (String) -> Unit
+    uiState: HomeUiState,
+    goToPlanet: (String) -> Unit,
+    toggleByDate: () -> Unit
 ) {
     Image(
         painter = painterResource(id = R.drawable.stars_background),
@@ -67,8 +73,28 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopBar(
-                title = stringResource(id = R.string.screen_solar_system)
+            TopAppBar(
+                backgroundColor = Color.Transparent,
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.screen_solar_system),
+                        color = colorResource(id = R.color.white2),
+                        style = MaterialTheme.typography.h6,
+                    )
+                },
+                actions = {
+                    IconButton(onClick = toggleByDate) {
+                        Icon(
+                            tint = MaterialTheme.colors.primary,
+                            painter = painterResource(
+                                id = if (uiState.isByDate) R.drawable.ic_sort_bd_filled
+                                else R.drawable.ic_sort_bd
+                            ),
+                            contentDescription = null,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                }
             )
         },
         backgroundColor = Color.Transparent
@@ -78,7 +104,7 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(horizontal = 8.dp),
         ) {
-            items(planetAndInfos) {
+            items(uiState.planets) {
                 PlanetItem(
                     item = it,
                     goToPlanet = goToPlanet
