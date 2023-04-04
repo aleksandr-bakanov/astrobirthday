@@ -19,5 +19,6 @@ val DeepOrangeA700Dark = Color(0xffa30000)
 val Yellow500 = Color(0xffffeb3b)
 
 val Blue = Color(0xff1386bc)
+val GrayText = Color(0xff6F8086)
 val BackgroundBlack = Color(0xff09080A)
 val GrayInactive = Color(0xff696A6D)

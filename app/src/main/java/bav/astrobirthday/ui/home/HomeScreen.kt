@@ -41,7 +41,8 @@ import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
-import bav.astrobirthday.utils.getAgeStringForMainScreen
+import bav.astrobirthday.ui.theme.GrayText
+import bav.astrobirthday.utils.getAgeStringShort
 import bav.astrobirthday.utils.localDateToString
 import bav.astrobirthday.utils.orNa
 import java.time.LocalDate
@@ -156,11 +157,22 @@ private fun PlanetItem(
                     .fillMaxHeight()
                     .align(Alignment.Center)
             ) {
-                Text(text = LocalContext.current.getAgeStringForMainScreen(item.ageOnPlanet))
                 Text(
-                    text = item.nearestBirthday?.let { LocalContext.current.localDateToString(it) }
-                        .orNa(),
-                    color = if (isByDate) MaterialTheme.colors.primary else colorResource(id = R.color.white2)
+                    text = LocalContext.current.getAgeStringShort(item.ageOnPlanet),
+                    fontSize = 18.sp,
+                    color = colorResource(id = R.color.white2),
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = item.nearestBirthday?.let {
+                        stringResource(
+                            R.string.next_birthday,
+                            LocalContext.current.localDateToString(it)
+                        )
+                    }.orNa(),
+                    style = MaterialTheme.typography.caption,
+                    fontSize = 12.sp,
+                    color = if (isByDate) MaterialTheme.colors.primary else GrayText
                 )
             }
         }

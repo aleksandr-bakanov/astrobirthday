@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/name"
-        style="?attr/textAppearanceBody1"
+        style="?attr/textAppearanceBody2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reference"
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/value"
-        style="?attr/textAppearanceBody1"
+        style="?attr/textAppearanceBody2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -34,10 +34,10 @@
 
     <ImageView
         android:id="@+id/planet_reference_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="@dimen/planet_description_margin"
-        android:src="@drawable/ic_baseline_link_24"
+        android:src="@drawable/ic_link"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/value"
         app:layout_constraintTop_toTopOf="parent"

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/search_icon"
         app:showAsAction="always|collapseActionView"
         app:actionLayout="@layout/search_view_layout"
-        android:title="Search"/>
+        android:title="@string/search_icon_title" />
     <item
-        android:id="@+id/action_filter"
-        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:id="@+id/action_sort"
+        android:icon="@drawable/sort_icon"
         app:showAsAction="always|collapseActionView"
-        android:title="Filters"/>
+        android:title="@string/sort_icon_title" />
 </menu>

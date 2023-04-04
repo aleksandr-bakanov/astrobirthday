@@ -15,6 +15,8 @@
     <string name="exoplanet_name">Имя: %s</string>
     <string name="title_exoplanets">Экзопланеты</string>
     <string name="search_hint">Искать %s</string>
+    <string name="search_icon_title">Поиск</string>
+    <string name="sort_icon_title">Сортировка</string>
 
     <!-- Settings -->
     <string name="your_birthday">Твой день рождения</string>

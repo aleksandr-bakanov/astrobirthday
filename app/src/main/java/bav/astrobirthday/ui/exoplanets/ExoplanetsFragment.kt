@@ -54,7 +54,7 @@ class ExoplanetsFragment :
 
             setupSearchView()
 
-            val actionFilter = topAppBar.menu.findItem(R.id.action_filter)
+            val actionFilter = topAppBar.menu.findItem(R.id.action_sort)
             viewModel.filterIcon.observe(viewLifecycleOwner) {
                 actionFilter.setIcon(it)
             }

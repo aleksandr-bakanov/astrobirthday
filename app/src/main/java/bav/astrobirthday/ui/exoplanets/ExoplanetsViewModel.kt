@@ -48,9 +48,9 @@ class ExoplanetsViewModel(
 
     private val filtersflow = filtering.onEach { filterBy ->
         if (filterBy.isDefault) {
-            _filterIcon.value = R.drawable.ic_baseline_filter_list_24
+            _filterIcon.value = R.drawable.sort_icon
         } else {
-            _filterIcon.value = R.drawable.ic_baseline_filter_list_active_24
+            _filterIcon.value = R.drawable.sort_icon
         }
     }
 

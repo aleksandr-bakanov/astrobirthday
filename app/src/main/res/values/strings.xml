@@ -14,6 +14,8 @@
     <string name="exoplanet_name">Name: %s</string>
     <string name="title_exoplanets">Exoplanets</string>
     <string name="search_hint">Search %s</string>
+    <string name="search_icon_title">Search</string>
+    <string name="sort_icon_title">Search</string>
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
