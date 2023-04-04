@@ -54,7 +54,6 @@ val appModule = module {
     viewModel { SettingsViewModel(get()) }
     viewModel { (filterBy: PlanetFilters, sortBy: PlanetSorting) ->
         FilterViewModel(
-            get(),
             filterBy,
             sortBy
         )

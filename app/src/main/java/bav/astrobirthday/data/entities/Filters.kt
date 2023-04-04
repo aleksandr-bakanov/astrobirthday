@@ -21,7 +21,12 @@ enum class SortOrder(@StringRes val resId: Int) {
     ASC(R.string.sort_by_asc)
 }
 
+fun SortOrder.invert(): SortOrder {
+    return if (this == SortOrder.DESC) SortOrder.ASC else SortOrder.DESC
+}
+
 data class PlanetSorting(val column: Column = NAME, val order: SortOrder = SortOrder.ASC)
+
 val PlanetSorting.isDefault: Boolean
     get() = this == PlanetSorting()
 

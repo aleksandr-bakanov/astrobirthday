@@ -49,10 +49,9 @@
 
     <ImageButton
         android:id="@+id/back_button"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="14dp"
         android:adjustViewBounds="true"
         android:background="@drawable/bg_icon_button"
         android:contentDescription="@string/nav_app_bar_navigate_up_description"

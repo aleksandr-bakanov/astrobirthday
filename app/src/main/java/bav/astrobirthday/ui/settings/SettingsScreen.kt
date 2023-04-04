@@ -2,7 +2,6 @@ package bav.astrobirthday.ui.settings
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,15 +9,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Switch
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -38,7 +38,6 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         SettingsScreen(
             it,
             viewModel::pickBirthday,
-            viewModel::toggleSortSolarPlanetsByDate
         )
     }
 }
@@ -47,7 +46,6 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 fun SettingsScreen(
     state: SettingsViewState,
     onBirthdayClick: () -> Unit = {},
-    onSortByBirthdayClick: () -> Unit = {}
 ) {
     Image(
         painter = painterResource(id = R.drawable.stars_background),
@@ -56,77 +54,63 @@ fun SettingsScreen(
         modifier = Modifier.fillMaxSize()
     )
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Row(
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                backgroundColor = Color.Transparent,
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.title_settings),
+                        color = colorResource(id = R.color.white2),
+                        style = MaterialTheme.typography.h6,
+                    )
+                }
+            )
+        },
+        backgroundColor = Color.Transparent
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(AppBarDefaults.ContentPadding)
-                .height(56.dp),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
+            Row(
+                modifier = Modifier
+                    .height(56.dp)
+                    .fillMaxWidth()
+                    .clickable { onBirthdayClick() }
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.your_birthday),
+                    style = MaterialTheme.typography.body2,
+                    textAlign = TextAlign.Start,
+                    color = colorResource(id = R.color.white2),
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = Formatters.dateToString(state.birthday),
+                    style = MaterialTheme.typography.button,
+                    textAlign = TextAlign.End,
+                    color = colorResource(id = R.color.white2),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = stringResource(R.string.title_settings),
+                text = stringResource(id = R.string.credits),
+                style = MaterialTheme.typography.caption,
+                textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.white2),
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(start = 12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
             )
+            Spacer(modifier = Modifier.height(56.dp))
         }
-        Row(
-            modifier = Modifier
-                .height(56.dp)
-                .fillMaxWidth()
-                .clickable { onBirthdayClick() }
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(id = R.string.your_birthday),
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Start,
-                color = colorResource(id = R.color.white2),
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = Formatters.dateToString(state.birthday),
-                style = MaterialTheme.typography.button,
-                textAlign = TextAlign.End,
-                color = colorResource(id = R.color.white2),
-                modifier = Modifier.weight(1f)
-            )
-        }
-        Row(
-            modifier = Modifier
-                .height(56.dp)
-                .fillMaxWidth()
-                .clickable { onSortByBirthdayClick() }
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(id = R.string.solar_planets_by_date_title),
-                style = MaterialTheme.typography.body2,
-                textAlign = TextAlign.Start,
-                color = colorResource(id = R.color.white2),
-                modifier = Modifier.weight(1f)
-            )
-            Switch(
-                checked = state.sortSolarPlanetsByDate,
-                onCheckedChange = null
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = stringResource(id = R.string.credits),
-            style = MaterialTheme.typography.caption,
-            textAlign = TextAlign.Center,
-            color = colorResource(id = R.color.white2),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp)
-        )
-        Spacer(modifier = Modifier.height(56.dp))
     }
+
 }
 
 @Composable
@@ -136,7 +120,6 @@ fun SettingsScreenPreview() {
         SettingsScreen(
             SettingsViewState(
                 birthday = LocalDate.parse("2015-02-02"),
-                sortSolarPlanetsByDate = false
             )
         )
     }

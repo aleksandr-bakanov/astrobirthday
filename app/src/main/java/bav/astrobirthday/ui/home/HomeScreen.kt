@@ -107,6 +107,7 @@ fun HomeScreen(
             items(uiState.planets) {
                 PlanetItem(
                     item = it,
+                    isByDate = uiState.isByDate,
                     goToPlanet = goToPlanet
                 )
             }
@@ -119,6 +120,7 @@ fun HomeScreen(
 @Composable
 private fun PlanetItem(
     item: PlanetAndInfo,
+    isByDate: Boolean,
     goToPlanet: (String) -> Unit
 ) {
     Card(
@@ -134,6 +136,7 @@ private fun PlanetItem(
             Text(
                 text = item.planet.planetName,
                 fontSize = 24.sp,
+                color = if (isByDate) colorResource(id = R.color.white2) else MaterialTheme.colors.primary,
                 modifier = Modifier
                     .padding(start = 20.dp, top = 20.dp)
                     .align(Alignment.TopStart)
@@ -154,8 +157,11 @@ private fun PlanetItem(
                     .align(Alignment.Center)
             ) {
                 Text(text = LocalContext.current.getAgeStringForMainScreen(item.ageOnPlanet))
-                Text(text = item.nearestBirthday?.let { LocalContext.current.localDateToString(it) }
-                    .orNa())
+                Text(
+                    text = item.nearestBirthday?.let { LocalContext.current.localDateToString(it) }
+                        .orNa(),
+                    color = if (isByDate) MaterialTheme.colors.primary else colorResource(id = R.color.white2)
+                )
             }
         }
     }
@@ -173,6 +179,7 @@ fun PlanetItemPreview() {
                 planetType = PlanetType.MERCURY,
                 nearestBirthday = LocalDate.now()
             ),
+            isByDate = true,
             goToPlanet = { }
         )
     }

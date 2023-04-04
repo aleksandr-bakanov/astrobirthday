@@ -53,10 +53,20 @@ fun GradientButton(
     }
 }
 
-private val blueGradient = Brush.linearGradient(
+val blueGradient = Brush.linearGradient(
     colors = listOf(
         Color(64, 205, 180),
         Color(8, 28, 133),
+    ),
+    start = Offset.Zero,
+    end = Offset.Infinite
+)
+
+val solidGrayGradient = Brush.linearGradient(
+    colors = listOf(
+        // 0D0C0E
+        Color(13, 12, 14),
+        Color(13, 12, 14),
     ),
     start = Offset.Zero,
     end = Offset.Infinite

@@ -21,11 +21,11 @@
     <color name="deepOrangeA700Dark">#a30000</color>
     <color name="yellow500">#ffeb3b</color>
 
-    <color name="backgroundDarkGrey">#161616</color>
+    <color name="backgroundDarkGrey">#0D0C0E</color>
     <color name="greyStroke">#989698</color>
     <color name="greyInactive">#696A6D</color>
     <color name="white2">#E6EFF2</color>
-    <color name="buttonsBlue">#289BAE</color>
+    <color name="buttonsBlue">#1386BC</color>
 
     <color name="backgroundBlack1">#09080A</color>
     <color name="grayText">#6F8086</color>
