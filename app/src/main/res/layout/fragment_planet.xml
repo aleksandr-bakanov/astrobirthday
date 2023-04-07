@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/stars_background"
+    android:clipChildren="false"
     app:layoutDescription="@xml/planet_fragment_motion_description">
 
     <androidx.constraintlayout.widget.Guideline
@@ -51,13 +52,13 @@
         android:id="@+id/back_button"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:padding="14dp"
         android:adjustViewBounds="true"
         android:background="@drawable/bg_icon_button"
         android:contentDescription="@string/nav_app_bar_navigate_up_description"
         android:elevation="4dp"
-        android:src="@drawable/back_nav_icon"
+        android:padding="14dp"
         android:scaleType="fitCenter"
+        android:src="@drawable/back_nav_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,7 +93,9 @@
         android:id="@+id/tab_layout"
         style="@style/Widget.App.TabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:tabIndicatorHeight="3dp"
+        app:tabIndicator="@drawable/tab_indicator">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -119,9 +122,10 @@
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingHorizontal="60dp"
         android:clipToPadding="false"
         android:orientation="vertical"
+        android:overScrollMode="never"
+        android:paddingHorizontal="32dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

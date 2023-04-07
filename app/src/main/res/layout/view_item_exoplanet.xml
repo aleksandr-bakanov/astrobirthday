@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginBottom="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/planet_icon_margin"
             android:layout_marginBottom="@dimen/planet_icon_margin"
+            android:textColor="@color/grayText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/image"
             tools:text="Age" />
@@ -56,6 +58,7 @@
             android:layout_marginEnd="@dimen/planet_icon_margin"
             android:layout_marginBottom="@dimen/planet_icon_margin"
             android:gravity="end"
+            android:textColor="@color/grayText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Nearest birthday" />

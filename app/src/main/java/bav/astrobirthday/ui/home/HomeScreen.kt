@@ -1,6 +1,8 @@
 package bav.astrobirthday.ui.home
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -65,6 +67,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
@@ -113,11 +116,15 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(horizontal = 8.dp),
         ) {
-            items(uiState.planets) {
+            items(
+                items = uiState.planets,
+                key = { it.planet.planetName }
+            ) {
                 PlanetItem(
                     item = it,
                     isByDate = uiState.isByDate,
-                    goToPlanet = goToPlanet
+                    goToPlanet = goToPlanet,
+                    modifier = Modifier.animateItemPlacement()
                 )
             }
             item { Spacer(modifier = Modifier.height(56.dp)) }
@@ -130,14 +137,15 @@ fun HomeScreen(
 private fun PlanetItem(
     item: PlanetAndInfo,
     isByDate: Boolean,
-    goToPlanet: (String) -> Unit
+    goToPlanet: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
         backgroundColor = colorResource(id = R.color.backgroundBlack1),
         elevation = 0.dp,
         shape = RoundedCornerShape(20.dp),
         onClick = { goToPlanet(item.planet.planetName) },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(140.dp)
     ) {
@@ -163,10 +171,12 @@ private fun PlanetItem(
                 )
             }
 
+            val titleColor by animateColorAsState(targetValue = if (isByDate) colorResource(id = R.color.white2) else MaterialTheme.colors.primary)
+            val subtitleColor by animateColorAsState(targetValue = if (isByDate) MaterialTheme.colors.primary else GrayText)
             Text(
                 text = item.planet.planetName,
                 fontSize = 24.sp,
-                color = if (isByDate) colorResource(id = R.color.white2) else MaterialTheme.colors.primary,
+                color = titleColor,
                 modifier = Modifier
                     .padding(start = 20.dp, top = 20.dp)
                     .align(Alignment.TopStart)
@@ -193,7 +203,7 @@ private fun PlanetItem(
                     }.orNa(),
                     style = MaterialTheme.typography.caption,
                     fontSize = 12.sp,
-                    color = if (isByDate) MaterialTheme.colors.primary else GrayText
+                    color = subtitleColor
                 )
             }
         }

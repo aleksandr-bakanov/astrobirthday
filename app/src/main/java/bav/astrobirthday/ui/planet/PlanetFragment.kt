@@ -5,6 +5,7 @@ import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
 import bav.astrobirthday.R
 import bav.astrobirthday.databinding.FragmentPlanetBinding
 import bav.astrobirthday.domain.model.Planet
@@ -132,6 +133,9 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
         recyclerView.run {
             adapter = planetDescriptionAdapter
+            itemAnimator = DefaultItemAnimator().apply {
+                supportsChangeAnimations = false
+            }
         }
     }
 

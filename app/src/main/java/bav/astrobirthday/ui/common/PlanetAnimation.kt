@@ -45,7 +45,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private val secondaryOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x28000000
+        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x14000000
         strokeWidth = 1.toPx(context)
     }
 
