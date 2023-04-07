@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.filter
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -154,13 +155,14 @@ private fun SortingItem(
                 text = stringResource(id = item.column.resId),
                 color = colorResource(id = R.color.white2),
             )
+            val angle by animateFloatAsState(targetValue = if (item.order == SortOrder.ASC) 0f else 180f)
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_up),
                 contentDescription = null,
                 tint = if (isSelected) Blue else GrayInactive,
                 modifier = Modifier
                     .size(28.dp)
-                    .rotate(if (item.order == SortOrder.ASC) 0f else 180f)
+                    .rotate(angle)
             )
         }
     }

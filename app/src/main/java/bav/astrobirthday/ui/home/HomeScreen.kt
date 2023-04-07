@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.home
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -27,7 +29,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -41,6 +46,7 @@ import bav.astrobirthday.common.PlanetType
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
+import bav.astrobirthday.ui.theme.BackgroundBlack
 import bav.astrobirthday.ui.theme.GrayText
 import bav.astrobirthday.utils.getAgeStringShort
 import bav.astrobirthday.utils.localDateToString
@@ -100,7 +106,9 @@ fun HomeScreen(
         },
         backgroundColor = Color.Transparent
     ) { paddingValues ->
+        val lazyListState = rememberLazyListState()
         LazyColumn(
+            state = lazyListState,
             contentPadding = paddingValues,
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.padding(horizontal = 8.dp),
@@ -134,6 +142,27 @@ private fun PlanetItem(
             .height(140.dp)
     ) {
         Box {
+            val painter = painterResource(id = item.planetType!!.imageResId)
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                val brush = Brush.horizontalGradient(
+                    colors = listOf(BackgroundBlack, Color.Transparent),
+                    startX = size.width / 2.5f
+                )
+                val imageSize = painter.intrinsicSize
+                val rHeight = size.height
+                val rWidth = (imageSize.width / imageSize.height) * rHeight
+                val translateX = size.width - (rWidth / 2) - (rHeight / 8)
+                translate(left = translateX) {
+                    with(painter) {
+                        draw(Size(rWidth, rHeight))
+                    }
+                }
+                drawRect(
+                    brush = brush,
+                    size = Size(width = size.width / 0.85f, height = size.height)
+                )
+            }
+
             Text(
                 text = item.planet.planetName,
                 fontSize = 24.sp,
@@ -141,14 +170,6 @@ private fun PlanetItem(
                 modifier = Modifier
                     .padding(start = 20.dp, top = 20.dp)
                     .align(Alignment.TopStart)
-            )
-            Image(
-                painter = painterResource(id = item.planetType!!.imageResId),
-                contentDescription = null,
-                contentScale = ContentScale.FillHeight,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .align(Alignment.CenterEnd)
             )
             Column(
                 verticalArrangement = Arrangement.Center,
