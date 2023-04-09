@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.RectF
 import android.os.Bundle
 import android.os.Parcelable
@@ -14,7 +15,6 @@ import androidx.core.content.ContextCompat
 import bav.astrobirthday.R
 import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
-import bav.astrobirthday.utils.getIntAttribute
 import bav.astrobirthday.utils.toPx
 import kotlin.math.PI
 import kotlin.math.atan
@@ -30,13 +30,18 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private val mainOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x55000000
+        color =
+            (ContextCompat.getColor(context, R.color.mainOrbitColor) and 0x00FFFFFF) or 0x55000000
         strokeWidth = 2.toPx(context)
     }
 
     private val planetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = context.getIntAttribute(R.attr.colorOnPrimary)
+        color = ContextCompat.getColor(context, R.color.white2)
+    }
+    private val starPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = ContextCompat.getColor(context, R.color.white2)
     }
     private val planetShadowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -45,7 +50,10 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
     private val secondaryOrbitPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        color = (context.getIntAttribute(R.attr.colorOnPrimary) and 0x00FFFFFF) or 0x14000000
+        color = (ContextCompat.getColor(
+            context,
+            R.color.planetShadowColor
+        ) and 0x00FFFFFF) or 0x14000000
         strokeWidth = 1.toPx(context)
     }
 
@@ -64,6 +72,8 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private var neighboursOrbitRects: List<RectF> = emptyList()
     private var starX: Float = 0f
     private var starY: Float = 0f
+    private val starPath = Path()
+    private val bufferStarPath = Path()
     private val starRadius: Float = 8.toPx(context)
     private val margin: Int = 16.toPx(context).toInt()
     private var a: Float = 0f
@@ -94,7 +104,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
             initialized = true
             prepareParams()
         }
-        vOffset = initialH - this.h
+        vOffset = initialH - this.h + 56.toPx(context)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -122,7 +132,8 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
                 )
 
                 // Star
-                it.drawCircle(starX, starY - vOffset, starRadius, planetPaint)
+                starPath.offset(starX, starY - vOffset, bufferStarPath)
+                it.drawPath(bufferStarPath, starPaint)
 
                 // Main planet
                 val trueAnomaly = getTrueAnomaly(angle, mainPlanetEcc)
@@ -144,13 +155,34 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         }
     }
 
-    fun getTrueAnomaly(M: Float, e: Float): Float {
+    private fun makeStarPath(
+        cx: Float,
+        cy: Float,
+        r: Float,
+        spikeDepth: Float, // [0f..1f]
+        spikes: Int,
+        path: Path
+    ) {
+        val angleStep = PI.toFloat() / spikes
+        val rInner = r * spikeDepth
+        var angle = -PI.toFloat() / 2f
+        path.reset()
+        path.moveTo(cx + cos(angle) * r, cy + sin(angle) * r)
+        for (i in 0 until spikes) {
+            angle += angleStep
+            path.lineTo(cx + cos(angle) * rInner, cy + sin(angle) * rInner)
+            angle += angleStep
+            path.lineTo(cx + cos(angle) * r, cy + sin(angle) * r)
+        }
+    }
+
+    private fun getTrueAnomaly(M: Float, e: Float): Float {
         val E = giveMeJuicyE(M, e)
         val tgHalfNu = sqrt((1 + e) / (1 - e)) * tan(E / 2)
         return atan(tgHalfNu) * 2
     }
 
-    fun giveMeJuicyE(M: Float, e: Float): Float {
+    private fun giveMeJuicyE(M: Float, e: Float): Float {
         var E: Float = M
         for (i in 0..10) {
             E -= ((E - e * sin(E) - M) / (1 - e * cos(E)))
@@ -219,6 +251,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
 
             starX = (initialW / 2) + c
             starY = initialH / 2
+            makeStarPath(0f, 0f, starRadius, 0.5f, 9, starPath)
 
             val auInPx = max(1f, a / (planet.planetOrbitSemiMajorAxis?.toFloat() ?: 1f))
 
@@ -238,7 +271,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
     private companion object {
         const val MAX_ANGLE = 2 * PI.toFloat()
 
-        const val START_ANGLE = PI.toFloat()
-        const val FINISH_ANGLE = 3 * PI.toFloat()
+        const val START_ANGLE = PI.toFloat() + (PI.toFloat() / 2f)
+        const val FINISH_ANGLE = 3 * PI.toFloat() + (PI.toFloat() / 2f)
     }
 }

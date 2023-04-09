@@ -12,5 +12,5 @@
 
     <dimen name="planet_animation_height">300dp</dimen>
 
-    <dimen name="planet_description_margin">4dp</dimen>
+    <dimen name="planet_description_margin">2dp</dimen>
 </resources>

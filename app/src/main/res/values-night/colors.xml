@@ -9,7 +9,9 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 
-    <color name="planetShadowColor">#666666</color>
+    <color name="planetShadowColor">@color/buttonsBlue</color>
+    <color name="mainOrbitColor">@color/buttonsBlue</color>
+    <color name="secondaryOrbitColor">@color/buttonsBlue</color>
 
     <color name="deepOrange900">#bf360c</color>
     <color name="deepOrange900Light">#f9683a</color>
