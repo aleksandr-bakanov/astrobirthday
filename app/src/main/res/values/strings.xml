@@ -15,42 +15,39 @@
     <string name="title_exoplanets">Exoplanets</string>
     <string name="search_hint">Search %s</string>
     <string name="search_icon_title">Search</string>
-    <string name="sort_icon_title">Search</string>
+    <string name="sort_icon_title">Sort</string>
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
     <string name="solar_planets_by_date_title">Sort solar planets by birthday</string>
-    <string name="credits">Made on Twitch by otselotl\nwith heartful support of:\n|starforce|, Archevod</string>
+    <string name="credits">Made on Twitch by otselotl\nwith heartful support of:\n|starforce|, Archevod, derzhi_katanu</string>
 
     <!-- Planet -->
+    <string name="tab_title_planet">Planet</string>
+    <string name="tab_title_stellar">Stellar</string>
+    <string name="tab_title_system">System</string>
     <string name="age_string_pattern_one">Age: %s</string>
     <string name="age_string_pattern_two">Age: %s %s</string>
     <string name="age_string_pattern_three">Age: %s %s %s</string>
-    <string name="age_string_pattern_years_short">%dy</string>
-    <string name="age_string_pattern_months_short">%dm</string>
-    <string name="age_string_pattern_days_short">%dd</string>
-    <string name="age_string_pattern_hours">Age: %d hour(s)</string>
-    <string name="age_string_pattern_minutes">Age: %d minute(s)</string>
-    <string name="age_string_pattern_seconds">Age: %d second(s)</string>
+    <string name="age_string_pattern_years_short" translatable="false">%dy</string>
+    <string name="age_string_pattern_months_short" translatable="false">%dm</string>
+    <string name="age_string_pattern_days_short" translatable="false">%dd</string>
     <string name="next_birthday">Next birthday: %s</string>
-    <string name="planet_title">Planet</string>
     <string name="reference">Reference</string>
     <string name="discovery_method">Discovery method</string>
-    <string name="year">Year</string>
+    <string name="discovery_year">Discovery year</string>
     <string name="facility">Facility</string>
     <string name="orbital_period_days">Orbital period [days]</string>
     <string name="orbital_semi_major_axis_au">Orbital semi-major axis [au]</string>
-    <string name="radius_earth_radius">Radius [Earth radius]</string>
-    <string name="mass_earth_mass">Mass [Earth mass]</string>
+    <string name="radius_earth_radius">Radius [R🜨]</string>
+    <string name="mass_earth_mass">Mass [M🜨]</string>
     <string name="orbit_eccentricity">Orbit eccentricity</string>
-    <string name="equilibrium_temperature">Equilibrium temperature</string>
-    <string name="stellar">Stellar</string>
+    <string name="equilibrium_temperature">Equilibrium temperature [K]</string>
     <string name="name">Name</string>
     <string name="spectral_type">Spectral type</string>
-    <string name="effective_temperature">Effective temperature</string>
-    <string name="radius_solar_radius">Radius [Solar radius]</string>
-    <string name="mass_solar_mass">Mass [Solar mass]</string>
-    <string name="system">System</string>
+    <string name="effective_temperature">Effective temperature [K]</string>
+    <string name="radius_solar_radius">Radius [R☉︎]</string>
+    <string name="mass_solar_mass">Mass [M☉]</string>
     <string name="number_of_stars">Number of stars</string>
     <string name="number_of_planets">Number of planets</string>
     <string name="distance_pc">Distance [pc]</string>
@@ -71,19 +68,8 @@
     <!-- Favorites -->
     <string name="title_favorites">Favorites</string>
 
-    <!-- Filters -->
-    <string name="title_filter">Filters</string>
-    <string name="filter_distance_header">Distance [pc]</string>
-    <string name="filter_period_header">Period [days]</string>
-    <string name="filter_planet_radius_header">Planet radius [Earth radius]</string>
-    <string name="filter_star_radius_header">Star radius [Solar radius]</string>
-    <string name="filter_planet_mass_header">Planet mass [Earth mass]</string>
-    <string name="filter_star_mass_header">Star mass [Solar mass]</string>
-    <string name="from_hint">From</string>
-    <string name="to_hint">To</string>
-    <string name="apply_button_title_pattern">Apply (%d)</string>
-    <string name="filter_sorting_header">Sort by</string>
-    <string name="select_hint">Select</string>
+    <!-- Sort screen -->
+    <string name="sorting_screen_title">Sort by</string>
     <string name="sort_by_name">Name</string>
     <string name="sort_by_age">Age</string>
     <string name="sort_by_birthday">Birthday</string>
@@ -93,9 +79,6 @@
     <string name="sort_by_planet_radius">Planet radius</string>
     <string name="sort_by_star_mass">Star mass</string>
     <string name="sort_by_star_radius">Star radius</string>
-    <string name="sort_by_asc"> ↑</string>
-    <string name="sort_by_desc"> ↓</string>
-    <string name="action_clear">Clear</string>
 
     <!-- Common -->
     <string name="disc_method_astrometry">Astrometry</string>
@@ -114,17 +97,7 @@
     <string name="unknown_birthday">Next birthday: unknown</string>
     <string name="unknown_birthday_short">unknown</string>
     <string name="not_available">n/a</string>
-    <string name="pattern_join" translatable="false">%1$s %2$s</string>
-    <string name="enlarge_planet_view_description">Enlarge planet view</string>
     <string name="empty_favorites_placeholder_text">Nothing here just yet ¯\\_(ツ)_/¯\n\nTap ♡ on planet screen to add it here</string>
-
-    <!-- Setup screen -->
-    <string name="birthday_thresholds_disclaimer">Minimum value is -999999999-01-01.\nAD 1 = year 1, 1 BC = year 0, 2 BC = year −1\nUse format: year-month-day</string>
-    <string name="birthday_exceeded_min_value">Can\'t process so far in the past</string>
-    <string name="birthday_is_in_future">You haven\'t been born yet</string>
-    <string name="birthday_not_filled">Fill your birthday properly</string>
-    <string name="birthday_wrong_date">Something\'s wrong with the date</string>
-    <string name="empty_string"></string>
 
     <!-- Screen names -->
     <string name="screen_solar_system">Solar System</string>
@@ -144,4 +117,7 @@
     <string name="planet_name_makemake">Makemake</string>
     <string name="planet_name_eris">Eris</string>
     <string name="planet_name_sedna">Sedna</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Sun</string>
 </resources>

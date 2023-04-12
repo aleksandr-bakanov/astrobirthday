@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.planet
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -33,10 +34,10 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
     private var planetAndInfo: PlanetAndInfo? = null
     private var view3d: PlanetView3d? = null
 
-    enum class TabCategory(val value: String) {
-        Planet("Planet"),
-        Stellar("Stellar"),
-        System("System")
+    enum class TabCategory {
+        Planet,
+        Stellar,
+        System
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,10 +72,10 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                 planetAndInfo?.let {
                     planetDescriptionAdapter.items = getPlanetItems(
                         it.planet,
-                        when (tab?.text) {
-                            "Planet" -> TabCategory.Planet
-                            "Stellar" -> TabCategory.Stellar
-                            "System" -> TabCategory.System
+                        when (tab?.position) {
+                            0 -> TabCategory.Planet
+                            1 -> TabCategory.Stellar
+                            2 -> TabCategory.System
                             else -> TabCategory.Planet
                         }
                     )
@@ -162,7 +163,14 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                             )
                         )
                     }
-                    discoveryYear?.let { list.add(PlanetItems.Text(R.string.year, it.toString())) }
+                    discoveryYear?.let {
+                        list.add(
+                            PlanetItems.Text(
+                                R.string.discovery_year,
+                                it.toString()
+                            )
+                        )
+                    }
                     discoveryFacility?.let { list.add(PlanetItems.Text(R.string.facility, it)) }
                     planetOrbitalPeriod?.let {
                         list.add(
@@ -224,7 +232,14 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                     }
                     starSpectralType?.takeUnless { it.isBlank() }
                         ?.let { list.add(PlanetItems.Text(R.string.spectral_type, it)) }
-                    starName?.let { list.add(PlanetItems.Text(R.string.name, it)) }
+                    starName?.let {
+                        list.add(
+                            PlanetItems.Text(
+                                R.string.name,
+                                it.translateIfSun(context)
+                            )
+                        )
+                    }
                     starEffectiveTemperature?.let {
                         list.add(
                             PlanetItems.Text(
@@ -294,4 +309,9 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
         favoriteButton.setOnClickListener { viewModel.toggleFavorite() }
     }
 
+}
+
+private fun String.translateIfSun(context: Context): String {
+    return if (this == "Sun") context.getString(R.string.star_sun_name)
+    else this
 }

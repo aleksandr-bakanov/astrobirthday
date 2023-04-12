@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import bav.astrobirthday.R
 import bav.astrobirthday.ui.setup.SetupUiState.DateState
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
 import com.vanpra.composematerialdialogs.MaterialDialog
@@ -48,6 +50,7 @@ fun SetupScreen(
                 onCloseRequest = { }
             ) {
                 datepicker(
+                    title = stringResource(id = R.string.set_your_birthday),
                     initialDate = state.date,
                     yearRange = IntRange(1900, LocalDate.now().year),
                     allowedDateValidator = {

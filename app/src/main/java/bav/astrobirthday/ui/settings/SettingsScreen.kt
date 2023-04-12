@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,8 +28,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import bav.astrobirthday.R
-import bav.astrobirthday.common.Formatters
 import bav.astrobirthday.ui.theme.AstroBirthdayTheme
+import bav.astrobirthday.utils.localDateToString
 import java.time.LocalDate
 
 @Composable
@@ -90,7 +91,7 @@ fun SettingsScreen(
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = Formatters.dateToString(state.birthday),
+                    text = LocalContext.current.localDateToString(state.birthday),
                     style = MaterialTheme.typography.button,
                     textAlign = TextAlign.End,
                     color = colorResource(id = R.color.white2),

@@ -16,9 +16,9 @@ enum class Column(val columnName: String, @StringRes val resId: Int) {
     STAR_RADIUS("st_rad", R.string.sort_by_star_radius),
 }
 
-enum class SortOrder(@StringRes val resId: Int) {
-    DESC(R.string.sort_by_desc),
-    ASC(R.string.sort_by_asc)
+enum class SortOrder {
+    DESC,
+    ASC
 }
 
 fun SortOrder.invert(): SortOrder {

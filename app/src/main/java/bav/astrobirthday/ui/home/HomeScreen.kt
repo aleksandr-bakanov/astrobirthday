@@ -174,7 +174,7 @@ private fun PlanetItem(
             val titleColor by animateColorAsState(targetValue = if (isByDate) colorResource(id = R.color.white2) else MaterialTheme.colors.primary)
             val subtitleColor by animateColorAsState(targetValue = if (isByDate) MaterialTheme.colors.primary else GrayText)
             Text(
-                text = item.planet.planetName,
+                text = item.planet.getPlanetName(LocalContext.current),
                 fontSize = 24.sp,
                 color = titleColor,
                 modifier = Modifier

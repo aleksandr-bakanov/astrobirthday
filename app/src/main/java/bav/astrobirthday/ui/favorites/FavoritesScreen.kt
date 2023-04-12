@@ -85,15 +85,23 @@ fun FavoritesScreen(
         backgroundColor = Color.Transparent
     ) { paddingValues ->
         if (uiState.planets.isEmpty()) {
-            Box(
+            Column(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
             ) {
-                Text(
-                    text = stringResource(id = R.string.empty_favorites_placeholder_text),
-                    color = colorResource(id = R.color.grayText),
-                    style = MaterialTheme.typography.caption,
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.empty_favorites_placeholder_text),
+                        color = colorResource(id = R.color.grayText),
+                        style = MaterialTheme.typography.caption,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+                Spacer(modifier = Modifier.height(112.dp))
             }
         } else {
             LazyVerticalGrid(
@@ -162,7 +170,7 @@ private fun PlanetItem(
             modifier = Modifier.padding(top = 8.dp)
         ) {
             Text(
-                text = item.planet.planetName,
+                text = item.planet.getPlanetName(LocalContext.current),
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.white2),

@@ -67,7 +67,7 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="bav.astrobirthday.ui.filter.FilterFragment"
-        android:label="@string/title_filter"
+        android:label="@string/sorting_screen_title"
         tools:layout="@layout/fragment_filter" />
 
 </navigation>

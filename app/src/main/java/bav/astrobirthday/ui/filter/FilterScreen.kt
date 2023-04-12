@@ -74,7 +74,7 @@ fun FilterScreen(
                 backgroundColor = Color.Transparent,
                 title = {
                     Text(
-                        text = stringResource(id = R.string.filter_sorting_header),
+                        text = stringResource(id = R.string.sorting_screen_title),
                         color = colorResource(id = R.color.white2),
                         style = MaterialTheme.typography.h6,
                     )
@@ -154,6 +154,7 @@ private fun SortingItem(
             Text(
                 text = stringResource(id = item.column.resId),
                 color = colorResource(id = R.color.white2),
+                modifier = Modifier.padding(bottom = 3.dp)
             )
             val angle by animateFloatAsState(targetValue = if (item.order == SortOrder.ASC) 0f else 180f)
             Icon(

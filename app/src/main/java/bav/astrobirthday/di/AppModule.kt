@@ -19,7 +19,6 @@ import bav.astrobirthday.ui.filter.FilterViewModel
 import bav.astrobirthday.ui.home.HomeViewModel
 import bav.astrobirthday.ui.planet.PlanetViewModel
 import bav.astrobirthday.ui.settings.SettingsViewModel
-import bav.astrobirthday.ui.setup.DateParseUseCase
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
 import bav.astrobirthday.ui.welcome.WelcomeViewModel
@@ -65,6 +64,5 @@ val appModule = module {
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
     factory { SetupUseCase(get()) }
-    factory { DateParseUseCase() }
     factory { BirthdayUpdater(androidContext()) }
 }
