@@ -9,7 +9,7 @@ import glob
 import os
 
 pv.global_theme.transparent_background = True
-pv.global_theme.window_size = [400, 400]
+pv.global_theme.window_size = [800, 800]
 
 sphere = pv.Sphere(
     radius=1, theta_resolution=120, phi_resolution=120, start_theta=270.001, end_theta=270
@@ -25,10 +25,7 @@ for i in range(sphere.points.shape[0]):
         0.5 + np.arcsin(sphere.points[i, 2]) / np.pi,
     ]
 
-#sphere.plot(texture=tex)
-
 original_textures = [i for i in glob.glob("original_textures\*.png")]
-print(original_textures)
 
 result_folder = "results"
 crop_folder = "results_crop"
@@ -55,9 +52,9 @@ for t in original_textures:
     plotter.show(screenshot=result_file)
     
     print("    Crop")
-    area = (87, 87, 313, 313)
+    area = (174, 174, 626, 626)
     img = Image.open(result_file)
     img = img.crop(area)
     
-    print("    Save")
+    print("    Save: " + crop_file)
     img.save(crop_file)

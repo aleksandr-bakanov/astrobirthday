@@ -12,6 +12,7 @@ import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.opengl.PlanetView3d
+import bav.astrobirthday.ui.common.toFixedSignificant
 import bav.astrobirthday.ui.planet.PlanetItems.Companion.DIFF_CALLBACK
 import bav.astrobirthday.utils.discoveryMethodToStr
 import bav.astrobirthday.utils.getAgeString
@@ -167,7 +168,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.orbital_period_days,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -175,7 +176,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.orbital_semi_major_axis_au,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -183,7 +184,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.radius_earth_radius,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -191,7 +192,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.mass_earth_mass,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -199,7 +200,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.orbit_eccentricity,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -207,7 +208,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.equilibrium_temperature,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -228,7 +229,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.effective_temperature,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -236,7 +237,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.radius_solar_radius,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -244,7 +245,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.mass_solar_mass,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }
@@ -278,7 +279,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.distance_pc,
-                                it.toString()
+                                it.toFixedSignificant()
                             )
                         )
                     }

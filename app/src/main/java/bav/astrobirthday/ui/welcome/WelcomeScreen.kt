@@ -58,14 +58,10 @@ fun WelcomeScreen(
     val dialogState = rememberMaterialDialogState()
 
     Image(
-        painter = painterResource(id = R.drawable.transparent_1_px),
+        painter = painterResource(id = R.drawable.stars_background),
+        contentScale = ContentScale.FillBounds,
         contentDescription = null,
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(
-                painter = painterResource(id = R.drawable.stars_background),
-                contentScale = ContentScale.FillBounds
-            )
+        modifier = Modifier.fillMaxSize()
     )
 
     when (uiState) {

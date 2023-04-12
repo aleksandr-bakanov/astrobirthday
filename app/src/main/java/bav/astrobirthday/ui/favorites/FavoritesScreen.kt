@@ -98,7 +98,7 @@ fun FavoritesScreen(
         } else {
             LazyVerticalGrid(
                 contentPadding = paddingValues,
-                columns = GridCells.Adaptive(minSize = 128.dp),
+                columns = GridCells.Fixed(count = 2),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(horizontal = 8.dp),

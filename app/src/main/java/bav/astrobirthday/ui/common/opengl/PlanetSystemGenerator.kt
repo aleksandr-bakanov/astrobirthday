@@ -13,8 +13,8 @@ private const val ringProbability = 0f
 private const val maxSatellitesAmount = 11
 private const val minThresholdBetweenSatellites = 1f
 private const val maxThresholdBetweenSatellites = 3f
-private const val maxPlanetRadius = 2.0f
-private const val minPlanetRadius = 0.3f
+private const val maxPlanetRadius = 2.5f
+private const val minPlanetRadius = 1.2f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
@@ -197,19 +197,30 @@ fun getRandomRingTexture(random: Random): Int {
  * @return texture resource id
  */
 fun getRandomPlanetTexture(random: Random, textureType: TextureType): Int {
-    val textures = when (textureType) {
-        TextureType.GasGiant -> gasGiantTextures
-        TextureType.Ice -> iceTextures
-        TextureType.Martian -> martianTextures
-        TextureType.Primordial -> primordialTextures
-        TextureType.Rock -> rockTextures
-        TextureType.Terrestrial -> terrestrialTextures
-        TextureType.TerrestrialClouds -> terrestrialCloudsTextures
-        TextureType.Volcanic -> volcanicTextures
-        TextureType.Venusian -> venusianTextures
-        else -> allPlanetTextures[random.nextInt(allPlanetTextures.size)]
+    when (textureType) {
+        TextureType.Unknown -> {
+            return allPlanetTexturesFlatten[random.nextInt(allPlanetTexturesFlatten.size)]
+        }
+        else -> {
+            val textures = when (textureType) {
+                TextureType.Fungal -> fungalTextures
+                TextureType.GasGiant -> gasGiantTextures
+                TextureType.Ice -> iceTextures
+                TextureType.Martian -> martianTextures
+                TextureType.Oasis -> oasisTextures
+                TextureType.Oceanic -> oceanicTextures
+                TextureType.Primordial -> primordialTextures
+                TextureType.Rock -> rockTextures
+                TextureType.Swamp -> swampTextures
+                TextureType.Terrestrial -> terrestrialTextures
+                TextureType.Volcanic -> volcanicTextures
+                TextureType.Venusian -> venusianTextures
+                TextureType.Wetlands -> wetlandsTextures
+                else -> allPlanetTextures[random.nextInt(allPlanetTextures.size)]
+            }
+            return textures[random.nextInt(textures.size)]
+        }
     }
-    return textures[random.nextInt(textures.size)]
 }
 
 fun getRandomSatelliteTexture(random: Random): Int {

@@ -53,7 +53,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         color = (ContextCompat.getColor(
             context,
             R.color.planetShadowColor
-        ) and 0x00FFFFFF) or 0x14000000
+        ) and 0x00FFFFFF) or 0x28000000
         strokeWidth = 1.toPx(context)
     }
 
