@@ -7,6 +7,24 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- New application design
+
+### Added
+
+- Cool 3D planet animation
+
+### Removed
+
+- Exoplanets filters (only sorting left)
+
+## [1.4.1] - 2022-12-16
+
+### Changed
+
+- Return to material DatePickerDialog that just works
+
 ## [1.4.0] - 2022-04-25
 
 ### Changed
