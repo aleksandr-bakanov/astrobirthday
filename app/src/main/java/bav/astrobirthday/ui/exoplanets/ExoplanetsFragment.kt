@@ -15,7 +15,6 @@ import bav.astrobirthday.ui.exoplanets.ExoplanetsViewModel.ExoplanetsEvent.Scrol
 import bav.astrobirthday.utils.setupToolbar
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.*
 
 class ExoplanetsFragment :
     BaseFragment<FragmentExoplanetsBinding>(FragmentExoplanetsBinding::inflate) {
@@ -69,8 +68,7 @@ class ExoplanetsFragment :
 
     private fun FragmentExoplanetsBinding.setupSearchView() {
         val searchView = (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView)
-        val itemsName = topAppBar.title.toString().lowercase(Locale.getDefault())
-        searchView.queryHint = resources.getString(R.string.search_hint, itemsName)
+        searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {

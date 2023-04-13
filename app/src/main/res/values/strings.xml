@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Astro Birthday</string>
+    <string name="app_name" translatable="false">Astro Birthday</string>
 
     <string name="set_your_birthday">Set birthday</string>
     <string name="title_home">Solar</string>
@@ -29,9 +29,6 @@
     <string name="age_string_pattern_one">Age: %s</string>
     <string name="age_string_pattern_two">Age: %s %s</string>
     <string name="age_string_pattern_three">Age: %s %s %s</string>
-    <string name="age_string_pattern_years_short" translatable="false">%dy</string>
-    <string name="age_string_pattern_months_short" translatable="false">%dm</string>
-    <string name="age_string_pattern_days_short" translatable="false">%dd</string>
     <string name="next_birthday">Next birthday: %s</string>
     <string name="reference">Reference</string>
     <string name="discovery_method">Discovery method</string>

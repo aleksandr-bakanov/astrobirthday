@@ -81,24 +81,6 @@ fun Context.getAgeStringShort(age: Double?): String {
     }
 }
 
-fun Context.getAgeStringForMainScreen(age: Double?): String {
-    if (age == null) return resources.getString(R.string.not_available)
-    val years = floor(age)
-    val days = floor(360.0 * (age - years))
-    val months = floor(days / 30.0)
-    return when {
-        years >= 1.0 -> {
-            getString(R.string.age_string_pattern_years_short, years.toLong())
-        }
-        months >= 1.0 -> {
-            getString(R.string.age_string_pattern_months_short, months.toInt())
-        }
-        else -> {
-            getString(R.string.age_string_pattern_days_short, days.toInt())
-        }
-    }
-}
-
 val refTextRegex = Regex("<a.+?>(.+?)<")
 val refLinkRegex = Regex("href=(.+?) ")
 
@@ -132,11 +114,6 @@ fun Context.getNearestBirthdayString(date: LocalDate?): String {
         R.string.next_birthday,
         this.localDateToString(date)
     )
-}
-
-fun Context.getNearestBirthdayShortString(date: LocalDate?): String {
-    return if (date == null) resources.getString(R.string.unknown_birthday_short)
-    else this.localDateToString(date)
 }
 
 fun getPlanetType(planetName: String?): PlanetType? {
