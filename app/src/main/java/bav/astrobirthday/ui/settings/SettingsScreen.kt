@@ -2,6 +2,8 @@ package bav.astrobirthday.ui.settings
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -39,6 +42,7 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
         SettingsScreen(
             it,
             viewModel::pickBirthday,
+            viewModel::toggleNotificationEnabled
         )
     }
 }
@@ -47,6 +51,7 @@ fun SettingsScreen(viewModel: SettingsViewModel) {
 fun SettingsScreen(
     state: SettingsViewState,
     onBirthdayClick: () -> Unit = {},
+    toggleNotificationEnabled: () -> Unit = {}
 ) {
     Image(
         painter = painterResource(id = R.drawable.stars_background),
@@ -98,6 +103,31 @@ fun SettingsScreen(
                     modifier = Modifier.weight(1f)
                 )
             }
+            Row(
+                modifier = Modifier
+                    .height(56.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.settings_enable_notifications_title),
+                    style = MaterialTheme.typography.body2,
+                    textAlign = TextAlign.Start,
+                    color = colorResource(id = R.color.white2),
+                    modifier = Modifier.weight(2f)
+                )
+                Box(
+                    contentAlignment = Alignment.CenterEnd,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Switch(
+                        checked = state.isNotificationsEnabled,
+                        onCheckedChange = { toggleNotificationEnabled() },
+                    )
+                }
+            }
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(id = R.string.credits),
@@ -121,6 +151,7 @@ fun SettingsScreenPreview() {
         SettingsScreen(
             SettingsViewState(
                 birthday = LocalDate.parse("2015-02-02"),
+                isNotificationsEnabled = true
             )
         )
     }

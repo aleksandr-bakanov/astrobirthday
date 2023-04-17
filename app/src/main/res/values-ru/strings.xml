@@ -20,7 +20,7 @@
 
     <!-- Settings -->
     <string name="your_birthday">Твой день рождения</string>
-    <string name="solar_planets_by_date_title">Сортировать солнечные планеты по дню рождения</string>
+    <string name="settings_enable_notifications_title">Уведомлять о д.р. на солнечных и избранных планетах</string>
     <string name="credits">Сделано на Твиче otselotl\'ем\nс душевной поддержкой:\n|starforce|, Archevod, derzhi_katanu</string>
 
     <!-- Planet -->

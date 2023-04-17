@@ -9,4 +9,7 @@ interface UserRepository {
 
     suspend fun setSortSolarPlanetsByDate(value: Boolean)
     val sortSolarPlanetsByDateFlow: Flow<Boolean>
+
+    suspend fun setNotificationsEnabled(value: Boolean)
+    val notificationsEnabledFlow: Flow<Boolean?>
 }

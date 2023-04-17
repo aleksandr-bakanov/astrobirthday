@@ -31,7 +31,7 @@ import bav.astrobirthday.data.BirthdayUpdateWorker
 import bav.astrobirthday.data.entities.Config
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
 fun Int.toPx(context: Context): Float {
@@ -127,7 +127,7 @@ fun enqueuePeriodicBirthdayUpdateWorker(context: Context) {
 
     WorkManager.getInstance(context).enqueueUniquePeriodicWork(
         BirthdayUpdateWorker.UNIQUE_WORK_NAME,
-        ExistingPeriodicWorkPolicy.KEEP,
+        ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
         periodicWorkRequest
     )
 }

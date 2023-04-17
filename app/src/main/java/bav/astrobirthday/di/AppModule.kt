@@ -22,6 +22,7 @@ import bav.astrobirthday.ui.settings.SettingsViewModel
 import bav.astrobirthday.ui.setup.SetupUseCase
 import bav.astrobirthday.ui.setup.SetupViewModel
 import bav.astrobirthday.ui.welcome.WelcomeViewModel
+import bav.astrobirthday.utils.NotificationHelper
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
@@ -35,6 +36,7 @@ val appModule = module {
         Dispatchers.IO
     }
 
+    single { NotificationHelper(androidContext()) }
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<SolarPlanetsRepository> { SolarPlanetsRepositoryImpl(get(), get()) }
     single { PlanetDb.create(androidContext()) }
@@ -50,7 +52,7 @@ val appModule = module {
     viewModel { (planetName: String) -> PlanetViewModel(get(), get(), planetName) }
     viewModel { ExoplanetsViewModel(get()) }
     viewModel { FavoritesViewModel(get(), get()) }
-    viewModel { SettingsViewModel(get()) }
+    viewModel { SettingsViewModel(get(), get()) }
     viewModel { (filterBy: PlanetFilters, sortBy: PlanetSorting) ->
         FilterViewModel(
             filterBy,

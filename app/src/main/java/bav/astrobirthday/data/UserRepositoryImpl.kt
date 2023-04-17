@@ -20,4 +20,11 @@ class UserRepositoryImpl(
 
     override val sortSolarPlanetsByDateFlow: Flow<Boolean>
         get() = userDataSource.sortSolarPlanetsByDateFlow
+
+    override suspend fun setNotificationsEnabled(value: Boolean) {
+        userDataSource.setNotificationsEnabled(value)
+    }
+
+    override val notificationsEnabledFlow: Flow<Boolean?>
+        get() = userDataSource.notificationsEnabledFlow
 }

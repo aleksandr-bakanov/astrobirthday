@@ -20,6 +20,7 @@ class UserDataSource(
 
     private val BIRTHDAY_KEY = stringPreferencesKey("birthday")
     private val SORT_SOLAR_PLANETS_BY_DATE_KEY = booleanPreferencesKey("sortSolarPlanetsByDate")
+    private val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notificationsEnabled")
 
     val birthdayFlow: Flow<LocalDate?> = context.dataStore.data
         .map { preferences ->
@@ -40,6 +41,17 @@ class UserDataSource(
     suspend fun setSortSolarPlanetsByDate(value: Boolean) {
         context.dataStore.edit { settings ->
             settings[SORT_SOLAR_PLANETS_BY_DATE_KEY] = value
+        }
+    }
+
+    val notificationsEnabledFlow: Flow<Boolean?> = context.dataStore.data
+        .map { preferences ->
+            preferences[NOTIFICATIONS_ENABLED]
+        }
+
+    suspend fun setNotificationsEnabled(value: Boolean) {
+        context.dataStore.edit { settings ->
+            settings[NOTIFICATIONS_ENABLED] = value
         }
     }
 }
