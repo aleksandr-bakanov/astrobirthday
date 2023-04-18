@@ -13,7 +13,6 @@
     <!-- Exoplanets -->
     <string name="exoplanet_name">Name: %s</string>
     <string name="title_exoplanets">Exoplanets</string>
-    <string name="search_hint">Search %s</string>
     <string name="search_icon_title">Search</string>
     <string name="sort_icon_title">Sort</string>
 
@@ -117,4 +116,10 @@
 
     <!-- Sun name -->
     <string name="star_sun_name">Sun</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Birthdays</string>
+    <string name="notification_channel_description">Notifications about birthdays on Solar and favorite planets</string>
+    <string name="notification_title">Get ready 🎂</string>
+    <string name="notification_content">You have a birthday tomorrow on: %s</string>
 </resources>

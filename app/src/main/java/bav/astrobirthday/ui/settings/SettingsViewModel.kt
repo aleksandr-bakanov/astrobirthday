@@ -34,23 +34,11 @@ class SettingsViewModel(
     ) { birthday, userNotificationSetting ->
         SettingsViewState(
             birthday = birthday,
-            isNotificationsEnabled = isNotificationsEnabled(
-                userSetting = userNotificationSetting,
-                systemSetting = notificationHelper.areNotificationsEnabled()
+            isNotificationsEnabled = notificationHelper.isNotificationsEnabled(
+                userSetting = userNotificationSetting
             )
         )
     }.asLiveData()
-
-    private fun isNotificationsEnabled(
-        userSetting: Boolean?,
-        systemSetting: Boolean
-    ): Boolean {
-        return when {
-            userSetting == null -> systemSetting
-            !systemSetting -> false
-            else -> userSetting
-        }
-    }
 
     fun pickBirthday() {
         _events.value = Event.OpenPicker
@@ -63,7 +51,7 @@ class SettingsViewModel(
                     repository.setNotificationsEnabled(false)
                 }
             } else {
-                if (notificationHelper.areNotificationsEnabled()) {
+                if (notificationHelper.areNotificationsAllowedBySystem()) {
                     viewModelScope.launch {
                         repository.setNotificationsEnabled(true)
                     }

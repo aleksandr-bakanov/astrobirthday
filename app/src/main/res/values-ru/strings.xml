@@ -14,7 +14,6 @@
     <!-- Exoplanets -->
     <string name="exoplanet_name">Имя: %s</string>
     <string name="title_exoplanets">Экзопланеты</string>
-    <string name="search_hint">Искать %s</string>
     <string name="search_icon_title">Поиск</string>
     <string name="sort_icon_title">Сортировка</string>
 
@@ -121,4 +120,10 @@
 
     <!-- Sun name -->
     <string name="star_sun_name">Солнце</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Дни рождения</string>
+    <string name="notification_channel_description">Уведомления о днях рождения на солнечных и избранных планетах</string>
+    <string name="notification_title">Отмечаем 🎂</string>
+    <string name="notification_content">Завтра днюха на планетах: %s</string>
 </resources>

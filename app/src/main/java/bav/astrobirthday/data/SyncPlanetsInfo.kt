@@ -1,11 +1,13 @@
 package bav.astrobirthday.data
 
+import android.content.Context
 import bav.astrobirthday.data.entities.Config
 import bav.astrobirthday.data.entities.PlanetUserInfoDTO
 import bav.astrobirthday.data.local.PlanetDao
 import bav.astrobirthday.domain.SolarPlanetsRepository
 import bav.astrobirthday.domain.UserRepository
 import bav.astrobirthday.domain.model.PlanetUserInfo
+import bav.astrobirthday.utils.NotificationHelper
 import bav.astrobirthday.utils.getAgeOnPlanet
 import bav.astrobirthday.utils.getNearestBirthday
 import kotlinx.coroutines.flow.firstOrNull
@@ -14,7 +16,9 @@ import java.time.LocalDate
 class SyncPlanetsInfo(
     private val userRepository: UserRepository,
     private val solarPlanetsRepository: SolarPlanetsRepository,
-    private val planetDao: PlanetDao
+    private val planetDao: PlanetDao,
+    private val notificationHelper: NotificationHelper,
+    private val context: Context
 ) {
 
     suspend fun sync() {
@@ -27,6 +31,19 @@ class SyncPlanetsInfo(
             sync(birthday, i, BATCH_SIZE)
         }
         sync(birthday, count % BATCH_SIZE, BATCH_SIZE)
+
+        checkNotifications()
+    }
+
+    private suspend fun checkNotifications() {
+        val tomorrow = LocalDate.now().plusDays(1)
+        val solarPlanets = solarPlanetsRepository.planetsFlow.firstOrNull()?.filter {
+            it.nearestBirthday == tomorrow
+        }
+        val exoplanets = planetDao.getByBirthdayAndFavorite(tomorrow, true)
+        val planetNames = solarPlanets?.map { it.planet.getPlanetName(context) }
+            .orEmpty() + exoplanets.map { it.name }
+        notificationHelper.scheduleNotification(planetNames)
     }
 
     private suspend fun syncSolarPlanets(birthday: LocalDate) {

@@ -13,6 +13,7 @@ import bav.astrobirthday.data.entities.PlanetDTO
 import bav.astrobirthday.data.entities.PlanetSyncView
 import bav.astrobirthday.data.entities.PlanetUserInfoDTO
 import kotlinx.coroutines.flow.Flow
+import java.time.LocalDate
 
 @Dao
 interface PlanetDao {
@@ -24,6 +25,10 @@ interface PlanetDao {
     @Transaction
     @Query("SELECT * FROM planets WHERE pl_name IN (:names) ORDER BY id ASC")
     fun getByNames(names: Collection<String>): Flow<List<PlanetAndInfoDTO>>
+
+    @Transaction
+    @Query("SELECT * FROM planets_user_info WHERE birthday = :birthday AND is_favorite = :isFavorite ORDER BY name ASC")
+    fun getByBirthdayAndFavorite(birthday: LocalDate, isFavorite: Boolean): List<PlanetUserInfoDTO>
 
     @Transaction
     @Query("SELECT * FROM planets WHERE pl_name LIKE :pattern ORDER BY id ASC")

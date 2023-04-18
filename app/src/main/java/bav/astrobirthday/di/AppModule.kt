@@ -36,7 +36,7 @@ val appModule = module {
         Dispatchers.IO
     }
 
-    single { NotificationHelper(androidContext()) }
+    single { NotificationHelper(get(), androidContext()) }
     single<UserRepository> { UserRepositoryImpl(get()) }
     single<SolarPlanetsRepository> { SolarPlanetsRepositoryImpl(get(), get()) }
     single { PlanetDb.create(androidContext()) }
@@ -62,7 +62,7 @@ val appModule = module {
     viewModel { SetupViewModel(get(), get()) }
     viewModel { WelcomeViewModel(get(), get(), get(named("IoDispatcher"))) }
 
-    factory { SyncPlanetsInfo(get(), get(), get()) }
+    factory { SyncPlanetsInfo(get(), get(), get(), get(), androidContext()) }
     factory { GetExoplanets(get()) }
     factory { GetFavorites(get()) }
     factory { SetupUseCase(get()) }

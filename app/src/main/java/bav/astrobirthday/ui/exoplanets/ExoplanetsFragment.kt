@@ -68,7 +68,6 @@ class ExoplanetsFragment :
 
     private fun FragmentExoplanetsBinding.setupSearchView() {
         val searchView = (topAppBar.menu.findItem(R.id.action_search).actionView as SearchView)
-        searchView.queryHint = resources.getString(R.string.search_hint)
         searchView.setOnQueryTextListener(
             object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
