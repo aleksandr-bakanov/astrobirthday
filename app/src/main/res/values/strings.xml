@@ -1,9 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Astro Birthday</string>
-
-    <string name="set_your_birthday">Set birthday</string>
-    <string name="title_home">Solar</string>
-    <string name="title_settings">Settings</string>
 
     <!-- Welcome screen -->
     <string name="welcome_title">Welcome to Astro Birthday!</string>
@@ -11,8 +8,6 @@
     <string name="welcome_button_text">Let\'s go!</string>
 
     <!-- Exoplanets -->
-    <string name="exoplanet_name">Name: %s</string>
-    <string name="title_exoplanets">Exoplanets</string>
     <string name="search_icon_title">Search</string>
     <string name="sort_icon_title">Sort</string>
 
@@ -61,9 +56,6 @@
         <item quantity="other">%d days</item>
     </plurals>
 
-    <!-- Favorites -->
-    <string name="title_favorites">Favorites</string>
-
     <!-- Sort screen -->
     <string name="sorting_screen_title">Sort by</string>
     <string name="sort_by_name">Name</string>
@@ -94,9 +86,16 @@
     <string name="unknown_birthday_short">unknown</string>
     <string name="not_available">n/a</string>
     <string name="empty_favorites_placeholder_text">Nothing here just yet ¯\\_(ツ)_/¯\n\nTap ♡ on planet screen to add it here</string>
+    <string name="set_your_birthday">Set birthday</string>
 
     <!-- Screen names -->
     <string name="screen_solar_system">Solar System</string>
+    <string name="title_exoplanets">Exoplanets</string>
+    <string name="title_favorites">Favorites</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Solar</string>
+    <string name="bottom_menu_settings">Settings</string>
 
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Mercury</string>

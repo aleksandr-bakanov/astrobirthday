@@ -66,7 +66,7 @@ fun SettingsScreen(
                 backgroundColor = Color.Transparent,
                 title = {
                     Text(
-                        text = stringResource(id = R.string.title_settings),
+                        text = stringResource(id = R.string.bottom_menu_settings),
                         color = colorResource(id = R.color.white2),
                         style = MaterialTheme.typography.h6,
                     )

@@ -14,6 +14,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Cool 3D planet animation
+- Notifications about birthdays on solar and favorite planets
 
 ### Removed
 
