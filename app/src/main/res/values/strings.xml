@@ -9,7 +9,7 @@
 
     <!-- Exoplanets -->
     <string name="search_icon_title">Search</string>
-    <string name="sort_icon_title">Sort</string>
+    <string name="sort_icon_title">Sorting</string>
 
     <!-- Settings -->
     <string name="your_birthday">Your birthday</string>
@@ -41,7 +41,7 @@
     <string name="mass_solar_mass">Mass [M☉]</string>
     <string name="number_of_stars">Number of stars</string>
     <string name="number_of_planets">Number of planets</string>
-    <string name="distance_pc">Distance [pc]</string>
+    <string name="distance_pc">Distance to system [pc]</string>
 
     <plurals name="years_amount">
         <item quantity="one">%d year</item>
@@ -57,12 +57,11 @@
     </plurals>
 
     <!-- Sort screen -->
-    <string name="sorting_screen_title">Sort by</string>
     <string name="sort_by_name">Name</string>
     <string name="sort_by_age">Age</string>
     <string name="sort_by_birthday">Birthday</string>
-    <string name="sort_by_distance">Distance</string>
-    <string name="sort_by_period">Period</string>
+    <string name="sort_by_distance">Distance to system</string>
+    <string name="sort_by_period">Orbital period</string>
     <string name="sort_by_planet_mass">Planet mass</string>
     <string name="sort_by_planet_radius">Planet radius</string>
     <string name="sort_by_star_mass">Star mass</string>
@@ -72,13 +71,13 @@
     <string name="disc_method_astrometry">Astrometry</string>
     <string name="disc_method_disk_kinematics">Disk kinematics</string>
     <string name="disc_method_eclipse_timing_variations">Eclipse timing variations</string>
-    <string name="disc_method_imaging">Imaging</string>
-    <string name="disc_method_microlensing">Microlensing</string>
+    <string name="disc_method_imaging">Direct imaging</string>
+    <string name="disc_method_microlensing">Gravitational microlensing</string>
     <string name="disc_method_orbital_brightness_modulation">Orbital brightness modulation</string>
     <string name="disc_method_pulsar_timing">Pulsar timing</string>
     <string name="disc_method_pulsation_timing_variations">Pulsation timing variations</string>
     <string name="disc_method_radial_velocity">Radial velocity</string>
-    <string name="disc_method_transit">Transit</string>
+    <string name="disc_method_transit">Transit photometry</string>
     <string name="disc_method_transit_timing_variations">Transit timing variations</string>
     <string name="unknown_age">Age: unknown</string>
     <string name="unknown_age_short">unknown</string>
@@ -89,6 +88,7 @@
     <string name="set_your_birthday">Set birthday</string>
 
     <!-- Screen names -->
+    <string name="sorting_screen_title">Sort by</string>
     <string name="screen_solar_system">Solar System</string>
     <string name="title_exoplanets">Exoplanets</string>
     <string name="title_favorites">Favorites</string>

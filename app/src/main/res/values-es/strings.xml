@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">¡Bienvenidos al Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Establece tu cumpleaños</string>
+    <string name="welcome_button_text">¡Vamos!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">Buscar</string>
+    <string name="sort_icon_title">Clasificación</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Tu cumpleaños</string>
+    <string name="settings_enable_notifications_title">Notificar sobre cumpleaños en planetas solares y favoritos</string>
+    <string name="credits">Realizado en Twitch por otselotl \n con el sincero apoyo de: \n |starforce|, Archovod, derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">Planeta</string>
+    <string name="tab_title_stellar">Estelar</string>
+    <string name="tab_title_system">Sistema</string>
+    <string name="age_string_pattern_one">Edad: %s</string>
+    <string name="age_string_pattern_two">Edad: %s %s</string>
+    <string name="age_string_pattern_three">Edad: %s %s %s</string>
+    <string name="next_birthday">Próximo cumpleaños: %s</string>
+    <string name="reference">Referencia</string>
+    <string name="discovery_method">Método de descubrimiento</string>
+    <string name="discovery_year">Año de descubrimiento</string>
+    <string name="facility">Observatorio</string>
+    <string name="orbital_period_days">Período orbital [días]</string>
+    <string name="orbital_semi_major_axis_au">Semieje mayor orbital [au]</string>
+    <string name="radius_earth_radius">Radio [R🜨]</string>
+    <string name="mass_earth_mass">Misa [M🜨]</string>
+    <string name="orbit_eccentricity">Excentricidad orbital</string>
+    <string name="equilibrium_temperature">Temperatura de equilibrio [K]</string>
+    <string name="name">Nombre</string>
+    <string name="spectral_type">Tipo espectral</string>
+    <string name="effective_temperature">Temperatura efectiva [K]</string>
+    <string name="radius_solar_radius">Radio [R☉︎]</string>
+    <string name="mass_solar_mass">Misa [M☉]</string>
+    <string name="number_of_stars">Número de estrellas</string>
+    <string name="number_of_planets">Número de planetas</string>
+    <string name="distance_pc">Distancia al sistema [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d año</item>
+        <item quantity="other">%d años</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d mes</item>
+        <item quantity="other">%d meses</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d día</item>
+        <item quantity="other">%d días</item>
+    </plurals>
+
+    <!-- Sorting -->
+    <string name="sort_by_name">Nombre</string>
+    <string name="sort_by_age">Edad</string>
+    <string name="sort_by_birthday">Cumpleaños</string>
+    <string name="sort_by_distance">Distancia al sistema</string>
+    <string name="sort_by_period">Período orbital</string>
+    <string name="sort_by_planet_mass">Masa del planeta</string>
+    <string name="sort_by_planet_radius">Radio del planeta</string>
+    <string name="sort_by_star_mass">Masa estelar</string>
+    <string name="sort_by_star_radius">Radio de estrella</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Astrometría</string>
+    <string name="disc_method_disk_kinematics">Cinemática de disco</string>
+    <string name="disc_method_eclipse_timing_variations">Variaciones de tiempo de eclipse</string>
+    <string name="disc_method_imaging">Imágenes directas</string>
+    <string name="disc_method_microlensing">Microlente gravitacional</string>
+    <string name="disc_method_orbital_brightness_modulation">Modulación de brillo orbital</string>
+    <string name="disc_method_pulsar_timing">Tiempo de púlsar</string>
+    <string name="disc_method_pulsation_timing_variations">Variaciones de temporización de pulsaciones</string>
+    <string name="disc_method_radial_velocity">Espectroscopia Doppler</string>
+    <string name="disc_method_transit">Fotometría de tránsito</string>
+    <string name="disc_method_transit_timing_variations">Variaciones de tiempo de tránsito</string>
+    <string name="unknown_age">Edad: desconocida</string>
+    <string name="unknown_age_short">desconocida</string>
+    <string name="unknown_birthday">Próximo cumpleaños: desconocido</string>
+    <string name="unknown_birthday_short">desconocida</string>
+    <string name="not_available">n/a</string>
+    <string name="empty_favorites_placeholder_text">Todavía no hay nada aquí ¯\\_(ツ)_/¯\n\nToca ♡ en la pantalla planeta para añadirlo aquí.</string>
+    <string name="set_your_birthday">Fija el cumpleaños</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">Ordenar por</string>
+    <string name="screen_solar_system">Sistema Solar</string>
+    <string name="title_exoplanets">Exoplanetas</string>
+    <string name="title_favorites">Favoritos</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Solar</string>
+    <string name="bottom_menu_settings">Ajustes</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Mercurio</string>
+    <string name="planet_name_venus">Venus</string>
+    <string name="planet_name_earth">Tierra</string>
+    <string name="planet_name_mars">Marte</string>
+    <string name="planet_name_ceres">Ceres</string>
+    <string name="planet_name_jupiter">Júpiter</string>
+    <string name="planet_name_saturn">Saturno</string>
+    <string name="planet_name_uranus">Urano</string>
+    <string name="planet_name_neptune">Neptuno</string>
+    <string name="planet_name_pluto">Plutón</string>
+    <string name="planet_name_haumea">Haumea</string>
+    <string name="planet_name_makemake">Makemake</string>
+    <string name="planet_name_eris">Eris</string>
+    <string name="planet_name_sedna">Sedna</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Sol</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Cumpleaños</string>
+    <string name="notification_channel_description">Notificaciones sobre cumpleaños en Solar y planetas favoritos</string>
+    <string name="notification_title">Prepárate 🎂</string>
+    <string name="notification_content">Mañana cumples años en planetas: %s</string>
+</resources>

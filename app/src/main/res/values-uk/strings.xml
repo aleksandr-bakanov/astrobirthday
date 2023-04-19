@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">Велкам ту Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Вкажи свій день народження</string>
+    <string name="welcome_button_text">Поїхали!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">Пошук</string>
+    <string name="sort_icon_title">Сортування</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Твій день народження</string>
+    <string name="settings_enable_notifications_title">Повідомляти про д.н. на сонячних та вибраних планетах</string>
+    <string name="credits">Зроблено на Твіче otselotl\'ем\nз душевною підтримкою:\n|starforce|, Archevod, derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">Планета</string>
+    <string name="tab_title_stellar">Зірка</string>
+    <string name="tab_title_system">Система</string>
+    <string name="age_string_pattern_one">Вік: %s</string>
+    <string name="age_string_pattern_two">Вік: %s %s</string>
+    <string name="age_string_pattern_three">Вік: %s %s %s</string>
+    <string name="next_birthday">День народження: %s</string>
+    <string name="reference">Посилання</string>
+    <string name="discovery_method">Метод відкриття</string>
+    <string name="discovery_year">Рік відкриття</string>
+    <string name="facility">Обсерваторія</string>
+    <string name="orbital_period_days">Орбітальний період [дні]</string>
+    <string name="orbital_semi_major_axis_au">Велика піввісь орбіти [ае]</string>
+    <string name="radius_earth_radius">Радіус [R🜨]</string>
+    <string name="mass_earth_mass">Маса [M🜨]</string>
+    <string name="orbit_eccentricity">Ексцентриситет орбіти</string>
+    <string name="equilibrium_temperature">Відповідна температура [K]</string>
+    <string name="name">Ім\'я</string>
+    <string name="spectral_type">Спектральний тип</string>
+    <string name="effective_temperature">Ефективна температура [K]</string>
+    <string name="radius_solar_radius">Радіус [R☉︎]</string>
+    <string name="mass_solar_mass">Маса [M☉]</string>
+    <string name="number_of_stars">Кількість зірок</string>
+    <string name="number_of_planets">Кількість планет</string>
+    <string name="distance_pc">Відстань до системи [пк]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d рік</item>
+        <item quantity="few">%d роки</item>
+        <item quantity="many">%d років</item>
+        <item quantity="other">%d роки</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d місяць</item>
+        <item quantity="few">%d місяця</item>
+        <item quantity="many">%d місяців</item>
+        <item quantity="other">%d місяця</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дні</item>
+        <item quantity="many">%d днів</item>
+        <item quantity="other">%d днів</item>
+    </plurals>
+
+    <!-- Sorting -->
+    <string name="sorting_screen_title">Сортування</string>
+    <string name="sort_by_name">Ім\'я</string>
+    <string name="sort_by_age">Вік</string>
+    <string name="sort_by_birthday">День народження</string>
+    <string name="sort_by_distance">Відстань</string>
+    <string name="sort_by_period">Період</string>
+    <string name="sort_by_planet_mass">Маса планети</string>
+    <string name="sort_by_planet_radius">Радіус планети</string>
+    <string name="sort_by_star_mass">Маса зірки</string>
+    <string name="sort_by_star_radius">Радіус зірки</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Астрометрія</string>
+    <string name="disc_method_disk_kinematics">Кінематика диска</string>
+    <string name="disc_method_eclipse_timing_variations">Зміна часу проходження затемнення</string>
+    <string name="disc_method_imaging">Пряме зображення</string>
+    <string name="disc_method_microlensing">Мікролінзування</string>
+    <string name="disc_method_orbital_brightness_modulation">Орбітальна модуляція яскравості</string>
+    <string name="disc_method_pulsar_timing">Зміна часу пульсара</string>
+    <string name="disc_method_pulsation_timing_variations">Зміна часу пульсації</string>
+    <string name="disc_method_radial_velocity">Променева швидкість</string>
+    <string name="disc_method_transit">Транзити</string>
+    <string name="disc_method_transit_timing_variations">Зміна часу транзитів</string>
+    <string name="unknown_age">Вік: невідомий</string>
+    <string name="unknown_age_short">невідомий</string>
+    <string name="unknown_birthday">День народження: невідомий</string>
+    <string name="unknown_birthday_short">невідомий</string>
+    <string name="not_available">н/д</string>
+    <string name="empty_favorites_placeholder_text">Поки тут нічого немає ¯\\_(ツ)_/¯\n\nНатисніть ♡ на екрані планети щоб додати її сюди</string>
+    <string name="set_your_birthday">Задати день народження</string>
+
+    <!-- Screen names -->
+    <string name="screen_solar_system">Сонячна система</string>
+    <string name="title_exoplanets">Екзопланети</string>
+    <string name="title_favorites">Вибрані</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Сонячні</string>
+    <string name="bottom_menu_settings">Налаштування</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Меркурій</string>
+    <string name="planet_name_venus">Венера</string>
+    <string name="planet_name_earth">Земля</string>
+    <string name="planet_name_mars">Марс</string>
+    <string name="planet_name_ceres">Церера</string>
+    <string name="planet_name_jupiter">Юпітер</string>
+    <string name="planet_name_saturn">Сатурн</string>
+    <string name="planet_name_uranus">Уран</string>
+    <string name="planet_name_neptune">Нептун</string>
+    <string name="planet_name_pluto">Плутон</string>
+    <string name="planet_name_haumea">Хаумеа</string>
+    <string name="planet_name_makemake">Макемаке</string>
+    <string name="planet_name_eris">Еріда</string>
+    <string name="planet_name_sedna">Седна</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Сонце</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Дні народження</string>
+    <string name="notification_channel_description">Повідомлення про дні народження на сонячних та вибраних планетах</string>
+    <string name="notification_title">Відзначаємо 🎂</string>
+    <string name="notification_content">Завтра день народження на планетах: %s</string>
+</resources>

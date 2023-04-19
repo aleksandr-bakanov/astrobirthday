@@ -35,7 +35,7 @@ class NotificationHelper(
         if (isNotificationsEnabled(userSetting = userSetting) && planetNames.isNotEmpty()) {
             createNotificationChannel()
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo_notification)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.resources.getString(R.string.notification_title))
                 .setStyle(NotificationCompat.BigTextStyle()
                     .bigText(context.resources.getString(

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">Welkom bij Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Stel je verjaardag in</string>
+    <string name="welcome_button_text">Laten we gaan!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">Zoekopdracht</string>
+    <string name="sort_icon_title">Sorteren</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Je verjaardag</string>
+    <string name="settings_enable_notifications_title">Meld verjaardagen op zonne- en favoriete planeten</string>
+    <string name="credits">Gemaakt op Twitch door otselotl \n met hartelijke steun van: \n |starforce|, Archevod, derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">Planeet</string>
+    <string name="tab_title_stellar">Stellair</string>
+    <string name="tab_title_system">Systeem</string>
+    <string name="age_string_pattern_one">Leeftijd: %s</string>
+    <string name="age_string_pattern_two">Leeftijd: %s %s</string>
+    <string name="age_string_pattern_three">Leeftijd: %s %s %s</string>
+    <string name="next_birthday">Volgende verjaardag: %s</string>
+    <string name="reference">Referentie</string>
+    <string name="discovery_method">Discovery methode</string>
+    <string name="discovery_year">Ontdekkingsjaar</string>
+    <string name="facility">Observatorium</string>
+    <string name="orbital_period_days">Omlooptijd [dagen]</string>
+    <string name="orbital_semi_major_axis_au">Orbitale halve hoofdas [au]</string>
+    <string name="radius_earth_radius">Straal [R🜨]</string>
+    <string name="mass_earth_mass">Massa [M🜨]</string>
+    <string name="orbit_eccentricity">Excentriciteit van de baan</string>
+    <string name="equilibrium_temperature">Evenwichtstemperatuur [K]</string>
+    <string name="name">Naam</string>
+    <string name="spectral_type">Spectraal type</string>
+    <string name="effective_temperature">Effectieve temperatuur [K]</string>
+    <string name="radius_solar_radius">Straal [R☉︎]</string>
+    <string name="mass_solar_mass">Massa [M☉]</string>
+    <string name="number_of_stars">Aantal sterren</string>
+    <string name="number_of_planets">Aantal planeten</string>
+    <string name="distance_pc">Afstand tot systeem [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d jaar</item>
+        <item quantity="other">%d jaar</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d maand</item>
+        <item quantity="other">%d maanden</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dagen</item>
+    </plurals>
+
+    <!-- Sorting -->
+    <string name="sort_by_name">Naam</string>
+    <string name="sort_by_age">Leeftijd</string>
+    <string name="sort_by_birthday">Verjaardag</string>
+    <string name="sort_by_distance">Afstand tot systeem</string>
+    <string name="sort_by_period">Omlooptijd</string>
+    <string name="sort_by_planet_mass">Planeet massa</string>
+    <string name="sort_by_planet_radius">Planeet straal</string>
+    <string name="sort_by_star_mass">Sterren massa</string>
+    <string name="sort_by_star_radius">Straal van de ster</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Astrometrie</string>
+    <string name="disc_method_disk_kinematics">Schijf kinematica</string>
+    <string name="disc_method_eclipse_timing_variations">Eclipse timing variaties</string>
+    <string name="disc_method_imaging">Directe beeldvorming</string>
+    <string name="disc_method_microlensing">Zwaartekracht microlensing</string>
+    <string name="disc_method_orbital_brightness_modulation">Orbitale helderheidsmodulatie</string>
+    <string name="disc_method_pulsar_timing">Pulsar-timing</string>
+    <string name="disc_method_pulsation_timing_variations">Pulsatie timing variaties</string>
+    <string name="disc_method_radial_velocity">Doppler-spectroscopie</string>
+    <string name="disc_method_transit">Transit fotometrie</string>
+    <string name="disc_method_transit_timing_variations">Variaties in doorvoertijden</string>
+    <string name="unknown_age">Leeftijd: onbekend</string>
+    <string name="unknown_age_short">onbekend</string>
+    <string name="unknown_birthday">Volgende verjaardag: onbekend</string>
+    <string name="unknown_birthday_short">onbekend</string>
+    <string name="not_available">n/a</string>
+    <string name="empty_favorites_placeholder_text">Nog niets hier ¯\\_(ツ)_/¯\n\nTik op ♡ op het planetenscherm om het hier toe te voegen.</string>
+    <string name="set_your_birthday">Stel verjaardag</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">Sorteren op</string>
+    <string name="screen_solar_system">Zonnestelsel</string>
+    <string name="title_exoplanets">Exoplaneten</string>
+    <string name="title_favorites">Favorieten</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Zonne</string>
+    <string name="bottom_menu_settings">Instellingen</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Mercurius</string>
+    <string name="planet_name_venus">Venus</string>
+    <string name="planet_name_earth">Aarde</string>
+    <string name="planet_name_mars">Mars</string>
+    <string name="planet_name_ceres">Ceres</string>
+    <string name="planet_name_jupiter">Jupiter</string>
+    <string name="planet_name_saturn">Saturnus</string>
+    <string name="planet_name_uranus">Uranus</string>
+    <string name="planet_name_neptune">Neptunus</string>
+    <string name="planet_name_pluto">Pluto</string>
+    <string name="planet_name_haumea">Haumea</string>
+    <string name="planet_name_makemake">Makemake</string>
+    <string name="planet_name_eris">Eris</string>
+    <string name="planet_name_sedna">Sedna</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Zon</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Verjaardagen</string>
+    <string name="notification_channel_description">Meldingen over verjaardagen op zonne en favoriete planeten</string>
+    <string name="notification_title">Maak je klaar 🎂</string>
+    <string name="notification_content">Je hebt morgen een verjaardag op planeten: %s</string>
+</resources>

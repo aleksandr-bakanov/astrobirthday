@@ -27,11 +27,11 @@
     <string name="discovery_year">Год открытия</string>
     <string name="facility">Обсерватория</string>
     <string name="orbital_period_days">Орбитальный период [дни]</string>
-    <string name="orbital_semi_major_axis_au">Большая полуось орбиты [ае]</string>
+    <string name="orbital_semi_major_axis_au">Большая полуось орбиты [а.е.]</string>
     <string name="radius_earth_radius">Радиус [R🜨]</string>
     <string name="mass_earth_mass">Масса [M🜨]</string>
     <string name="orbit_eccentricity">Эксцентриситет орбиты</string>
-    <string name="equilibrium_temperature">Равновестная температура [K]</string>
+    <string name="equilibrium_temperature">Равновесная температура [K]</string>
     <string name="name">Имя</string>
     <string name="spectral_type">Спектральный тип</string>
     <string name="effective_temperature">Эффективная температура [K]</string>
@@ -45,25 +45,27 @@
         <item quantity="one">%d год</item>
         <item quantity="few">%d года</item>
         <item quantity="many">%d лет</item>
+        <item quantity="other">%d года</item>
     </plurals>
     <plurals name="months_amount">
         <item quantity="one">%d месяц</item>
         <item quantity="few">%d месяца</item>
         <item quantity="many">%d месяцев</item>
+        <item quantity="other">%d месяца</item>
     </plurals>
     <plurals name="days_amount">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дня</item>
         <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
     </plurals>
 
     <!-- Sorting -->
-    <string name="sorting_screen_title">Сортировка</string>
     <string name="sort_by_name">Имя</string>
     <string name="sort_by_age">Возраст</string>
     <string name="sort_by_birthday">День рождения</string>
-    <string name="sort_by_distance">Расстояние</string>
-    <string name="sort_by_period">Период</string>
+    <string name="sort_by_distance">Расстояние до системы</string>
+    <string name="sort_by_period">Орбитальный период</string>
     <string name="sort_by_planet_mass">Масса планеты</string>
     <string name="sort_by_planet_radius">Радиус планеты</string>
     <string name="sort_by_star_mass">Масса звезды</string>
@@ -74,7 +76,7 @@
     <string name="disc_method_disk_kinematics">Кинематика диска</string>
     <string name="disc_method_eclipse_timing_variations">Изменение времени прохождения затмения</string>
     <string name="disc_method_imaging">Прямое изображение</string>
-    <string name="disc_method_microlensing">Микролинзирование</string>
+    <string name="disc_method_microlensing">Гравитационное микролинзирование</string>
     <string name="disc_method_orbital_brightness_modulation">Орбитальная модуляция яркости</string>
     <string name="disc_method_pulsar_timing">Изменение времени пульсара</string>
     <string name="disc_method_pulsation_timing_variations">Изменение времени пульсации</string>
@@ -90,6 +92,7 @@
     <string name="set_your_birthday">Задать днюху</string>
 
     <!-- Screen names -->
+    <string name="sorting_screen_title">Сортировка</string>
     <string name="screen_solar_system">Солнечная система</string>
     <string name="title_exoplanets">Экзопланеты</string>
     <string name="title_favorites">Избранные</string>

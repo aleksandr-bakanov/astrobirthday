@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">Astro Birthdayへようこそ！</string>
+    <string name="welcome_set_your_birthday_title">誕生日を設定する</string>
+    <string name="welcome_button_text">さあ行こう！</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">検索</string>
+    <string name="sort_icon_title">並べ替え</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">あなたの誕生日</string>
+    <string name="settings_enable_notifications_title">太陽とお気に入りの惑星の誕生日について通知する</string>
+    <string name="credits">otselotl が Twitch で作成 \n 次の心からのサポート: \n |starforce|、Archevod、derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">惑星</string>
+    <string name="tab_title_stellar">星</string>
+    <string name="tab_title_system">惑星系</string>
+    <string name="age_string_pattern_one">年: %s</string>
+    <string name="age_string_pattern_two">年: %s %s</string>
+    <string name="age_string_pattern_three">年: %s %s %s</string>
+    <string name="next_birthday">次の誕生日: %s</string>
+    <string name="reference">レファレンス</string>
+    <string name="discovery_method">発見方法</string>
+    <string name="discovery_year">発見年</string>
+    <string name="facility">天文台</string>
+    <string name="orbital_period_days">公転周期[日]</string>
+    <string name="orbital_semi_major_axis_au">軌道長半径[au]</string>
+    <string name="radius_earth_radius">半径[R🜨]</string>
+    <string name="mass_earth_mass">ミサ[M🜨]</string>
+    <string name="orbit_eccentricity">軌道離心率</string>
+    <string name="equilibrium_temperature">平衡温度[K]</string>
+    <string name="name">名前</string>
+    <string name="spectral_type">スペクトルタイプ</string>
+    <string name="effective_temperature">実効温度[K]</string>
+    <string name="radius_solar_radius">半径 [R☉︎]</string>
+    <string name="mass_solar_mass">ミサ [M☉]</string>
+    <string name="number_of_stars">星の数</string>
+    <string name="number_of_planets">惑星の数</string>
+    <string name="distance_pc">惑星系までの距離 [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="other">%d年</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="other">%dヶ月</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="other">%d日</item>
+    </plurals>
+
+    <!-- Sorting -->
+    <string name="sort_by_name">名前</string>
+    <string name="sort_by_age">年</string>
+    <string name="sort_by_birthday">誕生日</string>
+    <string name="sort_by_distance">惑星系までの距離</string>
+    <string name="sort_by_period">公転周期</string>
+    <string name="sort_by_planet_mass">惑星の質量</string>
+    <string name="sort_by_planet_radius">惑星の半径</string>
+    <string name="sort_by_star_mass">星の質量</string>
+    <string name="sort_by_star_radius">星の半径</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">アストロメトリ法</string>
+    <string name="disc_method_disk_kinematics">ディスク運動学</string>
+    <string name="disc_method_eclipse_timing_variations">日食のタイミングの変動</string>
+    <string name="disc_method_imaging">直接撮像法</string>
+    <string name="disc_method_microlensing">重力マイクロレンズ法</string>
+    <string name="disc_method_orbital_brightness_modulation">軌道輝度変調</string>
+    <string name="disc_method_pulsar_timing">パルサータイミング法</string>
+    <string name="disc_method_pulsation_timing_variations">脈動のタイミング変動</string>
+    <string name="disc_method_radial_velocity">ドップラー分光法</string>
+    <string name="disc_method_transit">トランジット法</string>
+    <string name="disc_method_transit_timing_variations">トランジットタイミング変化法</string>
+    <string name="unknown_age">年齢：不明</string>
+    <string name="unknown_age_short">未知</string>
+    <string name="unknown_birthday">次の誕生日：不明</string>
+    <string name="unknown_birthday_short">未知</string>
+    <string name="not_available">n/a</string>
+    <string name="empty_favorites_placeholder_text">まだ何もありません ¯\\_(ツ)_/¯\n\n惑星画面で♡をタップすると、ここに追加されます。</string>
+    <string name="set_your_birthday">誕生日を設定する</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">並び順</string>
+    <string name="screen_solar_system">太陽系</string>
+    <string name="title_exoplanets">系外惑星</string>
+    <string name="title_favorites">お気に入り</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">太陽</string>
+    <string name="bottom_menu_settings">設定</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">水星</string>
+    <string name="planet_name_venus">金星</string>
+    <string name="planet_name_earth">地球</string>
+    <string name="planet_name_mars">火星</string>
+    <string name="planet_name_ceres">ケレス</string>
+    <string name="planet_name_jupiter">木星</string>
+    <string name="planet_name_saturn">土星</string>
+    <string name="planet_name_uranus">天王星</string>
+    <string name="planet_name_neptune">海王星</string>
+    <string name="planet_name_pluto">冥王星</string>
+    <string name="planet_name_haumea">ハウメア</string>
+    <string name="planet_name_makemake">マケマケ</string>
+    <string name="planet_name_eris">エリス</string>
+    <string name="planet_name_sedna">セドナ</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">太陽</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">誕生日</string>
+    <string name="notification_channel_description">太陽系惑星や好きな惑星の誕生日をお知らせする機能</string>
+    <string name="notification_title">準備する 🎂</string>
+    <string name="notification_content">あなたは明日、惑星で誕生日を迎えます: %s</string>
+</resources>
