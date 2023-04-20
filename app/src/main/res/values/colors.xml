@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primaryColor">#0d1277</color>
-    <color name="primaryLightColor">#4c3aa7</color>
     <color name="primaryDarkColor">#00004a</color>
-    <color name="secondaryColor">#fa7300</color>
-    <color name="secondaryLightColor">#ffa441</color>
-    <color name="secondaryDarkColor">#c04300</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 
@@ -13,15 +9,6 @@
 
     <color name="planetShadowColor">@color/buttonsBlue</color>
     <color name="mainOrbitColor">@color/buttonsBlue</color>
-    <color name="secondaryOrbitColor">@color/buttonsBlue</color>
-
-    <color name="deepOrange900">#bf360c</color>
-    <color name="deepOrange900Light">#f9683a</color>
-    <color name="deepOrange900Dark">#870000</color>
-    <color name="deepOrangeA700">#dd2c00</color>
-    <color name="deepOrangeA700Light">#ff6434</color>
-    <color name="deepOrangeA700Dark">#a30000</color>
-    <color name="yellow500">#ffeb3b</color>
 
     <color name="backgroundDarkGrey">#0D0C0E</color>
     <color name="greyStroke">#989698</color>

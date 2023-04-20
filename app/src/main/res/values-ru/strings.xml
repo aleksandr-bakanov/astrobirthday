@@ -87,7 +87,6 @@
     <string name="unknown_age_short">неизвестен</string>
     <string name="unknown_birthday">День рождения: неизвестен</string>
     <string name="unknown_birthday_short">неизвестен</string>
-    <string name="not_available">н/д</string>
     <string name="empty_favorites_placeholder_text">Здесь пока ничего нет ¯\\_(ツ)_/¯\n\nНажми ♡ на экране планеты чтобы добавить её сюда</string>
     <string name="set_your_birthday">Задать днюху</string>
 

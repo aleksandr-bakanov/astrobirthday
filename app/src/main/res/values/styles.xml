@@ -1,19 +1,4 @@
 <resources>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="ShadowedText">
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-        <item name="android:textColor">#ffffffff</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">8</item>
-        <item name="android:shadowDy">8</item>
-        <item name="android:shadowRadius">8</item>
-    </style>
 
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
         <item name="materialThemeOverlay">@style/ThemeOverlay.MaterialComponents.Toolbar.Primary

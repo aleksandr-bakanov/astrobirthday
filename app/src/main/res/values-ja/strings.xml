@@ -78,7 +78,6 @@
     <string name="unknown_age_short">未知</string>
     <string name="unknown_birthday">次の誕生日：不明</string>
     <string name="unknown_birthday_short">未知</string>
-    <string name="not_available">n/a</string>
     <string name="empty_favorites_placeholder_text">まだ何もありません ¯\\_(ツ)_/¯\n\n惑星画面で♡をタップすると、ここに追加されます。</string>
     <string name="set_your_birthday">誕生日を設定する</string>
 

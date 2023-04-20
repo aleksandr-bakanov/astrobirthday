@@ -84,7 +84,6 @@
     <string name="unknown_age_short">inconnue</string>
     <string name="unknown_birthday">Prochain anniversaire : inconnu</string>
     <string name="unknown_birthday_short">inconnue</string>
-    <string name="not_available">s/o</string>
     <string name="empty_favorites_placeholder_text">Il n\'y a encore rien ici ¯\\_(ツ)_/¯\n\nAppuyez sur ♡ sur l\'écran de la planète pour l\'ajouter ici.</string>
     <string name="set_your_birthday">Fixer l\'anniversaire</string>
 
