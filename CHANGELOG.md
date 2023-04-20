@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-04-20
+
 ### Changed
 
 - New application design
@@ -15,6 +17,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Cool 3D planet animation
 - Notifications about birthdays on solar and favorite planets
+- Translations:
+  - English
+  - German
+  - Spanish
+  - French
+  - Italian
+  - Japanese
+  - Dutch
+  - Polish
+  - Russian
+  - Ukrainian
 
 ### Removed
 
