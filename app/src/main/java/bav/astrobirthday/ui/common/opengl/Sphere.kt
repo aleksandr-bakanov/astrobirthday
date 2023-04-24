@@ -29,9 +29,16 @@ class Sphere(
 
     var angle: Float = 0f
 
+    /**
+     * IMPORTANT: only to Matrix.transform operations with this one
+     */
     val modelTransformMatrix = FloatArray(16).also {
         Matrix.setIdentityM(it, 0)
     }
+
+    /**
+     * IMPORTANT: only to Matrix.rotate operations with this one
+     */
     val modelRotationMatrix = FloatArray(16).also {
         Matrix.setIdentityM(it, 0)
     }
@@ -245,9 +252,6 @@ class Sphere(
         GLES20.glGetUniformLocation(program, "uVPMatrix").also {
             GLES20.glUniformMatrix4fv(it, 1, false, vpMatrix, 0)
         }
-
-        Matrix.setIdentityM(modelRotationMatrix, 0)
-        Matrix.rotateM(modelRotationMatrix, 0, angle, 0f, 0f, 1f)
 
         // Apply transformation matrix
         GLES20.glGetUniformLocation(program, "uModelTransform").also {

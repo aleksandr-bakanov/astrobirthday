@@ -9,9 +9,11 @@ data class PlanetSystemNode(
     val orbitAngle: Float = 0.0f,
     // in radians
     val angularVelocity: Float = 0.0f,
+    // in degrees
+    val orbitTilt: Float = 0.0f,
 
-    val planets: MutableList<PlanetData> = mutableListOf(),
-    val satellites: MutableList<PlanetSystemNode> = mutableListOf()
+    val planets: List<PlanetData> = listOf(),
+    val satellites: List<PlanetSystemNode> = listOf()
 )
 
 fun PlanetSystemNode.toPlanetRenderSystemNode(context: Context): PlanetRenderSystemNode {
@@ -19,6 +21,7 @@ fun PlanetSystemNode.toPlanetRenderSystemNode(context: Context): PlanetRenderSys
         orbitRadius = orbitRadius,
         orbitAngle = orbitAngle,
         angularVelocity = angularVelocity,
+        orbitTilt = orbitTilt,
         planets = planets.map {
             it.toPlanetRenderData(context)
         },

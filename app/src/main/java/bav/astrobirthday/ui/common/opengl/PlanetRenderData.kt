@@ -16,6 +16,10 @@ class PlanetRenderData(
     var orbitAngle: Float = 0.0f,
     // in radians
     val angularVelocity: Float = 0.0f,
+    // in degrees
+    val axisTilt: Float = 0.0f,
+    // in degrees
+    val orbitTilt: Float = 0.0f,
 
     val sphere: Sphere? = null,
     val ring: Ring? = null,
@@ -26,42 +30,46 @@ class PlanetRenderData(
     val totalRadius: Float
         get() = max(this.sphere?.radius ?: 0f, this.ring?.outerRadius ?: 0f)
 
-    // position in world coordinates
-    private var x: Float = 0.0f
-    private var y: Float = 0.0f
-    private var z: Float = 0.0f
+    // Position in world coordinates
+    private val centerPosition = FloatArray(16).also {
+        Matrix.setIdentityM(it, 0)
+    }
 
-    /**
-     * Update planet position according to its params. Each frame
-     *
-     * @param parentX x coordinate of parent node in world coordinates
-     * @param parentY y coordinate of parent node in world coordinates
-     * @param parentZ z coordinate of parent node in world coordinates
-     */
-    fun update(parentX: Float = 0f, parentY: Float = 0f, parentZ: Float = 0f) {
+    fun update(parentTransform: FloatArray) {
         orbitAngle += angularVelocity
         if (orbitAngle > 2 * PI)
             orbitAngle -= 2 * PI.toFloat()
 
-        x = parentX + cos(orbitAngle) * orbitRadius
-        y = parentY + sin(orbitAngle) * orbitRadius
-        z = parentZ
+        parentTransform.copyInto(centerPosition)
+
+        val flatOrbitX = cos(orbitAngle) * orbitRadius
+        val flatOrbitY = sin(orbitAngle) * orbitRadius
+        // flatOrbitX is a new radius because we're rotating by Y axis
+        val rotatedOrbitX = cos(orbitTilt.degToRad()) * flatOrbitX
+        val rotatedOrbitZ = sin(orbitTilt.degToRad()) * flatOrbitX
+        Matrix.translateM(
+            centerPosition,
+            0,
+            rotatedOrbitX,
+            flatOrbitY,
+            rotatedOrbitZ
+        )
 
         sphere?.let {
             it.angle += axisRotationSpeed
             if (it.angle > 360f) it.angle -= 360f
 
-            Matrix.setIdentityM(it.modelTransformMatrix, 0)
-            Matrix.translateM(it.modelTransformMatrix, 0, x, y, z)
+            centerPosition.copyInto(it.modelTransformMatrix)
+
+            Matrix.setIdentityM(it.modelRotationMatrix, 0)
+            Matrix.rotateM(it.modelRotationMatrix, 0, axisTilt, 0f, 1f, 0f)
+            Matrix.rotateM(it.modelRotationMatrix, 0, it.angle, 0f, 0f, 1f)
         }
         ring?.let {
-            Matrix.setIdentityM(it.modelTransformMatrix, 0)
-            Matrix.translateM(it.modelTransformMatrix, 0, x, y, z)
-        }
-    }
+            centerPosition.copyInto(it.modelTransformMatrix)
 
-    fun draw(program: Int, vpMatrix: FloatArray) {
-        sphere?.draw(program, vpMatrix, sphereTexture)
-        ring?.draw(program, vpMatrix, ringTexture)
+            Matrix.setIdentityM(it.modelRotationMatrix, 0)
+            Matrix.rotateM(it.modelRotationMatrix, 0, axisTilt, 0f, 1f, 0f)
+        }
     }
 }

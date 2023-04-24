@@ -7,7 +7,7 @@ fun Float.degToRad(): Float = (this * PI / 180.0).toFloat()
 
 val solarPlanetSystems = mapOf(
     "Mercury" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 2.0f,
                 sphereRadius = 1f,
@@ -16,8 +16,9 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Venus" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 177.3f,
                 axisRotationSpeed = 0.2f,
                 sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_venus_atmosphere,
@@ -25,35 +26,34 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Earth" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 23.44f,
                 axisRotationSpeed = 1.5f,
                 sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_earth_with_clouds,
-            )
-        ),
-        satellites = mutableListOf(
-            PlanetSystemNode(
+            ),
+            PlanetData(
+                axisTilt = 0.0f,
+                orbitTilt = -5.14f,
                 orbitRadius = 6f,
                 angularVelocity = 1f.degToRad(),
-                planets = mutableListOf(
-                    PlanetData(
-                        axisRotationSpeed = 1.0f,
-                        sphereRadius = 0.3f,
-                        sphereTextureResId = R.drawable.tex_solar_moon,
-                    )
-                )
+                axisRotationSpeed = 1.0f,
+                sphereRadius = 0.3f,
+                sphereTextureResId = R.drawable.tex_solar_moon,
             )
         )
     ),
     "Mars" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 1.2f,
                 sphereTextureResId = R.drawable.tex_solar_mars,
             ),
             PlanetData(
+                orbitTilt = -25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.06f,
                 sphereTextureResId = R.drawable.tex_rock_satellite_1,
@@ -62,6 +62,7 @@ val solarPlanetSystems = mapOf(
                 angularVelocity = 0.5f.degToRad()
             ),
             PlanetData(
+                orbitTilt = -25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.05f,
                 sphereTextureResId = R.drawable.tex_rock_satellite_2,
@@ -72,7 +73,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Ceres" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 0.5f,
                 sphereRadius = 0.5f,
@@ -81,13 +82,16 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Jupiter" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 3.1f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_jupiter,
             ),
             PlanetData(
+                axisTilt = 3.1f,
+                orbitTilt = -3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 4f,
                 orbitAngle = 0f,
@@ -96,6 +100,8 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_io,
             ),
             PlanetData(
+                axisTilt = 3.1f,
+                orbitTilt = -3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 5f,
                 orbitAngle = (PI / 2.0).toFloat(),
@@ -104,6 +110,8 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_europa,
             ),
             PlanetData(
+                axisTilt = 3.1f,
+                orbitTilt = -3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 6f,
                 orbitAngle = PI.toFloat(),
@@ -112,6 +120,8 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_ganymede,
             ),
             PlanetData(
+                axisTilt = 3.1f,
+                orbitTilt = -3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 7f,
                 orbitAngle = (PI * 3.0 / 2.0).toFloat(),
@@ -122,8 +132,9 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Saturn" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData( // Saturn
+                axisTilt = 26.7f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 1.8f,
                 ringInnerRadius = 1.57f,
@@ -133,6 +144,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Mimas
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 6f,
                 orbitAngle = 0f,
@@ -142,6 +154,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Enceladus
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 7f,
                 orbitAngle = 50f.degToRad(),
@@ -151,6 +164,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Tethys
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 8f,
                 orbitAngle = 100f.degToRad(),
@@ -160,6 +174,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Dione
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 9f,
                 orbitAngle = 150f.degToRad(),
@@ -169,6 +184,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Rhea
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 10f,
                 orbitAngle = 200f.degToRad(),
@@ -178,6 +194,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Titan
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 11f,
                 orbitAngle = 250f.degToRad(),
@@ -187,6 +204,7 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Iapetus
+                orbitTilt = -26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 12f,
                 orbitAngle = 300f.degToRad(),
@@ -197,8 +215,9 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Uranus" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 97.8f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_uranus,
@@ -206,8 +225,9 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Neptune" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
+                axisTilt = 28.3f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_neptune,
@@ -215,7 +235,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Pluto" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 1.1f,
@@ -235,7 +255,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Haumea" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.5f,
@@ -244,7 +264,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Makemake" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.5f,
@@ -253,7 +273,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Eris" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.5f,
@@ -262,7 +282,7 @@ val solarPlanetSystems = mapOf(
         )
     ),
     "Sedna" to PlanetSystemNode(
-        planets = mutableListOf(
+        planets = listOf(
             PlanetData(
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.5f,

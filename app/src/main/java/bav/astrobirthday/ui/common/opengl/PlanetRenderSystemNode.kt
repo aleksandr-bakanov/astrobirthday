@@ -1,5 +1,6 @@
 package bav.astrobirthday.ui.common.opengl
 
+import android.opengl.Matrix
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -11,32 +12,39 @@ class PlanetRenderSystemNode(
     var orbitAngle: Float = 0.0f,
     // in radians
     val angularVelocity: Float = 0.0f,
+    // in degrees
+    val orbitTilt: Float = 0.0f,
 
     val planets: List<PlanetRenderData> = mutableListOf(),
     val satellites: List<PlanetRenderSystemNode> = mutableListOf()
 ) {
-    // in world coordinates
-    private var massCenterX: Float = 0.0f
-    private var massCenterY: Float = 0.0f
-    private var massCenterZ: Float = 0.0f
+
+    // In world coordinates
+    private val massCenter = FloatArray(16).also {
+        Matrix.setIdentityM(it, 0)
+    }
 
     /**
      * Update planet system according to its params. Each frame
      *
-     * @param parentX x coordinate of parent node in world coordinates
-     * @param parentY y coordinate of parent node in world coordinates
-     * @param parentZ z coordinate of parent node in world coordinates
+     * @param parentTransform transform matrix [4,4] of the parent node in world coordinates
      */
-    fun update(parentX: Float = 0f, parentY: Float = 0f, parentZ: Float = 0f) {
+    fun update(parentTransform: FloatArray) {
         orbitAngle += angularVelocity
         if (orbitAngle > 2 * PI)
             orbitAngle -= 2 * PI.toFloat()
 
-        massCenterX = parentX + cos(orbitAngle) * orbitRadius
-        massCenterY = parentY + sin(orbitAngle) * orbitRadius
-        massCenterZ = parentZ
+        parentTransform.copyInto(massCenter)
+        Matrix.translateM(
+            massCenter,
+            0,
+            cos(orbitAngle) * orbitRadius,
+            sin(orbitAngle) * orbitRadius,
+            0f
+        )
+        Matrix.rotateM(massCenter, 0, orbitTilt, 0f, 1f, 0f)
 
-        for (planet in planets) planet.update(massCenterX, massCenterY, massCenterZ)
-        for (satellite in satellites) satellite.update(massCenterX, massCenterY, massCenterZ)
+        for (planet in planets) planet.update(massCenter)
+        for (satellite in satellites) satellite.update(massCenter)
     }
 }
