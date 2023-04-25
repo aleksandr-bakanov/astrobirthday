@@ -13,9 +13,13 @@ data class PlanetData(
     // in radians
     val angularVelocity: Float = 0f,
     // in degrees
-    val axisTilt: Float = 0f,
+    val axisTiltY: Float = 0f,
     // in degrees
-    val orbitTilt: Float = 0.0f,
+    val orbitTiltY: Float = 0.0f,
+    // in degrees
+    val axisTiltX: Float = 0f,
+    // in degrees
+    val orbitTiltX: Float = 0.0f,
 
     val sphereRadius: Float = 0f,
     val ringInnerRadius: Float = 0f,
@@ -31,8 +35,10 @@ fun PlanetData.toPlanetRenderData(context: Context): PlanetRenderData {
         orbitRadius = orbitRadius,
         orbitAngle = orbitAngle,
         angularVelocity = angularVelocity,
-        axisTilt = axisTilt,
-        orbitTilt = orbitTilt,
+        axisTiltY = axisTiltY,
+        orbitTiltY = orbitTiltY,
+        axisTiltX = axisTiltX,
+        orbitTiltX = orbitTiltX,
         sphere = Sphere(sphereRadius),
         ring = if (ringInnerRadius > 0f) Ring(ringInnerRadius, ringOuterRadius) else null,
         sphereTexture = TextureUtils.loadTexture(context, sphereTextureResId),

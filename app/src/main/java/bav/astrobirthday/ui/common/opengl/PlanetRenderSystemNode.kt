@@ -13,7 +13,9 @@ class PlanetRenderSystemNode(
     // in radians
     val angularVelocity: Float = 0.0f,
     // in degrees
-    val orbitTilt: Float = 0.0f,
+    val orbitTiltY: Float = 0.0f,
+    // in degrees
+    val orbitTiltX: Float = 0.0f,
 
     val planets: List<PlanetRenderData> = mutableListOf(),
     val satellites: List<PlanetRenderSystemNode> = mutableListOf()
@@ -42,7 +44,8 @@ class PlanetRenderSystemNode(
             sin(orbitAngle) * orbitRadius,
             0f
         )
-        Matrix.rotateM(massCenter, 0, orbitTilt, 0f, 1f, 0f)
+        Matrix.rotateM(massCenter, 0, orbitTiltY, 0f, 1f, 0f)
+        Matrix.rotateM(massCenter, 0, orbitTiltX, 1f, 0f, 0f)
 
         for (planet in planets) planet.update(massCenter)
         for (satellite in satellites) satellite.update(massCenter)

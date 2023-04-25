@@ -18,7 +18,7 @@ val solarPlanetSystems = mapOf(
     "Venus" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 177.3f,
+                axisTiltY = 177.3f,
                 axisRotationSpeed = 0.2f,
                 sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_venus_atmosphere,
@@ -28,14 +28,14 @@ val solarPlanetSystems = mapOf(
     "Earth" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 23.44f,
+                axisTiltY = 23.44f,
                 axisRotationSpeed = 1.5f,
                 sphereRadius = 1.6f,
                 sphereTextureResId = R.drawable.tex_solar_earth_with_clouds,
             ),
             PlanetData(
-                axisTilt = 0.0f,
-                orbitTilt = -5.14f,
+                axisTiltY = 0.0f,
+                orbitTiltY = 5.14f,
                 orbitRadius = 6f,
                 angularVelocity = 1f.degToRad(),
                 axisRotationSpeed = 1.0f,
@@ -47,13 +47,13 @@ val solarPlanetSystems = mapOf(
     "Mars" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 25.2f,
+                axisTiltY = 25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 1.2f,
                 sphereTextureResId = R.drawable.tex_solar_mars,
             ),
             PlanetData(
-                orbitTilt = -25.2f,
+                orbitTiltY = 25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.06f,
                 sphereTextureResId = R.drawable.tex_rock_satellite_1,
@@ -62,7 +62,7 @@ val solarPlanetSystems = mapOf(
                 angularVelocity = 0.5f.degToRad()
             ),
             PlanetData(
-                orbitTilt = -25.2f,
+                orbitTiltY = 25.2f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 0.05f,
                 sphereTextureResId = R.drawable.tex_rock_satellite_2,
@@ -84,14 +84,17 @@ val solarPlanetSystems = mapOf(
     "Jupiter" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 3.1f,
+                axisTiltY = 3.1f,
+                axisTiltX = 3.1f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_jupiter,
             ),
             PlanetData(
-                axisTilt = 3.1f,
-                orbitTilt = -3.1f,
+                axisTiltY = 3.1f,
+                orbitTiltY = 3.1f,
+                axisTiltX = 3.1f,
+                orbitTiltX = 3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 4f,
                 orbitAngle = 0f,
@@ -100,8 +103,10 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_io,
             ),
             PlanetData(
-                axisTilt = 3.1f,
-                orbitTilt = -3.1f,
+                axisTiltY = 3.1f,
+                orbitTiltY = 3.1f,
+                axisTiltX = 3.1f,
+                orbitTiltX = 3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 5f,
                 orbitAngle = (PI / 2.0).toFloat(),
@@ -110,8 +115,10 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_europa,
             ),
             PlanetData(
-                axisTilt = 3.1f,
-                orbitTilt = -3.1f,
+                axisTiltY = 3.1f,
+                orbitTiltY = 3.1f,
+                axisTiltX = 3.1f,
+                orbitTiltX = 3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 6f,
                 orbitAngle = PI.toFloat(),
@@ -120,8 +127,10 @@ val solarPlanetSystems = mapOf(
                 sphereTextureResId = R.drawable.tex_solar_ganymede,
             ),
             PlanetData(
-                axisTilt = 3.1f,
-                orbitTilt = -3.1f,
+                axisTiltY = 3.1f,
+                orbitTiltY = 3.1f,
+                axisTiltX = 3.1f,
+                orbitTiltX = 3.1f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 7f,
                 orbitAngle = (PI * 3.0 / 2.0).toFloat(),
@@ -134,7 +143,8 @@ val solarPlanetSystems = mapOf(
     "Saturn" to PlanetSystemNode(
         planets = listOf(
             PlanetData( // Saturn
-                axisTilt = 26.7f,
+                axisTiltY = 26.7f,
+                axisTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 1.8f,
                 ringInnerRadius = 1.57f,
@@ -144,7 +154,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Mimas
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 6f,
                 orbitAngle = 0f,
@@ -154,7 +165,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Enceladus
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 7f,
                 orbitAngle = 50f.degToRad(),
@@ -164,7 +176,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Tethys
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 8f,
                 orbitAngle = 100f.degToRad(),
@@ -174,7 +187,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Dione
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 9f,
                 orbitAngle = 150f.degToRad(),
@@ -184,7 +198,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Rhea
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 10f,
                 orbitAngle = 200f.degToRad(),
@@ -194,7 +209,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Titan
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 11f,
                 orbitAngle = 250f.degToRad(),
@@ -204,7 +220,8 @@ val solarPlanetSystems = mapOf(
             ),
             PlanetData(
                 // Iapetus
-                orbitTilt = -26.7f,
+                orbitTiltY = 26.7f,
+                orbitTiltX = 26.7f,
                 axisRotationSpeed = 1.0f,
                 orbitRadius = 12f,
                 orbitAngle = 300f.degToRad(),
@@ -217,7 +234,7 @@ val solarPlanetSystems = mapOf(
     "Uranus" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 97.8f,
+                axisTiltY = 97.8f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_uranus,
@@ -227,7 +244,7 @@ val solarPlanetSystems = mapOf(
     "Neptune" to PlanetSystemNode(
         planets = listOf(
             PlanetData(
-                axisTilt = 28.3f,
+                axisTiltY = 28.3f,
                 axisRotationSpeed = 1.0f,
                 sphereRadius = 2.0f,
                 sphereTextureResId = R.drawable.tex_solar_neptune,
