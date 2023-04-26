@@ -7,6 +7,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Axis and orbit tilt for planets
+
 ## [2.0.0] - 2023-04-20
 
 ### Changed

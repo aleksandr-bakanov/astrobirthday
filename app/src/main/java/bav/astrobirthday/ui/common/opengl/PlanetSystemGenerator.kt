@@ -15,6 +15,10 @@ private const val minThresholdBetweenSatellites = 1f
 private const val maxThresholdBetweenSatellites = 3f
 private const val maxPlanetRadius = 2.5f
 private const val minPlanetRadius = 1.2f
+private const val minAxisTilt = -30.0f
+private const val maxAxisTilt = 30.0f
+private const val minOrbitTilt = -5.0f
+private const val maxOrbitTilt = 5.0f
 
 fun getPlanetSystemDescription(
     planetAndInfo: PlanetAndInfo,
@@ -86,7 +90,9 @@ fun getPlanetSystemDescription(
                         orbitAngle = index * (360f / satellitesAmount).degToRad(),
                         angularVelocity = currentAngularVelocity,
                         sizeFactor = 0.01f + 0.07f * random.nextFloat(),
-                        isSatellite = true
+                        isSatellite = true,
+                        centralPlanetAxisTiltX = centralPlanet.axisTiltX,
+                        centralPlanetAxisTiltY = centralPlanet.axisTiltY
                     )
                     currentMaxOrbit += getRandomThresholdBetweenSatellites(random)
                     currentAngularVelocity /= 1.85f + 0.3f * random.nextFloat()
@@ -149,7 +155,9 @@ fun getRandomPlanetDescription(
     angularVelocity: Float = 0f,
     sizeFactor: Float = 1f,
     isRandomTexture: Boolean = false,
-    isSatellite: Boolean = false
+    isSatellite: Boolean = false,
+    centralPlanetAxisTiltX: Float = 0f,
+    centralPlanetAxisTiltY: Float = 0f
 ): PlanetRenderData {
 
     val planetRadius = getRenderPlanetRadius(planet) * sizeFactor
@@ -172,8 +180,27 @@ fun getRandomPlanetDescription(
         else -> getRandomPlanetTexture(random, getTextureTypeByRadius(random, planetRadius))
     }
 
+    val axisRotationSpeed = random.nextFloat() * 3f
+
+    val axisTiltY = when {
+        isSatellite -> minAxisTilt + (maxAxisTilt - minAxisTilt) * random.nextFloat()
+        else -> minAxisTilt + (maxAxisTilt - minAxisTilt) * random.nextFloat()
+    }
+    val axisTiltX = when {
+        isSatellite -> minAxisTilt + (maxAxisTilt - minAxisTilt) * random.nextFloat()
+        else -> minAxisTilt + (maxAxisTilt - minAxisTilt) * random.nextFloat()
+    }
+    val orbitTiltX = when {
+        isSatellite -> centralPlanetAxisTiltX + (minOrbitTilt + (maxOrbitTilt - minOrbitTilt) * random.nextFloat())
+        else -> 0f
+    }
+    val orbitTiltY = when {
+        isSatellite -> centralPlanetAxisTiltY + (minOrbitTilt + (maxOrbitTilt - minOrbitTilt) * random.nextFloat())
+        else -> 0f
+    }
+
     return PlanetRenderData(
-        axisRotationSpeed = random.nextFloat() * 3f,
+        axisRotationSpeed = axisRotationSpeed,
         orbitRadius = orbitRadius,
         orbitAngle = orbitAngle,
         angularVelocity = angularVelocity,
@@ -185,7 +212,11 @@ fun getRandomPlanetDescription(
         ),
         ringTexture = if (ring != null) {
             TextureUtils.loadTexture(context, getRandomRingTexture(random))
-        } else 0
+        } else 0,
+        axisTiltY = axisTiltY,
+        axisTiltX = axisTiltX,
+        orbitTiltY = orbitTiltY,
+        orbitTiltX = orbitTiltX
     )
 }
 
