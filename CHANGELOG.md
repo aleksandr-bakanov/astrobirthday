@@ -10,6 +10,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Axis and orbit tilt for planets
+- Translations:
+  - Armenian
+  - Icelandic
+  - Portuguese
 
 ## [2.0.0] - 2023-04-20
 

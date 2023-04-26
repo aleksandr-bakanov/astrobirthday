@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">Velkomin á Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">Stilltu afmælisdaginn þinn</string>
+    <string name="welcome_button_text">Förum!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">Leita</string>
+    <string name="sort_icon_title">Flokkun</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Afmælið þitt</string>
+    <string name="settings_enable_notifications_title">Látið vita um afmælisdaga á sólar- og uppáhalds plánetum</string>
+    <string name="credits">Gert á Twitch af otselotl\nmeð innilegum stuðningi frá:\n|starforce|, Archevod, derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">Pláneta</string>
+    <string name="tab_title_stellar">Stjörnumenn</string>
+    <string name="tab_title_system">Kerfi</string>
+    <string name="age_string_pattern_one">Aldur: %s</string>
+    <string name="age_string_pattern_two">Aldur: %s %s</string>
+    <string name="age_string_pattern_three">Aldur: %s %s %s</string>
+    <string name="next_birthday">Næsta afmæli: %s</string>
+    <string name="reference">Tilvísun</string>
+    <string name="discovery_method">Uppgötvunaraðferð</string>
+    <string name="discovery_year">Uppgötvunarár</string>
+    <string name="facility">Stjörnustöð</string>
+    <string name="orbital_period_days">Umferðartími [dagar]</string>
+    <string name="orbital_semi_major_axis_au">Hálf meginás sporbrautar [au]</string>
+    <string name="radius_earth_radius">Radíus [R🜨]</string>
+    <string name="mass_earth_mass">Messa [M🜨]</string>
+    <string name="orbit_eccentricity">Sérvitringur á sporbraut</string>
+    <string name="equilibrium_temperature">Jafnvægishitastig [K]</string>
+    <string name="name">Nafn</string>
+    <string name="spectral_type">Spectral gerð</string>
+    <string name="effective_temperature">Virkur hiti [K]</string>
+    <string name="radius_solar_radius">Radíus [R☉]</string>
+    <string name="mass_solar_mass">Messa [M☉]</string>
+    <string name="number_of_stars">Fjöldi stjarna</string>
+    <string name="number_of_planets">Fjöldi pláneta</string>
+    <string name="distance_pc">Fjarlægð í kerfi [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d ár</item>
+        <item quantity="other">%d ár</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d mánuður</item>
+        <item quantity="other">%d mánuðir</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dagar</item>
+    </plurals>
+
+    <!-- Sort screen -->
+    <string name="sort_by_name">Nafn</string>
+    <string name="sort_by_age">Aldur</string>
+    <string name="sort_by_birthday">Afmælisdagur</string>
+    <string name="sort_by_distance">Fjarlægð í kerfi</string>
+    <string name="sort_by_period">Umferðartímabil</string>
+    <string name="sort_by_planet_mass">Massi reikistjarna</string>
+    <string name="sort_by_planet_radius">Radíus plánetunnar</string>
+    <string name="sort_by_star_mass">Stjörnumessa</string>
+    <string name="sort_by_star_radius">Stjörnuradíus</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Stjörnufræði</string>
+    <string name="disc_method_disk_kinematics">Hreyfifræði diska</string>
+    <string name="disc_method_eclipse_timing_variations">Afbrigði tímasetningar á sólmyrkvi</string>
+    <string name="disc_method_imaging">Bein myndgreining</string>
+    <string name="disc_method_microlensing">Þyngdarmikill örlinsun</string>
+    <string name="disc_method_orbital_brightness_modulation">Orbital birtustig mótun</string>
+    <string name="disc_method_pulsar_timing">Pulsar tímasetning</string>
+    <string name="disc_method_pulsation_timing_variations">Breytingar á púlstíma</string>
+    <string name="disc_method_radial_velocity">Radial hraði</string>
+    <string name="disc_method_transit">Transit ljósmæling</string>
+    <string name="disc_method_transit_timing_variations">Tímasetningar samgöngur</string>
+    <string name="unknown_age">Aldur: óþekktur</string>
+    <string name="unknown_age_short">Óþekktur</string>
+    <string name="unknown_birthday">Næsta afmæli: óþekkt</string>
+    <string name="unknown_birthday_short">Óþekktur</string>
+    <string name="empty_favorites_placeholder_text">Ekkert hérna ennþá ¯\\_(ツ)_/¯\n\nPikkaðu á ♡ á plánetuskjánum til að bæta því við hér</string>
+    <string name="set_your_birthday">Stilltu afmæli</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">Raða eftir</string>
+    <string name="screen_solar_system">Sólkerfi</string>
+    <string name="title_exoplanets">Fjarreikistjörnur</string>
+    <string name="title_favorites">Uppáhalds</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Sólarorka</string>
+    <string name="bottom_menu_settings">Stillingar</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Merkúr</string>
+    <string name="planet_name_venus">Venus</string>
+    <string name="planet_name_earth">Jörðin</string>
+    <string name="planet_name_mars">Mars</string>
+    <string name="planet_name_ceres">Seres</string>
+    <string name="planet_name_jupiter">Júpíter</string>
+    <string name="planet_name_saturn">Satúrnus</string>
+    <string name="planet_name_uranus">Úranus</string>
+    <string name="planet_name_neptune">Neptúnus</string>
+    <string name="planet_name_pluto">Plútó</string>
+    <string name="planet_name_haumea">Haumea</string>
+    <string name="planet_name_makemake">Makemake</string>
+    <string name="planet_name_eris">Eris</string>
+    <string name="planet_name_sedna">Sedna</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Sólin</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Afmæli</string>
+    <string name="notification_channel_description">Tilkynningar um afmæli á sól og uppáhalds plánetum</string>
+    <string name="notification_title">Vertu tilbúinn 🎂</string>
+    <string name="notification_content">Þú átt afmæli á morgun: %s</string>
+</resources>

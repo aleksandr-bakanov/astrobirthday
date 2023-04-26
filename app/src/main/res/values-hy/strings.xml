@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">Բարի գալուստ Astro Birthday:</string>
+    <string name="welcome_set_your_birthday_title">Սահմանեք ձեր ծննդյան օրը</string>
+    <string name="welcome_button_text">Գնացինք!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">Որոնում</string>
+    <string name="sort_icon_title">Տեսակավորում</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">Ձեր ծննդյան օրը</string>
+    <string name="settings_enable_notifications_title">Ծանուցում արեգակնային և սիրելի մոլորակների ծննդյան օրերի մասին</string>
+    <string name="credits">Պատրաստված է Twitch-ում otselotl-ի\nկողմից՝ |starforce|, Archevod,\nderzhi_katanu-ի սրտանց աջակցությամբ</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">Մոլորակ</string>
+    <string name="tab_title_stellar">Աստղային</string>
+    <string name="tab_title_system">Համակարգ</string>
+    <string name="age_string_pattern_one">Տարիք: %s</string>
+    <string name="age_string_pattern_two">Տարիք: %s %s</string>
+    <string name="age_string_pattern_three">Տարիք: %s %s %s</string>
+    <string name="next_birthday">Հաջորդ ծննդյան օրը: %s</string>
+    <string name="reference">Հղում</string>
+    <string name="discovery_method">Բացահայտման մեթոդ</string>
+    <string name="discovery_year">Հայտնաբերման տարի</string>
+    <string name="facility">Աստղադիտարան</string>
+    <string name="orbital_period_days">Ուղեծրային շրջան [օր]</string>
+    <string name="orbital_semi_major_axis_au">կիսահիմնական առանցք [au]</string>
+    <string name="radius_earth_radius">Շառավիղ [R🜨]</string>
+    <string name="mass_earth_mass">Պատարագ [M🜨]</string>
+    <string name="orbit_eccentricity">Ուղեծրի էքսցենտրիկություն</string>
+    <string name="equilibrium_temperature">Հավասարակշռության ջերմաստիճանը [K]</string>
+    <string name="name">Անուն</string>
+    <string name="spectral_type">Սպեկտրալ տեսակ</string>
+    <string name="effective_temperature">Արդյունավետ ջերմաստիճան [K]</string>
+    <string name="radius_solar_radius">Շառավիղ [R☉]</string>
+    <string name="mass_solar_mass">Պատարագ [M☉]</string>
+    <string name="number_of_stars">Աստղերի թիվը</string>
+    <string name="number_of_planets">Մոլորակների թիվը</string>
+    <string name="distance_pc">Հեռավորությունը [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d տարի</item>
+        <item quantity="other">%d տարի</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d ամիս</item>
+        <item quantity="other">%d ամիս</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d օր</item>
+        <item quantity="other">%d օր</item>
+    </plurals>
+
+    <!-- Sort screen -->
+    <string name="sort_by_name">Անուն</string>
+    <string name="sort_by_age">Տարիք</string>
+    <string name="sort_by_birthday">Ծննդյան օր</string>
+    <string name="sort_by_distance">Հեռավորությունը համակարգից</string>
+    <string name="sort_by_period">Ուղեծրային շրջան</string>
+    <string name="sort_by_planet_mass">Մոլորակի զանգված</string>
+    <string name="sort_by_planet_radius">Մոլորակի շառավիղը</string>
+    <string name="sort_by_star_mass">Աստղային զանգված</string>
+    <string name="sort_by_star_radius">Աստղի շառավիղ</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">Աստղաչափություն</string>
+    <string name="disc_method_disk_kinematics">Սկավառակի կինեմատիկա</string>
+    <string name="disc_method_eclipse_timing_variations">Խավարման ժամանակի տատանումները</string>
+    <string name="disc_method_imaging">Ուղղակի պատկերացում</string>
+    <string name="disc_method_microlensing">Գրավիտացիոն միկրոոսպնյակավորում</string>
+    <string name="disc_method_orbital_brightness_modulation">Ուղեծրի պայծառության մոդուլյացիան</string>
+    <string name="disc_method_pulsar_timing">Պուլսարի ժամանակացույց</string>
+    <string name="disc_method_pulsation_timing_variations">Պուլսացիայի ժամանակի տատանումները</string>
+    <string name="disc_method_radial_velocity">Ճառագայթային արագություն</string>
+    <string name="disc_method_transit">Տարանցիկ ֆոտոմետրիա</string>
+    <string name="disc_method_transit_timing_variations">Տարանցման ժամանակի տատանումները</string>
+    <string name="unknown_age">Տարիքը` անհայտ</string>
+    <string name="unknown_age_short">անհայտ</string>
+    <string name="unknown_birthday">Հաջորդ ծննդյան օրը՝ անհայտ</string>
+    <string name="unknown_birthday_short">անհայտ</string>
+    <string name="empty_favorites_placeholder_text">Այստեղ դեռ ոչինչ չկա ¯\\_(ツ)_/¯\n\nՀպեք ♡ մոլորակի էկրանին՝ այն այստեղ ավելացնելու համար</string>
+    <string name="set_your_birthday">Սահմանել ծննդյան օրը</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">Դասավորել ըստ</string>
+    <string name="screen_solar_system">Արեգակնային համակարգ</string>
+    <string name="title_exoplanets">Էկզոմոլորակներ</string>
+    <string name="title_favorites">Ֆավորիտներ</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">Արևային</string>
+    <string name="bottom_menu_settings">Կարգավորումներ</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">Մերկուրի</string>
+    <string name="planet_name_venus">Վեներա</string>
+    <string name="planet_name_earth">Երկիր</string>
+    <string name="planet_name_mars">Մարս</string>
+    <string name="planet_name_ceres">Սերես</string>
+    <string name="planet_name_jupiter">Յուպիտեր</string>
+    <string name="planet_name_saturn">Սատուրն</string>
+    <string name="planet_name_uranus">Ուրան</string>
+    <string name="planet_name_neptune">Նեպտուն</string>
+    <string name="planet_name_pluto">Պլուտոն</string>
+    <string name="planet_name_haumea">Հոմեա</string>
+    <string name="planet_name_makemake">Մակեմակե</string>
+    <string name="planet_name_eris">Էրիս</string>
+    <string name="planet_name_sedna">Սեդնա</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">Արեգակ</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Ծննդյան օրեր</string>
+    <string name="notification_channel_description">Ծանուցումներ Արեգակնային և սիրելի մոլորակների ծննդյան օրվա մասին</string>
+    <string name="notification_title">Պատրաստվիր 🎂</string>
+    <string name="notification_content">Վաղը ծննդյան օր ունեք. %s</string>
+</resources>
