@@ -14,6 +14,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - Armenian
   - Icelandic
   - Portuguese
+  - Persian
 
 ## [2.0.0] - 2023-04-20
 

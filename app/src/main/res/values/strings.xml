@@ -27,7 +27,7 @@
     <string name="reference">Reference</string>
     <string name="discovery_method">Discovery method</string>
     <string name="discovery_year">Discovery year</string>
-    <string name="facility">Facility</string>
+    <string name="facility">Observatory</string>
     <string name="orbital_period_days">Orbital period [days]</string>
     <string name="orbital_semi_major_axis_au">Orbital semi-major axis [au]</string>
     <string name="radius_earth_radius">Radius [R🜨]</string>

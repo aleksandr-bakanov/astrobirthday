@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">به Astro Birthday خوش آمدید!</string>
+    <string name="welcome_set_your_birthday_title">تولدت را تنظیم کن</string>
+    <string name="welcome_button_text">بیا بریم!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">جستجو کردن</string>
+    <string name="sort_icon_title">مرتب سازی</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">تولدت</string>
+    <string name="settings_enable_notifications_title">در مورد تولدهای خورشیدی و سیارات مورد علاقه اطلاع دهید</string>
+    <string name="credits">ساخته شده در Twitch توسط otselotl با پشتیبانی صمیمانه از: starforce، Archevod، derzhi_katanu</string>
+
+    <!-- Should numbers be displayed LTR (as for now) or it also should be RTL? -->
+
+    <!-- Planet -->
+    <string name="tab_title_planet">سیاره</string>
+    <string name="tab_title_stellar">ستاره ای</string>
+    <string name="tab_title_system">سیستم</string>
+    <string name="age_string_pattern_one">%s :سن</string> <!-- %s or s% -->
+    <string name="age_string_pattern_two">%s %s :سن</string> <!-- %s or s% -->
+    <string name="age_string_pattern_three">%s %s %s :سن</string> <!-- %s or s% -->
+    <string name="next_birthday">تولد بعدی: %s</string> <!-- %s or s% -->
+    <string name="reference">ارجاع</string>
+    <string name="discovery_method">روش کشف</string>
+    <string name="discovery_year">سال کشف</string>
+    <string name="facility">رصدخانه</string>
+    <string name="orbital_period_days">دوره مداری [روز]</string>
+    <string name="orbital_semi_major_axis_au">محور نیمه اصلی مداری [au]</string>
+    <string name="radius_earth_radius">شعاع [🜨R]</string>
+    <string name="mass_earth_mass">توده [🜨M]</string>
+    <string name="orbit_eccentricity">خروج از مرکز مدار</string>
+    <string name="equilibrium_temperature">دمای تعادل [K]</string>
+    <string name="name">نام</string>
+    <string name="spectral_type">نوع طیفی</string>
+    <string name="effective_temperature">دمای موثر [K]</string>
+    <string name="radius_solar_radius">شعاع [☉R]</string>
+    <string name="mass_solar_mass">جرم [☉M]</string>
+    <string name="number_of_stars">تعداد ستاره ها</string>
+    <string name="number_of_planets">تعداد سیارات</string>
+    <string name="distance_pc">فاصله تا سیستم [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d سال</item>
+        <item quantity="other">%d سال</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d ماه</item>
+        <item quantity="other">%d ماه</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d روز</item>
+        <item quantity="other">%d روز</item>
+    </plurals>
+
+    <!-- Sort screen -->
+    <string name="sort_by_name">نام</string>
+    <string name="sort_by_age">سن</string>
+    <string name="sort_by_birthday">روز تولد</string>
+    <string name="sort_by_distance">فاصله تا سیستم</string>
+    <string name="sort_by_period">دوره مداری</string>
+    <string name="sort_by_planet_mass">جرم سیاره</string>
+    <string name="sort_by_planet_radius">شعاع سیاره</string>
+    <string name="sort_by_star_mass">جرم ستاره</string>
+    <string name="sort_by_star_radius">شعاع ستاره</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">نجوم</string>
+    <string name="disc_method_disk_kinematics">سینماتیک دیسک</string>
+    <string name="disc_method_eclipse_timing_variations">تغییرات زمان گرفتگی</string>
+    <string name="disc_method_imaging">تصویربرداری مستقیم</string>
+    <string name="disc_method_microlensing">میکرولنزینگ گرانشی</string>
+    <string name="disc_method_orbital_brightness_modulation">مدولاسیون روشنایی مداری</string>
+    <string name="disc_method_pulsar_timing">زمان بندی تپ اختر</string>
+    <string name="disc_method_pulsation_timing_variations">تغییرات زمان ضربان</string>
+    <string name="disc_method_radial_velocity">سرعت شعاعی</string>
+    <string name="disc_method_transit">نورسنجی ترانزیت</string>
+    <string name="disc_method_transit_timing_variations">تغییرات زمان ترانزیت</string>
+    <string name="unknown_age">سن: نامعلوم</string>
+    <string name="unknown_age_short">ناشناخته</string>
+    <string name="unknown_birthday">تولد بعدی: نامعلوم</string>
+    <string name="unknown_birthday_short">ناشناخته</string>
+    <string name="empty_favorites_placeholder_text">هنوز چیزی اینجا نیست. روی ♡ در صفحه سیاره ضربه بزنید تا آن را به اینجا اضافه کنید</string>
+    <string name="set_your_birthday">تنظیم تولد</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">مرتب سازی بر اساس</string>
+    <string name="screen_solar_system">منظومه شمسی</string>
+    <string name="title_exoplanets">سیاره های فراخورشیدی</string>
+    <string name="title_favorites">موارد دلخواه</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">خورشیدی</string>
+    <string name="bottom_menu_settings">تنظیمات</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">عطارد</string>
+    <string name="planet_name_venus">زهره</string>
+    <string name="planet_name_earth">زمین</string>
+    <string name="planet_name_mars">مریخ</string>
+    <string name="planet_name_ceres">سرس</string>
+    <string name="planet_name_jupiter">مشتری</string>
+    <string name="planet_name_saturn">زحل</string>
+    <string name="planet_name_uranus">اورانوس</string>
+    <string name="planet_name_neptune">نپتون</string>
+    <string name="planet_name_pluto">پلوتون</string>
+    <string name="planet_name_haumea">هائومیا</string>
+    <string name="planet_name_makemake">ماکی‌ماکی</string>
+    <string name="planet_name_eris">اریس</string>
+    <string name="planet_name_sedna">سدنا</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">خورشید</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">تولدها</string>
+    <string name="notification_channel_description">اطلاعیه در مورد تولد در خورشید و سیارات مورد علاقه</string>
+    <string name="notification_title">آماده باش 🎂</string>
+    <string name="notification_content">فردا روز تولد دارید: %s</string> <!-- %s or s% -->
+</resources>
