@@ -31,16 +31,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import bav.astrobirthday.R
@@ -53,6 +56,7 @@ import bav.astrobirthday.ui.theme.GrayText
 import bav.astrobirthday.utils.getAgeStringShort
 import bav.astrobirthday.utils.localDateToString
 import bav.astrobirthday.utils.orNa
+import bav.astrobirthday.utils.unicodeWrap
 import java.time.LocalDate
 
 @Composable
@@ -132,6 +136,11 @@ fun HomeScreen(
     }
 }
 
+private val CANVAS_MODIFIER_LTR = Modifier.fillMaxSize()
+private val CANVAS_MODIFIER_RTL = Modifier
+    .fillMaxSize()
+    .scale(-1f, 1f)
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun PlanetItem(
@@ -140,6 +149,7 @@ private fun PlanetItem(
     goToPlanet: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Card(
         backgroundColor = colorResource(id = R.color.backgroundBlack1),
         elevation = 0.dp,
@@ -151,7 +161,12 @@ private fun PlanetItem(
     ) {
         Box {
             val painter = painterResource(id = item.planetType!!.imageResId)
-            Canvas(modifier = Modifier.fillMaxSize()) {
+            val canvasModifier = if (layoutDirection == LayoutDirection.Ltr) {
+                CANVAS_MODIFIER_LTR
+            } else {
+                CANVAS_MODIFIER_RTL
+            }
+            Canvas(modifier = canvasModifier) {
                 val brush = Brush.horizontalGradient(
                     colors = listOf(BackgroundBlack, Color.Transparent),
                     startX = size.width / 2.5f
@@ -174,7 +189,7 @@ private fun PlanetItem(
             val titleColor by animateColorAsState(targetValue = if (isByDate) colorResource(id = R.color.white2) else MaterialTheme.colors.primary)
             val subtitleColor by animateColorAsState(targetValue = if (isByDate) MaterialTheme.colors.primary else GrayText)
             Text(
-                text = item.planet.getPlanetName(LocalContext.current),
+                text = item.planet.getPlanetName(LocalContext.current).unicodeWrap(),
                 fontSize = 24.sp,
                 color = titleColor,
                 modifier = Modifier

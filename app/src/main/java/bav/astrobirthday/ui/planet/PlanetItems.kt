@@ -5,17 +5,6 @@ import androidx.recyclerview.widget.DiffUtil
 
 sealed class PlanetItems {
 
-    class Divider : PlanetItems() {
-        override val typeId: Int = -1
-    }
-
-    class Header(
-        @StringRes val title: Int,
-    ) : PlanetItems() {
-        override val typeId: Int
-            get() = title
-    }
-
     class Reference(val link: String, val url: String) : PlanetItems() {
         override val typeId: Int = link.hashCode()
     }

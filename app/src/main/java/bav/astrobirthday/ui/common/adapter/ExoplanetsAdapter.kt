@@ -9,6 +9,7 @@ import bav.astrobirthday.databinding.ViewItemExoplanetBinding
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.utils.getAgeStringShort
 import bav.astrobirthday.utils.localDateToString
+import bav.astrobirthday.utils.unicodeWrap
 
 class ExoplanetsAdapter(
     private val itemClickListener: (PlanetAndInfo) -> Unit
@@ -32,7 +33,7 @@ class ExoplanetsAdapter(
 
         fun bindTo(desc: PlanetAndInfo) = with(binding) {
             val context = itemView.context
-            name.text = desc.planet.planetName
+            name.text = desc.planet.planetName.unicodeWrap()
             age.text = context.getAgeStringShort(desc.ageOnPlanet)
             nextBirthday.text =
                 desc.nearestBirthday?.let { context.localDateToString(it) } ?: context.getString(

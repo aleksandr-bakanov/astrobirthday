@@ -14,9 +14,15 @@ private val fractionDecimalFormat = DecimalFormat().apply {
     maximumFractionDigits = 2
 }
 
+private val integerDecimalFormat = DecimalFormat()
+
 fun Double.toFixedSignificant(): String {
     return when {
         this < 1.0 -> significantDecimalFormat.format(this)
         else -> fractionDecimalFormat.format(this)
     }
+}
+
+fun Int.toDecimalFormat(): String {
+    return integerDecimalFormat.format(this)
 }

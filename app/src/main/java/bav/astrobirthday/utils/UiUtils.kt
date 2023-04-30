@@ -4,9 +4,7 @@ import android.app.Activity
 import android.text.Editable
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
@@ -44,8 +42,4 @@ fun EditText.updateText(updated: CharSequence?) {
     } else if (s.toString() != updated) {
         s.replace(0, s.length, updated)
     }
-}
-
-fun TextView.setHtml(value: String) {
-    text = HtmlCompat.fromHtml(value, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }

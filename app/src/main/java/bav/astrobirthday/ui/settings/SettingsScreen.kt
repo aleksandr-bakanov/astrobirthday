@@ -89,7 +89,7 @@ fun SettingsScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = stringResource(id = R.string.your_birthday),
+                    text = stringResource(id = R.string.set_your_birthday),
                     style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Start,
                     color = colorResource(id = R.color.white2),

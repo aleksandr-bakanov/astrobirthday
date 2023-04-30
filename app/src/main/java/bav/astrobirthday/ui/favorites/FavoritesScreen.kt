@@ -45,6 +45,7 @@ import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.opengl.getPlanetTextureId
 import bav.astrobirthday.ui.common.opengl.planetImagesByTextureId
 import bav.astrobirthday.utils.getAgeStringShort
+import bav.astrobirthday.utils.unicodeWrap
 
 @Composable
 fun FavoritesScreen(viewModel: FavoritesViewModel) {
@@ -171,7 +172,7 @@ private fun PlanetItem(
             modifier = Modifier.padding(top = 8.dp)
         ) {
             Text(
-                text = item.planet.getPlanetName(LocalContext.current),
+                text = item.planet.getPlanetName(LocalContext.current).unicodeWrap(),
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.white2),

@@ -13,6 +13,7 @@ import bav.astrobirthday.domain.model.Planet
 import bav.astrobirthday.domain.model.PlanetAndInfo
 import bav.astrobirthday.ui.common.BaseFragment
 import bav.astrobirthday.ui.common.opengl.PlanetView3d
+import bav.astrobirthday.ui.common.toDecimalFormat
 import bav.astrobirthday.ui.common.toFixedSignificant
 import bav.astrobirthday.ui.planet.PlanetItems.Companion.DIFF_CALLBACK
 import bav.astrobirthday.utils.discoveryMethodToStr
@@ -22,6 +23,7 @@ import bav.astrobirthday.utils.getReferenceLink
 import bav.astrobirthday.utils.getReferenceText
 import bav.astrobirthday.utils.openUrl
 import bav.astrobirthday.utils.orNa
+import bav.astrobirthday.utils.unicodeWrap
 import com.google.android.material.tabs.TabLayout
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,8 +63,6 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
         val planetDescriptionAdapter = AsyncListDifferDelegationAdapter(
             DIFF_CALLBACK,
-            planetDescriptionDividerDelegate(),
-            planetDescriptionHeaderDelegate(),
             planetDescriptionTextDelegate(),
             planetDescriptionReferenceDelegate { context?.openUrl(it) }
         )
@@ -125,7 +125,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
 
             planetDescriptionAdapter.items = getPlanetItems(p.planet, TabCategory.Planet)
 
-            planetName.text = p.planet.getPlanetName(context)
+            planetName.text = p.planet.getPlanetName(context).unicodeWrap()
             age.text = context.getAgeString(p.ageOnPlanet).orNa()
             nearestBirthday.text = context.getNearestBirthdayString(p.nearestBirthday)
 
@@ -167,7 +167,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.discovery_year,
-                                it.toString()
+                                it.toDecimalFormat()
                             )
                         )
                     }
@@ -278,7 +278,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.number_of_stars,
-                                it.toString()
+                                it.toDecimalFormat()
                             )
                         )
                     }
@@ -286,7 +286,7 @@ class PlanetFragment : BaseFragment<FragmentPlanetBinding>(FragmentPlanetBinding
                         list.add(
                             PlanetItems.Text(
                                 R.string.number_of_planets,
-                                it.toString()
+                                it.toDecimalFormat()
                             )
                         )
                     }
