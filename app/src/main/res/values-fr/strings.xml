@@ -96,6 +96,7 @@
     <!-- Bottom menu -->
     <string name="bottom_menu_solar">Solaire</string>
     <string name="bottom_menu_settings">Paramètres</string>
+    <string name="bottom_menu_exoplanets">Exoplanètes</string>
 
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Mercure</string>

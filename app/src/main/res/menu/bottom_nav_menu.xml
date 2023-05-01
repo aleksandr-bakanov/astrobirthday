@@ -9,7 +9,7 @@
     <item
         android:id="@+id/nav_exoplanets"
         android:icon="@drawable/ic_exo_icon"
-        android:title="@string/title_exoplanets" />
+        android:title="@string/bottom_menu_exoplanets" />
 
     <item
         android:id="@+id/nav_favorites"

@@ -14,16 +14,19 @@
     <string name="settings_enable_notifications_title">در مورد تولدهای خورشیدی و سیارات مورد علاقه اطلاع دهید</string>
     <string name="credits">ساخته شده در Twitch توسط otselotl با پشتیبانی صمیمانه از: starforce، Archevod، derzhi_katanu</string>
 
-    <!-- Should numbers be displayed LTR (as for now) or it also should be RTL? -->
+    <!--
+    Should numbers be displayed LTR (as for now) or it also should be RTL? - The way it is now correct
+    d MMM yyyy - format is okay and understandable
+     -->
 
     <!-- Planet -->
     <string name="tab_title_planet">سیاره</string>
     <string name="tab_title_stellar">ستاره ای</string>
     <string name="tab_title_system">سیستم</string>
-    <string name="age_string_pattern_one">%s :سن</string> <!-- %s or s% -->
-    <string name="age_string_pattern_two">%s %s :سن</string> <!-- %s or s% -->
-    <string name="age_string_pattern_three">%s %s %s :سن</string> <!-- %s or s% -->
-    <string name="next_birthday">تولد بعدی: %s</string> <!-- %s or s% -->
+    <string name="age_string_pattern_one">سن: %s</string> <!-- %s or s% Editor goes crazy, don't bother of what it shows you -->
+    <string name="age_string_pattern_two">سن: %s %s </string>
+    <string name="age_string_pattern_three">سن: %s %s %s </string>
+    <string name="next_birthday">تولد بعدی: %s</string>
     <string name="reference">ارجاع</string>
     <string name="discovery_method">روش کشف</string>
     <string name="discovery_year">سال کشف</string>
@@ -31,14 +34,14 @@
     <string name="orbital_period_days">دوره مداری [روز]</string>
     <string name="orbital_semi_major_axis_au">محور نیمه اصلی مداری [au]</string>
     <string name="radius_earth_radius">شعاع [🜨R]</string>
-    <string name="mass_earth_mass">توده [🜨M]</string>
+    <string name="mass_earth_mass">جرم [🜨M]</string>
     <string name="orbit_eccentricity">خروج از مرکز مدار</string>
     <string name="equilibrium_temperature">دمای تعادل [K]</string>
     <string name="name">نام</string>
     <string name="spectral_type">نوع طیفی</string>
     <string name="effective_temperature">دمای موثر [K]</string>
     <string name="radius_solar_radius">شعاع [☉R]</string>
-    <string name="mass_solar_mass">جرم [☉M]</string>
+    <string name="mass_solar_mass">جرم [☉M]</string> <!-- Use this word for mass everywhere -->
     <string name="number_of_stars">تعداد ستاره ها</string>
     <string name="number_of_planets">تعداد سیارات</string>
     <string name="distance_pc">فاصله تا سیستم [pc]</string>
@@ -90,11 +93,13 @@
     <string name="sorting_screen_title">مرتب سازی بر اساس</string>
     <string name="screen_solar_system">منظومه شمسی</string>
     <string name="title_exoplanets">سیاره های فراخورشیدی</string>
-    <string name="title_favorites">موارد دلخواه</string>
+    <!-- <string name="title_exoplanets_short">فراخورشیدی</string> --> <!-- This is short version for bottom menu -->
+    <string name="title_favorites">علاقمندی‌ها</string> <!-- This is better version of Favorites -->
 
     <!-- Bottom menu -->
     <string name="bottom_menu_solar">خورشیدی</string>
     <string name="bottom_menu_settings">تنظیمات</string>
+    <string name="bottom_menu_exoplanets">فراخورشیدی</string>
 
     <!-- Solar planet names -->
     <string name="planet_name_mercury">عطارد</string>
@@ -119,5 +124,5 @@
     <string name="notification_channel_name">تولدها</string>
     <string name="notification_channel_description">اطلاعیه در مورد تولد در خورشید و سیارات مورد علاقه</string>
     <string name="notification_title">آماده باش 🎂</string>
-    <string name="notification_content">فردا روز تولد دارید: %s</string> <!-- %s or s% -->
+    <string name="notification_content">فردا روز تولد دارید: %s</string> <!-- %s or s% --> <!-- Check this on several planets (need unicodeWrap?) -->
 </resources>

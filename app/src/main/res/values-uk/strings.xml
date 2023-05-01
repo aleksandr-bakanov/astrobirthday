@@ -99,6 +99,7 @@
     <!-- Bottom menu -->
     <string name="bottom_menu_solar">Сонячні</string>
     <string name="bottom_menu_settings">Налаштування</string>
+    <string name="bottom_menu_exoplanets">Екзопланети</string>
 
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Меркурій</string>

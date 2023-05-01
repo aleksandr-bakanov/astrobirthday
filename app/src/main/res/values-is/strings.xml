@@ -93,6 +93,7 @@
     <!-- Bottom menu -->
     <string name="bottom_menu_solar">Sólarorka</string>
     <string name="bottom_menu_settings">Stillingar</string>
+    <string name="bottom_menu_exoplanets">Fjarreikistjörnur</string>
 
     <!-- Solar planet names -->
     <string name="planet_name_mercury">Merkúr</string>
