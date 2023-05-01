@@ -14,8 +14,8 @@ android {
         applicationId "bav.astrobirthday"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 23
-        versionName "2.0.0"
+        versionCode 24
+        versionName "2.1.0"
 
         vectorDrawables.useSupportLibrary = true
 
