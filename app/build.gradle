@@ -51,7 +51,7 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.3'
+        kotlinCompilerExtensionVersion '1.4.6'
     }
     namespace 'bav.astrobirthday'
 }
@@ -109,7 +109,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // Paging 3
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
@@ -124,10 +124,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.4.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    implementation "com.l4digital.fastscroll:fastscroll:2.0.1"
-    def delegates_version = "4.3.2"
-    implementation "com.hannesdorfmann:adapterdelegates4:$delegates_version"
-    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$delegates_version"
+    implementation "io.github.l4digital:fastscroll:2.1.0"
+    implementation "com.hannesdorfmann:adapterdelegates4:4.3.2"
+    implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2"
 
     // WorkManager
     // Kotlin + coroutines
