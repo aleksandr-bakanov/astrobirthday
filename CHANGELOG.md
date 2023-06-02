@@ -7,6 +7,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Translations:
+  - Chinese
+
 ## [2.1.0] - 2023-05-02
 
 ### Added

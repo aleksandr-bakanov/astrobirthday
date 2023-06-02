@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">欢迎来到 Astro Birthday!</string>
+    <string name="welcome_set_your_birthday_title">设置你的生日</string>
+    <string name="welcome_button_text">我们走吧！</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">搜索</string>
+    <string name="sort_icon_title">排序</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">你的生日</string>
+    <string name="settings_enable_notifications_title">通知太阳和最喜欢的行星的生日</string>
+    <string name="credits">由 otselotl 在 Twitch 上制作，得到以下人士的衷心支持：|starforce|、Archevod、derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">行星</string>
+    <string name="tab_title_stellar">恒星</string>
+    <string name="tab_title_system">系统</string>
+    <string name="age_string_pattern_one">年龄: %s</string>
+    <string name="age_string_pattern_two">年龄: %s %s</string>
+    <string name="age_string_pattern_three">年龄: %s %s %s</string>
+    <string name="next_birthday">下一个生日: %s</string>
+    <string name="reference">参考</string>
+    <string name="discovery_method">发现方法</string>
+    <string name="discovery_year">发现年</string>
+    <string name="facility">天文台</string>
+    <string name="orbital_period_days">轨道周期[天]</string>
+    <string name="orbital_semi_major_axis_au">轨道半长轴 [au]</string>
+    <string name="radius_earth_radius">半径 [R🜨]</string>
+    <string name="mass_earth_mass">大量的 [M🜨]</string>
+    <string name="orbit_eccentricity">轨道偏心率</string>
+    <string name="equilibrium_temperature">平衡温度 [K]</string>
+    <string name="name">姓名</string>
+    <string name="spectral_type">光谱型</string>
+    <string name="effective_temperature">有效温度 [K]</string>
+    <string name="radius_solar_radius">半径 [R☉︎]</string>
+    <string name="mass_solar_mass">大量的 [M☉]</string>
+    <string name="number_of_stars">星数</string>
+    <string name="number_of_planets">行星数量</string>
+    <string name="distance_pc">到系统的距离 [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="other">%d 年</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="other">%d 月</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="other">%d 天</item>
+    </plurals>
+
+    <!-- Sorting -->
+    <string name="sort_by_name">姓名</string>
+    <string name="sort_by_age">年龄</string>
+    <string name="sort_by_birthday">生日</string>
+    <string name="sort_by_distance">到系统的距离</string>
+    <string name="sort_by_period">轨道周期</string>
+    <string name="sort_by_planet_mass">行星质量</string>
+    <string name="sort_by_planet_radius">行星半径</string>
+    <string name="sort_by_star_mass">恒星质量</string>
+    <string name="sort_by_star_radius">星半径</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">天体测量</string>
+    <string name="disc_method_disk_kinematics">磁盘运动学</string>
+    <string name="disc_method_eclipse_timing_variations">Eclipse 时间变化</string>
+    <string name="disc_method_imaging">直接成像</string>
+    <string name="disc_method_microlensing">引力微透镜</string>
+    <string name="disc_method_orbital_brightness_modulation">轨道亮度调制</string>
+    <string name="disc_method_pulsar_timing">脉冲星计时</string>
+    <string name="disc_method_pulsation_timing_variations">脉动时间变化</string>
+    <string name="disc_method_radial_velocity">径向速度</string>
+    <string name="disc_method_transit">中转测光</string>
+    <string name="disc_method_transit_timing_variations">运输时间变化</string>
+    <string name="unknown_age">年龄：未知</string>
+    <string name="unknown_age_short">未知</string>
+    <string name="unknown_birthday">下一个生日：未知</string>
+    <string name="unknown_birthday_short">未知</string>
+    <string name="empty_favorites_placeholder_text">这里什么都没有 ¯\\_(ツ)_/¯\n\n点击行星屏幕上的♡将其添加到她</string>
+    <string name="set_your_birthday">设置生日</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">排序方式</string>
+    <string name="screen_solar_system">太阳系</string>
+    <string name="title_exoplanets">系外行星</string>
+    <string name="title_favorites">收藏夹</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">太阳的</string>
+    <string name="bottom_menu_settings">设置</string>
+    <string name="bottom_menu_exoplanets">系外行星</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">水星</string>
+    <string name="planet_name_venus">金星</string>
+    <string name="planet_name_earth">地球</string>
+    <string name="planet_name_mars">火星</string>
+    <string name="planet_name_ceres">穀神星</string>
+    <string name="planet_name_jupiter">木星</string>
+    <string name="planet_name_saturn">土星</string>
+    <string name="planet_name_uranus">天王星</string>
+    <string name="planet_name_neptune">海王星</string>
+    <string name="planet_name_pluto">冥王星</string>
+    <string name="planet_name_haumea">妊神星</string>
+    <string name="planet_name_makemake">鸟神星</string>
+    <string name="planet_name_eris">阋神星</string>
+    <string name="planet_name_sedna">小行星90377</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">太阳</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">生日</string>
+    <string name="notification_channel_description">关于太阳和最喜欢的行星生日的通知</string>
+    <string name="notification_title">准备好🎂</string>
+    <string name="notification_content">你明天生日: %s</string>
+</resources>
