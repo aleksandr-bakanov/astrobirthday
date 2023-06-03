@@ -11,6 +11,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Translations:
   - Chinese
+  - Hebrew
 
 ## [2.1.0] - 2023-05-02
 

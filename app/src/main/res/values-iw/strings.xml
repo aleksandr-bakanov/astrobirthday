@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Welcome screen -->
+    <string name="welcome_title">ברוכים הבאים ליום הולדת אסטרו!</string>
+    <string name="welcome_set_your_birthday_title">קבע את יום ההולדת שלך</string>
+    <string name="welcome_button_text">בוא נלך!</string>
+
+    <!-- Exoplanets -->
+    <string name="search_icon_title">לחפש</string>
+    <string name="sort_icon_title">מִיוּן</string>
+
+    <!-- Settings -->
+    <string name="your_birthday">יום ההולדת שלך</string>
+    <string name="settings_enable_notifications_title">הודע על ימי הולדת בכוכבי שמש וכוכבי לכת מועדפים</string>
+    <string name="credits">נוצר ב-Twitch על ידי otselotl עם תמיכה לבבית של: starforce, Archevod, derzhi_katanu</string>
+
+    <!-- Planet -->
+    <string name="tab_title_planet">כוכב לכת</string>
+    <string name="tab_title_stellar">כּוֹכָבִי</string>
+    <string name="tab_title_system">מערכת</string>
+    <string name="age_string_pattern_one">גיל: %s</string>
+    <string name="age_string_pattern_two">גיל: %s %s </string>
+    <string name="age_string_pattern_three">גיל: %s %s %s </string>
+    <string name="next_birthday">יום הולדת הבא: %s</string>
+    <string name="reference">התייחסות</string>
+    <string name="discovery_method">שיטת גילוי</string>
+    <string name="discovery_year">שנת גילוי</string>
+    <string name="facility">מִצפֵּה כּוֹכָבִים</string>
+    <string name="orbital_period_days">תקופת מסלול [ימים]</string>
+    <string name="orbital_semi_major_axis_au">ציר חצי ראשי של מסלול [au]</string>
+    <string name="radius_earth_radius">רַדִיוּס [🜨R]</string>
+    <string name="mass_earth_mass">כּוֹבֶד [🜨M]</string>
+    <string name="orbit_eccentricity">אקסצנטריות של מסלול</string>
+    <string name="equilibrium_temperature">טמפרטורת שיווי משקל [K]</string>
+    <string name="name">שֵׁם</string>
+    <string name="spectral_type">סוג ספקטרלי</string>
+    <string name="effective_temperature">טמפרטורה אפקטיבית [K]</string>
+    <string name="radius_solar_radius">רַדִיוּס [☉R]</string>
+    <string name="mass_solar_mass">כּוֹבֶד [☉M]</string>
+    <string name="number_of_stars">מספר כוכבים</string>
+    <string name="number_of_planets">מספר כוכבי לכת</string>
+    <string name="distance_pc">מרחק למערכת [pc]</string>
+
+    <plurals name="years_amount">
+        <item quantity="one">%d שנה</item>
+        <item quantity="two">%d שנים</item>
+        <item quantity="many">%d שנים</item>
+        <item quantity="other">%d שנים</item>
+    </plurals>
+    <plurals name="months_amount">
+        <item quantity="one">%d חודש</item>
+        <item quantity="two">%d חודשים</item>
+        <item quantity="many">%d חודשים</item>
+        <item quantity="other">%d חודשים</item>
+    </plurals>
+    <plurals name="days_amount">
+        <item quantity="one">%d יום</item>
+        <item quantity="two">%d ימים</item>
+        <item quantity="many">%d ימים</item>
+        <item quantity="other">%d ימים</item>
+    </plurals>
+
+    <!-- Sort screen -->
+    <string name="sort_by_name">שֵׁם</string>
+    <string name="sort_by_age">גיל</string>
+    <string name="sort_by_birthday">יום הולדת</string>
+    <string name="sort_by_distance">מרחק למערכת</string>
+    <string name="sort_by_period">תקופת מסלול</string>
+    <string name="sort_by_planet_mass">מסת כוכב הלכת</string>
+    <string name="sort_by_planet_radius">רדיוס כוכב הלכת</string>
+    <string name="sort_by_star_mass">מסת כוכבים</string>
+    <string name="sort_by_star_radius">רדיוס כוכב</string>
+
+    <!-- Common -->
+    <string name="disc_method_astrometry">אסטרומטריה</string>
+    <string name="disc_method_disk_kinematics">קינמטיקה של דיסק</string>
+    <string name="disc_method_eclipse_timing_variations">וריאציות של תזמון ליקוי חמה</string>
+    <string name="disc_method_imaging">הדמיה ישירה</string>
+    <string name="disc_method_microlensing">מיקרו עדשות כבידה</string>
+    <string name="disc_method_orbital_brightness_modulation">אפנון בהירות מסלולית</string>
+    <string name="disc_method_pulsar_timing">תזמון פולסר</string>
+    <string name="disc_method_pulsation_timing_variations">וריאציות של תזמון פעימות</string>
+    <string name="disc_method_radial_velocity">מהירות רדיאלית</string>
+    <string name="disc_method_transit">פוטומטריית מעבר</string>
+    <string name="disc_method_transit_timing_variations">וריאציות של תזמון תחבורה ציבורית</string>
+    <string name="unknown_age">גיל: לא ידוע</string>
+    <string name="unknown_age_short">לא ידוע</string>
+    <string name="unknown_birthday">יום הולדת הבא: לא ידוע</string>
+    <string name="unknown_birthday_short">לא ידוע</string>
+    <string name="empty_favorites_placeholder_text">שום דבר כאן עדיין לא ¯/_(ツ)_\\¯ הקש על ♡ במסך הפלנטה כדי להוסיף אותו כאן</string>
+    <string name="set_your_birthday">קבע יום הולדת</string>
+
+    <!-- Screen names -->
+    <string name="sorting_screen_title">מיין לפי</string>
+    <string name="screen_solar_system">מערכת השמש</string>
+    <string name="title_exoplanets">כוכבי לכת חיצוניים</string>
+    <string name="title_favorites">מועדפים</string>
+
+    <!-- Bottom menu -->
+    <string name="bottom_menu_solar">סוֹלָרִי</string>
+    <string name="bottom_menu_settings">הגדרות</string>
+    <string name="bottom_menu_exoplanets">כוכבי לכת חיצוניים</string>
+
+    <!-- Solar planet names -->
+    <string name="planet_name_mercury">כוכב חמה</string>
+    <string name="planet_name_venus">נוגה</string>
+    <string name="planet_name_earth">כדור הארץ</string>
+    <string name="planet_name_mars">מאדים</string>
+    <string name="planet_name_ceres">קרס</string>
+    <string name="planet_name_jupiter">צדק</string>
+    <string name="planet_name_saturn">שבתאי</string>
+    <string name="planet_name_uranus">אורנוס</string>
+    <string name="planet_name_neptune">נפטון</string>
+    <string name="planet_name_pluto">פלוטו</string>
+    <string name="planet_name_haumea">האומיה</string>
+    <string name="planet_name_makemake">מאקה-מאקה</string>
+    <string name="planet_name_eris">אריס</string>
+    <string name="planet_name_sedna">סדנה</string>
+
+    <!-- Sun name -->
+    <string name="star_sun_name">השמש</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">ימי הולדת</string>
+    <string name="notification_channel_description">הודעות על ימי הולדת בכוכבי שמש וכוכבי לכת מועדפים</string>
+    <string name="notification_title">תתכוננו 🎂</string>
+    <string name="notification_content">יש לך מחר יום הולדת: %s</string>
+</resources>
