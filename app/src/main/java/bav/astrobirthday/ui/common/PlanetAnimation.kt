@@ -107,7 +107,7 @@ class PlanetAnimation(context: Context, attrs: AttributeSet) : View(context, att
         vOffset = initialH - this.h + 56.toPx(context)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (isDataSet) {
             canvas?.let {

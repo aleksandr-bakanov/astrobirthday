@@ -5,15 +5,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "kotlinx-serialization"
 apply plugin: 'koin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "bav.astrobirthday"
         minSdkVersion 24
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 25
         versionName "2.2.0"
 
@@ -51,13 +51,13 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.6'
+        kotlinCompilerExtensionVersion '1.5.3'
     }
     namespace 'bav.astrobirthday'
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.9.0'
@@ -67,11 +67,11 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
     // Compose
-    implementation 'androidx.compose.ui:ui:1.4.3'
-    implementation 'androidx.compose.ui:ui-tooling:1.4.3'
-    implementation 'androidx.compose.foundation:foundation:1.4.3'
-    implementation 'androidx.compose.material:material:1.4.3'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.4.3'
+    implementation 'androidx.compose.ui:ui:1.5.1'
+    implementation 'androidx.compose.ui:ui-tooling:1.5.1'
+    implementation 'androidx.compose.foundation:foundation:1.5.1'
+    implementation 'androidx.compose.material:material:1.5.1'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.5.1'
 
     // Koin for Kotlin
     implementation "io.insert-koin:koin-core:3.1.4"
@@ -88,10 +88,10 @@ dependencies {
     //   so it keeps backstack and don't glow bottom icon till we return to start destination
     //   This is against material design: https://material.io/components/bottom-navigation#behavior
     //   https://developer.android.com/jetpack/androidx/releases/navigation#version_240_3
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
 
     // Room
     implementation "androidx.room:room-runtime:2.5.2"
@@ -112,13 +112,13 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // Paging 3
-    implementation "androidx.paging:paging-runtime-ktx:3.2.0"
+    implementation "androidx.paging:paging-runtime-ktx:3.2.1"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // Custom tabs
-    implementation "androidx.browser:browser:1.5.0"
+    implementation "androidx.browser:browser:1.6.0"
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:26.4.0')

@@ -43,21 +43,21 @@ interface PlanetDao {
     fun getFavoritePlanets(query: SupportSQLiteQuery): Flow<List<PlanetAndInfoDTO>>
 
     @Query("UPDATE planets_user_info SET is_favorite = :isFavorite WHERE name = :name")
-    suspend fun setFavorite(name: String, isFavorite: Boolean)
+    fun setFavorite(name: String, isFavorite: Boolean)
 
     @Query("SELECT COUNT(id) FROM planets")
-    suspend fun countPlanets(): Int
+    fun countPlanets(): Int
 
     @Query("SELECT COUNT(name) FROM planets_user_info WHERE is_favorite = 1")
-    suspend fun countFavoritePlanets(): Int
+    fun countFavoritePlanets(): Int
 
     @RawQuery
-    suspend fun countPlanetsWithFilter(query: SupportSQLiteQuery): Int
+    fun countPlanetsWithFilter(query: SupportSQLiteQuery): Int
 
     @Transaction
     @Query("SELECT * FROM PlanetSyncView ORDER BY id LIMIT :count OFFSET :start")
-    suspend fun getPlanetsChunked(start: Int, count: Int): List<PlanetSyncView>
+    fun getPlanetsChunked(start: Int, count: Int): List<PlanetSyncView>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun syncInfo(updates: List<PlanetUserInfoDTO>)
+    fun syncInfo(updates: List<PlanetUserInfoDTO>)
 }
