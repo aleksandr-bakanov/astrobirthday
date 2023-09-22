@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.5.7'
+    implementation 'androidx.fragment:fragment-ktx:1.6.0'
 
     // Compose
     implementation 'androidx.compose.ui:ui:1.4.3'
@@ -88,19 +88,19 @@ dependencies {
     //   so it keeps backstack and don't glow bottom icon till we return to start destination
     //   This is against material design: https://material.io/components/bottom-navigation#behavior
     //   https://developer.android.com/jetpack/androidx/releases/navigation#version_240_3
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.1"
-    implementation "androidx.room:room-paging:2.5.1"
-    kapt "androidx.room:room-compiler:2.5.1"
+    implementation "androidx.room:room-runtime:2.5.2"
+    implementation "androidx.room:room-paging:2.5.2"
+    kapt "androidx.room:room-compiler:2.5.2"
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:2.5.1"
+    implementation "androidx.room:room-ktx:2.5.2"
     // optional - Test helpers
-    testImplementation "androidx.room:room-testing:2.5.1"
+    testImplementation "androidx.room:room-testing:2.5.2"
 
     testImplementation 'junit:junit:4.13.2'
 
