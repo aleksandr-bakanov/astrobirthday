@@ -64,7 +64,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.fragment:fragment-ktx:1.6.0'
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
     // Compose
     implementation 'androidx.compose.ui:ui:1.4.3'
@@ -112,7 +112,7 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 
     // Paging 3
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.2.0"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
@@ -140,6 +140,7 @@ dependencies {
     implementation "com.google.android.play:core-ktx:1.8.1"
 
     // Timber
+    // TODO: remove unused Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Serialization
@@ -149,4 +150,7 @@ dependencies {
     // Compose Material Dialogs
     implementation "io.github.vanpra.compose-material-dialogs:core:0.9.0"
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.9.0"
+
+    // KMM shared module
+    implementation (project(":shared"))
 }

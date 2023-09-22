@@ -1,6 +1,7 @@
 package bav.astrobirthday
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import bav.astrobirthday.databinding.ActivityMainBinding
+import bav.astrobirthday.shared.Greeting
 import bav.astrobirthday.ui.common.NavUiConfigurator
 import bav.astrobirthday.utils.enqueuePeriodicBirthdayUpdateWorker
 import kotlinx.coroutines.launch
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity(), NavUiConfigurator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.i("Login Activity", "Hello from shared module: " + (Greeting().greet()))
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
