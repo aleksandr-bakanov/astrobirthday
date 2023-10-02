@@ -1,3 +1,3 @@
-include ':app'
 rootProject.name = "Astro Birthday"
-include ':shared'
+include(":app")
+include(":shared")
