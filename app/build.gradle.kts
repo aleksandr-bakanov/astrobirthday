@@ -2,10 +2,10 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
     id("kotlinx-serialization")
     id("koin")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 //    id("com.google.gms.google-services")
 }
 
@@ -68,18 +68,18 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // Compose
-    implementation("androidx.compose.ui:ui:1.5.1")
-    implementation("androidx.compose.ui:ui-tooling:1.5.1")
-    implementation("androidx.compose.foundation:foundation:1.5.1")
-    implementation("androidx.compose.material:material:1.5.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.5.1")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
 
     // Koin for Kotlin
     implementation("io.insert-koin:koin-core:3.1.4")
@@ -90,25 +90,25 @@ dependencies {
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.13.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
 
     // TODO: in navigation 2.4+ they've changed return to start destination of bottom nav view
     //   so it keeps backstack and don't glow bottom icon till we return to start destination
     //   This is against material design: https://material.io/components/bottom-navigation#behavior
     //   https://developer.android.com/jetpack/androidx/releases/navigation#version_240_3
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.2")
-    implementation("androidx.room:room-paging:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-paging:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.2")
+    implementation("androidx.room:room-ktx:2.6.0")
     // optional - Test helpers
-    testImplementation("androidx.room:room-testing:2.5.2")
+    testImplementation("androidx.room:room-testing:2.6.0")
 
     testImplementation("junit:junit:4.13.2")
 
