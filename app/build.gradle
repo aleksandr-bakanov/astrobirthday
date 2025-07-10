@@ -8,14 +8,14 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "bav.astrobirthday"
         minSdkVersion 24
-        targetSdkVersion 34
-        versionCode 27
-        versionName "2.2.2"
+        targetSdkVersion 35
+        versionCode 28
+        versionName "2.2.3"
 
         vectorDrawables.useSupportLibrary = true
 
