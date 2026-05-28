@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
@@ -53,95 +54,101 @@ fun SettingsScreen(
     onBirthdayClick: () -> Unit = {},
     toggleNotificationEnabled: () -> Unit = {}
 ) {
-    Image(
-        painter = painterResource(id = R.drawable.stars_background),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = null,
+    Box(
         modifier = Modifier.fillMaxSize()
-    )
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.stars_background),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = Color.Transparent,
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.bottom_menu_settings),
-                        color = colorResource(id = R.color.white2),
-                        style = MaterialTheme.typography.h6,
-                    )
-                }
-            )
-        },
-        backgroundColor = Color.Transparent
-    ) { paddingValues ->
-        Column(
+        Scaffold(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            Row(
+                .statusBarsPadding(),
+            topBar = {
+                TopAppBar(
+                    backgroundColor = Color.Transparent,
+                    title = {
+                        Text(
+                            text = stringResource(id = R.string.bottom_menu_settings),
+                            color = colorResource(id = R.color.white2),
+                            style = MaterialTheme.typography.h6,
+                        )
+                    }
+                )
+            },
+            backgroundColor = Color.Transparent
+        ) { paddingValues ->
+            Column(
                 modifier = Modifier
-                    .height(56.dp)
-                    .fillMaxWidth()
-                    .clickable { onBirthdayClick() }
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
-                Text(
-                    text = stringResource(id = R.string.set_your_birthday),
-                    style = MaterialTheme.typography.body2,
-                    textAlign = TextAlign.Start,
-                    color = colorResource(id = R.color.white2),
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = LocalContext.current.localDateToString(state.birthday),
-                    style = MaterialTheme.typography.button,
-                    textAlign = TextAlign.End,
-                    color = colorResource(id = R.color.white2),
-                    modifier = Modifier.weight(1f)
-                )
-            }
-            Row(
-                modifier = Modifier
-                    .height(56.dp)
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = stringResource(id = R.string.settings_enable_notifications_title),
-                    style = MaterialTheme.typography.body2,
-                    textAlign = TextAlign.Start,
-                    color = colorResource(id = R.color.white2),
-                    modifier = Modifier.weight(2f)
-                )
-                Box(
-                    contentAlignment = Alignment.CenterEnd,
-                    modifier = Modifier.weight(1f)
+                Row(
+                    modifier = Modifier
+                        .height(56.dp)
+                        .fillMaxWidth()
+                        .clickable { onBirthdayClick() }
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Switch(
-                        checked = state.isNotificationsEnabled,
-                        onCheckedChange = { toggleNotificationEnabled() },
+                    Text(
+                        text = stringResource(id = R.string.set_your_birthday),
+                        style = MaterialTheme.typography.body2,
+                        textAlign = TextAlign.Start,
+                        color = colorResource(id = R.color.white2),
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = LocalContext.current.localDateToString(state.birthday),
+                        style = MaterialTheme.typography.button,
+                        textAlign = TextAlign.End,
+                        color = colorResource(id = R.color.white2),
+                        modifier = Modifier.weight(1f)
                     )
                 }
+                Row(
+                    modifier = Modifier
+                        .height(56.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.settings_enable_notifications_title),
+                        style = MaterialTheme.typography.body2,
+                        textAlign = TextAlign.Start,
+                        color = colorResource(id = R.color.white2),
+                        modifier = Modifier.weight(2f)
+                    )
+                    Box(
+                        contentAlignment = Alignment.CenterEnd,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Switch(
+                            checked = state.isNotificationsEnabled,
+                            onCheckedChange = { toggleNotificationEnabled() },
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = stringResource(id = R.string.credits),
+                    style = MaterialTheme.typography.caption,
+                    textAlign = TextAlign.Center,
+                    color = colorResource(id = R.color.white2),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                )
+                Spacer(modifier = Modifier.height(56.dp))
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = stringResource(id = R.string.credits),
-                style = MaterialTheme.typography.caption,
-                textAlign = TextAlign.Center,
-                color = colorResource(id = R.color.white2),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp)
-            )
-            Spacer(modifier = Modifier.height(56.dp))
         }
     }
-
 }
 
 @Composable

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -63,66 +64,73 @@ fun FavoritesScreen(
     uiState: FavoritesUiState,
     goToPlanet: (String) -> Unit
 ) {
-    Image(
-        painter = painterResource(id = R.drawable.stars_background),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = null,
+    Box(
         modifier = Modifier.fillMaxSize()
-    )
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.stars_background),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = Color.Transparent,
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.title_favorites),
-                        color = colorResource(id = R.color.white2),
-                        style = MaterialTheme.typography.h6,
-                    )
-                }
-            )
-        },
-        backgroundColor = Color.Transparent
-    ) { paddingValues ->
-        if (uiState.planets.isEmpty()) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 8.dp)
-                        .weight(1f),
-                    contentAlignment = Alignment.Center
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+            topBar = {
+                TopAppBar(
+                    backgroundColor = Color.Transparent,
+                    title = {
+                        Text(
+                            text = stringResource(id = R.string.title_favorites),
+                            color = colorResource(id = R.color.white2),
+                            style = MaterialTheme.typography.h6,
+                        )
+                    }
+                )
+            },
+            backgroundColor = Color.Transparent
+        ) { paddingValues ->
+            if (uiState.planets.isEmpty()) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.empty_favorites_placeholder_text),
-                        color = colorResource(id = R.color.grayText),
-                        style = MaterialTheme.typography.caption,
-                        textAlign = TextAlign.Center,
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 8.dp)
+                            .weight(1f),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.empty_favorites_placeholder_text),
+                            color = colorResource(id = R.color.grayText),
+                            style = MaterialTheme.typography.caption,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(112.dp))
                 }
-                Spacer(modifier = Modifier.height(112.dp))
-            }
-        } else {
-            LazyVerticalGrid(
-                contentPadding = paddingValues,
-                columns = GridCells.Fixed(count = 2),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(horizontal = 8.dp),
-            ) {
-                items(uiState.planets) {
-                    PlanetItem(
-                        item = it,
-                        goToPlanet = goToPlanet
-                    )
-                }
-                item(
-                    span = { GridItemSpan(2) }
+            } else {
+                LazyVerticalGrid(
+                    contentPadding = paddingValues,
+                    columns = GridCells.Fixed(count = 2),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(horizontal = 8.dp),
                 ) {
-                    Spacer(modifier = Modifier.height(56.dp))
+                    items(uiState.planets) {
+                        PlanetItem(
+                            item = it,
+                            goToPlanet = goToPlanet
+                        )
+                    }
+                    item(
+                        span = { GridItemSpan(2) }
+                    ) {
+                        Spacer(modifier = Modifier.height(56.dp))
+                    }
                 }
             }
         }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -78,60 +79,68 @@ fun HomeScreen(
     goToPlanet: (String) -> Unit,
     toggleByDate: () -> Unit
 ) {
-    Image(
-        painter = painterResource(id = R.drawable.stars_background),
-        contentScale = ContentScale.FillBounds,
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize()
-    )
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.stars_background),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                backgroundColor = Color.Transparent,
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.screen_solar_system),
-                        color = colorResource(id = R.color.white2),
-                        style = MaterialTheme.typography.h6,
-                    )
-                },
-                actions = {
-                    IconButton(onClick = toggleByDate) {
-                        Icon(
-                            tint = MaterialTheme.colors.primary,
-                            painter = painterResource(
-                                id = if (uiState.isByDate) R.drawable.ic_sort_bd_filled
-                                else R.drawable.ic_sort_bd
-                            ),
-                            contentDescription = null,
-                            modifier = Modifier.size(28.dp)
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+            topBar = {
+                TopAppBar(
+                    backgroundColor = Color.Transparent,
+                    title = {
+                        Text(
+                            text = stringResource(id = R.string.screen_solar_system),
+                            color = colorResource(id = R.color.white2),
+                            style = MaterialTheme.typography.h6,
                         )
+                    },
+                    actions = {
+                        IconButton(onClick = toggleByDate) {
+                            Icon(
+                                tint = MaterialTheme.colors.primary,
+                                painter = painterResource(
+                                    id = if (uiState.isByDate) R.drawable.ic_sort_bd_filled
+                                    else R.drawable.ic_sort_bd
+                                ),
+                                contentDescription = null,
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
                     }
-                }
-            )
-        },
-        backgroundColor = Color.Transparent
-    ) { paddingValues ->
-        val lazyListState = rememberLazyListState()
-        LazyColumn(
-            state = lazyListState,
-            contentPadding = paddingValues,
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(horizontal = 8.dp),
-        ) {
-            items(
-                items = uiState.planets,
-                key = { it.planet.planetName }
-            ) {
-                PlanetItem(
-                    item = it,
-                    isByDate = uiState.isByDate,
-                    goToPlanet = goToPlanet,
-                    modifier = Modifier.animateItemPlacement()
                 )
+            },
+            backgroundColor = Color.Transparent
+        ) { paddingValues ->
+            val lazyListState = rememberLazyListState()
+            LazyColumn(
+                state = lazyListState,
+                contentPadding = paddingValues,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp),
+            ) {
+                items(
+                    items = uiState.planets,
+                    key = { it.planet.planetName }
+                ) {
+                    PlanetItem(
+                        item = it,
+                        isByDate = uiState.isByDate,
+                        goToPlanet = goToPlanet,
+                        modifier = Modifier.animateItemPlacement()
+                    )
+                }
+                item { Spacer(modifier = Modifier.height(56.dp)) }
             }
-            item { Spacer(modifier = Modifier.height(56.dp)) }
         }
     }
 }
